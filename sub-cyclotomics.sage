@@ -1,38 +1,3 @@
-"""
-def AllSubgps(m):
-
-    if not ZZ(m).is_squarefree():
-        raise ValueError
-
-    plst = m.prime_divisors()
-    alst = [GF(p).multiplicative_generator() for p in plst]
-    crtbasis = crt_basis(plst)
-    Zm = Integers(m)
-    phim = euler_phi(m)
-
-    pools = [(p-1).divisors() for p in plst]
-    explstlst =[[]]
-    for pool in pools:
-        explstlst = [x+[y] for x in explstlst for y in pool]
-
-    result = []
-    s = [1 for p in plst]
-    for explst in explstlst:
-        # print explst
-        gens = []
-        for i in range(len(plst)):
-            a = alst[i]
-            ex = explst[i]
-            s[i] = ZZ(a)**ex
-            #print 's = %s'%s
-            gens.append(CRT_list(s,plst))
-            #print 'gens = %s'%gens
-            s[i] = 1
-        order = phim//prod(explst)
-        result.append(SubgroupModM(m, gens, order))
-    return result
-"""
-
 def AllSubgroups(m):
     """
     input: a positive integer m
@@ -52,6 +17,9 @@ def AllSubgroups(m):
 
 
 class SubgroupModm:
+    """
+    a subgroup of (Z/mZ)^*
+    """
 
     def __init__(self,m, gens):
         self.m = m
@@ -114,6 +82,20 @@ class SubgroupModm:
             raise ValueError
         return result
 
+    def _check_cosets(self):
+        """
+        sanity check that the cosets has been computed correctly.
+        """
+        H1 = self.H1
+        cosets = self.cosets
+        from itertools import combinations
+        return not any([c[1]*c[0]**(-1) in H1 for c in combinations(cosets, 2)])
+
+
+    def __hash__(self):
+        return hash((self.m,tuple(self.gens)))
+
+
     def _associated_characters(self):
         """
         Definition: a Dirichlet character chi of modulus m is associated to
@@ -138,8 +120,9 @@ class SubgroupModm:
         """
         return prod([chi.conductor() for chi in self._associated_characters()])
 
-def split_primes(K,dK, max_prime = 10):
-    return [q for q in primes(max_prime) if K.prime_above(q).norm() == q and Mod(dK,q) != 0]
+
+#def split_primes(K,dK, max_prime = 10):
+#    return [q for q in primes(max_prime) if K.prime_above(q).norm() == q and Mod(dK,q) != 0]
 
 def split_primes_new(m, H, max_prime = 10):
     Zm = Integers(m)
@@ -294,7 +277,7 @@ def search_for_q(v, K, qlst, h = 1):
 
             l2_norm = RR(sqrt(sum([ZZ(a)**2 for a in _roots])+h))
             #loo_norm = max([abs(a) for a in reduce_roots(_roots,q)])
-            ratio  = (2*l1_norm)/q
+            ratio  = (4*l2_norm)/q
             #for b in range(1, q//2):
             #    b = Fq(b)
             #    scaled_roots  =[b*a for a in _roots]
