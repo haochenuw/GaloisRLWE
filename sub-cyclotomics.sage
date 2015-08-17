@@ -206,7 +206,10 @@ def finite_cyclo_traces(m,q,ilst,H):
     if Mod(q,m) not in H:
         raise ValueError('we require q mod m to be in H.')
     r = Zm(q).multiplicative_order()
-    # print 'r = %s'%r
+    print 'extension degree = %s'%r
+    if r > 10:
+        # extension degree is too large.
+        raise ValueError('extension degree too large')
     if r == 1:
         F.<alpha> = GF(q)
     else:
