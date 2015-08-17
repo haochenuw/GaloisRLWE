@@ -26,6 +26,44 @@ def basis_transform_matrix(v,K):
     return Matrix(QQ,n,n,[ff(vi) for vi in v])**(-1)
 
 
+
+def test_elos_uniform_with_samples(samples, vq, q, bins = None):
+    """
+    already has samples
+    """
+    if bins is None:
+        bins = abs(ZZ(q//100)) + 2
+
+    print 'degree of freedom = %s'%(bins-1)
+    numsamples = len(samples)
+    print 'number of samples used = %s'%numsamples
+    sys.stdout.flush()
+    _dict = dict([(a,0) for a in range(bins)])
+    for i in range(numsamples):
+        if Mod(i, 500) == 0 and i > 0:
+            print '500 samples done'
+            sys.stdout.flush()
+        error = errors[i]
+        verbose('error = %s'%error)
+        e = Mod(sum([a*b for a,b in zip(error,vq)]),q)
+        _dict[floor(QQ(bins/q)*ZZ(e))] += 1
+
+    E = float(numsamples/bins)
+    chisquare = float(sum([(t-E)**2 for t in _dict.values()])/E);
+    # T = RealDistribution('chisquared', bins-1);
+    mu = bins-1
+    sigma = float(sqrt(2*bins-2))
+
+    #print 'dictionary = %s'%_dict
+    print 'chisquare value = %s'%chisquare
+    if chisquare < mu - 2.5*sigma or chisquare > mu + 2.5*sigma:
+        print 'non-uniform'
+        return True
+    else:
+        print 'uniform'
+        return False
+
+
 def test_elos_uniform(D,vq,q, numsamples = None, bins = None, sanity_check = False):
     """
     D -- a lattice sampler
@@ -42,6 +80,9 @@ def test_elos_uniform(D,vq,q, numsamples = None, bins = None, sanity_check = Fal
     sys.stdout.flush()
     _dict = dict([(a,0) for a in range(bins)])
     for i in range(numsamples):
+        if Mod(i, 500) == 0:
+            print '500 samples generated'
+            sys.stdout.flush()
         if sanity_check:
             e = ZZ.random_element(0,q)
         else:
