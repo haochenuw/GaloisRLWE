@@ -236,8 +236,11 @@ def finite_cyclo_traces(m,q,ilst,H,deg =1):
     """
     if not q.is_prime():
         raise ValueError
-    F.<alpha> = GF(q^deg, impl = 'pari_ffelt')
 
+    if deg > 1:
+        F.<alpha> = GF(q^deg, impl = 'pari_ffelt')
+    else:
+        F.<alpha> = GF(q)
     Zm = Integers(m)
     #if Mod(q,m) not in H:
     #    raise ValueError('we require q mod m to be in H.')
@@ -246,7 +249,7 @@ def finite_cyclo_traces(m,q,ilst,H,deg =1):
     if Mod(r,deg):
         raise ValueError('wtf?')
     rel_deg = r// deg
-    K.<beta>, f = F.extension(rel_deg, map = True,impl = 'pari_ffelt')
+    K.<beta>, f = F.extension(rel_deg, map = True)
     g = K.multiplicative_generator()
     d = ZZ((q^r-1)/m)
     f_zetam = g^d
