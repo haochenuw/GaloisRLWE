@@ -86,7 +86,7 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
     mu = bins-1
     sigma = float(sqrt(2*bins-2))
 
-    print 'dictionary = %s'%_dict
+    verbose('dictionary = %s'%_dict)
     print 'chisquare value = %s'%chisquare
     mm = std_multiplier
     if chisquare < mu - mm*sigma or chisquare > mu + mm*sigma:
