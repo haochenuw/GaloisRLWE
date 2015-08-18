@@ -27,7 +27,7 @@ def basis_transform_matrix(v,K):
 
 
 
-def test_elos_uniform_with_samples(samples, vq, q, bins = None):
+def test_elos_uniform_with_samples(samples, vq, q, bins = None, std_multiplier = 3):
     """
     already has samples
     """
@@ -56,7 +56,8 @@ def test_elos_uniform_with_samples(samples, vq, q, bins = None):
 
     #print 'dictionary = %s'%_dict
     print 'chisquare value = %s'%chisquare
-    if chisquare < mu - 2.5*sigma or chisquare > mu + 2.5*sigma:
+    mm = std_multiplier
+    if chisquare < mu - mm*sigma or chisquare > mu + mm*sigma:
         print 'non-uniform'
         return True
     else:
