@@ -27,34 +27,53 @@ def basis_transform_matrix(v,K):
 
 
 
-def test_elos_uniform_with_samples(samples, vq, q, bins = None, std_multiplier = 3):
+def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 3):
     """
-    already has samples
+    a uniform test when we lready has samples. I mean errors, we assume that
+    the errors lie in some finite field F_q^r.
+
     """
+    F = vq[0].parent()
+    r = F.degree()
     if bins is None:
-        bins = abs(ZZ(q//100)) + 2
+        bins = ZZ(len(errors)//5)
+    smallbins = ZZ(floor(bins**(1/r)))
+    print 'small bins = %s'%smallbins
+    print 'std multiplier = %s'%std_multiplier
+    bins = smallbins**r
+    print 'degree of finite field = %s'%r
+    from itertools import product
 
     print 'degree of freedom = %s'%(bins-1)
-    numsamples = len(samples)
+    numsamples = len(errors)
     print 'number of samples used = %s'%numsamples
     sys.stdout.flush()
-    _dict = dict([(a,0) for a in range(bins)])
+
+    _dict = dict([(tuple(a),0) for a in product(range(smallbins), repeat = r)])
+
+
     for i in range(numsamples):
-        if Mod(i, 500) == 0 and i > 0:
-            print '500 samples done'
+        if Mod(i, 10000) == 0 and i > 0:
+            print '10000 samples done'
             sys.stdout.flush()
         error = errors[i]
-        verbose('error = %s'%error)
-        e = Mod(sum([a*b for a,b in zip(error,vq)]),q)
-        _dict[floor(QQ(bins/q)*ZZ(e))] += 1
+        e = F(sum([a*b for a,b in zip(error,vq)]))
+        e_polylst = [Mod(tt, q) for tt in list(e.polynomial())]
+        # pad with zero
+        lene = len(e_polylst)
+        if lene < r:
+            e_polylst += [0 for _ in range(r-lene)]
+        verbose('e_poly = %s'%e_polylst)
+        _key = tuple([floor(QQ(smallbins/q)*ZZ(e)) for e in e_polylst])
+        #verbose('key = %s'%key)
+        _dict[_key] += 1
 
     E = float(numsamples/bins)
     chisquare = float(sum([(t-E)**2 for t in _dict.values()])/E);
-    # T = RealDistribution('chisquared', bins-1);
     mu = bins-1
     sigma = float(sqrt(2*bins-2))
 
-    #print 'dictionary = %s'%_dict
+    # print 'dictionary = %s'%_dict
     print 'chisquare value = %s'%chisquare
     mm = std_multiplier
     if chisquare < mu - mm*sigma or chisquare > mu + mm*sigma:

@@ -97,7 +97,7 @@ class SubCycSampler:
             raise ValueError('q must be prime')
         return (self.H).multiplicative_order(q)
 
-    def degree_n_primes(self, n = 1, min_prime, max_prime):
+    def degree_n_primes(self, min_prime, max_prime, n =1):
         """
         return a bunch of primes of degree n in K. When n = 1, this
         is split primes.
@@ -185,6 +185,7 @@ class SubCycSampler:
         a bunch of split primes
         """
         return _split_primes(self.m,self.H1,min_prime = min_prime, max_prime = max_prime)
+
     def _modq_dict(self,q):
         """
         a sanity check of the generators modulo q.
@@ -193,15 +194,20 @@ class SubCycSampler:
         vv = self.vecs_modq(q, reduced = False)
         return dict(zip(cc,vv))
 
-    def vecs_modq(self,q, reduced = True):
+    def vecs_modq(self,q, reduced = True, degree = None):
         """
         the basis elements (normal integral basis) modulo q.
 
         If reduced is true, return the LLL-reduced basis mod q
+
+        v dot Tz = (vT) dot z
         """
         m = self.m
-        if Integers(m)(q) not in self.H1:
-            raise ValueError('q (= %s) is not a split prime'%q)
+        if degree is None:
+            degree = self.degree_of_prime(q)
+        print 'degree of %s in self = %s'%(q,degree)
+        #if Integers(m)(q) not in self.H1:
+        #    raise ValueError('q (= %s) is not a split prime'%q)
         v = finite_cyclo_traces(m,q,self.cosets,self.H1) # could be slow
         if not reduced:
             result = v

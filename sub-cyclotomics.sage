@@ -217,13 +217,15 @@ def good_basis_composite(m, H):
 
 def finite_cyclo_traces(m,q,ilst,H):
     """
-    trace of zeta_m^i under h in the finite field F_q^r.
+    trace of zeta_m^i under H in the finite field F_q^r.
+    where r is the order of q in Zm^* (by CFT).
+
     """
     if not q.is_prime():
         raise ValueError
     Zm = Integers(m)
-    if Mod(q,m) not in H:
-        raise ValueError('we require q mod m to be in H.')
+    #if Mod(q,m) not in H:
+    #    raise ValueError('we require q mod m to be in H.')
     r = Zm(q).multiplicative_order()
     if r == 1:
         F.<alpha> = GF(q)
@@ -232,7 +234,6 @@ def finite_cyclo_traces(m,q,ilst,H):
     g = F.multiplicative_generator()
     d = ZZ((q^r-1)/m)
     f_zetam = g^d
-    Fq = GF(q)
     return [sum([f_zetam**(i*ZZ(h))for h in H]) for i in ilst]
 
 def construct_K(reps_dict,L,H):
