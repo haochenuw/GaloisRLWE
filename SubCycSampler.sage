@@ -89,6 +89,21 @@ class SubCycSampler:
         v = [abs(R[i,i]) for i in range(n)]
         return M_sage,v # vectors are columns
 
+    def degree_of_prime(self,q):
+        """
+        return the degree of q in K
+        """
+        if not q.is_prime():
+            raise ValueError('q must be prime')
+        return (self.H).multiplicative_order(q)
+
+    def degree_n_primes(self, n = 1, min_prime, max_prime):
+        """
+        return a bunch of primes of degree n in K. When n = 1, this
+        is split primes.
+        """
+        return [p for p in primes(min_prime, max_prime) if self.degree_of_prime(p) == n]
+
     def basis_lengths(self):
         return [self.Ared.column(i).norm() for i in range(self._degree)]
 
@@ -164,6 +179,7 @@ class SubCycSampler:
                 zs.append(z)
         return v, zs[::-1]
 
+    # deprecated, use degree_n_primes() instead.
     def split_primes(self, min_prime, max_prime):
         """
         a bunch of split primes
