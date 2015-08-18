@@ -11,6 +11,8 @@ def _my_list_diff(lst1,lst2):
     return [a-b for a,b in zip(lst1,lst2)]
 
 
+
+
 def basis_transform_matrix(v,K):
     """
     Go back and forth between integral basis and power basis for number fields.
@@ -37,11 +39,9 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
     r = F.degree()
     if bins is None:
         bins = ZZ(len(errors)//5)
-    smallbins = ZZ(floor(bins**(1/r)))
-    print 'small bins = %s'%smallbins
-    print 'std multiplier = %s'%std_multiplier
+    smallbins = ZZ(RR(floor(bins**(1/r))))
+    sys.stdout.flush()
     bins = smallbins**r
-    print 'degree of finite field = %s'%r
     from itertools import product
 
     print 'degree of freedom = %s'%(bins-1)

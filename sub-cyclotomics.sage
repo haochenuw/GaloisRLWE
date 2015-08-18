@@ -215,7 +215,20 @@ def good_basis_composite(m, H):
     return result
 
 
-def finite_cyclo_traces(m,q,ilst,H):
+def finite_field_coerce(F,f,c):
+    """
+    f: F -> K some embeddin.
+    c: some element of K which is in f(F).
+    returns the unique element b in F such that
+    f(b) = c.
+    """
+    pp = c.minpoly()
+    for b, _ in F[x](pp).roots():
+        if f(b) == c:
+            return b
+    raise ValueError('no roots found.')
+
+def finite_cyclo_traces(m,q,ilst,H,deg =1):
     """
     trace of zeta_m^i under H in the finite field F_q^r.
     where r is the order of q in Zm^* (by CFT).
@@ -223,18 +236,22 @@ def finite_cyclo_traces(m,q,ilst,H):
     """
     if not q.is_prime():
         raise ValueError
+    F.<alpha> = GF(q^deg, impl = 'pari_ffelt')
+
     Zm = Integers(m)
     #if Mod(q,m) not in H:
     #    raise ValueError('we require q mod m to be in H.')
     r = Zm(q).multiplicative_order()
-    if r == 1:
-        F.<alpha> = GF(q)
-    else:
-        F.<alpha> = GF(q^r, impl = 'pari_ffelt')
-    g = F.multiplicative_generator()
+
+    if Mod(r,deg):
+        raise ValueError('wtf?')
+    rel_deg = r// deg
+    K.<beta>, f = F.extension(rel_deg, map = True,impl = 'pari_ffelt')
+    g = K.multiplicative_generator()
     d = ZZ((q^r-1)/m)
     f_zetam = g^d
-    return [sum([f_zetam**(i*ZZ(h))for h in H]) for i in ilst]
+
+    return [finite_field_coerce(F,f,(sum([f_zetam**(i*ZZ(h))for h in H]))) for i in ilst]
 
 def construct_K(reps_dict,L,H):
     """

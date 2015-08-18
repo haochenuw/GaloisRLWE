@@ -102,7 +102,14 @@ class SubCycSampler:
         return a bunch of primes of degree n in K. When n = 1, this
         is split primes.
         """
-        return [p for p in primes(min_prime, max_prime) if self.degree_of_prime(p) == n]
+        result = []
+        for p in primes(min_prime, max_prime):
+            try:
+                if self.degree_of_prime(p) == n:
+                    result.append(p)
+            except:
+                pass
+        return result
 
     def basis_lengths(self):
         return [self.Ared.column(i).norm() for i in range(self._degree)]
@@ -205,12 +212,12 @@ class SubCycSampler:
         m = self.m
         if degree is None:
             degree = self.degree_of_prime(q)
-        print 'degree of %s in self = %s'%(q,degree)
+        # print 'degree of %s in self = %s'%(q,degree)
         #if Integers(m)(q) not in self.H1:
         #    raise ValueError('q (= %s) is not a split prime'%q)
-        v = finite_cyclo_traces(m,q,self.cosets,self.H1) # could be slow
+        v = finite_cyclo_traces(m,q,self.cosets,self.H1, deg = degree) # could be slow
         if not reduced:
-            result = v
+            result = vector(v)
         else:
             result =  vector(v)*self._T
         return result
