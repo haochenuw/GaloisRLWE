@@ -11,7 +11,17 @@ def _my_list_diff(lst1,lst2):
     return [a-b for a,b in zip(lst1,lst2)]
 
 
-
+def even_rounding(q,p,e):
+    """
+    e -- an integer between 0 and q-1
+    we do the probablistic rounding such that U(F_q) is mapped to U(F_p)
+    """
+    alpha = QQ(p/q)
+    r = ZZ(q//p)
+    if e < p*r:
+        return ZZ(Mod(e,p))
+    else:
+        return ZZ.random_element(0,p)
 
 def basis_transform_matrix(v,K):
     """
@@ -67,7 +77,7 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
         if lene < r:
             e_polylst += [0 for _ in range(r-lene)]
         verbose('e_poly = %s'%e_polylst)
-        _key = tuple([ZZ(RR(floor(QQ(smallbins/q)*ZZ(e)))) for e in e_polylst])
+        _key = tuple([even_rounding(q, smallbins, e) for e in e_polylst])
         #print('key = %s'%_key)
         _dict[_key] += 1
 
