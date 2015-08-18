@@ -38,12 +38,13 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
     F = vq[0].parent()
     r = F.degree()
     if bins is None:
-        bins = ZZ(len(errors)//5)
+        bins = min(ZZ(len(errors)//5), q**r)
     smallbins = ZZ(RR(floor(bins**(1/r))))
     sys.stdout.flush()
     bins = smallbins**r
     from itertools import product
 
+    print 'smallbins = %s'%smallbins
     print 'degree of freedom = %s'%(bins-1)
     numsamples = len(errors)
     print 'number of samples used = %s'%numsamples
@@ -57,15 +58,17 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
             print '10000 samples done'
             sys.stdout.flush()
         error = errors[i]
+        verbose('error = %s'%error)
         e = F(sum([a*b for a,b in zip(error,vq)]))
+        verbose('error mod q = %s'%e)
         e_polylst = [Mod(tt, q) for tt in list(e.polynomial())]
         # pad with zero
         lene = len(e_polylst)
         if lene < r:
             e_polylst += [0 for _ in range(r-lene)]
         verbose('e_poly = %s'%e_polylst)
-        _key = tuple([floor(QQ(smallbins/q)*ZZ(e)) for e in e_polylst])
-        #verbose('key = %s'%key)
+        _key = tuple([ZZ(RR(floor(QQ(smallbins/q)*ZZ(e)))) for e in e_polylst])
+        #print('key = %s'%_key)
         _dict[_key] += 1
 
     E = float(numsamples/bins)
@@ -73,7 +76,7 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
     mu = bins-1
     sigma = float(sqrt(2*bins-2))
 
-    # print 'dictionary = %s'%_dict
+    print 'dictionary = %s'%_dict
     print 'chisquare value = %s'%chisquare
     mm = std_multiplier
     if chisquare < mu - mm*sigma or chisquare > mu + mm*sigma:
