@@ -48,6 +48,9 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
     F = vq[0].parent()
     r = F.degree()
     if bins is None:
+        # make sure the number of bins is reasonable.
+        # for chisquare test, it should be such that each bin takes at least 5 samples.
+        # also the number of bins should be bounded by the size of the ambient set. 
         bins = min(ZZ(len(errors)//5), q**r)
     smallbins = ZZ(RR(floor(bins**(1/r))))
     sys.stdout.flush()
@@ -91,10 +94,12 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
     mm = std_multiplier
     if chisquare < mu - mm*sigma or chisquare > mu + mm*sigma:
         print 'non-uniform'
-        return True
+        success = True
     else:
         print 'uniform'
-        return False
+        success = False
+    return success, _dict
+
 
 
 def test_elos_uniform(D,vq,q, numsamples = None, bins = None, sanity_check = False):
