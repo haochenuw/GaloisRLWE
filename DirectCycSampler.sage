@@ -34,7 +34,7 @@ class DirectCycSampler:
     def degree_of_prime(self,q):
         try:
             return (Integers(self.m)(q)).multiplicative_order()
-        else:
+        except:
             raise ValueError('q must be unramified in self.')
 
 
