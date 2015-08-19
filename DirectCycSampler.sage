@@ -31,5 +31,11 @@ class DirectCycSampler:
     def __call__(self):
         return [self.D() for _ in range(self.n)]
 
+    def degree_of_prime(self,q):
+        try:
+            return Integers(self.m)(q).multiplicative_order()
+        else:
+            raise ValueError('q must be unramified in self.')
+
 
 
