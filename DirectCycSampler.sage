@@ -16,7 +16,7 @@ class DirectCycSampler:
         result = []
         for p in primes(min_prime, max_prime):
             try:
-                if Integers(m)(p).multiplicative_order() == n:
+                if (Integers(m)(p)).multiplicative_order() == n:
                     result.append(p)
             except:
                 pass
@@ -33,7 +33,7 @@ class DirectCycSampler:
 
     def degree_of_prime(self,q):
         try:
-            return Integers(self.m)(q).multiplicative_order()
+            return (Integers(self.m)(q)).multiplicative_order()
         else:
             raise ValueError('q must be unramified in self.')
 
