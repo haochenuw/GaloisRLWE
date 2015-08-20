@@ -27,7 +27,7 @@ class DirectCycSampler:
 
     def vecs_modq(self,q):
         a =  GF(q)[x](self.f).roots(multiplicities=False)[0]
-        return [a**i for i in range(n)]
+        return [a**i for i in range(self.n)]
 
     def __call__(self):
         return [self.D() for _ in range(self.n)]
