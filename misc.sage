@@ -41,7 +41,7 @@ def basis_transform_matrix(v,K):
 
 
 
-def test_elos_uniform_with_samples(errors, vq, bins = None, std_multiplier = 3, check = False):
+def test_elos_uniform_with_samples(errors, vq, std_multiplier = 3, check = False):
     """
     a uniform test when we lready has samples. I mean errors, we assume that
     the errors lie in some finite field F_q^r.
@@ -55,11 +55,10 @@ def test_elos_uniform_with_samples(errors, vq, bins = None, std_multiplier = 3, 
     print 'F = %s'%F
     q = ZZ(F.characteristic())
     r = F.degree()
-    if bins is None:
         # make sure the number of bins is reasonable.
         # for chisquare test, it should be such that each bin takes at least 5 samples.
         # also the number of bins should be bounded by the size of the ambient set.
-        bins = min(ZZ(len(errors)//5), q**r)
+    bins = min(ZZ(len(errors)//5), q**r)
     smallbins = ZZ(RR(floor(bins**(1/r))))
     sys.stdout.flush()
     bins = smallbins**r
