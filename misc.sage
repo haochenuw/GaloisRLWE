@@ -41,57 +41,60 @@ def basis_transform_matrix(v,K):
 
 
 
-def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 3):
+def test_elos_uniform_with_samples(errors, vq, bins = None, std_multiplier = 3, check = False):
     """
     a uniform test when we lready has samples. I mean errors, we assume that
     the errors lie in some finite field F_q^r.
 
+    check -- produce the actual uniform distribution.
+
     """
+    if check:
+        print 'generating uniform distribution for a comparison.'
     F = vq[0].parent()
     print 'F = %s'%F
-    if q != ZZ(F.characteristic()):
-        raise ValueError('q should be equal to the charactersitic of the finite field.')
+    q = ZZ(F.characteristic())
     r = F.degree()
-
-    bins = q**r
-    #if bins is None:
+    if bins is None:
         # make sure the number of bins is reasonable.
         # for chisquare test, it should be such that each bin takes at least 5 samples.
         # also the number of bins should be bounded by the size of the ambient set.
-    #    bins = min(ZZ(len(errors)//5), q**r)
-    #smallbins = ZZ(RR(floor(bins**(1/r))))
+        bins = min(ZZ(len(errors)//5), q**r)
+    smallbins = ZZ(RR(floor(bins**(1/r))))
     sys.stdout.flush()
-    #bins = smallbins**r
+    bins = smallbins**r
     from itertools import product
     print 'r = %s'%r
     #print 'smallbins = %s'%smallbins
-    print 'q = %s'%q
     print 'degree of freedom = %s'%(bins-1)
     numsamples = len(errors)
     print 'number of samples used = %s'%numsamples
     sys.stdout.flush()
 
     _dict = dict([(tuple(a),0) for a in product(range(smallbins), repeat = r)])
-
+    if len(_dict.keys()) != bins:
+        raise ValueError
 
     for i in range(numsamples):
-        error = errors[i]
-        verbose('error = %s'%error)
-        e = F(sum([a*b for a,b in zip(error,vq)]))
-        #e_polylst = [Mod(tt, q) for tt in list(e.polynomial())]
-        # pad with zero
-        #lene = len(e_polylst)
-        #if lene < r:
-        #    e_polylst += [0 for _ in range(r-lene)]
-        #_key = tuple([even_rounding(q, smallbins, ei) for ei in e_polylst])
+        if check:
+            e_polylst = [ZZ.random_element(0,q) for _ in range(r)]
+        else:
+            error = errors[i]
+            verbose('error = %s'%error)
+            e = F(sum([a*b for a,b in zip(error,vq)]))
+            e_polylst = [Mod(tt, q) for tt in list(e.polynomial())]
+            # pad with zero
+            lene = len(e_polylst)
+            if lene < r:
+                e_polylst += [0 for _ in range(r-lene)]
+        _key = tuple([ZZ(float(floor(smallbins*ZZ(ei)/q))) for ei in e_polylst])
         #print('key = %s'%_key)
-        _key = e
         _dict[_key] += 1
         if Mod(i, 5000) == 0 and i > 0:
             print '%s samples done.'%i
-            print 'e = %s'%e
-            #print('e_poly = %s'%e_polylst)
-            #print('key = %s'%list(_key))
+            #print 'e = %s'%e
+            print('e_poly = %s'%e_polylst)
+            print('key = %s'%list(_key))
             sys.stdout.flush()
 
     E = float(numsamples/bins)
