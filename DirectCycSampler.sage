@@ -27,7 +27,10 @@ class DirectCycSampler:
 
     def vecs_modq(self,q):
         deg  = self.degree_of_prime(q)
-        F.<alpha> = GF(q^deg, impl = 'pari_ffelt')
+        if deg  > 1:
+            F.<alpha> = GF(q^deg, impl = 'pari_ffelt')
+        else:
+            F = GF(q)
         a =  F[x](self.f).roots(multiplicities=False)[0]
         return [a**i for i in range(self.n)]
 

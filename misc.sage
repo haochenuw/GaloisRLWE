@@ -48,6 +48,7 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
 
     """
     F = vq[0].parent()
+    print 'F = %s'%F
     if q != ZZ(F.characteristic()):
         raise ValueError('q should be equal to the charactersitic of the finite field.')
     r = F.degree()
@@ -60,7 +61,7 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
     sys.stdout.flush()
     bins = smallbins**r
     from itertools import product
-
+    print 'r = %s'%r
     print 'smallbins = %s'%smallbins
     print 'q = %s'%q
     print 'degree of freedom = %s'%(bins-1)
@@ -80,7 +81,7 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
         lene = len(e_polylst)
         if lene < r:
             e_polylst += [0 for _ in range(r-lene)]
-        _key = tuple([even_rounding(q, smallbins, e) for e in e_polylst])
+        _key = tuple([even_rounding(q, smallbins, ei) for ei in e_polylst])
         #print('key = %s'%_key)
         _dict[_key] += 1
         if Mod(i, 5000) == 0 and i > 0:
