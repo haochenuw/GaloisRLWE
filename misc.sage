@@ -52,17 +52,19 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
     if q != ZZ(F.characteristic()):
         raise ValueError('q should be equal to the charactersitic of the finite field.')
     r = F.degree()
-    if bins is None:
+
+    bins = q**r
+    #if bins is None:
         # make sure the number of bins is reasonable.
         # for chisquare test, it should be such that each bin takes at least 5 samples.
         # also the number of bins should be bounded by the size of the ambient set.
-        bins = min(ZZ(len(errors)//5), q**r)
-    smallbins = ZZ(RR(floor(bins**(1/r))))
+    #    bins = min(ZZ(len(errors)//5), q**r)
+    #smallbins = ZZ(RR(floor(bins**(1/r))))
     sys.stdout.flush()
-    bins = smallbins**r
+    #bins = smallbins**r
     from itertools import product
     print 'r = %s'%r
-    print 'smallbins = %s'%smallbins
+    #print 'smallbins = %s'%smallbins
     print 'q = %s'%q
     print 'degree of freedom = %s'%(bins-1)
     numsamples = len(errors)
@@ -76,19 +78,20 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
         error = errors[i]
         verbose('error = %s'%error)
         e = F(sum([a*b for a,b in zip(error,vq)]))
-        e_polylst = [Mod(tt, q) for tt in list(e.polynomial())]
+        #e_polylst = [Mod(tt, q) for tt in list(e.polynomial())]
         # pad with zero
-        lene = len(e_polylst)
-        if lene < r:
-            e_polylst += [0 for _ in range(r-lene)]
-        _key = tuple([even_rounding(q, smallbins, ei) for ei in e_polylst])
+        #lene = len(e_polylst)
+        #if lene < r:
+        #    e_polylst += [0 for _ in range(r-lene)]
+        #_key = tuple([even_rounding(q, smallbins, ei) for ei in e_polylst])
         #print('key = %s'%_key)
+        _key = e
         _dict[_key] += 1
         if Mod(i, 5000) == 0 and i > 0:
             print '%s samples done.'%i
             print 'e = %s'%e
-            print('e_poly = %s'%e_polylst)
-            print('key = %s'%list(_key))
+            #print('e_poly = %s'%e_polylst)
+            #print('key = %s'%list(_key))
             sys.stdout.flush()
 
     E = float(numsamples/bins)
