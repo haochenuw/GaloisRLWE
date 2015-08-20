@@ -10,15 +10,17 @@ def _my_dot_product(lst1,lst2):
 def _my_list_diff(lst1,lst2):
     return [a-b for a,b in zip(lst1,lst2)]
 
-
 def even_rounding(q,p,e):
     """
     e -- an integer between 0 and q-1
     we do the probablistic rounding such that U(F_q) is mapped to U(F_p)
     """
-    alpha = QQ(p/q)
+    try:
+        e = ZZ(e)
+    except:
+        raise ValueError('e must be an integer between 0 and q-1.')
     r = ZZ(q//p)
-    if e < p*r:
+    if e < p*r and e >= 0:
         return ZZ(Mod(e,p))
     else:
         return ZZ.random_element(0,p)
@@ -50,7 +52,7 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
     if bins is None:
         # make sure the number of bins is reasonable.
         # for chisquare test, it should be such that each bin takes at least 5 samples.
-        # also the number of bins should be bounded by the size of the ambient set. 
+        # also the number of bins should be bounded by the size of the ambient set.
         bins = min(ZZ(len(errors)//5), q**r)
     smallbins = ZZ(RR(floor(bins**(1/r))))
     sys.stdout.flush()
@@ -58,6 +60,7 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
     from itertools import product
 
     print 'smallbins = %s'%smallbins
+    print 'q = %s'%q
     print 'degree of freedom = %s'%(bins-1)
     numsamples = len(errors)
     print 'number of samples used = %s'%numsamples
@@ -74,12 +77,13 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
         verbose('error = %s'%error)
         e = F(sum([a*b for a,b in zip(error,vq)]))
         verbose('error mod q = %s'%e)
+        #print 'e = %s'%e
         e_polylst = [Mod(tt, q) for tt in list(e.polynomial())]
         # pad with zero
         lene = len(e_polylst)
         if lene < r:
             e_polylst += [0 for _ in range(r-lene)]
-        verbose('e_poly = %s'%e_polylst)
+        #print('e_poly = %s'%e_polylst)
         _key = tuple([even_rounding(q, smallbins, e) for e in e_polylst])
         #print('key = %s'%_key)
         _dict[_key] += 1
