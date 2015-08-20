@@ -26,7 +26,9 @@ class DirectCycSampler:
         return 'RLWE cyclotomic sampler with m = %s and sigma = %s'%(self.m, self.sigma)
 
     def vecs_modq(self,q):
-        a =  GF(q)[x](self.f).roots(multiplicities=False)[0]
+        deg  = self.degree_of_prime(q)
+        F.<alpha> = GF(q^deg, impl = 'pari_ffelt')
+        a =  F[x](self.f).roots(multiplicities=False)[0]
         return [a**i for i in range(self.n)]
 
     def __call__(self):

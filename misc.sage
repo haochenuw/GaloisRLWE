@@ -48,6 +48,8 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
 
     """
     F = vq[0].parent()
+    if q != ZZ(F.characteristic()):
+        raise ValueError('q should be equal to the charactersitic of the finite field.')
     r = F.degree()
     if bins is None:
         # make sure the number of bins is reasonable.
@@ -70,23 +72,23 @@ def test_elos_uniform_with_samples(errors, vq, q, bins = None, std_multiplier = 
 
 
     for i in range(numsamples):
-        if Mod(i, 10000) == 0 and i > 0:
-            print '10000 samples done'
-            sys.stdout.flush()
         error = errors[i]
         verbose('error = %s'%error)
         e = F(sum([a*b for a,b in zip(error,vq)]))
-        verbose('error mod q = %s'%e)
-        #print 'e = %s'%e
         e_polylst = [Mod(tt, q) for tt in list(e.polynomial())]
         # pad with zero
         lene = len(e_polylst)
         if lene < r:
             e_polylst += [0 for _ in range(r-lene)]
-        #print('e_poly = %s'%e_polylst)
         _key = tuple([even_rounding(q, smallbins, e) for e in e_polylst])
         #print('key = %s'%_key)
         _dict[_key] += 1
+        if Mod(i, 5000) == 0 and i > 0:
+            print '%s samples done.'%i
+            print 'e = %s'%e
+            print('e_poly = %s'%e_polylst)
+            print('key = %s'%list(_key))
+            sys.stdout.flush()
 
     E = float(numsamples/bins)
     chisquare = float(sum([(t-E)**2 for t in _dict.values()])/E);
