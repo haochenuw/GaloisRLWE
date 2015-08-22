@@ -4,6 +4,16 @@ from sage.libs.fplll.fplll import FP_LLL
 
 import sys
 
+def selecting_bins(q, r, numsamples):
+    """
+    finite field of size q**r.
+    """
+    v = (q**r - 1).divisors()
+    for i in range(len(v)):
+        if v[i] > numsamples:
+            return v[i-1]
+    return q**r
+
 def _my_dot_product(lst1,lst2):
     return sum([a*b for a,b in zip(lst1,lst2)])
 
@@ -48,7 +58,7 @@ def uniform_under_chisquare(q,r,bins = None, numsamples = 2000,std_multiplier = 
     dimension r over F_q.
     """
     if r > 1:
-        F.<alpha> = GF(r, impl = 'pari_ffelt')
+        F.<alpha> = GF(q**r, impl = 'pari_ffelt')
     else:
         F.<alpha> = GF(q)
     print 'generating uniform distribution for a comparison.'

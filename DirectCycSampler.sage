@@ -16,7 +16,7 @@ class DirectCycSampler:
         self.z = K.gen()
         self.secret = self._to_field(self.__call__())
         self.ff = self.z.coordinates_in_terms_of_powers()
-        self.A =
+        self.A = None
         self.DD = MyLatticeSampler(self.A)
 
     def degree_n_primes(self,min_prime,max_prime, n = 1):
