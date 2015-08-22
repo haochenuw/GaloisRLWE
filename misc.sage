@@ -40,8 +40,69 @@ def basis_transform_matrix(v,K):
     return Matrix(QQ,n,n,[ff(vi) for vi in v])**(-1)
 
 
+def uniform_comparison(q,r,numsamples = 2000,std_multiplier = 3, bins = None):
+    """
+    test out if the uniform behaves like uniform.
+    """
+    print 'generating uniform distribution for a comparison.'
+    if bins is None:
+        bins = min(ZZ(numsamples//5), q**r)
+    from itertools import product
+    print 'r = %s'%r
+    print 'degree of freedom = %s'%(bins-1)
+    print 'number of samples used = %s'%numsamples
+    sys.stdout.flush()
 
-def test_elos_uniform_with_samples(errors, vq, std_multiplier = 3, check = False):
+    _dict = dict([(tuple(a),0) for a in product(range(q), repeat = r)])
+    for i in range(numsamples):
+        e_polylst = [ZZ.random_element(0,q) for _ in range(r)]
+        _key = tuple(e_polylst)
+        _dict[_key] += 1
+        if Mod(i, 5000) == 0 and i > 0:
+            print '%s samples done.'%i
+            print('e_poly = %s'%e_polylst)
+            print('key = %s'%list(_key))
+            sys.stdout.flush()
+    return chisquare_with_even_divide(_dict, bins, std_multiplier = std_multiplier)
+
+
+def chisquare_with_even_divide(hist_dict,bins,std_multiplier = 3):
+    """
+    well, somehow divide the distribution into bins.
+    """
+    # print 'dict =  %s'%hist_dict
+    numkeys = len(hist_dict.keys())
+    numsamples = sum(hist_dict.values())
+    bins = ZZ(min(bins, numkeys))
+    print 'number of keys = %s'%numkeys
+    print 'number of samples  = %s'%numsamples
+    print 'bins = %s'%bins
+    if bins <= 0:
+        raise ValueError
+    newdict = dict([(a,0) for a in range(bins)])
+    quo = ZZ(numkeys//bins)
+    keys = hist_dict.keys()
+    for i in range(quo*bins):
+        newdict[ZZ(Mod(i,bins))] += hist_dict[keys[i]]
+    for j in range(quo*bins, numkeys):
+        newdict[ZZ.random_element(0,bins)] += hist_dict[keys[j]]
+
+    E = float(numsamples/bins)
+    print 'E = %s'%E
+    chisquare = float(sum([(t-E)**2 for t in newdict.values()])/E);
+    mu = bins-1
+    sigma = float(sqrt(2*bins-2))
+    print 'chisquare value = %s'%chisquare
+    mm = std_multiplier
+    if chisquare < mu - mm*sigma or chisquare > mu + mm*sigma:
+        print 'non-uniform'
+        success = True
+    else:
+        print 'uniform'
+        success = False
+    return success, newdict
+
+def test_elos_uniform_with_samples(errors, vq, std_multiplier = 3):
     """
     a uniform test when we lready has samples. I mean errors, we assume that
     the errors lie in some finite field F_q^r.
@@ -49,8 +110,6 @@ def test_elos_uniform_with_samples(errors, vq, std_multiplier = 3, check = False
     check -- produce the actual uniform distribution.
 
     """
-    if check:
-        print 'generating uniform distribution for a comparison.'
     F = vq[0].parent()
     print 'F = %s'%F
     q = ZZ(F.characteristic())
@@ -64,7 +123,7 @@ def test_elos_uniform_with_samples(errors, vq, std_multiplier = 3, check = False
     bins = smallbins**r
     from itertools import product
     print 'r = %s'%r
-    #print 'smallbins = %s'%smallbins
+    print 'smallbins = %s'%smallbins
     print 'degree of freedom = %s'%(bins-1)
     numsamples = len(errors)
     print 'number of samples used = %s'%numsamples
