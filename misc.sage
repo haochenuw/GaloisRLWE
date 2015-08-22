@@ -40,14 +40,20 @@ def basis_transform_matrix(v,K):
     return Matrix(QQ,n,n,[ff(vi) for vi in v])**(-1)
 
 
-def uniform_samples(q,r,bins = None, numsamples = 2000,std_multiplier = 3):
+#### part 2: uniformity test ####
+
+def uniform_under_chisquare(q,r,bins = None, numsamples = 2000,std_multiplier = 3):
     """
     test out if the uniform behaves like uniform in a vector space of
     dimension r over F_q.
     """
+    if r > 1:
+        F.<alpha> = GF(r, impl = 'pari_ffelt')
+    else:
+        F.<alpha> = GF(q)
     print 'generating uniform distribution for a comparison.'
     if bins is None:
-        bins = (q**r - 1)//2
+        bins = (q**r - 1)//(q-1)
         # bins = min(ZZ(numsamples//5), q**r)
     from itertools import product
     print 'r = %s'%r
@@ -55,15 +61,15 @@ def uniform_samples(q,r,bins = None, numsamples = 2000,std_multiplier = 3):
     print 'number of samples used = %s'%numsamples
     sys.stdout.flush()
 
-    _dict = dict([(tuple(a),0) for a in product(range(q), repeat = r)])
+    _dict = dict([(t,0) for t in F])
+    alpha = F.gen()
+
     for i in range(numsamples):
-        e_polylst = [ZZ.random_element(0,q) for _ in range(r)]
-        _key = tuple(e_polylst)
-        _dict[_key] += 1
+        e = sum([ZZ.random_element(0,q)*alpha**i for ii in range(r)])
+        _dict[e] += 1
         if Mod(i, 5000) == 0 and i > 0:
             print '%s samples done.'%i
-            print('e_poly = %s'%e_polylst)
-            print('key = %s'%list(_key))
+            print('e = %s'%e)
             sys.stdout.flush()
     return chisquare_test(_dict, bins = bins, std_multiplier = std_multiplier)
 
@@ -124,7 +130,7 @@ def test_elos_uniform_with_samples(errors, vq, bins = None, std_multiplier = 3):
         # also the number of bins should be bounded by the size of the ambient set.
     sys.stdout.flush()
     if bins is None:
-        bins = (q**r - 1)//2
+        bins = (q**r - 1)//(q-1)
     print 'degree of freedom = %s'%(bins-1)
     numsamples = len(errors)
     print 'number of samples used = %s'%numsamples
