@@ -18,7 +18,6 @@ def general_test_modswitch(D, v, p,q, trans_mat, method = 'maxerr', numsamples =
 
     There is a way to do this minkowski-freely.
 
-    A_can -- the canonical embedding transformation matrix
     """
     #if secretNormBound is None:
     #    secretNormBound = float(p*2/D._degree)

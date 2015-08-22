@@ -155,7 +155,7 @@ class SubCycSampler:
         return [D() for _ in range(self._degree)]
 
 
-    def __call__(self,  method = 'GPV'):
+    def __call__(self,  method = 'GPV', reduced = True):
         """
         return an integer vector a = (a_c) indexed by the coset reps of self,
         which represents the vector \sum_c a_c \alpha_c
@@ -184,8 +184,10 @@ class SubCycSampler:
                 c = c - z*Ared.column(i)
                 v = v + z*Ared.column(i)
                 zs.append(z)
-        return v, zs[::-1]
-
+        if reduced:
+            return v, vector(zs[::-1])
+        else:
+            return v, self._T*vector(zs[::-1])
     # deprecated, use degree_n_primes() instead.
     def split_primes(self, min_prime, max_prime):
         """
