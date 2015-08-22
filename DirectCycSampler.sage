@@ -16,8 +16,8 @@ class DirectCycSampler:
         self.z = K.gen()
         self.secret = self._to_field(self.__call__())
         self.ff = self.z.coordinates_in_terms_of_powers()
-        self.A = general_embedding_matrix(z, K, prec = 200)
-        self.DD = MyLatticeSampler(self.A)
+        self._embedding_matrix = general_embedding_matrix(z, K, prec = 200)
+        self.DD = MyLatticeSampler(self._embedding_matrix)
 
     def degree_n_primes(self,min_prime,max_prime, n = 1):
         result = []
@@ -33,13 +33,16 @@ class DirectCycSampler:
     def __repr__(self):
         return'RLWE cyclotomic sampler with m = %s, sigma = %s, and secret = %s'%(self.m, self.sigma, self.secret)
 
+    @cached_method
     def _a_root_mod_q(self,q):
         deg  = self.degree_of_prime(q)
         if deg  > 1:
             F.<alpha> = GF(q^deg, impl = 'pari_ffelt')
         else:
             F = GF(q)
-        return  F[x](self.f).roots(multiplicities=False)[0]
+        aa = F[x](self.f).roots(multiplicities=False)[0]
+        print 'found %s as a root mod %s'%(aa,q)
+        return aa
 
     def vecs_modq(self,q):
         a = self._a_root_mod_q(q)
@@ -53,7 +56,7 @@ class DirectCycSampler:
             lst = self._to_vec(lst)
         aa = self._a_root_mod_q(q)
         F = aa.parent()
-        return sum([F(c[i])*aa**i for i in range(len(lst))])
+        return sum([F(lst[i])*aa**i for i in range(len(lst))])
 
 
     def __call__(self):
@@ -72,13 +75,15 @@ class DirectCycSampler:
         try:
             return (Integers(self.m)(q)).multiplicative_order()
         except:
-            raise ValueError('q must be unramified in self.')
+            return ZZ(log(self.K.prime_above(q).norm(),q))
 
     def _uniform_a(self,q):
         return self._to_field([ZZ.random_element(q) for _ in range(self.n)])
 
     def set_sigma(self,newsigma):
         self.sigma = newsigma
+        self.D = DiscreteGaussianDistributionIntegerSampler(sigma = newsigma)
+
 
     def set_secret(self, newsecretvec):
         self.secret = self._to_field(newsecretvec)
@@ -109,20 +114,33 @@ class DirectCycSampler:
         alpha  = QQ(newq/oldq)
         a, b = sample
         alpha_a = [ZZ(ai)*alpha for ai in a]
-        alpha_b = [ZZ(ai)*alpha for ai in a]
-        round_alpha_a = list(D.babai(c = A*vector(alpha_a))[1]) # an approximation of scaled_a.
-        round_alpha_b = list(D.babai(c = A*vector(alpha_b))[1])
-        return [round_alpha_a, [Mod(bi,newq) for newq in round_alpha_b]]
-
-    def elos_chisquare_attack(self,samples,q):
-        """
-        """
+        alpha_b = [ZZ(bi)*alpha for bi in b]
+        #print 'alphab = %s'%alpha_b
         DD = self.DD
+        round_alpha_a = list(DD.babai(c = A*vector(alpha_a))[1]) # an approximation of scaled_a.
+        round_alpha_b = list(DD.babai(c = A*vector(alpha_b))[1])
+
+        bprime_lst = _my_list_diff(alpha_b, round_alpha_b)
+        #print 'bprime = %s'%bprime_lst
+        return [round_alpha_a, [Mod(bi,newq) for bi in round_alpha_b]]
+
+    def elos_chisquare_attack(self,q,samples):
+        """
+        """
+        print 'q = %s'%q
         s = self.secret
-        print 's = %s'%s
-        for a, b in samples:
-            pass
-        return 
+        sbar = self._map_to_fq(s, q)
+        print 'sbar = %s'%sbar
+
+        errors_dict = dict([(cc,0) for cc in range(q)])
+        for a,b in samples:
+            abar, bbar = self._map_to_fq(a, q), self._map_to_fq(b, q)
+            ebar = bbar  - sbar*abar
+            errors_dict[ebar] += 1
+
+        bins = selecting_bins(q, 1, len(samples))
+        print 'bins = %s'%bins
+        return chisquare_test(errors_dict, bins = bins, std_multiplier =2)
 
 
 
