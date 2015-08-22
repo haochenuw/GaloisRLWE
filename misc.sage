@@ -40,13 +40,15 @@ def basis_transform_matrix(v,K):
     return Matrix(QQ,n,n,[ff(vi) for vi in v])**(-1)
 
 
-def uniform_comparison(q,r,numsamples = 2000,std_multiplier = 3, bins = None):
+def uniform_samples(q,r,bins = None, numsamples = 2000,std_multiplier = 3):
     """
-    test out if the uniform behaves like uniform.
+    test out if the uniform behaves like uniform in a vector space of
+    dimension r over F_q.
     """
     print 'generating uniform distribution for a comparison.'
     if bins is None:
-        bins = min(ZZ(numsamples//5), q**r)
+        bins = (q**r - 1)//2
+        # bins = min(ZZ(numsamples//5), q**r)
     from itertools import product
     print 'r = %s'%r
     print 'degree of freedom = %s'%(bins-1)
@@ -63,22 +65,30 @@ def uniform_comparison(q,r,numsamples = 2000,std_multiplier = 3, bins = None):
             print('e_poly = %s'%e_polylst)
             print('key = %s'%list(_key))
             sys.stdout.flush()
-    return chisquare_with_even_divide(_dict, bins, std_multiplier = std_multiplier)
+    return chisquare_test(_dict, bins = bins, std_multiplier = std_multiplier)
 
 
-def chisquare_with_even_divide(hist_dict,bins,std_multiplier = 3):
+def chisquare_test(hist_dict,bins = None,std_multiplier = 3):
     """
     well, somehow divide the distribution into bins.
     """
-    # print 'dict =  %s'%hist_dict
+    print 'performing a chisquare test...'
     numkeys = len(hist_dict.keys())
     numsamples = sum(hist_dict.values())
-    bins = ZZ(min(bins, numkeys))
+    if bins is None:
+        bins = numkeys
+    else:
+        bins = ZZ(min(bins, numkeys))
     print 'number of keys = %s'%numkeys
     print 'number of samples  = %s'%numsamples
     print 'bins = %s'%bins
+    E = float(numsamples/bins)
+    print 'E = %s'%E
+
     if bins <= 0:
-        raise ValueError
+        raise ValueError('number of bins must be positive.')
+    if E < 0.1:
+        raise ValueError('expected value in each bin is too small.')
     newdict = dict([(a,0) for a in range(bins)])
     quo = ZZ(numkeys//bins)
     keys = hist_dict.keys()
@@ -87,8 +97,6 @@ def chisquare_with_even_divide(hist_dict,bins,std_multiplier = 3):
     for j in range(quo*bins, numkeys):
         newdict[ZZ.random_element(0,bins)] += hist_dict[keys[j]]
 
-    E = float(numsamples/bins)
-    print 'E = %s'%E
     chisquare = float(sum([(t-E)**2 for t in newdict.values()])/E);
     mu = bins-1
     sigma = float(sqrt(2*bins-2))
@@ -102,13 +110,10 @@ def chisquare_with_even_divide(hist_dict,bins,std_multiplier = 3):
         success = False
     return success, newdict
 
-def test_elos_uniform_with_samples(errors, vq, std_multiplier = 3):
+def test_elos_uniform_with_samples(errors, vq, bins = None, std_multiplier = 3):
     """
     a uniform test when we lready has samples. I mean errors, we assume that
     the errors lie in some finite field F_q^r.
-
-    check -- produce the actual uniform distribution.
-
     """
     F = vq[0].parent()
     print 'F = %s'%F
@@ -117,59 +122,25 @@ def test_elos_uniform_with_samples(errors, vq, std_multiplier = 3):
         # make sure the number of bins is reasonable.
         # for chisquare test, it should be such that each bin takes at least 5 samples.
         # also the number of bins should be bounded by the size of the ambient set.
-    bins = min(ZZ(len(errors)//5), q**r)
-    smallbins = ZZ(RR(floor(bins**(1/r))))
     sys.stdout.flush()
-    bins = smallbins**r
-    from itertools import product
-    print 'r = %s'%r
-    print 'smallbins = %s'%smallbins
+    if bins is None:
+        bins = (q**r - 1)//2
     print 'degree of freedom = %s'%(bins-1)
     numsamples = len(errors)
     print 'number of samples used = %s'%numsamples
     sys.stdout.flush()
 
-    _dict = dict([(tuple(a),0) for a in product(range(smallbins), repeat = r)])
-    if len(_dict.keys()) != bins:
-        raise ValueError
-
+    _dict = dict([(t,0) for t in F])
     for i in range(numsamples):
-        if check:
-            e_polylst = [ZZ.random_element(0,q) for _ in range(r)]
-        else:
-            error = errors[i]
-            verbose('error = %s'%error)
-            e = F(sum([a*b for a,b in zip(error,vq)]))
-            e_polylst = [Mod(tt, q) for tt in list(e.polynomial())]
-            # pad with zero
-            lene = len(e_polylst)
-            if lene < r:
-                e_polylst += [0 for _ in range(r-lene)]
-        _key = tuple([ZZ(float(floor(smallbins*ZZ(ei)/q))) for ei in e_polylst])
-        #print('key = %s'%_key)
-        _dict[_key] += 1
+        error = errors[i]
+        e = F(sum([a*b for a,b in zip(error,vq)]))
+        _dict[e] += 1
         if Mod(i, 5000) == 0 and i > 0:
             print '%s samples done.'%i
-            #print 'e = %s'%e
-            print('e_poly = %s'%e_polylst)
-            print('key = %s'%list(_key))
+            print('e = %s'%e)
             sys.stdout.flush()
 
-    E = float(numsamples/bins)
-    chisquare = float(sum([(t-E)**2 for t in _dict.values()])/E);
-    mu = bins-1
-    sigma = float(sqrt(2*bins-2))
-
-    verbose('dictionary = %s'%_dict)
-    print 'chisquare value = %s'%chisquare
-    mm = std_multiplier
-    if chisquare < mu - mm*sigma or chisquare > mu + mm*sigma:
-        print 'non-uniform'
-        success = True
-    else:
-        print 'uniform'
-        success = False
-    return success, _dict
+    return chisquare_test(_dict, bins = bins, std_multiplier = std_multiplier)
 
 
 
