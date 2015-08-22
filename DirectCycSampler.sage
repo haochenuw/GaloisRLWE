@@ -121,6 +121,8 @@ class DirectCycSampler:
         s = self.secret
         print 's = %s'%s
         for a, b in samples:
+            pass
+        return 
 
 
 

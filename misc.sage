@@ -9,8 +9,9 @@ def selecting_bins(q, r, numsamples):
     finite field of size q**r.
     """
     v = (q**r - 1).divisors()
+    ideal_bins = numsamples // 5
     for i in range(len(v)):
-        if v[i] > numsamples:
+        if v[i] > ideal_bins:
             return v[i-1]
     return q**r
 
@@ -75,8 +76,9 @@ def uniform_under_chisquare(q,r,bins = None, numsamples = 2000,std_multiplier = 
     alpha = F.gen()
 
     for i in range(numsamples):
-        e = sum([ZZ.random_element(0,q)*alpha**i for ii in range(r)])
+        e = sum([ZZ.random_element(0,q)*alpha**ii for ii in range(r)])
         _dict[e] += 1
+        # print 'e = %s'%e
         if Mod(i, 5000) == 0 and i > 0:
             print '%s samples done.'%i
             print('e = %s'%e)
@@ -107,6 +109,8 @@ def chisquare_test(hist_dict,bins = None,std_multiplier = 3):
         raise ValueError('expected value in each bin is too small.')
     newdict = dict([(a,0) for a in range(bins)])
     quo = ZZ(numkeys//bins)
+    rem = numkeys - quo*bins
+    print 'remainder = %s'%rem
     keys = hist_dict.keys()
     for i in range(quo*bins):
         newdict[ZZ(Mod(i,bins))] += hist_dict[keys[i]]
