@@ -16,7 +16,7 @@ class DirectCycSampler:
         self.z = K.gen()
         self.secret = self._to_field(self.__call__())
         self.ff = self.z.coordinates_in_terms_of_powers()
-        self.A = None
+        self.A = general_embedding_matrix(z, K, prec = 200)
         self.DD = MyLatticeSampler(self.A)
 
     def degree_n_primes(self,min_prime,max_prime, n = 1):
@@ -31,16 +31,30 @@ class DirectCycSampler:
         return result
 
     def __repr__(self):
-        return 'RLWE cyclotomic sampler with m = %s, sigma = %s, and secret = %s'%(self.m, self.sigma, self.secret)
+        return'RLWE cyclotomic sampler with m = %s, sigma = %s, and secret = %s'%(self.m, self.sigma, self.secret)
 
-    def vecs_modq(self,q):
+    def _a_root_mod_q(self,q):
         deg  = self.degree_of_prime(q)
         if deg  > 1:
             F.<alpha> = GF(q^deg, impl = 'pari_ffelt')
         else:
             F = GF(q)
-        a =  F[x](self.f).roots(multiplicities=False)[0]
+        return  F[x](self.f).roots(multiplicities=False)[0]
+
+    def vecs_modq(self,q):
+        a = self._a_root_mod_q(q)
         return [a**i for i in range(self.n)]
+
+    def _map_to_fq(self,lst,q):
+        """
+        maps a list (or a field element) to the finite field Fq
+        """
+        if not isinstance(lst, list):
+            lst = self._to_vec(lst)
+        aa = self._a_root_mod_q(q)
+        F = aa.parent()
+        return sum([F(c[i])*aa**i for i in range(len(lst))])
+
 
     def __call__(self):
         return [self.D() for _ in range(self.n)]
@@ -103,7 +117,11 @@ class DirectCycSampler:
     def elos_chisquare_attack(self,samples,q):
         """
         """
-        pass
+        DD = self.DD
+        s = self.secret
+        print 's = %s'%s
+        for a, b in samples:
+
 
 
 
