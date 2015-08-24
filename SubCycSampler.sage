@@ -45,15 +45,17 @@ class SubCycSampler:
 
         self.Acaninv = (self.Acan)**(-1)
 
-        self.disc = (self.TstarA).det() #maybe this is faster in computing discriminants.
+        #self.disc = (self.TstarA).det() #maybe this is faster in computing discriminants.
 
-        self.adj = RR(abs(self.disc)**(1.0/(self._degree)))
+        #self.adj = RR(abs(self.disc)**(1.0/(self._degree)))
 
-        self.final_sigma = self.sigma*self.adj
+        #self.final_sigma = self.sigma*self.adj
         #self._T = self.lll_transform_matrix()
         #self.Ared = self.TstarA*self._T
 
         self.D = MyLatticeSampler(self.TstarA, sigma = self.sigma)
+
+        self.final_sigma  =self.D.final_sigma
         # gram-schmidt basis and norms.
         #self._G, self.gs_norms = self.compute_G()
         # self._dd_gen = DiscreteGaussianDistributionIntegerSampler(sigma = sigma)
@@ -63,7 +65,7 @@ class SubCycSampler:
 
 
     def __repr__(self):
-        return 'RLWE error sampler with m = %s,  H = %s, secret  = %s and sigma = %s'%(self.m, self.H, self.secret, self.final_sigma)
+        return 'RLWE error sampler with m = %s,  H = %s, secret  = %s and sigma = %s'%(self.m, self.H, self.secret, self.final_sigma.n())
 
     def minpoly(self):
         K.<z> = CyclotomicField(self.m)
@@ -278,7 +280,7 @@ class SubCycSampler:
         return (a, [Mod(bi,q) for bi in newb])
 
     def set_sigma(self,newsigma):
-        self.final_sigma = newsigma
+        self.D.final_sigma = newsigma
 
     def set_secret(self, newsecret):
         self.secret = newsecret
