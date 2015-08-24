@@ -209,7 +209,9 @@ class SubCycSampler:
         vv = self.vec_modq(q, reduced = False)
         return dict(zip(cc,vv))
 
-    def vec_modq(self,q, reduced = True, degree = None):
+
+    @cached_method
+    def vec_modq(self,q, reduced = True):
         """
         the basis elements (normal integral basis) modulo q.
 
@@ -218,8 +220,7 @@ class SubCycSampler:
         v dot Tz = (vT) dot z
         """
         m = self.m
-        if degree is None:
-            degree = self.degree_of_prime(q)
+        degree = self.degree_of_prime(q)
         # print 'degree of %s in self = %s'%(q,degree)
         #if Integers(m)(q) not in self.H1:
         #    raise ValueError('q (= %s) is not a split prime'%q)
@@ -303,7 +304,7 @@ class SubCycSampler:
         round_alpha_b = list(self.__call__(c = Ared*vector(alpha_b))[1])
 
         bprime_lst = _my_list_diff(alpha_b, round_alpha_b)
-        print 'bprime = %s'%bprime_lst
+        #print 'bprime = %s'%bprime_lst
         return (round_alpha_a, [Mod(bi,newq) for bi in round_alpha_b])
 
 
