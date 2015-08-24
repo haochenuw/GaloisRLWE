@@ -171,7 +171,8 @@ class SubCycSampler:
         """
         return self.D(c = c)[1]
 
-
+    def babai(self,c):
+        return self.D.babai(c)[1]
 
 
     # deprecated.
@@ -288,7 +289,7 @@ class SubCycSampler:
 
 
     # this modulus switch.
-    def modulus_switch(self,oldq, newq, sample, method = 'GPV', newsigma = None):
+    def modulus_switch(self,oldq, newq, sample, method = 'Babai', newsigma = None):
         """
         switch a sample from an old modulus to a new one.
 
@@ -307,8 +308,8 @@ class SubCycSampler:
             self.set_sigma(newsigma)
 
         if method == 'Babai':
-            round_alpha_a = list(self.babai(c = TstarA*vector(alpha_a))) # an approximation of scaled_a.
-            round_alpha_b = list(self.babai(c = TstarA*vector(alpha_b)))
+            round_alpha_a = list(self.babai(TstarA*vector(alpha_a))) # an approximation of scaled_a.
+            round_alpha_b = list(self.babai(TstarA*vector(alpha_b)))
         else:
             raise NotImplementedError
         # switch back.
