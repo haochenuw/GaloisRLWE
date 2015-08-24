@@ -1,10 +1,3 @@
-
-
-def _split_primes(m, H, min_prime = 2, max_prime = 10):
-    Zm = Integers(m)
-    return [p for p in primes(min_prime, max_prime) if Zm(p) in [Zm(h) for h in H]]
-
-
 from sage.stats.distributions.discrete_gaussian_integer import DiscreteGaussianDistributionIntegerSampler
 
 
@@ -19,7 +12,7 @@ class SubCycSampler:
     guaranteed to output discrete Gaussian.
     """
 
-    def __init__(self,m,H,sigma = 1,prec = 100,  disc = None):
+    def __init__(self,m,H,sigma = 1,prec = 100):
         """
         require: m must be square free and odd.
 
@@ -57,14 +50,16 @@ class SubCycSampler:
         self.adj = RR(abs(self.disc)**(1.0/(self._degree)))
 
         self.final_sigma = self.sigma*self.adj
-        self._T = self.lll_transform_matrix()
-        self.Ared = self.TstarA*self._T
+        #self._T = self.lll_transform_matrix()
+        #self.Ared = self.TstarA*self._T
+
+        self.D = MyLatticeSampler(self.TstarA, sigma = self.sigma)
         # gram-schmidt basis and norms.
-        self._G, self.gs_norms = self.compute_G()
+        #self._G, self.gs_norms = self.compute_G()
         # self._dd_gen = DiscreteGaussianDistributionIntegerSampler(sigma = sigma)
 
         # # self.D = [ DiscreteGaussianDistributionIntegerSampler(sigma=ss) for ss in self.stds]
-        self.secret = self.__call__(reduced = False)[1]
+        self.secret = self.__call__()
 
 
     def __repr__(self):
@@ -140,7 +135,9 @@ class SubCycSampler:
             # print A0.det(), T.det()
             return _real_part(T.conjugate_transpose()*A),A
 
-    def lll_transform_matrix(self):
+
+    # deprecated.
+    def _lll_transform_matrix(self):
         A = self.TstarA
         return gp(A).qflll().sage()
 
@@ -159,7 +156,7 @@ class SubCycSampler:
         return [D() for _ in range(self._degree)]
 
 
-    def __call__(self, c = None, method = 'GPV', reduced = True):
+    def __call__(self,c = None):
         """
         return an integer vector a = (a_c) indexed by the coset reps of self,
         which represents the vector \sum_c a_c \alpha_c
@@ -169,6 +166,14 @@ class SubCycSampler:
         If minkowski = True, return the lattice vector in R^n. Otherwise,
         return the coordinate of the vector in terms of the embedding matrix of self.
         """
+        return self.D(c = c)[1]
+
+
+
+
+    # deprecated.
+    """
+    def __call__(self, c = None, method = 'GPV', reduced = True):
         if method == 'DD':
             return self._call_dd()
         elif method != 'GPV':
@@ -193,25 +198,19 @@ class SubCycSampler:
             return v, vector(zs[::-1])
         else:
             return v, self._T*vector(zs[::-1])
-
-    # deprecated, use degree_n_primes() instead.
-    def split_primes(self, min_prime, max_prime):
-        """
-        a bunch of split primes
-        """
-        return _split_primes(self.m,self.H1,min_prime = min_prime, max_prime = max_prime)
+    """
 
     def _modq_dict(self,q):
         """
         a sanity check of the generators modulo q.
         """
         cc = self.cosets
-        vv = self.vec_modq(q, reduced = False)
+        vv = self.vec_modq(q)
         return dict(zip(cc,vv))
 
 
     @cached_method
-    def vec_modq(self,q, reduced = True):
+    def vec_modq(self,q, reduced = False):
         """
         the basis elements (normal integral basis) modulo q.
 
@@ -273,7 +272,7 @@ class SubCycSampler:
         s = self.secret
         b = self._prod(a,s)
         if add_error:
-            e = self.__call__(reduced = False)[1]
+            e = self.__call__()
             #verbose('e = %s'%e)
             newb = [bi + ei for bi, ei in zip(b,e)]
         return (a, [Mod(bi,q) for bi in newb])
@@ -324,7 +323,7 @@ class SubCycSampler:
         """
         as advertised.
         """
-        vec = list(self.vec_modq(q, reduced = False))
+        vec = list(self.vec_modq(q))
         return sum([aa*bb for aa, bb in zip(lst,vec)])
 
 
