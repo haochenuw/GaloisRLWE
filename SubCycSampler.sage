@@ -306,10 +306,11 @@ class SubCycSampler:
             oldsigma = self.final_sigma
             self.set_sigma(newsigma)
 
-
-        round_alpha_a = list(self.__call__(c = TstarA*vector(alpha_a))[1]) # an approximation of scaled_a.
-        round_alpha_b = list(self.__call__(c = TstarA*vector(alpha_b))[1])
-
+        if method == 'Babai':
+            round_alpha_a = list(self.babai(c = TstarA*vector(alpha_a))) # an approximation of scaled_a.
+            round_alpha_b = list(self.babai(c = TstarA*vector(alpha_b)))
+        else:
+            raise NotImplementedError
         # switch back.
         self.set_sigma(oldsigma)
 
@@ -322,11 +323,10 @@ class SubCycSampler:
     # methods for simulating attacks.
 
 
-    def _map_to_finite_field(self,lst,q):
+    def _map_to_finite_field(self,lst,q, vec):
         """
         as advertised.
         """
-        vec = list(self.vec_modq(q))
         return sum([aa*bb for aa, bb in zip(lst,vec)])
 
 
@@ -335,9 +335,12 @@ class SubCycSampler:
         Perform a chisquared attack.
         """
         verbose('q = %s'%q)
+        vec = self.vec_modq(q)
         s = self.secret
-        sbar = self._map_to_finite_field(s, q)
+        sbar = self._map_to_finite_field(s, q, vec)
         verbose('sbar = %s'%sbar)
+
+        verbose('vec = %s'%vec)
 
         degq = self.degree_of_prime(q)
 
@@ -348,7 +351,7 @@ class SubCycSampler:
 
         verbose('mapping samples to finite field...')
         for a,b in samples:
-            abar, bbar = self._map_to_finite_field(a, q), self._map_to_finite_field(b, q)
+            abar, bbar = self._map_to_finite_field(a, q, vec), self._map_to_finite_field(b, q, vec)
             ebar = bbar  - sbar*abar
             errors_dict[ebar] += 1
 
