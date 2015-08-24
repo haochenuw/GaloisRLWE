@@ -54,6 +54,7 @@ class SubCycSampler:
         #self.Ared = self.TstarA*self._T
 
         self.D = MyLatticeSampler(self.TstarA, sigma = self.sigma)
+        self.Ared = self.D.B
 
         self.final_sigma  =self.D.final_sigma
         # gram-schmidt basis and norms.
@@ -295,7 +296,7 @@ class SubCycSampler:
 
         return two lists.
         """
-        Ared = self.Ared
+        TstarA = self.TstarA
         alpha  = QQ(newq/oldq)
         a, b = sample
         alpha_a = [ZZ(ai)*alpha for ai in a]
@@ -306,8 +307,8 @@ class SubCycSampler:
             self.set_sigma(newsigma)
 
 
-        round_alpha_a = list(self.__call__(c = Ared*vector(alpha_a))[1]) # an approximation of scaled_a.
-        round_alpha_b = list(self.__call__(c = Ared*vector(alpha_b))[1])
+        round_alpha_a = list(self.__call__(c = TstarA*vector(alpha_a))[1]) # an approximation of scaled_a.
+        round_alpha_b = list(self.__call__(c = TstarA*vector(alpha_b))[1])
 
         # switch back.
         self.set_sigma(oldsigma)
