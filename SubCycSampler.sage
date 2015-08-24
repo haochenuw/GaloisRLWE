@@ -279,14 +279,14 @@ class SubCycSampler:
         return (a, [Mod(bi,q) for bi in newb])
 
     def set_sigma(self,newsigma):
-        self.sigma = newsigma
+        self.final_sigma = newsigma
 
     def set_secret(self, newsecret):
         self.secret = newsecret
 
 
     # this modulus switch.
-    def modulus_switch(self,oldq, newq, sample, method = 'GPV'):
+    def modulus_switch(self,oldq, newq, sample, method = 'GPV', newsigma = None):
         """
         switch a sample from an old modulus to a new one.
 
@@ -299,9 +299,17 @@ class SubCycSampler:
         a, b = sample
         alpha_a = [ZZ(ai)*alpha for ai in a]
         alpha_b = [ZZ(bi)*alpha for bi in b]
-        #print 'alphab = %s'%alpha_b
+
+        if newsigma is not None:
+            oldsigma = self.final_sigma
+            self.set_sigma(newsigma)
+
+
         round_alpha_a = list(self.__call__(c = Ared*vector(alpha_a))[1]) # an approximation of scaled_a.
         round_alpha_b = list(self.__call__(c = Ared*vector(alpha_b))[1])
+
+        # switch back.
+        self.set_sigma(oldsigma)
 
         bprime_lst = _my_list_diff(alpha_b, round_alpha_b)
         #print 'bprime = %s'%bprime_lst
