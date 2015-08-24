@@ -273,7 +273,7 @@ class SubCycSampler:
         b = self._prod(a,s)
         if add_error:
             e = self.__call__(reduced = False)[1]
-            verbose('e = %s'%e)
+            #verbose('e = %s'%e)
             newb = [bi + ei for bi, ei in zip(b,e)]
         return (a, [Mod(bi,q) for bi in newb])
 
@@ -315,7 +315,7 @@ class SubCycSampler:
         """
         as advertised.
         """
-        vec = list(self.vec_mod_q(q, reduced = False))
+        vec = list(self.vec_modq(q, reduced = False))
         return sum([aa*bb for aa, bb in zip(lst,vec)])
 
 
@@ -325,18 +325,25 @@ class SubCycSampler:
         """
         verbose('q = %s'%q)
         s = self.secret
-        sbar = self._map_to_fq(s, q)
-        print 'sbar = %s'%sbar
+        sbar = self._map_to_finite_field(s, q)
+        verbose('sbar = %s'%sbar)
 
-        errors_dict = dict([(cc,0) for cc in range(q)])
+        degq = self.degree_of_prime(q)
+
+        FF = sbar.parent()
+        verbose('finite field  =  %s'%FF)
+
+        errors_dict = dict([(cc,0) for cc in FF])
+
+        verbose('mapping samples to finite field...')
         for a,b in samples:
-            abar, bbar = self._map_to_fq(a, q), self._map_to_fq(b, q)
+            abar, bbar = self._map_to_finite_field(a, q), self._map_to_finite_field(b, q)
             ebar = bbar  - sbar*abar
             errors_dict[ebar] += 1
 
-        bins = selecting_bins(q, 1, len(samples))
-        print 'bins = %s'%bins
-        return chisquare_test(errors_dict, bins = bins, std_multiplier =2)
+        bins = selecting_bins(q, degq, len(samples))
+        print 'number of bins = %s'%bins
+        return chisquare_test(errors_dict, bins = bins, std_multiplier = 2)
     """
     def min_vecs(self,q, stds = None):
         v = self.vecs_modq(q)
