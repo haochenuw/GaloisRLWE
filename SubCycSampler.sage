@@ -303,9 +303,6 @@ class SubCycSampler:
         alpha_a = [ZZ(ai)*alpha for ai in a]
         alpha_b = [ZZ(bi)*alpha for bi in b]
 
-        if newsigma is not None:
-            oldsigma = self.final_sigma
-            self.set_sigma(newsigma)
 
         if method == 'Babai':
             round_alpha_a = list(self.babai(TstarA*vector(alpha_a))) # an approximation of scaled_a.
@@ -313,7 +310,7 @@ class SubCycSampler:
         else:
             raise NotImplementedError
         # switch back.
-        self.set_sigma(oldsigma)
+
 
         bprime_lst = _my_list_diff(alpha_b, round_alpha_b)
         #print 'bprime = %s'%bprime_lst
