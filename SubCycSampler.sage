@@ -48,7 +48,9 @@ class SubCycSampler:
             newcosets = merged_cosets + [-a for a in merged_cosets]
             self.cosets = newcosets
 
-        self.TstarA, self.A = self.embedding_matrix(prec = self.prec)
+        self.TstarA, self.Acan = self.embedding_matrix(prec = self.prec)
+
+        self.Acaninv = (self.Acan)**(-1)
 
         self.disc = (self.TstarA).det() #maybe this is faster in computing discriminants.
 
@@ -62,10 +64,11 @@ class SubCycSampler:
         # self._dd_gen = DiscreteGaussianDistributionIntegerSampler(sigma = sigma)
 
         # # self.D = [ DiscreteGaussianDistributionIntegerSampler(sigma=ss) for ss in self.stds]
+        self.secret = self.__call__(reduced = False)[1]
 
 
     def __repr__(self):
-        return 'RLWE error sampler with m = %s,  H = %s and final sigma = %s'%(self.m, self.H, self.final_sigma)
+        return 'RLWE error sampler with m = %s,  H = %s, secret  = %s and sigma = %s'%(self.m, self.H, self.secret, self.final_sigma)
 
     def minpoly(self):
         K.<z> = CyclotomicField(self.m)
@@ -116,7 +119,8 @@ class SubCycSampler:
 
     def embedding_matrix(self, prec = None):
         """
-        to-do: need to separate totally real case from totally complex
+        We are in a simplified situation because the field K is Galois over QQ,
+        so it is either totally real or totally complex.
         """
         m = self.m
         H1 = self.H1
@@ -155,7 +159,7 @@ class SubCycSampler:
         return [D() for _ in range(self._degree)]
 
 
-    def __call__(self,  method = 'GPV', reduced = True):
+    def __call__(self, c = None, method = 'GPV', reduced = True):
         """
         return an integer vector a = (a_c) indexed by the coset reps of self,
         which represents the vector \sum_c a_c \alpha_c
@@ -173,7 +177,8 @@ class SubCycSampler:
             v = 0
             sigma, Ared, G, norms = self.final_sigma, self.Ared, self._G, self.gs_norms
             n = Ared.nrows()
-            c = zero_vector(n)
+            if c is None:
+                c = zero_vector(n)
             zs = []
             for i in range(n)[::-1]:
                 b_ = G.column(i)
@@ -188,6 +193,7 @@ class SubCycSampler:
             return v, vector(zs[::-1])
         else:
             return v, self._T*vector(zs[::-1])
+
     # deprecated, use degree_n_primes() instead.
     def split_primes(self, min_prime, max_prime):
         """
@@ -200,10 +206,10 @@ class SubCycSampler:
         a sanity check of the generators modulo q.
         """
         cc = self.cosets
-        vv = self.vecs_modq(q, reduced = False)
+        vv = self.vec_modq(q, reduced = False)
         return dict(zip(cc,vv))
 
-    def vecs_modq(self,q, reduced = True, degree = None):
+    def vec_modq(self,q, reduced = True, degree = None):
         """
         the basis elements (normal integral basis) modulo q.
 
@@ -224,6 +230,113 @@ class SubCycSampler:
             result =  vector(v)*self._T
         return result
 
+    def _to_ccn(self, lst):
+        """
+        convert an element in O_K from C^n to Z^n.
+        """
+        return list(self.Acan*vector(lst))
+
+
+    def _to_zzn(self,lst):
+        """
+        the inversion of the above.
+        """
+        return list(self.Acaninv*vector(lst))
+
+
+    # methods for modulus switching.
+    def _uniform_a(self,q):
+        return [ZZ.random_element(q) for _ in range(self._degree)]
+
+
+    # in order to be fast, we will sacrifice the speed and compute the product
+
+    def _prod(self,lsta, lstb):
+        """
+        multiplying two field elements, using the canonical embedding
+        """
+        lsta, lstb = list(lsta), list(lstb)
+        lsta_cc, lstb_cc = self._to_ccn(lsta), self._to_ccn(lstb)
+        float_result = self._to_zzn([aa*bb for aa, bb in zip(lsta_cc,lstb_cc)])
+        return [ZZ(round(tt.real_part())) for tt in float_result]
+
+    # If we do exact field calculation this will be correct but slow, anyway.
+
+
+    # RLWE methods
+    def rlwe_sample(self,q, add_error = True):
+        """
+        generate an rlwe sample.
+        """
+        a = self._uniform_a(q)
+        s = self.secret
+        b = self._prod(a,s)
+        if add_error:
+            e = self.__call__(reduced = False)[1]
+            verbose('e = %s'%e)
+            newb = [bi + ei for bi, ei in zip(b,e)]
+        return (a, [Mod(bi,q) for bi in newb])
+
+    def set_sigma(self,newsigma):
+        self.sigma = newsigma
+
+    def set_secret(self, newsecret):
+        self.secret = newsecret
+
+
+    # this modulus switch.
+    def modulus_switch(self,oldq, newq, sample, method = 'GPV'):
+        """
+        switch a sample from an old modulus to a new one.
+
+        method -- 'GPV' or 'Babai'. The rounding method used.
+
+        return two lists.
+        """
+        Ared = self.Ared
+        alpha  = QQ(newq/oldq)
+        a, b = sample
+        alpha_a = [ZZ(ai)*alpha for ai in a]
+        alpha_b = [ZZ(bi)*alpha for bi in b]
+        #print 'alphab = %s'%alpha_b
+        round_alpha_a = list(self.__call__(c = Ared*vector(alpha_a))[1]) # an approximation of scaled_a.
+        round_alpha_b = list(self.__call__(c = Ared*vector(alpha_b))[1])
+
+        bprime_lst = _my_list_diff(alpha_b, round_alpha_b)
+        print 'bprime = %s'%bprime_lst
+        return (round_alpha_a, [Mod(bi,newq) for bi in round_alpha_b])
+
+
+
+    # methods for simulating attacks.
+
+
+    def _map_to_finite_field(self,lst,q):
+        """
+        as advertised.
+        """
+        vec = list(self.vec_mod_q(q, reduced = False))
+        return sum([aa*bb for aa, bb in zip(lst,vec)])
+
+
+    def chisquare_attack(self,q,samples):
+        """
+        Perform a chisquared attack.
+        """
+        verbose('q = %s'%q)
+        s = self.secret
+        sbar = self._map_to_fq(s, q)
+        print 'sbar = %s'%sbar
+
+        errors_dict = dict([(cc,0) for cc in range(q)])
+        for a,b in samples:
+            abar, bbar = self._map_to_fq(a, q), self._map_to_fq(b, q)
+            ebar = bbar  - sbar*abar
+            errors_dict[ebar] += 1
+
+        bins = selecting_bins(q, 1, len(samples))
+        print 'bins = %s'%bins
+        return chisquare_test(errors_dict, bins = bins, std_multiplier =2)
     """
     def min_vecs(self,q, stds = None):
         v = self.vecs_modq(q)
@@ -254,19 +367,19 @@ class SubCycSampler:
 
 
     def ltwo_quality(self,q):
-        vecs = self.vecs_modq(q)
-        _norm, scale = RR(sqrt(sum([ZZ(a)**2 for a in reduce_roots(vecs,q)]))), 1
+        vec = self.vec_modq(q)
+        _norm, scale = RR(sqrt(sum([ZZ(a)**2 for a in reduce_roots(ve,q)]))), 1
         for b in range(2,q//2):
-            newnorm =RR(sqrt(sum([ZZ(c)**2 for c in reduce_roots([b*a for a in vecs],q)])))
+            newnorm =RR(sqrt(sum([ZZ(c)**2 for c in reduce_roots([b*a for a in vec],q)])))
             if newnorm < _norm:
                 _norm, scale = newnorm, b
         return 2*_norm/q, scale
 
     def loo_quality(self,q):
-        vecs = self.vecs_modq(q)
-        _norm, scale = RR(max([abs(a) for a in reduce_roots(vecs,q)])), 1
+        vec = self.vec_modq(q)
+        _norm, scale = RR(max([abs(a) for a in reduce_roots(vec,q)])), 1
         for b in range(2,q//2):
-            newnorm =RR(max([abs(c) for c in reduce_roots([b*a for a in vecs],q)]))
+            newnorm =RR(max([abs(c) for c in reduce_roots([b*a for a in vec],q)]))
             if newnorm < _norm:
                 _norm, scale = newnorm, b
         return 2*_norm/q, scale
@@ -276,10 +389,10 @@ class SubCycSampler:
         """
         We use l
         """
-        vecs = self.vecs_modq(q)
-        _norm, scale = RR(sum([abs(ZZ(a)) for a in reduce_roots(vecs,q)])), 1
+        vec = self.vec_modq(q)
+        _norm, scale = RR(sum([abs(ZZ(a)) for a in reduce_roots(vec,q)])), 1
         for b in range(2,q//2+1):
-            newnorm = RR(sum([abs(ZZ(c)) for c in reduce_roots([Mod(b*a,q) for a in vecs],q)]))
+            newnorm = RR(sum([abs(ZZ(c)) for c in reduce_roots([Mod(b*a,q) for a in vec],q)]))
             if newnorm < _norm:
                 _norm, scale = newnorm, b
         return 2*_norm/q, scale
@@ -290,12 +403,12 @@ class SubCycSampler:
         we run a simulation to test the quality.
         and scaling.
         """
-        vecs = self.vecs_modq(q)
+        vec = self.vec_modq(q)
         max_err = 0
         count_zero = 0
         for i in range(numsamples):
             e = self.__call__()
-            b = sum([Mod(a*e,q) for a,e in zip(vecs,e)])*scale
+            b = sum([Mod(a*e,q) for a,e in zip(vec,e)])*scale
             b = ZZ(b) if b <= q//2 else ZZ(b) - q
             max_err = max(max_err, RR(abs(b)))
             # print abs(b)
