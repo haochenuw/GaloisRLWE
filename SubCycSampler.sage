@@ -56,6 +56,8 @@ class SubCycSampler:
         self.D = MyLatticeSampler(self.TstarA, sigma = self.sigma, method = method)
         self.Ared = self.D.B
 
+        self._T = self.D.T
+
         self.final_sigma  =self.D.final_sigma
         # gram-schmidt basis and norms.
         #self._G, self.gs_norms = self.compute_G()
