@@ -55,7 +55,7 @@ class MyLatticeSampler:
     def _bkz_reduce(self,block = None):
         print 'bkz being performed...'
         if block is None:
-            block = ZZ(self._degree // 2)
+            block = min(30, ZZ(self._degree // 2))
         return _fpbkz(self.A, block = block)[0]
 
     def _lll_reduce(self):
@@ -69,7 +69,7 @@ class MyLatticeSampler:
                    a[i] = colsum(A^-1,i)
         """
         return vector([1 for _ in range(self._degree)])*self.Ainv
-    
+
     def babai_quality(self):
         """
         inspired by Kim's explanation, I think the quality of a basis
