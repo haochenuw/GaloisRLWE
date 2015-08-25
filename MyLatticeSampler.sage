@@ -3,20 +3,20 @@
 from sage.stats.distributions.discrete_gaussian_integer import DiscreteGaussianDistributionIntegerSampler
 
 
-def _fpbkz(A, K = 10**30, block = 8, delta = 0.75):
+def _fpbkz(A, K = 10**20, block = 8, delta = 0.75):
     """
     including a transpose operation.
     """
     print 'blocksize for bkz = %s'%block
     At = A.transpose()
     RF = A[0][0].parent()
-    AA = Matrix(ZZ, [[round(K*a) for a in row] for row in list(At)])
+    AA = Matrix(ZZ, [[ZZ(round(K*a)) for a in row] for row in list(At)])
     F = FP_LLL(AA)
     F.BKZ(block_size = block, delta= delta)
     B = F._sage_()
     T = B*AA**(-1)
     B1 = Matrix(RF, [[a/RF(K) for a in row] for row in list(B)])
-    return T.transpose(), B1.transpose()
+    return T.transpose().change_ring(ZZ), B1.transpose()
 
 
 class MyLatticeSampler:
