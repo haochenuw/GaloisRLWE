@@ -128,7 +128,7 @@ def chisquare_test(hist_dict,bins = None,std_multiplier = 3):
     else:
         print 'uniform'
         success = False
-    return success, newdict
+    return success
 
 def test_elos_uniform_with_samples(errors, vq, bins = None, std_multiplier = 3):
     """
@@ -151,16 +151,18 @@ def test_elos_uniform_with_samples(errors, vq, bins = None, std_multiplier = 3):
     sys.stdout.flush()
 
     _dict = dict([(t,0) for t in F])
+    errorsmodq = []
     for i in range(numsamples):
         error = errors[i]
         e = F(sum([a*b for a,b in zip(error,vq)]))
+        errorsmodq.append(e)
         _dict[e] += 1
         if Mod(i, 5000) == 0 and i > 0:
             print '%s samples done.'%i
             print('e = %s'%e)
             sys.stdout.flush()
 
-    return chisquare_test(_dict, bins = bins, std_multiplier = std_multiplier)
+    return chisquare_test(_dict, bins = bins, std_multiplier = std_multiplier), errorsmodq
 
 
 
