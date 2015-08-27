@@ -44,6 +44,7 @@ class DirectCycSampler:
         print 'found %s as a root mod %s'%(aa,q)
         return aa
 
+
     def vecs_modq(self,q):
         a = self._a_root_mod_q(q)
         return [a**i for i in range(self.n)]
@@ -78,7 +79,7 @@ class DirectCycSampler:
             return ZZ(log(self.K.prime_above(q).norm(),q))
 
     def _uniform_a(self,q):
-        return self._to_field([ZZ.random_element(q) for _ in range(self.n)])
+        return [ZZ.random_element(q) for _ in range(self.n)]
 
     def set_sigma(self,newsigma):
         self.sigma = newsigma
@@ -93,14 +94,13 @@ class DirectCycSampler:
         generate an rlwe sample
         """
         a = self._uniform_a(q)
-        avec = self._to_vec(a)
         s = self.secret
-        b = a*s
+        b = self._to_field(a)*s
         if add_error:
             e = self._to_field(self.__call__())
             b += e
         bvec = self._to_vec(b)
-        return (avec, [Mod(bi,q) for bi in bvec])
+        return (a, [Mod(bi,q) for bi in bvec])
 
     def modulus_switch(self,oldq, newq, sample):
         """
