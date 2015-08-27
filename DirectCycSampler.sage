@@ -126,21 +126,45 @@ class DirectCycSampler:
 
     def elos_chisquare_attack(self,q,samples):
         """
+        Note that this only works for one
         """
         print 'q = %s'%q
         s = self.secret
         sbar = self._map_to_fq(s, q)
         print 'sbar = %s'%sbar
+        F = sbar.parent()
+        deg = self.degree_of_prime(q)
 
-        errors_dict = dict([(cc,0) for cc in range(q)])
+        a_dict = dict([(cc,0) for cc in F])
+        #b_dict = dict([(cc,0) for cc in F])
+        reduced_samples = []
         for a,b in samples:
             abar, bbar = self._map_to_fq(a, q), self._map_to_fq(b, q)
-            ebar = bbar  - sbar*abar
-            errors_dict[ebar] += 1
+            reduced_samples.append((abar,bbar))
+            a_dict[abar] += 1
 
-        bins = selecting_bins(q, 1, len(samples))
+        bins = selecting_bins(q,deg, len(samples))
         print 'bins = %s'%bins
-        return chisquare_test(errors_dict, bins = bins, std_multiplier =2)
+
+        result = []
+        for sguess in F:
+            errors_dict = dict([(cc,0) for cc in F])
+            print 'chisquare value for sguess = %s'%sguess
+            for abar, bbar in reduced_samples:
+                ebar = bbar - abar*sguess
+                #ebar = abar*sguess
+                errors_dict[ebar] += 1
+            _,chisquare = chisquare_test(errors_dict, bins = bins, std_multiplier =2)
+            result.append((sguess,chisquare))
+
+
+        print 'chisquare for a:'
+        _,_ = chisquare_test(a_dict, bins = bins, std_multiplier =2)
+        #print 'chisquare of b:'
+        #_,_ = chisquare_test(b_dict, bins = bins, std_multiplier =2)
+        #print
+        return result
+        # return chisquare_test(errors_dict, bins = bins, std_multiplier =2)[0]
 
 
 

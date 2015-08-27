@@ -67,7 +67,6 @@ def uniform_under_chisquare(q,r,bins = None, numsamples = 2000,std_multiplier = 
         bins = (q**r - 1)//(q-1)
         # bins = min(ZZ(numsamples//5), q**r)
     from itertools import product
-    print 'r = %s'%r
     print 'degree of freedom = %s'%(bins-1)
     print 'number of samples used = %s'%numsamples
     sys.stdout.flush()
@@ -90,16 +89,13 @@ def chisquare_test(hist_dict,bins = None,std_multiplier = 3):
     """
     well, somehow divide the distribution into bins.
     """
-    print 'performing a chisquare test...'
     numkeys = len(hist_dict.keys())
     numsamples = sum(hist_dict.values())
     if bins is None:
         bins = numkeys
     else:
         bins = ZZ(min(bins, numkeys))
-    print 'number of keys = %s'%numkeys
-    print 'number of samples  = %s'%numsamples
-    print 'bins = %s'%bins
+    #print 'number of keys = %s'%numkeys
     E = float(numsamples/bins)
     print 'E = %s'%E
 
@@ -110,7 +106,6 @@ def chisquare_test(hist_dict,bins = None,std_multiplier = 3):
     newdict = dict([(a,0) for a in range(bins)])
     quo = ZZ(numkeys//bins)
     rem = numkeys - quo*bins
-    print 'remainder = %s'%rem
     keys = hist_dict.keys()
     for i in range(quo*bins):
         newdict[ZZ(Mod(i,bins))] += hist_dict[keys[i]]
@@ -128,7 +123,7 @@ def chisquare_test(hist_dict,bins = None,std_multiplier = 3):
     else:
         print 'uniform'
         success = False
-    return success, newdict
+    return success, chisquare
 
 def test_elos_uniform_with_samples(errors, vq, bins = None, std_multiplier = 3):
     """
