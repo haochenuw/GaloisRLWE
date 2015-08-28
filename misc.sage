@@ -89,6 +89,12 @@ def chisquare_test(hist_dict,bins = None,std_multiplier = 3):
     """
     well, somehow divide the distribution into bins.
     """
+    if is instance(hist_dict,list):
+        F = hist_dict[0].parent()
+        _dict = dict([(aa, 0) for aa in F])
+        for ss in hist_dict:
+            _dict[ss] += 1
+        hist_dict = _dict
     numkeys = len(hist_dict.keys())
     numsamples = sum(hist_dict.values())
     if bins is None:
