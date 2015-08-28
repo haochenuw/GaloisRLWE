@@ -1,5 +1,5 @@
 from sage.stats.distributions.discrete_gaussian_integer import DiscreteGaussianDistributionIntegerSampler
-
+import sys
 
 class SubCycSampler:
     """
@@ -23,8 +23,19 @@ class SubCycSampler:
 
         self.m = m
         self.H = H
+
+        print 'computing group elements...'
+        t = cputime()
         self.H1 =  H.compute_elements()
+        print 'Time = %s'%cputime(t)
+        sys.stdout.flush()
+        print 'computing coset representatives...'
+        t = cputime()
+
         self.cosets = H.cosets()
+        print 'Time = %s'%cputime(t)
+        sys.stdout.flush()
+
         self.sigma = sigma
         self.prec = prec
 

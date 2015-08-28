@@ -80,10 +80,8 @@ class SubgroupModm:
                 for h in elts:
                     explored.append(h*a)
                 result.append(Zm(a))
-        # print 'result = %s'%result
-        if euler_phi(m) != len(result)*len(elts):
-            raise ValueError
-        return result
+            if euler_phi(m) ==  len(result)*len(elts): # already have enough cosets
+                return result
 
     def _check_cosets(self):
         """
