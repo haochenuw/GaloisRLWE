@@ -91,6 +91,7 @@ def chisquare_test(hist_dict,bins = None,std_multiplier = 3):
     """
     if is instance(hist_dict,list):
         F = hist_dict[0].parent()
+        print 'F = %s'%F
         _dict = dict([(aa, 0) for aa in F])
         for ss in hist_dict:
             _dict[ss] += 1
