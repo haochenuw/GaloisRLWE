@@ -28,6 +28,8 @@ class MyLatticeSampler:
         self.A = A # we are using column span instead of rowspan
         self.sigma = sigma
 
+        print 'reducing the lattice...'
+        t = cputime()
         self._degree = A.nrows()
         if method == 'LLL':
             self.T =  self._lll_reduce()
@@ -36,7 +38,11 @@ class MyLatticeSampler:
         else:
             raise NotImplementedError
         self.B  = self.A*self.T
+        print 'reduction done. Time: %s'%cputime(t)
 
+
+        print 'Gram Schmidting...'
+        t = cputime()
 
         if already_orthogonal: # The columns of A are already gram-schmidt.
             self._G = self.A
@@ -47,10 +53,11 @@ class MyLatticeSampler:
         else:
             # Compute the gram-schmidt ourselves. Can be slow.
             self._gs_norms, self._G = self.compute_G(dps =  dps)
+        print 'Gram Schmidt done. Time: %s'%cputime(t)
 
         self.final_sigma = sigma*(prod(self._gs_norms))**(1/self._degree)
 
-        self.Ainv = (self.A)**(-1)
+        #self.Ainv = (self.A)**(-1)
 
     def _bkz_reduce(self,block = None):
         print 'bkz being performed...'
@@ -63,12 +70,13 @@ class MyLatticeSampler:
         A = self.A
         return gp(A).qflll().sage()
 
+    @cached_method
     def col_sum(self):
         """
         related to the evaluation attack, return the list a where
                    a[i] = colsum(A^-1,i)
         """
-        return vector([1 for _ in range(self._degree)])*self.Ainv
+        return vector([1 for _ in range(self._degree)])*(self.A**(-1))
 
     def babai_quality(self):
         """

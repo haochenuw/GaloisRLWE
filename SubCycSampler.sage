@@ -42,9 +42,7 @@ class SubCycSampler:
             self.cosets = newcosets
 
         self.TstarA, self.Acan = self.embedding_matrix(prec = self.prec)
-
-        self.Acaninv = (self.Acan)**(-1)
-
+        self.Acaninv  = None
         #self.disc = (self.TstarA).det() #maybe this is faster in computing discriminants.
 
         #self.adj = RR(abs(self.disc)**(1.0/(self._degree)))
@@ -247,6 +245,8 @@ class SubCycSampler:
         """
         the inversion of the above.
         """
+        if self.Acaninv is None:
+            self.Acaninv = (self.Acan)**(-1)
         return list(self.Acaninv*vector(lst))
 
 
