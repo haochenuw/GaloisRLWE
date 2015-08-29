@@ -4,6 +4,48 @@ from sage.libs.fplll.fplll import FP_LLL
 
 import sys
 
+######################################
+# some other statistical uniform tests.
+######################################
+def adaptive_test(samples, threshold = 100):
+    ambientSet = samples[0].parent()
+    try:
+        numkeys = len(ambientSet)
+    except:
+        raise ValueError('')
+    numsamples = len(samples)
+    cutOff = numsamples // 2
+    training = samples[: cutOff]
+    learning = samples[cutOff:]
+    groups = dict([(0,[]), (1,[])])
+    _dict = dict([(a,0) for a in ambientSet])
+    return
+    # then we do the grouping.
+
+
+def clash_uniform_test(samples, threshold = 1):
+    _dict = {}
+    try:
+        samples[0].parent().cardinality()
+    except:
+        raise ValueError
+    N = len(samples)
+    for s in samples:
+        if s in _dict:
+            _dict[s] += 1
+        else:
+            _dict[s] = 1
+    K1 = sum([a for a in _dict.values() if a == 1])
+    K1u = float(N*((m-1)/m)**(N-1))
+    stat = K1u - K1
+    print 'stat = %s'%stat
+    if stat >= threshold:
+        print 'non-uniform'
+        return False
+    else:
+        print 'uniform'
+        return True
+
 def selecting_bins(q, r, numsamples):
     """
     finite field of size q**r.
@@ -53,39 +95,32 @@ def basis_transform_matrix(v,K):
 
 #### part 2: uniformity test ####
 
-def uniform_under_chisquare(q,r,bins = None, numsamples = 2000,std_multiplier = 3):
-    """
-    test out if the uniform behaves like uniform in a vector space of
-    dimension r over F_q.
-    """
+
+def generate_uniform_samples(q,r, numsamples = 2000):
     if r > 1:
         F.<alpha> = GF(q**r, impl = 'pari_ffelt')
     else:
         F.<alpha> = GF(q)
     print 'generating uniform distribution for a comparison.'
-    if bins is None:
-        bins = (q**r - 1)//(q-1)
-        # bins = min(ZZ(numsamples//5), q**r)
+
     from itertools import product
-    print 'degree of freedom = %s'%(bins-1)
     print 'number of samples used = %s'%numsamples
     sys.stdout.flush()
 
     _dict = dict([(t,0) for t in F])
     alpha = F.gen()
-
+    result = []
     for i in range(numsamples):
         e = sum([ZZ.random_element(0,q)*alpha**ii for ii in range(r)])
-        _dict[e] += 1
-        # print 'e = %s'%e
+        result.append(e)
         if Mod(i, 5000) == 0 and i > 0:
             print '%s samples done.'%i
             print('e = %s'%e)
             sys.stdout.flush()
-    return chisquare_test(_dict, bins = bins, std_multiplier = std_multiplier)
+    return result
 
 
-def chisquare_test(hist_dict,bins = None,std_multiplier = 3):
+def chisquare_test(hist_dict,bins = None ,std_multiplier = 3):
     """
     well, somehow divide the distribution into bins.
     """
@@ -126,47 +161,10 @@ def chisquare_test(hist_dict,bins = None,std_multiplier = 3):
     mm = std_multiplier
     if chisquare < mu - mm*sigma or chisquare > mu + mm*sigma:
         print 'non-uniform'
-        success = True
+        return False
     else:
         print 'uniform'
-        success = False
-
-    return success
-
-
-def test_elos_uniform_with_samples(errors, vq, bins = None, std_multiplier = 3):
-    """
-    a uniform test when we lready has samples. I mean errors, we assume that
-    the errors lie in some finite field F_q^r.
-    """
-    F = vq[0].parent()
-    print 'F = %s'%F
-    q = ZZ(F.characteristic())
-    r = F.degree()
-        # make sure the number of bins is reasonable.
-        # for chisquare test, it should be such that each bin takes at least 5 samples.
-        # also the number of bins should be bounded by the size of the ambient set.
-    sys.stdout.flush()
-    if bins is None:
-        bins = (q**r - 1)//(q-1)
-    print 'degree of freedom = %s'%(bins-1)
-    numsamples = len(errors)
-    print 'number of samples used = %s'%numsamples
-    sys.stdout.flush()
-
-    _dict = dict([(t,0) for t in F])
-    errorsmodq = []
-    for i in range(numsamples):
-        error = errors[i]
-        e = F(sum([a*b for a,b in zip(error,vq)]))
-        errorsmodq.append(e)
-        _dict[e] += 1
-        if Mod(i, 5000) == 0 and i > 0:
-            print '%s samples done.'%i
-            print('e = %s'%e)
-            sys.stdout.flush()
-
-    return chisquare_test(_dict, bins = bins, std_multiplier = std_multiplier), errorsmodq
+        return True
 
 
 
