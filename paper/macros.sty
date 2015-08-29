@@ -1,0 +1,131 @@
+% Packages
+\usepackage{amsmath}              % provides \underset, etc.
+\usepackage{amsopn,amssymb}       % provides \DeclareMathOperator, \mathbb, etc.
+\usepackage{enumerate}            % more powerful enumerate environments
+\usepackage{framed}
+\usepackage[margin=1in]{geometry} % margins only
+%\usepackage{microtype}            % nicer text spacing
+%\usepackage{ntheorem}             % theorem-like environments, modified heavily below
+\usepackage{tikz-cd}              % nice commutative diagrams; see cd environment below
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+% Math operators
+\newcommand*{\sheafhom}{\mathcal{H}\kern -.5pt om}
+\DeclareMathOperator{\Ab}{\textit{Ab}}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Ass}{Ass}
+\DeclareMathOperator{\hgt}{ht}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\cHom}{\mathcal{H}\textit{om}}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Mod}{\textit{Mod}}
+\DeclareMathOperator{\nil}{nil}
+\DeclareMathOperator{\Pre}{pre}
+\DeclareMathOperator{\pt}{pt}
+\DeclareMathOperator{\Sets}{\textit{Sets}}
+\DeclareMathOperator{\spec}{Spec}
+\DeclareMathOperator{\proj}{Proj}
+\DeclareMathOperator{\prob}{Prob}
+
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\trdeg}{trdeg}
+% Named ``ilim'' for ``inverse limit'' to avoid conflicting with \lim
+\newcommand{\ilim}{\operatornamewithlimits{\underset{\longleftarrow}{lim}}}
+% ``dlim'' for ``direct limit''
+\newcommand{\dlim}{\operatornamewithlimits{\underset{\longrightarrow}{lim}}}
+
+% Convenient shortcuts
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bQ}{\mathbb{Q}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\fm}{\mathfrak{m}}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\fl}{\mathfrak{l}}
+\newcommand{\fs}{\mathfrak{s}}
+\newcommand{\fu}{\mathfrak{u}}
+\newcommand{\fn}{\mathfrak{n}}
+\newcommand{\fp}{\mathfrak{p}}
+\newcommand{\fq}{\mathfrak{q}}
+\newcommand{\tsub}{\mathrel{\unlhd}}
+\newcommand{\F}{\mathscr{F}}
+\newcommand{\G}{\mathscr{G}}
+\newcommand{\scrO}{\mathscr{O}}
+\newcommand{\B}{\mathscr{B}}
+\newcommand{\sC}{\mathscr{C}}
+\renewcommand{\O}{\mathscr{O}}
+\newcommand{\K}{\mathscr{K}}
+% Convenient macros
+\newcommand{\Section}[1]{\sline\section*{\centering\color{teal}{#1}}\sline
+  \addcontentsline{toc}{section}{#1}}
+
+\newcommand{\Subsection}[1]{\subsection*{\centering\color{teal}#1}
+  \addcontentsline{toc}{subsection}{#1}}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\too}[1]{\stackrel{#1}{\to}}
+\newcommand{\tooo}[2]{\underset{#2}{\overset{#1}{\to}}}
+\newcommand{\bu}[1]{\textbf{\underline{#1}}}
+\newcommand{\sline}{\noindent\makebox[\linewidth]{\rule{\linewidth}{0.4pt}}}
+\newcommand{\mdy}[1]{\sline\vspace{0.19cm}\\\centering{\textbf{#1}}\\\sline}
+\newenvironment{cd}{\begin{center}\begin{tikzcd}}{\end{tikzcd}\end{center}}
+
+\newcommand{\wt}[1]{\widetilde{#1}}
+
+% Modify standard ntheorem environments; include eg. indentation
+%%%% Theoremstyles
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Corollary}[theorem]{Corollary}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{Lemma}[theorem]{Lemma}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{Conjecture}[theorem]{Conjecture}
+\newtheorem{Fact}[theorem]{Fact}
+\newtheorem{question}[theorem]{Q}
+
+
+
+\theoremstyle{definition}
+\newtheorem{Definition}[theorem]{Definition}
+\newtheorem{Example}[theorem]{Example}
+\newtheorem{idea}[theorem]{Idea}
+\newtheorem{project}[theorem]{Project}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{openproblem}[theorem]{Open Problem}
+\newtheorem{challenge}[theorem]{Challenge}
+\newtheorem{Exercise}[theorem]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{goal}[theorem]{Goal}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{remarks}[theorem]{Remarks}
+\newtheorem{exercise}[theorem]{Exercise}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+\newcommand{\abcd}[4]{\left(
+        \begin{smallmatrix}#1&#2\\#3&#4\end{smallmatrix}\right)}
+

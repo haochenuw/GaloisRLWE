@@ -1,0 +1,99 @@
+\documentclass{amsart}
+\title{Attack on some Galois RLWE instances}
+\author{Hao Chen, Kristin Lauter, Kate Stange}
+
+\usepackage{macros}
+
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+We will use an example to illustrate our attack. The main
+difference from the [ELOS] attack will be
+\begin{itemize}
+\item We use the information on the entire singular value
+decomposition of the embedding matrix (called $M_\alpha^{-1}$ in [ELOS]), where the authors considered the largest singular value only.
+
+\item Our instances are Galois extensions of the rationals, making the search-to-decision reduction in [LPR] work for these instances.
+
+\item We will not require the number field to be monogenic;
+to compensate for a lack of power basis, we use algebra softwares such as sage to compute integral bases, and in the cases where a large portion of the basis vectors have no constant term, we can do a ``root zero'' attack, in contrast to the ``root 1'' attack in [ELOS].
+\end{itemize}
+
+\section{An example of degree $n = 20$}
+
+Here we take a galois extension $K/\bQ$ of degree 20 defined by the polynomial
+
+$$f(x) = x^{20} - 396 \, x^{15} + 300806 \, x^{10} - 63776196 \, x^{5} + 25937424601.$$
+Note that $q = f(0)$ is a prime of fairly large size.
+
+Let $a$ denote a root of $f$ in $K$. Then an integral basis $B$ of $K$ is computed by sage. We show some of the entries:
+
+\begin{align*}
+\cdots \\
+\frac{254861}{1169230260} a^{18} + \frac{16}{8857805} a^{13} + \frac{1}{878460} a^{8} \\
+\frac{1175891}{12861532860} a^{19} + \frac{527}{194871710} a^{14} + \frac{1}{9663060} a^{9} \\
+\frac{43}{17715610} a^{19} + \frac{2247}{8857805} a^{18} + \frac{821}{1610510} a^{15} + \frac{3}{1610510} a^{14} + \frac{2}{805255} a^{13} + \frac{1}{146410} a^{10} \\
+\frac{43}{17715610} a^{19} + \frac{4451}{8857805} a^{18} + \frac{821}{1610510} a^{16} + \frac{3}{1610510} a^{14} + \frac{1}{805255} a^{13} + \frac{1}{146410} a^{11} \\
+\frac{4451}{17715610} a^{19} + \frac{4451}{8857805} a^{18} + \frac{821}{1610510} a^{17} + \frac{1}{1610510} a^{14} + \frac{1}{805255} a^{13} + \frac{1}{146410} a^{12} \\
+\frac{1789}{3543122} a^{18} + \frac{1}{322102} a^{13} \\
+\frac{1789}{3543122} a^{19} + \frac{1}{322102} a^{14} \\
+\frac{1}{1331} a^{15} \\
+\frac{1}{1331} a^{16} \\
+\frac{1}{1331} a^{17} \\
+\frac{1}{1331} a^{18} \\
+\frac{1}{1331} a^{19} \\
+\end{align*}
+
+When we plug in $x = 0$, the basis $B$ becomes
+\[
+  \bar{B} =  [1/600, 0 \cdots, 0].
+\]
+This means if we choose $q = f(0)$ to be the modulus, then the only basis vector that survives the reduction to $\bF_q$
+is the first one.
+
+\section{Gaussian}
+
+Let $M_B$ denote the embedding matrix of $B$, i.e., if
+$B = b_1 ,\cdots b_n$ and $\sigma_1,\cdots, \sigma_{n/2}$ are
+the complex embeddings of $K$ (Note that K has no real embeddings), then the i-th row of $M_B$ is
+\[
+Re(\sigma_1(b_i)), Re(\sigma_2(b_i)), \cdots, Re(\sigma_{n/2})(b_i),Im(\sigma_1(b_i)), Im(\sigma_2(b_i)), \cdots, Im(\sigma_{n/2})(b_i).
+\]
+We consider the singular value decomposition of the matrix $M_B^{-1}$:
+\[
+M_B^{-1} = U \Sigma V.
+\]
+where $U,V$ are real orthogonal matrices, and $\Sigma$ is a diagonal matrix with diagonal entries the singular values $\lambda_i$ of $M_B^{-1}$. Now taking an error vector amounts to multiplying $M_B^{-1}$ on the right with a column vector ${\bf x} = (x_i)$ sampled from a spherical Gaussian. Multiplying by an orthogonal matrix do not change that, so we may as well assume $V = Id$ for our analysis. Then the error vector we obtain is
+\[
+    e = \left(\sum_{i} u_{i1}\lambda_i x_i\right)b_1 + \cdots + \left(\sum_{i} u_{in}\lambda_i x_i\right)b_n.
+\]
+Let's denote ${\bf y_j} = (u_{ij} \lambda_i) \in \bR^n$. Then
+\[
+    e = ({\bf y_1} \cdot {\bf x}) b_1 + \cdots + ({\bf y_n} \cdot {\bf x}) b_n.
+\]
+
+We will use the form of this $e$ in the next section.
+
+\section{The attack}
+
+Note that when we take $x = 0$, all the basis vector except
+$b_1$ are zero. So the error evaluated at zero will be
+\[
+    e(0) = [{\bf y_1} \cdot {\bf x}] \cdot \bar{b_1}
+\]
+where $[]$ means rounding to the nearest integer and
+$\bar{b_1} = 1/600 \pmod{q} = $
+
+
+
+
+
+
+
+
+
+
+\end{document}
