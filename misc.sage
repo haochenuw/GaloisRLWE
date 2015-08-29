@@ -26,9 +26,9 @@ def adaptive_test(samples, threshold = 100):
 def clash_uniform_test(samples, threshold = 1):
     _dict = {}
     try:
-        samples[0].parent().cardinality()
+        m = samples[0].parent().cardinality()
     except:
-        raise ValueError
+        raise ValueError('Parent problems. %s'%samples[0].parent())
     N = len(samples)
     for s in samples:
         if s in _dict:
