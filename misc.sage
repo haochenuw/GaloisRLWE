@@ -120,7 +120,7 @@ def generate_uniform_samples(q,r, numsamples = 2000):
     return result
 
 
-def chisquare_test(hist_dict,bins = None ,std_multiplier = 3):
+def chisquare_test(hist_dict,bins = None ,std_multiplier = 3, return_dict = False):
     """
     well, somehow divide the distribution into bins.
     """
@@ -161,10 +161,14 @@ def chisquare_test(hist_dict,bins = None ,std_multiplier = 3):
     mm = std_multiplier
     if chisquare < mu - mm*sigma or chisquare > mu + mm*sigma:
         print 'non-uniform'
-        return False
+        uniform =  False
     else:
         print 'uniform'
-        return True
+        uniform = True
+    if return_dict:
+        return uniform, newdict
+    else:
+        return uniform
 
 
 
