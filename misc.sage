@@ -311,6 +311,22 @@ def general_embedding_matrix(v, K, prec = 100, canonical = False):
     return _real_part(t*Matrix(n,n,result).transpose())
     """
 
+
+def chisquare_quality(delta,N, c = 5):
+    """
+    c -- the ratio of sample to ambient set size.
+    c = M/N.
+    delta -- the statistical distance.
+
+    Used in chisquare.pdf
+    """
+    T = RealDistribution('gaussian', 1)
+    w= T.cum_distribution_function_inv(1 - 1/(N*20))
+    print 'w =  %s'%w
+    ss = RR(w*sqrt(2*(N-1)) - 4*c*N*delta)/RR(sqrt(2*(N-1) + 16*c*N*delta))
+    print 'ss = %s'%ss
+    return 0.904*(1 - T.cum_distribution_function(ss))
+
 def simulate_uniform(q, samples = 20):
     """
     simulate maximum error for uniform distribution.
