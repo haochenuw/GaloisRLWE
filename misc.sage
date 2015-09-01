@@ -7,6 +7,47 @@ import sys
 ######################################
 # some other statistical uniform tests.
 ######################################
+def subfield_unifrom_test(samples):
+    """
+    we assume that the samples are from a finite field.
+    we separate the ones that are from a proper subfield.
+    """
+    F = samples[0].parent()
+    q = F.characteristic()
+    degF = F.degree()
+    numsamples = len(samples)
+    eltsWithFullDegree = elts_of_full_degree(q,degF)
+    nSmall = 0
+    nLarge = 0
+    for aa in samples:
+        if aa.minpoly().degree() < degF:
+            nSmall +=1
+        else:
+            nLarge +=1
+    card = q**degF
+    eSmall = float(eltsWithFullDegree/card*numsamples)
+    eLarge= numsamples - eSmall
+    if min(eSmall, eLarge) < 5:
+        raise ValueError('samples size too small.')
+    # Now we have two bins, we do a very tiny chisquare test.
+    chisquare = (nSmall - eSmall )^2/esmall + (nLarge - eLarge)^2/eLarge
+    T = RealDistribution('chisquared', 1)
+    print 'chisquare = %s'%chisquare
+    prob = T.cum_distribution_function(chisquare)
+    if prob > 0.99:
+        return False # non-uniform.
+    else:
+        return True # uniform.
+
+def elts_of_full_degree(q,n):
+    """
+    number of elements of F_q^n that do not lie in proper subfields
+    """
+    return sum([q**(n//d)*moebius(d) for d in n.divisors()])
+
+
+
+
 def adaptive_test(samples, threshold = 100):
     ambientSet = samples[0].parent()
     try:
