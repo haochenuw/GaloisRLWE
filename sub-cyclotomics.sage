@@ -39,7 +39,7 @@ class SubgroupModm:
         self.H1 = self.compute_elements() # long time
         self.order = len(self.H1)
 
-        self.quotient_order = ZZ(self.phim // self.order)
+        self._degree = ZZ(self.phim // self.order)
 
         print 'computing coset representatives...'
         t = cputime()
@@ -110,6 +110,29 @@ class SubgroupModm:
                 return bb
         raise ValueError('did not find a coset.')
 
+    def extension_degree(self,vec):
+        """
+        vec -- a vector indexed by cosets of self, representing an element z in K.
+        return the degree of the extension QQ(z)/QQ.
+        """
+        try:
+            vec = list(vec)
+        except:
+            raise ValueError('input can not be turned into a list. Please debug.')
+        C = self.cosets
+        H1 = self.H1
+        ele_dict = dict([(a,b) for a,b in zip(C,vec) if b != 0])
+        fixGpLen = 0
+        for ll in C:
+            fixed = True
+            for a in ele_dict.keys():
+                if (not ele_dict.has_key(self.coset(ll*a))) or ele_dict[self.coset(ll*a)] != ele_dict[a]:
+                    fixed = False
+                    break
+            if fixed:
+                fixGpLen += 1
+        return self._degree // fixGpLen
+
 
     def _check_cosets(self):
         """
@@ -152,7 +175,7 @@ class SubgroupModm:
         if gcd(m,a) != 1:
             raise ValueError
         a = Zm(a)
-        o = self.quotient_order
+        o = self._degree
         for dd in o.divisors()[:-1]:
             if a**dd in self.H1:
                 return dd
@@ -164,10 +187,6 @@ class SubgroupModm:
         return, up to sign, the discriminant of the fixed field of self as a subfield of Q(zeta_m).
         """
         return prod([chi.conductor() for chi in self._associated_characters()])
-
-
-#def split_primes(K,dK, max_prime = 10):
-#    return [q for q in primes(max_prime) if K.prime_above(q).norm() == q and Mod(dK,q) != 0]
 
 def split_primes_new(m, H, max_prime = 10):
     Zm = Integers(m)
@@ -299,15 +318,7 @@ def construct_K(reps_dict,L,H):
         # minpoly_dict.append(felt,mult)
     #return minpoly_dict, K
 
-"""
-def construct_basis_in_K(reps_dict, L,K):
-    result = {}
-    for rep, mult in reps_dict.items():
-        elt = (z**rep).trace(K)
-        for galelt in elt.galois_conjugates(K):
-            result[galelt] = mult
-    return result
-"""
+
 
 
 def search_for_q(v, K, qlst, h = 1):
