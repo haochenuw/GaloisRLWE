@@ -37,22 +37,11 @@ class SubCycSampler:
         self.prec = prec
 
 
-        print 'some adjustment of cosets...'
         t = cputime()
         self._degree = euler_phi(m) // len(self.H1)
 
-        self._is_totally_real = H.is_totally_real()
+        self._is_totally_real = self.H._is_totally_real
 
-
-        if not self._is_totally_real:
-            merged_cosets = []
-            for c in self.cosets:
-                if not any([-c/d in self.H1 for d in merged_cosets]):
-                    merged_cosets.append(ZZ(c))
-            newcosets = merged_cosets + [-a for a in merged_cosets]
-            self.cosets = newcosets
-        print 'time = %s'%cputime(t)
-        sys.stdout.flush()
 
         print 'computing embedding matrix...'
         t = cputime()
@@ -152,10 +141,11 @@ class SubCycSampler:
         for l in cosets:
             _dict[l]  = sum([zetam**(ZZ(l*h)) for h in H1])
 
-        A = _real_part(Matrix([[_dict[self.H.coset(l*k)] for l in cosets] for k in cosets]))
+        A = Matrix([[_dict[self.H.coset(l*k)] for l in cosets] for k in cosets])
 
         if self._is_totally_real:
-            return A,A
+            Areal = _real_part(A)
+            return Areal, A
         else:
             T = t_matrix(n,prec = prec)
             return _real_part(T.conjugate_transpose()*A),A
