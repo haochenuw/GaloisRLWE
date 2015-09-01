@@ -148,6 +148,7 @@ def chisquare_test(hist_dict,bins = None ,std_multiplier = 3, return_dict = Fals
     newdict = dict([(a,0) for a in range(bins)])
     quo = ZZ(numkeys//bins)
     rem = numkeys - quo*bins
+    print 'quo, rem = %s, %s'%(quo, rem)
     keys = hist_dict.keys()
     for i in range(quo*bins):
         newdict[ZZ(Mod(i,bins))] += hist_dict[keys[i]]

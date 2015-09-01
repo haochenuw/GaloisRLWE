@@ -29,16 +29,16 @@ class SubCycSampler:
         self.H1 =  H.compute_elements()
         print 'Time = %s'%cputime(t)
         sys.stdout.flush()
-        print 'computing coset representatives...'
-        t = cputime()
 
-        self.cosets = H.cosets()
-        print 'Time = %s'%cputime(t)
-        sys.stdout.flush()
+
+        self.cosets = H.cosets
 
         self.sigma = sigma
         self.prec = prec
 
+
+        print 'some adjustment of cosets...'
+        t = cputime()
         self._degree = euler_phi(m) // len(self.H1)
 
         self._is_totally_real = H.is_totally_real()
@@ -51,9 +51,16 @@ class SubCycSampler:
                     merged_cosets.append(ZZ(c))
             newcosets = merged_cosets + [-a for a in merged_cosets]
             self.cosets = newcosets
+        print 'time = %s'%cputime(t)
+        sys.stdout.flush()
 
+        print 'computing embedding matrix...'
+        t = cputime()
         self.TstarA, self.Acan = self.embedding_matrix(prec = self.prec)
         self.Acaninv  = None
+        print 'time = %s'%cputime(t)
+        sys.stdout.flush()
+
         #self.disc = (self.TstarA).det() #maybe this is faster in computing discriminants.
 
         #self.adj = RR(abs(self.disc)**(1.0/(self._degree)))
@@ -130,6 +137,7 @@ class SubCycSampler:
         """
         We are in a simplified situation because the field K is Galois over QQ,
         so it is either totally real or totally complex.
+        to-do: can optimize this.
         """
         m = self.m
         H1 = self.H1
@@ -140,13 +148,16 @@ class SubCycSampler:
         cosets = self.cosets
         n = self._degree
 
+        _dict = {}
+        for l in cosets:
+            _dict[l]  = sum([zetam**(ZZ(l*h)) for h in H1])
+
+        A = _real_part(Matrix([[_dict[self.H.coset(l*k)] for l in cosets] for k in cosets]))
+
         if self._is_totally_real:
-            A = _real_part(Matrix([[sum([zetam**(ZZ(l*k*h)) for h in H1]) for l in cosets] for k in cosets]))
             return A,A
         else:
             T = t_matrix(n,prec = prec)
-            A = Matrix([[sum([zetam**(ZZ(l*k*h)) for h in H1]) for l in cosets] for k in cosets])
-            # print A0.det(), T.det()
             return _real_part(T.conjugate_transpose()*A),A
 
 
