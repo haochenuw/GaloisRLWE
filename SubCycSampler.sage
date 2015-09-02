@@ -183,36 +183,6 @@ class SubCycSampler:
     def babai(self,c):
         return self.D.babai(c)[1]
 
-
-    # deprecated.
-    """
-    def __call__(self, c = None, method = 'GPV', reduced = True):
-        if method == 'DD':
-            return self._call_dd()
-        elif method != 'GPV':
-            raise ValueError
-        else:
-            v = 0
-            sigma, Ared, G, norms = self.final_sigma, self.Ared, self._G, self.gs_norms
-            n = Ared.nrows()
-            if c is None:
-                c = zero_vector(n)
-            zs = []
-            for i in range(n)[::-1]:
-                b_ = G.column(i)
-                c_ = c.dot_product(b_) / (norms[i]**2)
-                sigma_ = sigma/norms[i]
-                assert(sigma_ > 0)
-                z = DiscreteGaussianDistributionIntegerSampler(sigma=sigma_, c=c_, algorithm="uniform+online")()
-                c = c - z*Ared.column(i)
-                v = v + z*Ared.column(i)
-                zs.append(z)
-        if reduced:
-            return v, vector(zs[::-1])
-        else:
-            return v, self._T*vector(zs[::-1])
-    """
-
     def _modq_dict(self,q):
         """
         a sanity check of the generators modulo q.
@@ -228,10 +198,10 @@ class SubCycSampler:
     #    pass
 
     def subfield_quality(self,q):
-        vq = self.vec_modq(reduced = True)
-        F = vq[0]
+        vq = self.vec_modq(q,reduced = True)
+        F = vq[0].parent()
         deg = F.degree()
-        return float(count([aa for aa in vq if aa.minpoly().degree() < deg])/self._degree)
+        return float(len([aa for aa in vq if aa.minpoly().degree() < deg])/self._degree)
 
 
     @cached_method
@@ -373,6 +343,7 @@ class SubCycSampler:
         bins = selecting_bins(q, degq, len(samples))
         print 'number of bins = %s'%bins
         return chisquare_test(errors_dict, bins = bins, std_multiplier = 2)
+
     """
     def min_vecs(self,q, stds = None):
         v = self.vecs_modq(q)
@@ -441,7 +412,7 @@ class SubCycSampler:
             # print abs(b)
         ratio  = max_err*2 / q
 
-        # print 'number of zeros = %s'%count_zero
+        #print 'number of zeros = %s'%count_zero
         #print 'Done!'
         return ratio
 

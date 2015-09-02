@@ -372,16 +372,51 @@ def chisquare_quality(delta,N, c = 5):
     print 'ss = %s'%ss
     return 0.904*(1 - T.cum_distribution_function(ss))
 
-def simulate_uniform(q, samples = 20):
+
+def AllSubgroups(m):
     """
-    simulate maximum error for uniform distribution.
+    input: a positive integer m
+    output: all subgroups of Z/mZ^*, given in terms of SubgroupModm instances.
     """
-    max_abs = 0
-    for i in range(samples):
-        a = ZZ.random_element(-(q//2),q//2+1,distribution = 'uniform')
-        max_abs = max(abs(a), max_abs)
-    #print 'max = %s'%max_abs
-    return RR(max_abs*2/q)
+    U = Integers(m).unit_group()
+    values = U.gens_values()
+    generators = [str(a) for a in U.gens()]
+    dict_use = dict(zip(generators, values));
+    result = []
+    for H in U.subgroups():
+        order = H.order()
+        gens_modm = [eval(str(a).replace('^','**'),dict_use) for a in H.gens()]
+        result.append(SubgroupModm(m,gens_modm))
+    return result
+
+
+def finite_cyclo_traces(m,q,ilst,H,deg =1):
+    """
+    trace of zeta_m^i under H in the finite field F_q^r.
+    where r is the order of q in Zm^* (by CFT).
+
+    """
+    if not q.is_prime():
+        raise ValueError
+
+    if deg > 1:
+        F.<alpha> = GF(q^deg, impl = 'pari_ffelt')
+    else:
+        F.<alpha> = GF(q)
+    Zm = Integers(m)
+    #if Mod(q,m) not in H:
+    #    raise ValueError('we require q mod m to be in H.')
+    r = Zm(q).multiplicative_order()
+
+    if Mod(r,deg):
+        raise ValueError('wtf?')
+    rel_deg = r// deg
+    K.<beta>, f = F.extension(rel_deg, map = True)
+    g = K.multiplicative_generator()
+    d = ZZ((q^r-1)/m)
+    f_zetam = g^d
+
+    return [finite_field_coerce(F,f,(sum([f_zetam**(i*ZZ(h))for h in H]))) for i in ilst]
 
 
 def simulate_run(D,q,vecs, numsamples):
