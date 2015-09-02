@@ -24,7 +24,7 @@ class MyLatticeSampler:
     Sampling from discrete Gaussian.
     """
 
-    def __init__(self,A,sigma = 1,dps = 60, method = 'LLL', already_orthogonal = False, gram_schmidt_norms = None):
+    def __init__(self,A,sigma = 1,dps = 60, method = 'LLL', block = None, already_orthogonal = False, gram_schmidt_norms = None):
         self.A = A # we are using column span instead of rowspan
         self.sigma = sigma
 
@@ -34,7 +34,7 @@ class MyLatticeSampler:
         if method == 'LLL':
             self.T =  self._lll_reduce()
         elif method == 'BKZ':
-            self.T = self._bkz_reduce()
+            self.T = self._bkz_reduce(block = block)
         else:
             raise NotImplementedError
         self.B  = self.A*self.T
@@ -62,7 +62,7 @@ class MyLatticeSampler:
     def _bkz_reduce(self,block = None):
         print 'bkz being performed...'
         if block is None:
-            block = min(30, ZZ(self._degree // 2))
+            block = min(50, ZZ(self._degree // 2))
         return _fpbkz(self.A, block = block)[0]
 
     def _lll_reduce(self):

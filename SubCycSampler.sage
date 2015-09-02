@@ -12,7 +12,7 @@ class SubCycSampler:
     guaranteed to output discrete Gaussian.
     """
 
-    def __init__(self,m,H,sigma = 1,prec = 100, method = 'BKZ'):
+    def __init__(self,m,H,sigma = 1,prec = 100, method = 'BKZ',block = None):
         """
         require: m must be square free and odd.
 
@@ -58,7 +58,7 @@ class SubCycSampler:
         #self._T = self.lll_transform_matrix()
         #self.Ared = self.TstarA*self._T
 
-        self.D = MyLatticeSampler(self.TstarA, sigma = self.sigma, method = method)
+        self.D = MyLatticeSampler(self.TstarA, sigma = self.sigma, method = method, block = block)
         self.Ared = self.D.B
 
         self._T = self.D.T
