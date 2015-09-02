@@ -389,6 +389,18 @@ def AllSubgroups(m):
         result.append(SubgroupModm(m,gens_modm))
     return result
 
+def finite_field_coerce(F,f,c):
+    """
+    f: F -> K some embeddin.
+    c: some element of K which is in f(F).
+    returns the unique element b in F such that
+    f(b) = c.
+    """
+    pp = c.minpoly()
+    for b, _ in F[x](pp).roots():
+        if f(b) == c:
+            return b
+    raise ValueError('no roots found.')
 
 def finite_cyclo_traces(m,q,ilst,H,deg =1):
     """
@@ -417,6 +429,7 @@ def finite_cyclo_traces(m,q,ilst,H,deg =1):
     f_zetam = g^d
 
     return [finite_field_coerce(F,f,(sum([f_zetam**(i*ZZ(h))for h in H]))) for i in ilst]
+
 
 
 def simulate_run(D,q,vecs, numsamples):
