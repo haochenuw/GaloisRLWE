@@ -34,9 +34,12 @@ class SubgroupModm:
             newgens.append(a)
 
         self.gens = newgens
-
-        self.H1 = None
+        print 'computing group elements...'
+        t = cputime()
         self.H1 = self.compute_elements() # long time
+        print 'Time = %s'%cputime(t)
+        sys.stdout.flush()
+
         self.order = len(self.H1)
 
         self._degree = ZZ(self.phim // self.order)

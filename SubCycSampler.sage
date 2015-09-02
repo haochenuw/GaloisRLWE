@@ -24,10 +24,7 @@ class SubCycSampler:
         self.m = m
         self.H = H
 
-        print 'computing group elements...'
-        t = cputime()
-        self.H1 =  H.compute_elements()
-        print 'Time = %s'%cputime(t)
+        self.H1 =self.H.H1
         sys.stdout.flush()
 
 
