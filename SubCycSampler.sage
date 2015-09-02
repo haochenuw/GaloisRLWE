@@ -221,6 +221,18 @@ class SubCycSampler:
         vv = self.vec_modq(q)
         return dict(zip(cc,vv))
 
+    ##def subfield_quality(self):
+    #   """
+    #    how many elements of our reduced basis lie in subfields.
+    #    """
+    #    pass
+
+    def subfield_quality(self,q):
+        vq = self.vec_modq(reduced = True)
+        F = vq[0]
+        deg = F.degree()
+        return float(count([aa for aa in vq if aa.minpoly().degree() < deg])/self._degree)
+
 
     @cached_method
     def vec_modq(self,q, reduced = False):
@@ -274,10 +286,6 @@ class SubCycSampler:
         lsta_cc, lstb_cc = self._to_ccn(lsta), self._to_ccn(lstb)
         float_result = self._to_zzn([aa*bb for aa, bb in zip(lsta_cc,lstb_cc)])
         return [ZZ(round(tt.real_part())) for tt in float_result]
-
-    # If we do exact field calculation this will be correct but slow, anyway.
-
-
     # RLWE methods
     def rlwe_sample(self,q, add_error = True):
         """
@@ -299,7 +307,7 @@ class SubCycSampler:
         self.secret = newsecret
 
 
-    # this modulus switch.
+    # modulus switching.
     def modulus_switch(self,oldq, newq, sample, method = 'Babai', newsigma = None):
         """
         switch a sample from an old modulus to a new one.
@@ -330,8 +338,6 @@ class SubCycSampler:
 
 
     # methods for simulating attacks.
-
-
     def _map_to_finite_field(self,lst,q, vec):
         """
         as advertised.
@@ -386,15 +392,6 @@ class SubCycSampler:
                 min_norm = _norm
       return [a*scale for a in v], scale
     """
-
-    #def elos_quality(self,q):
-    #    """
-    ##    See tookit paper, lemma 2.8, and [ELOS].
-    ##    """
-    #    adj = self.adj
-    #   min_norm, scale = self.min_vecs_norm(q)
-    #    return 4*RR(sqrt(2*pi*n))*adj*min_norm/ RR(q)
-
 
     def ltwo_quality(self,q):
         vec = self.vec_modq(q)

@@ -36,6 +36,7 @@ class SubgroupModm:
         self.gens = newgens
         print 'computing group elements...'
         t = cputime()
+        self.H1 =  None
         self.H1 = self.compute_elements() # long time
         print 'Time = %s'%cputime(t)
         sys.stdout.flush()
@@ -73,8 +74,6 @@ class SubgroupModm:
         """
         core function. Gives all the group elements
         """
-        if self.H1 is not None:
-            return self.H1
         gens = self.gens
         result = [self.Zm(1)]
         for gen in gens:

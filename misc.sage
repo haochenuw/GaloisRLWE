@@ -28,6 +28,7 @@ def subfield_unifrom_test(samples):
     eLarge= float(eltsWithFullDegree/card*numsamples)
     eSmall= numsamples - eLarge
     print 'eSmall, eLarge = %s,%s'%(eSmall, eLarge)
+    print 'nSmall, nLarge = %s,%s'%(nSmall, nLarge)
     if min(eSmall, eLarge) < 5:
         raise ValueError('samples size too small.')
     # Now we have two bins, we do a very tiny chisquare test.
@@ -192,7 +193,6 @@ def chisquare_test(hist_dict,bins = None ,std_multiplier = 3, return_dict = Fals
     newdict = dict([(a,0) for a in range(bins)])
     quo = ZZ(numkeys//bins)
     rem = numkeys - quo*bins
-    print 'quo, rem = %s, %s'%(quo, rem)
     keys = hist_dict.keys()
     for i in range(quo*bins):
         newdict[ZZ(Mod(i,bins))] += hist_dict[keys[i]]
