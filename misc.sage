@@ -30,7 +30,7 @@ def subfield_unifrom_test(samples):
     if min(eSmall, eLarge) < 5:
         raise ValueError('samples size too small.')
     # Now we have two bins, we do a very tiny chisquare test.
-    chisquare = (nSmall - eSmall )^2/esmall + (nLarge - eLarge)^2/eLarge
+    chisquare = (nSmall - eSmall )^2/eSmall + (nLarge - eLarge)^2/eLarge
     T = RealDistribution('chisquared', 1)
     print 'chisquare = %s'%chisquare
     prob = T.cum_distribution_function(chisquare)
