@@ -25,8 +25,9 @@ def subfield_unifrom_test(samples):
         else:
             nLarge +=1
     card = q**degF
-    eSmall = float(eltsWithFullDegree/card*numsamples)
-    eLarge= numsamples - eSmall
+    eLarge= float(eltsWithFullDegree/card*numsamples)
+    eSmall= numsamples - eLarge
+    print 'eSmall, eLarge = %s,%s'%(eSmall, eLarge)
     if min(eSmall, eLarge) < 5:
         raise ValueError('samples size too small.')
     # Now we have two bins, we do a very tiny chisquare test.
