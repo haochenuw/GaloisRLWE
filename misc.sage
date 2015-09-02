@@ -35,10 +35,12 @@ def subfield_unifrom_test(samples):
     T = RealDistribution('chisquared', 1)
     print 'chisquare = %s'%chisquare
     prob = T.cum_distribution_function(chisquare)
-    if prob > 0.99:
-        return False # non-uniform.
+    if prob > 0.95:
+        print 'non-uniform'
+        return False
     else:
-        return True # uniform.
+        print 'uniform'
+        return True
 
 def elts_of_full_degree(q,n):
     """
