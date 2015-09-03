@@ -216,55 +216,6 @@ def chisquare_test(hist_dict,bins = None ,std_multiplier = 3, return_dict = Fals
         return uniform
 
 
-
-def test_elos_uniform(D,vq,q, numsamples = None, bins = None, sanity_check = False):
-    """
-    D -- a lattice sampler
-    vq -- roots mod q
-    q -- the modulus
-    """
-    if bins is None:
-        bins = abs(ZZ(q//100)) + 2
-
-    print 'degree of freedom = %s'%(bins-1)
-    if numsamples is None:
-        numsamples = bins*5
-    print 'number of samples used = %s'%numsamples
-    sys.stdout.flush()
-    _dict = dict([(a,0) for a in range(bins)])
-    for i in range(numsamples):
-        if Mod(i, 500) == 0:
-            print '500 samples generated'
-            sys.stdout.flush()
-        if sanity_check:
-            e = ZZ.random_element(0,q)
-        else:
-            error = D()
-            verbose('error = %s'%error[1])
-            verbose('l_2 norm of error = %s'%error[0].norm())
-            e = Mod(sum([a*b for a,b in zip(error[1],vq)]),q)
-        _dict[floor(QQ(bins/q)*ZZ(e))] += 1
-
-
-    E = float(numsamples/bins)
-    chisquare = float(sum([(t-E)**2 for t in _dict.values()])/E);
-    # T = RealDistribution('chisquared', bins-1);
-    mu = bins-1
-    sigma = float(sqrt(2*bins-2))
-
-    #print 'dictionary = %s'%_dict
-    print 'chisquare value = %s'%chisquare
-    if chisquare < mu - 2.5*sigma or chisquare > mu + 2.5*sigma:
-        print 'non-uniform'
-        return True
-    else:
-        print 'uniform'
-        return False
-
-
-
-
-
 def _another_t_matrix(s, prec = 100):
     """
     r, s -- the signature of the number field
@@ -341,20 +292,6 @@ def general_embedding_matrix(v, K, prec = 100, canonical = False):
             return _real_part(A1)
     else: return B2
         # somehow this is not a Vandermont matrix. So I should do something...
-
-    """
-    else:
-        for i in range(n):
-            vi = v[i]
-            coli_real = [sigma(vi) for sigma in real_places]
-            coli_complex = []
-            for tau in complex_places:
-                tauvi = tau(v[i])
-                coli_complex += [tauvi.real_part(),tauvi.imag_part()]
-            coli = coli_real+coli_complex
-            result.append(coli)
-    return _real_part(t*Matrix(n,n,result).transpose())
-    """
 
 
 def chisquare_quality(delta,N, c = 5):

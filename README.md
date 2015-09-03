@@ -56,7 +56,7 @@ These code assists a search for vulnerable Galois RLWE instances.
 
 - Some other miscellaneous functions.
 
-- Depends on: None.
+- Depends on: SubgroupModm.sage
 
 #### DirectCycSampler.sage
 
