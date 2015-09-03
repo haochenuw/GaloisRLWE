@@ -83,6 +83,7 @@ class SubgroupModm:
             if euler_phi(m) ==  len(result)*len(elts): # already have enough cosets
                 return result
 
+    @cached_method
     def coset(self, a):
         """
         elt -- an integer
@@ -90,7 +91,7 @@ class SubgroupModm:
         """
         Zm = self.Zm
         for bb in self.cosets:
-            if Zm(a)/Zm(bb) in self.H1:
+            if Zm(a)/Zm(bb) in set(self.H1):
                 return bb
         raise ValueError('did not find a coset.')
 
@@ -104,13 +105,18 @@ class SubgroupModm:
         except:
             raise ValueError('input can not be turned into a list. Please debug.')
         C = self.cosets
-        H1 = self.H1
         ele_dict = dict([(a,b) for a,b in zip(C,vec) if b != 0])
         fixGpLen = 0
         for ll in C:
             fixed = True
             for a in ele_dict.keys():
-                if (not ele_dict.has_key(self.coset(ll*a))) or ele_dict[self.coset(ll*a)] != ele_dict[a]:
+                lla = self.coset(ll*a)
+                try:
+                    coef = ele_dict[lla]
+                except:
+                    fixed = False
+                    break
+                if coef != ele_dict[a]:
                     fixed = False
                     break
             if fixed:

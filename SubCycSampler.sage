@@ -191,13 +191,27 @@ class SubCycSampler:
         vv = self.vec_modq(q)
         return dict(zip(cc,vv))
 
-    ##def subfield_quality(self):
-    #   """
-    #    how many elements of our reduced basis lie in subfields.
-    #    """
-    #    pass
+    def subfield_quality(self):
+        """
+        portion of elements of our reduced basis that lie in proper subfields.
+        """
+        T = self._T
+        count = 0
+        for i in range(S._degree):
+            #print 'i = %s'%i
+            col  = T.column(i)
+            #print 'col = %s'%col
+            sys.stdout.flush()
+            deg = S.H.extension_degree(col)
+            print 'degree of Q(b_i) = %s'%deg
+            sys.stdout.flush()
+            if deg < S._degree:
+                count += 1
+        return float(count/S._degree)
 
-    def subfield_quality(self,q):
+
+
+    def subfield_quality_modq(self,q):
         vq = self.vec_modq(q,reduced = True)
         F = vq[0].parent()
         deg = F.degree()
