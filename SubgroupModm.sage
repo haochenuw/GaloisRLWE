@@ -24,6 +24,8 @@ class SubgroupModm:
         sys.stdout.flush()
 
         self.order = len(self.H1)
+        print 'group order = %s'%self.order
+        sys.stdout.flush()
 
         self._degree = ZZ(self.phim // self.order)
 
@@ -177,3 +179,38 @@ class SubgroupModm:
         return, up to sign, the discriminant of the fixed field of self as a subfield of Q(zeta_m).
         """
         return prod([chi.conductor() for chi in self._associated_characters()])
+
+    def intersection(self, other):
+        """
+        intersection of two subgroups of the same m.
+        """
+        if self.m != other.m:
+            raise ValueError('m must be same.')
+        H1 = self.H1
+        H1other = other.H1
+        Hnew = list(Set(H1).intersection(Set(H1other)))
+        print 'size of intersection = %s'%len(Hnew)
+        sys.stdout.flush()
+        return SubgroupModm(self.m, _reduce_gens(m,Hnew))
+
+def _reduce_gens(m,H1):
+    """
+    given a full group, get a short list of generators.
+    """
+    Zm = Integers(m)
+    gens = set([])
+    gensSpan = set([Zm(1)])
+    for a in H1:
+        if Zm(a) not in gensSpan:
+            print 'adding %s to the set of generators'%a
+            sys.stdout.flush()
+            alst  = [ZM(a)**j for j in range(1, Zm(a).order())]
+            newelts = set([cc*aa for cc in gensSpan for aa in alst])
+            gensSpan  |=  newelts
+            gens.add(a)
+        else:
+            print 'already in the span'
+        print 'span = %s'%gensSpan
+    return list(gens)
+
+
