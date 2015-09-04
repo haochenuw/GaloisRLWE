@@ -3,7 +3,7 @@ class SubgroupModm:
     a subgroup of (Z/mZ)^*
     """
 
-    def __init__(self,m, gens):
+    def __init__(self,m, gens, elements = None):
         self.m = m
         self.phim = euler_phi(m)
         self.Zm = Integers(m)
@@ -16,12 +16,15 @@ class SubgroupModm:
             newgens.append(a)
 
         self.gens = newgens
-        print 'computing group elements...'
-        t = cputime()
-        self.H1 =  None
-        self.H1 = self.compute_elements() # long time
-        print 'Time = %s'%cputime(t)
-        sys.stdout.flush()
+
+        if elements is None:
+            print 'computing group elements...'
+            t = cputime()
+            self.H1 = self.compute_elements() # long time
+            print 'Time = %s'%cputime(t)
+            sys.stdout.flush()
+        else:
+            self.H1 = elements
 
         self.order = len(self.H1)
         print 'group order = %s'%self.order
@@ -64,7 +67,7 @@ class SubgroupModm:
             if gens != self.Zm(1):
                 order = gen.multiplicative_order()
                 pows = [gen**j for j in range(order)]
-                result = [a*b for a in result for b in pows]
+                result = set([a*b for a in result for b in pows])
         return result
 
     def cosets(self):
@@ -185,13 +188,15 @@ class SubgroupModm:
         intersection of two subgroups of the same m.
         """
         if self.m != other.m:
-            raise ValueError('m must be same.')
+            raise ValueError('the underlying m of self and other must be same.')
         H1 = self.H1
         H1other = other.H1
-        Hnew = list(Set(H1).intersection(Set(H1other)))
+        Hnew = Set(H1).intersection(Set(H1other))
         print 'size of intersection = %s'%len(Hnew)
+        Hnew_reduced = _reduce_gens(self.m,Hnew)
+        print 'reduced gens for intersection  = %s'%Hnew_reduced
         sys.stdout.flush()
-        return SubgroupModm(self.m, _reduce_gens(m,Hnew))
+        return SubgroupModm(self.m, Hnew_reduced, elements = Hnew)
 
 def _reduce_gens(m,H1):
     """
@@ -202,15 +207,21 @@ def _reduce_gens(m,H1):
     gensSpan = set([Zm(1)])
     for a in H1:
         if Zm(a) not in gensSpan:
-            print 'adding %s to the set of generators'%a
+            #print 'adding %s to the set of generators'%a
             sys.stdout.flush()
-            alst  = [ZM(a)**j for j in range(1, Zm(a).order())]
+            ordera = Zm(a).multiplicative_order()
+            #print 'order of a = %s'%ordera
+            alst  = [Zm(a)**j for j in range(1, ordera)]
             newelts = set([cc*aa for cc in gensSpan for aa in alst])
             gensSpan  |=  newelts
             gens.add(a)
-        else:
-            print 'already in the span'
-        print 'span = %s'%gensSpan
-    return list(gens)
+        #else:
+            #print 'already in the span'
+        #print 'length of span = %s'%len(gensSpan)
+        if len(gensSpan) == len(H1):
+            # found enough generators.
+            return list(gens)
+    raise ValueError('did not find enough generators.')
+
 
 
