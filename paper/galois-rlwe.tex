@@ -6,6 +6,7 @@
 \usepackage{float}
 \usepackage{url}
 \usepackage{placeins}
+\usepackage{hyperref}
 
 \usepackage{algpseudocode}
 %\usepackage{algorithmic}
@@ -22,10 +23,30 @@ We describe a new attack on the Ring learning-with-errors (RLWE) problem based o
 \end{abstract}
 
 \section{Introduction}
+The Ring learning with errors (RLWE) problem, proposed in [LPR], is a variant of the traditional learning with error (LWE) problem, and is an active research area in lattice based cryptography. The hardness result of [LPR] reduces certain Gap-SVP problems to an RLWE problem for 2-power cyclotomic fields. The contribution of [EHL] paper, [ELOS]
+The [Toolkit] paper describe an efficient algorithm to generate samples from the dual version of RLWE for general cyclotomic fields, and the [DD] paper discusses efficient ways of sampling from the non-dual version. In our paper, we restrict ourselves to the non-dual variant of RLWE.
+
+\subsection{Contributions}
+
+\subsection{Techniques}
+
+\subsection{Organization}
+
+In section \ref{sec: background}, we recall the canonical embedding of number fields and the central definitions related to RLWE.
+
+In section \ref{sec: s-to-d}, we review prime factorizations in Galois extensions and prove a search-to-decision reduction for Galois extensions $K$ and unramified primes of any degree.
+
+In section \ref{sec: chi-square}, we introduce an attack to RLWE problems based on the chi-square statistical test. The time complexity of our attack is $O(\frac{n}{f}q^{2f})$ for the decision version RLWE and for an intermediate problem which we denote by $\SRLWE(\cR,\fq) (see \ref{def: })$.
+
+In section, \ref{sec: sub-cyclotomics}, we give examples of subfields of cyclotomic field which are vunlerable to our attack outlined in section \ref{sec: chi-square}, where the moduli $q$ has residue degree two. We then try to explain why degree two moduli are more likely to be vulnerable than degree one primes, i.e., primes that splits completely in the number field $K$.
+
+In section \ref{sec: }, under some simplifying assumptions, we show that general cyclotomic extensions, with an unramified prime as the modulus $q$, are invulnerable to our attack. Our argument uses Fourier analysis on finite fields in an essential way.
+
+In section, \ref{sec: ramified-prime}, we show that the attack in [ELOS] applies to prime cyclotomic fields, if the moduli is divisible by the unique ramified prime.
 
 
 
-\section{Background}
+\section{Background} \label{sec: background}
 
 Let $K$ be a number field of degree $n$ with ring of integers $R = \cO_K$ and let $\sigma_1, \cdots, \sigma_n$ be the embeddings of $K$ into $\bC$, the field of complex numbers. The {\it canonical embedding} of $K$ is
 \begin{align*}
@@ -107,13 +128,8 @@ problem, denoted by $\DRLWE(\cR)$, is to distinguish between the same number of 
 \end{Definition}
 
 
-\subsection{Organization of this paper}
-
-In section , we prove search-to-decision reduction for Galois extensions $K$ and unramified primes of any degree.
-In section, we introduce the chi-square attack to SRLWE and DRLWE. In section, we give example instances of sub-cyclotomic fields (subfields of cyclotomic fields) which are vunlerable to our attack. The time complexity of our attack is $O(\frac{n}{f}q^{2f})$ for DRLWE (more precisely, an intermediate problem we denote by $\SRLWE(\cR,\fq)$). Finally in section , under some simplifying assumptions, we show that cyclotomic extensions are invulnerable to our attack using Fourier analysis on finite fields.
-
-
 \section{search-to-decision reduction}
+\label{sec: s-to-d}
 
 We prove the the reduction of SRLWE for Galois extensions to an intermediate problem, denoted by $SRLWE(\bR,\fq)$ (the same problem is denoted by $\fq_i$-LWE in [LPR]), of recovering the secret modulo some prime ideal $\fq$ of $K $ lying above $q$. This result can be viewed as a generalization of \cite[Theorem 2]{eisentrager2014weak} to primes of higher degree. Since our Algorithm~ are targeting at $SRLWE(\bR,\fq)$, we could attack SRLWE for any Galois RLWE instances we found vulnerable to Algorithm~. We remark that a search-to-decision reduction theorem for higher degree primes can be proved by carrying out almost the exact same proof in \cite{eisentrager2014weak}.
 
@@ -155,7 +171,7 @@ Although the theorem is stated for any unramified prime, we, from an attacker's 
 \end{remark}
 
 \section{The chi-square attack for uniform distribution}
-
+\label{sec: chi-square}
 We briefly recall the property and usage of the chi-square test for uniform distributions over a finite set $S$. Suppose  $M$ samples $y_1, \cdots, y_M \in S$. We partition $S$ into $r$ subsets
 \[
     S = \bigsqcup_{j=1}^r S_i,
