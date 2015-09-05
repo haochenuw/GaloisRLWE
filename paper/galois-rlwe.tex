@@ -418,7 +418,7 @@ Clear.
 Now we are ready to prove the validity of our attack on the
 RLWE distribution.
 \begin{theorem}
-Let $p$ be a prime and $\cR$ be the RLWE instance $\cR = (\bQ(\zeta_p), p \sigma,s,)$. Finally, let $\fp$ denote the unique prime ideal in $\bQ(\zeta_p)$. Suppose $\sigma = o(\sqrt{p})$. Then there is an $O(p)$ algorithm that solves $SRLWE(\R,\fp)$.
+Let $p$ be a prime and $\cR$ be the RLWE instance $\cR = (\bQ(\zeta_p), p,\sigma,s)$. Finally, let $\fp$ denote the unique prime ideal in $\bQ(\zeta_p)$. Suppose $\sigma = o(\sqrt{p})$. Then there is an $O(p)$ algorithm that solves $SRLWE(\cR,\fp)$.
 \end{theorem}
 
 \begin{proof}
@@ -426,16 +426,32 @@ Since $\zeta_p \equiv 1 \pmod{\fp}$, all elements in the basis $v$ reduces to on
 
 by [LaSt] We set $\epsilon = 1/2$ and $t  = 8$ to get
 \[
-Prob(|{\bf 1} \cdot e| \geq 6\sqrt{2(p-1)}\pi \sigma) \leq a very small number.
+Prob(|{\bf 1} \cdot e| \geq 6\sqrt{2(p-1)\pi} \sigma) \leq a very small number.
 \]
 Hence we may safely assume
-$|e \pmod{\fp}|\leq 6\sqrt{2(p-1)}\pi \sigma$. Using the fact that $\sigma = o(p)$, we see that $|e \pmod{\fp}| = o(p)$. So when $p \gg 1$, we have  $|e \pmod{\fp}| \ll p$, which makes the attack in [ELOS] work.
+$|e \pmod{\fp}|\leq 6\sqrt{2(p-1)\pi} \sigma$. Using the fact that $\sigma = o(p)$, we see that $|e \pmod{\fp}| = o(p)$. So when $p \gg 1$, we have  $|e \pmod{\fp}| \ll p$, which makes the attack in [ELOS] work.
 \end{proof}
 
 \subsection{Can modulus switching be used?}
 
+Given the previous discusssions, it is a natural question whether modulus switching, as introduced in [BGV], [LaSt],
+could be used on RLWE instances for prime cyclotomic fields, to move from a split prime to the ramified prime and perform the attack. However, the naive approach of this combination would not work, as demonstrated by the following argument.
+We let $p$ denote the modulus we are switching to. 
+
+After the modulus switching, we have
+\begin{align*}
+    e' &= b' - a's  \\
+    &= \alpha(b-as) - b''  + a''s. \\
+    & = \alpha e + \lambda p - b'' + a''s.
+\end{align*}
+
+Now suppose $\fq$
 
 
+
+
+
+It is thus an interesting problem to combine modulus switching with our attack.
 
 \section{Invulnerability of general cyclotomic extensions for unramified primes}
 
