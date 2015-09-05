@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  4 SEP 2015 22:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  5 SEP 2015 00:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1660,73 +1660,84 @@ Class amsart Warning: Abstract should precede \maketitle in AMS document classe
 s; reported on input line 18.
 
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (7.629pt too wide) in paragraph at lines 100--101
+Overfull \hbox (7.629pt too wide) in paragraph at lines 101--102
 []\OT1/cmr/bx/n/10 Definition 2.6 \OT1/cmr/m/n/10 (Search)\OT1/cmr/bx/n/10 . []
 \OT1/cmr/m/n/10 Let $\OMS/cmsy/m/n/10 R$ \OT1/cmr/m/n/10 be an RLWE in-tance. T
 he \OT1/cmr/m/it/10 search Ring-LWE \OT1/cmr/m/n/10 prob-lem, de-noted by $[](\
 OMS/cmsy/m/n/10 R\OT1/cmr/m/n/10 )$,
  []
 
-LaTeX Font Info:    Try loading font information for U+euf on input line 112.
+LaTeX Font Info:    Try loading font information for U+euf on input line 113.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 ) [2] [3] [4] [5]
-Overfull \hbox (20.83508pt too wide) in paragraph at lines 359--364
+Overfull \hbox (20.83508pt too wide) in paragraph at lines 360--365
  [][] 
  []
 
 [6]
+! Undefined control sequence.
+l.421 ...an $O(p)$ algorithm that solves $SRLWE(\R
+                                                  ,\fp)$.
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[7]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 407.
+(amsmath)                 on input line 451.
 
-<v8.png, id=42, 566.5968pt x 277.5168pt>
+<v8.png, id=49, 566.5968pt x 277.5168pt>
 File: v8.png Graphic file (type png)
  <use v8.png>
-Package pdftex.def Info: v8.png used on input line 415.
+Package pdftex.def Info: v8.png used on input line 459.
 (pdftex.def)             Requested size: 234.8775pt x 115.04028pt.
- [7 <./v8.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 492--494
+
+Underfull \hbox (badness 10000) in paragraph at lines 493--495
 
  []
 
-[8] [9] (./galois-rlwe.bbl) [10] (./galois-rlwe.aux) ) 
+[8 <./v8.png>] [9] (./galois-rlwe.bbl [10]) [11] (./galois-rlwe.aux) ) 
 Here is how much of TeX's memory you used:
  21017 strings out of 493105
  414764 string characters out of 6137073
- 446473 words of memory out of 5000000
+ 446471 words of memory out of 5000000
  23976 multiletter control sequences out of 15000+600000
  12507 words of font info for 50 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 68i,11n,84p,10387b,267s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/eu
-ler/eufm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/euler
-/eufm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/m
-sam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/ms
-bm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msb
-m5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (10 pages, 302979 bytes).
+ 68i,11n,84p,10387b,343s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/euler/eufm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/euler/eufm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/symbols/msbm5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/symbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/rsfs/rsf
+s10.pfb>
+Output written on galois-rlwe.pdf (11 pages, 307347 bytes).
 PDF statistics:
- 139 PDF objects out of 1000 (max. 8388607)
- 100 compressed objects within 1 object stream
+ 143 PDF objects out of 1000 (max. 8388607)
+ 102 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  18 words of extra memory for PDF output out of 10000 (max. 10000000)
 

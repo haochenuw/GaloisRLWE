@@ -24,6 +24,7 @@ We describe a new attack on the Ring learning-with-errors (RLWE) problem based o
 \section{Introduction}
 
 
+
 \section{Background}
 
 Let $K$ be a number field of degree $n$ with ring of integers $R = \cO_K$ and let $\sigma_1, \cdots, \sigma_n$ be the embeddings of $K$ into $\bC$, the field of complex numbers. The {\it canonical embedding} of $K$ is
@@ -388,7 +389,50 @@ Now for [ELOS] attack to work, we need
 \]
 and we computed $p/|e(1)| \geq \sqrt{p}/\sigma_0$. So when $p$ is not to small, this attack will work.
 
-We demonstrate with an example
+\subsection{relationship between RLWE and PLWE}
+
+Note that for the above analysis, we did not take the actual RLWE error distribution; instead, we generate the errors by sampling the coefficient of each basis vector independently
+from a discrete Gaussian integer distribution. This method of sampling is used in a related problem usually referred to as Poly-LWE (PLWE). The PLWE and RLWE error distributions are different. However, we will show that for our attack on ramified primes, they behave the same.
+
+
+For the sake of simplicity, we consider the integral basis  $v = (\zeta_p, \cdots, \zeta_{p}^{p-1})$. Let $A_v$ and  denote its canonical embedding matrix. We then prove that
+
+Suppose an error vector $e$ is sampled from the error distribution: $e \gets D_{\Lambda, \sigma}$.  Then the coeffificent vector of $e$ is $e_c = A_v^{-1}(e)$.
+Let ${\bf 1} = (1,1, \cdots,1)$ denote the n-dimensional vector of ones.
+
+\begin{Lemma} \qquad \\
+(1) $A_v = pI_{p-1} - 11^T$,
+(2) $A_v \cdot {\bf 1} = {\bf 1}$,
+(3) $A_v^{-1} \cdot {\bf 1} = {\bf 1}$.
+\end{Lemma}
+
+\begin{Lemma}
+\[
+e\pmod{\fp} = 1 \cdot e_c = {\bf 1} A_v^{-1} e = {\bf 1}^T e.
+\]
+\end{Lemma}
+\begin{proof}
+Clear.
+\end{proof}
+
+Now we are ready to prove the validity of our attack on the
+RLWE distribution.
+\begin{theorem}
+Let $p$ be a prime and $\cR$ be the RLWE instance $\cR = (\bQ(\zeta_p), p \sigma,s,)$. Finally, let $\fp$ denote the unique prime ideal in $\bQ(\zeta_p)$. Suppose $\sigma = o(\sqrt{p})$. Then there is an $O(p)$ algorithm that solves $SRLWE(\R,\fp)$.
+\end{theorem}
+
+\begin{proof}
+Since $\zeta_p \equiv 1 \pmod{\fp}$, all elements in the basis $v$ reduces to one in the finite field $R/\fp$. Hence, we run the attack [ELOS], and notice that
+
+by [LaSt] We set $\epsilon = 1/2$ and $t  = 8$ to get
+\[
+Prob(|{\bf 1} \cdot e| \geq 6\sqrt{2(p-1)}\pi \sigma) \leq a very small number.
+\]
+Hence we may safely assume
+$|e \pmod{\fp}|\leq 6\sqrt{2(p-1)}\pi \sigma$. Using the fact that $\sigma = o(p)$, we see that $|e \pmod{\fp}| = o(p)$. So when $p \gg 1$, we have  $|e \pmod{\fp}| \ll p$, which makes the attack in [ELOS] work.
+\end{proof}
+
+\subsection{Can modulus switching be used?}
 
 
 
@@ -429,49 +473,6 @@ where the $e_i$ are sampled independently from $\cV_k$.
 $D_\cR \pmod{\fq}$ are indistinguishable.
 
 We will analyze the distance between $PD_{m,q,[\sqrt{2\pi}\sigma]} \pmod{\fq}$ and the uniform distribution over $R/\fq$.
-
-
-
-
-\iffalse
-\section{Review: Fourier analysis for 2-power
-cyclotomics}
-
-Let $n$ be an integer and let $q$ be a prime with $q \equiv 1 \pmod{n}$, and let $\alpha$ be any primitive $n$-th root of unity in $\bF_q$. In this section we are going to explore the distribution of
-\[
-    e(\alpha) = e_0 + e_1 \alpha + \cdots + e_{n-1} \alpha^{n-1},
-\]
-where the $e_i$ are sampled from a discrete Gaussian $D_{\bZ,s}$ modulo $q$. For simplicity,
-we are going to assume that for every index $i$, $e_i$ takes on value 0 with probability 1/2, and $e_i = \pm 1$ with probability 1/4 each. Let $P(t) = Prob(e(\alpha) = t)$, then $P(t): \bF_q \to \bR$ is a function, so we could take its Fourier transform.
-
-\begin{Lemma}
-\[
-    \hat{P}(s) = \prod_{i=0}^{n-1} \cos^2 \left(\frac{\alpha^i \pi s}{q} \right)
-\]
-\end{Lemma}
-
-We  consider a more general question: let ${\bf a} = (a_1,\cdots a_n)$ be a vector of integers whose residues modulo $q$ are distinct, ($q = poly(n)$).
-
-\begin{align*}
-   p_{a} : \bF_q & \to \bR \\
-   s & \mapsto \prod_{i=1}^n \cos^2 \left(\frac{a_i \pi s}{q} \right).
-\end{align*}
-
-By ``bound'', I mean $\hat{P}$ should be $l_1$ or $l_2$ close to the delta-function.
-
-Note that the assumption that $a_i$ are distinct can not be dropped, otherwise, for example, the l-2 norm squared will be approximated by
-\[
-    const \cdot q \cdot \int_{0}^{2 \pi} \cos^{4n}(x) dx,
-\]
-and the last term is asymptotically $\frac{c}{\sqrt{n}}$. So when $q = \Omega(n)$ the product will approch infinity as $n \to \infty$. \\ \\
-
-Note that by the evenness of $\cos$ we may assume $a_i \in [0, q/2)$.
-
-Another note: also we don't want the $a_i$'s to be too small, like $1,2, \cdots, n$. So we will make the assumption (reasonable) that at least one $a_i$ has its reduced representative to be at least $q/n$ (say).
-
-By rotation if necessary, we may assume that
-$$1 =\alpha_0 < \alpha_1 \cdots < \alpha_{n-1}.$$
-\fi
 
 \subsection{Fourier analysis}
 We recall the definition and key properties of Fourier transform over finite fields.
@@ -640,9 +641,6 @@ In terms of statistical distance, ...,
 
 \section{Conclusion and open problems}
 
-%\section{Sharpening [ELOS] attack}
-
-%\section{Modulus Swtiching}
 \bibliographystyle{amsalpha}
 \bibliography{galois-rlwe}
 
