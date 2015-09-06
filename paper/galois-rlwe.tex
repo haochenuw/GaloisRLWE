@@ -44,7 +44,7 @@ In section \ref{sec: ramified-prime}, we show that our attack works on prime cyc
 
 \section{Background} \label{sec: background}
 
-Let $K$ be a number field of degree $n$ with ring of integers $R = \cO_K$ and let $\sigma_1, \cdots, \sigma_n$ be the embeddings of $K$ into $\bC$, the field of complex numbers. The {\it canonical embedding} of $K$ is
+Let $K$ be a number field of degree $n$ with ring of integers $R$ and let $\sigma_1, \cdots, \sigma_n$ be the embeddings of $K$ into $\bC$, the field of complex numbers. The {\it canonical embedding} of $K$ is
 \begin{align*}
     \iota: K &\to \bC^n \\
      x & \mapsto (\sigma_1(x), \cdots, \sigma_n(x)).
@@ -92,7 +92,7 @@ For a lattiace $\Lambda \subset \bR^n$ and $\sigma > 0$, the {\it discrete Gauss
 \subsection{Ring LWE problems for general number fields}
 
 \begin{Definition}
-An {\it RLWE instance} is a tuple $\cR = (K,q,\sigma)$, where $K$ is a number field with ring of integers $R = \cO_K$, $q$ is a prime, $\sigma >0$, and $s \in R/qR$.
+An {\it RLWE instance} is a tuple $\cR = (K,q,\sigma)$, where $K$ is a number field with ring of integers $R$, $q$ is a prime, $\sigma >0$, and $s \in R/qR$.
 \end{Definition}
 
 
@@ -137,7 +137,7 @@ We prove the reduction from $\SRLWE(\cR)$ to $\SRLWE(\cR,\fq)$ when
 $q$ is unramified. We recall some algebraic number theoretical facts in the following
 \begin{Lemma}
 \label{lem: prime factorization}
-Let $K/\bQ$ be a finite Galois extension with ring of integers $R = \cO_K$,  and let $q$ be a prime unramified in $K$. Then there exists an integer $g \mid n$, and a set of $g$ distinct prime ideals $\fq_1, \cdots ,\fq_g$ of
+Let $K/\bQ$ be a finite Galois extension with ring of integers $R$,  and let $q$ be a prime unramified in $K$. Then there exists an integer $g \mid n$, and a set of $g$ distinct prime ideals $\fq_1, \cdots ,\fq_g$ of
 $R$ such that
 \[
     qR = \prod_{i=1}^g \fq_i.
@@ -208,9 +208,9 @@ Let $N = q^f$ denote the cardinality of $F$. Note that $N$ is also the number of
      \Require
 
      %$A_{\bf a}$: the embedding matrix, where ${\bf a}$ is a basis for the ring of integers $\cO_K$ of some number field $K/\bQ$.
-     $R = (K,q,\sigma, s)$ -- an RLWE instance.
+     $\cR = (K,q,\sigma, s)$ -- an RLWE instance.
 
-     $R = \cO_K$ -- the ring of integers of $K$.
+     $R$ -- the ring of integers of $K$.
 
      $n$: the degree of $K$.
 
@@ -312,7 +312,7 @@ Every field of form $K_{m,H}$ comes with a canonical{\it normal integral basis},
 
 Then we have
 \begin{Prop}
-$w = (w_c)_{c \in C}$ is a $\bZ$-basis of $R = \cO_K$. Let $\zeta = \exp(2\pi i /m)$. Then the canonical embedding embedding matrix of $w$ is
+$w = (w_c)_{c \in C}$ is a $\bZ$-basis of $R$. Let $\zeta = \exp(2\pi i /m)$. Then the canonical embedding embedding matrix of $w$ is
 \[
     (A_w)_{i,j} = \sum_{h \in H}{\zeta^{hij}}.
 \]
@@ -350,7 +350,7 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples used & runn
 
 One may notice that in all the vulnerable instances in table, the prime $q$ has degree $f = 2$. We explain why primes of degree higher than one are more likely to vulnerable, and introduce a new test based on it.
 
-The intuition is the following: Assume $K$ is a Galois number field and $q$ is a prime of degree $r$ in $K$. Suppose we have found a reduced basis $w_1,\cdots, w_n$ of $R = \cO_K$ with respect to the adjusted embedding. Fix a prime ideal $\fq$ above $q$. Then the image $\bar{w_1}, \cdots \bar{w_n}$ lie in $R/\fq$, a finite field of cardinality $q^r$. However, if for some index $i$, the element $w_i$ lies inside some proper subfield $K'$ of $K$, and if $q$ has degree $r' < r$ in $K'$, then  $\bar{w_i}$ will lie in a proper subfield of $R/\fq$. If the above situation happens for a large portion of the $w_i$'s, then we would expect that the error distribution mod $\fq$, which we denoted by $D_{\cR,\fq}$ in other sections, will take values in a proper subfield of $R/\fq$ more frequently than the uniform distribution. We demondstrate this phenomenon through the following example.
+The intuition is the following: Assume $K$ is a Galois number field and $q$ is a prime of degree $r$ in $K$. Suppose we have found a reduced basis $w_1,\cdots, w_n$ of $R$ with respect to the adjusted embedding. Fix a prime ideal $\fq$ above $q$. Then the image $\bar{w_1}, \cdots \bar{w_n}$ lie in $R/\fq$, a finite field of cardinality $q^r$. However, if for some index $i$, the element $w_i$ lies inside some proper subfield $K'$ of $K$, and if $q$ has degree $r' < r$ in $K'$, then  $\bar{w_i}$ will lie in a proper subfield of $R/\fq$. If the above situation happens for a large portion of the $w_i$'s, then we would expect that the error distribution mod $\fq$, which we denoted by $D_{\cR,\fq}$ in other sections, will take values in a proper subfield of $R/\fq$ more frequently than the uniform distribution. We demondstrate this phenomenon through the following example.
 
 \begin{Example}
 Let $m = $ and $H$ be the subgroup of $(\bZ/m\bZ)^*$ generated by .. , and let $K = K_{m,H}$, a Galois number field with degree ?. After a BKZ lattice reduction, we obtained an basis $v_1, \cdots, v_n$ for the ring of integers $R$, ordered by increasing embedding length. We take the moduli to be $q = ?$, a prime of degree 2. We choose a prime $\fq$ above $q$ and denote by $\bar{v}$ the image of $v$ in $R/\fq$. We use $\bF_q$ to denote the prime subfield of $R/\fq$. It turns out that $\bar{v_i} \in \bF_q$ for $1 \leq i \leq ?$.
@@ -377,17 +377,14 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples used & est.
 \end{tabular}
 \end{table}
 
-\section{Attacking prime cyclotomic fields for the ramified prime}
+\section{Attacking prime cyclotomic fields when the modulus is the ramified prime}
 \label{sec: ramified-prime}
 
-In this section, let $p$ be an odd prime and $K = \bQ(\zeta_p)$. First we deal with the case of sampling. A result of [DD] says that sampling from the Minkowski space of $K$ with paremeter $\sigma$ is the same as sampling a Discrete Gaussian from the quotient ring
-\[
-    \bZ[x]/(x^p-1)
-\]
-with parameter $\sigma/\sqrt{p}$. We are going to take this point of view. The determinant factor is
-$$Disc(K)^{\frac{1}{2[K:\bQ]}} = p^{\frac{p-2}{2(p-1)}}.$$
+Let $p$ be an odd prime and $K = \bQ(\zeta_p)$. Then $K$ has degree $(p-1)$ and discriminant $p^{p-2}$.
+In addition, the prime $p$ is totally ramified in $K$. Let $\fp$ be the unique prime ideal  in $R$ lying above $p$. The root determinant of the embedded lattice $\tilde{\iota}(R)$ is $p^{\frac{p-2}{2(p-1)}}$. Let $\sigma_0$ denote the relative standard deviation parameter. Then we set $\sigma  = \sigma_0 p^{\frac{p-2}{2(p-1)}}$, and the RLWE problem being considered is $\cR = (R, p, \sigma_0, s)$.
 
-Suppose we have chosen a base parameter $\sigma_0$. Then the adjustment $\sigma = \sigma_0/\sqrt{p} \cdot p^{\frac{p-2}{2(p-1)}} = \sigma_0 \cdot p^{\frac{-1}{2p-2}}$. Hence a general error term is
+
+Hence a general error term is
 \[
     e = e_0 + e_1 \zeta_p + \cdots + e_{p-1} \zeta_{p-1}
 \]

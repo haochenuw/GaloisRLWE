@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  6 SEP 2015 01:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  6 SEP 2015 01:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1860,20 +1860,20 @@ as been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.393 \]
+l.394 \]
         ] [8]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 482.
+(amsmath)                 on input line 479.
 
-<v8.png, id=176, 566.5968pt x 277.5168pt>
+<v8.png, id=175, 566.5968pt x 277.5168pt>
 File: v8.png Graphic file (type png)
  <use v8.png>
-Package pdftex.def Info: v8.png used on input line 490.
+Package pdftex.def Info: v8.png used on input line 487.
 (pdftex.def)             Requested size: 234.8775pt x 115.04028pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 524--526
+Underfull \hbox (badness 10000) in paragraph at lines 521--523
 
  []
 
@@ -1881,26 +1881,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 524--526
 (name{table.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.618 \caption{$f = 1$}
+l.615 \caption{$f = 1$}
                        pdfTeX warning (ext4): destination with the same identif
 ier (name{table.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.657 \caption{$f = 2$}
+l.654 \caption{$f = 2$}
                         (./galois-rlwe.bbl [11]) [12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 678.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 678.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 675.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 675.
  (./galois-rlwe.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 678.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 678.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 675.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 675.
 Package rerunfilecheck Info: File `galois-rlwe.out' has not changed.
-(rerunfilecheck)             Checksum: DEAA7091E8436F86C056A8F96833237E;1382.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 678.
+(rerunfilecheck)             Checksum: 4ED6A26116BDF878A745226BA6DF9331;1398.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 675.
  ) 
 Here is how much of TeX's memory you used:
  24500 strings out of 493105
  467842 string characters out of 6137073
- 523913 words of memory out of 5000000
+ 523929 words of memory out of 5000000
  27372 multiletter control sequences out of 15000+600000
  12507 words of font info for 50 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
@@ -1925,13 +1925,12 @@ ts/type1/public/amsfonts/euler/eufm10.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/symbols/msbm5.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (12 pages, 314854 bytes).
+public/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/rsfs/rsfs10.pfb>
+Output written on galois-rlwe.pdf (12 pages, 309956 bytes).
 PDF statistics:
- 303 PDF objects out of 1000 (max. 8388607)
- 260 compressed objects within 3 object streams
+ 299 PDF objects out of 1000 (max. 8388607)
+ 257 compressed objects within 3 object streams
  67 named destinations out of 1000 (max. 500000)
  162 words of extra memory for PDF output out of 10000 (max. 10000000)
 
