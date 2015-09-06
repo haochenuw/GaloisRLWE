@@ -7,7 +7,7 @@ import sys
 ######################################
 # some other statistical uniform tests.
 ######################################
-def subfield_unifrom_test(samples):
+def subfield_unifrom_test(samples, probThreshold = 0.99):
     """
     we assume that the samples are from a finite field.
     we separate the ones that are from a proper subfield.
@@ -36,7 +36,7 @@ def subfield_unifrom_test(samples):
     T = RealDistribution('chisquared', 1)
     print 'chisquare = %s'%chisquare
     prob = T.cum_distribution_function(chisquare)
-    if prob > 0.95:
+    if prob > probThreshold:
         print 'non-uniform'
         return False
     else:
