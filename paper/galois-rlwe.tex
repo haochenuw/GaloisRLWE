@@ -543,7 +543,7 @@ one-point set $\{0\} \subseteq \bF_q$. Recall that the convolution of two functi
 \[
     f  \ast g  (a) = \sum_{b \in \bF_q} f(a-b)g(b)
 \]
-\begin{Prop} \qquad
+\begin{Fact}[Properties of Fourier transform] \label{fact: basicfourier}\qquad
 \begin{enumerate}
 \item $\hat{\delta} = qu$.
 
@@ -561,7 +561,7 @@ one-point set $\{0\} \subseteq \bF_q$. Recall that the convolution of two functi
 
 %\item $\hat{f(a - \lambda)}(s) =  \bar{\chi_s(\lambda)} f(s)$.
 \end{enumerate}
-\end{Prop}
+\end{Fact}
 
 Now suppose $f,g$ are the probability density functions of two random variables $F,G$ with value in $\bF_q$.
 
@@ -588,135 +588,118 @@ The general case follows by an induction on $n$.
 
 
 \begin{Lemma}
+\label{lem: transform1}
 For all even integers $k \geq 2$, $\hat{\cV_k}(y)  = \cos \left(\frac{\pi y}{q}\right)^k.$
 \end{Lemma}
 
-\begin{proof}
+\begin{proof} The proof is simply unwinding all the definitions. We have
 \begin{align*}
-\hat{\cV_k}(y) &= \sum_{m = -\frac{k}{2}}^{\frac{k}{2}}  e^{2\pi i ym/q} \\
-& = \sum_{m = -\frac{k}{2}}^{\frac{k}{2}} {k}\choose{m+\frac{k}{2}} e^{2\pi i ym/q}
+2^k \cdot \hat{\cV_k}(y) &= \sum_{m = -\frac{k}{2}}^{\frac{k}{2}} {k \choose m+\frac{k}{2}} e^{2\pi i ym/q}  \\
+&= e^{-\pi i yk/q}\sum_{m = -\frac{k}{2}}^{\frac{k}{2}} {k \choose m+\frac{k}{2}} e^{2\pi i y(m+k/2)/q} \\
+&= e^{-\pi i yk/q} \sum_{m' = 0}^{k} {k \choose m'} e^{2\pi i ym'/q} \\
+& =  e^{-\pi i yk/q} (1+ e^{2 \pi i y/q})^k \\
+& = (e^{-\pi i y/q} + e^{\pi i y/q})^k  \\
+& = (2 \cos(\pi y/q))^k.
 \end{align*}
+Dividing both sides by $2^k$ gives the result.
 \end{proof}
 
 
-
-\begin{Definition}
-Let $\alpha $
-Suppose ${\bf a} = (a_1, \cdots ,a_n)$ is a vector in $\bF_q^n$. Define the following random variable with values in $\bF_q$
-\[
-    e({\bf a}, k, q) := \sum_{i=1}^n a_i e_i \pmod {q}
-\]
-where the $e_i$ are independent variables under distribution $\cV_k$.
-\end{Definition}
-
-Let $E({\bf a}, k, q)$ denote the probability density function of $e({\bf a}, k, q)$.
-
+Now we come back to the error distribution $MD(m,q,k) \pmod {\fq}$. There is a one-to-one correspondence between primitive $m$-th roots of unity in $\bF_q$ and the prime ideals above $q$ in $\bQ(\zeta_m)$. Let $\alpha$ be the root corresponding to our choice of $\fq$. Then sample from $MD(m,q,k) \pmod {\fq}$ is $E = \sum_{i=0}^{n-1} \alpha^i E_i \pmod {q}$, where the $E_i$ are independent variables under the distribution $\cV_k$. Let $e$ denote its probability density function. The following lemma is crucial to our analysis:
 
 \begin{Lemma}
+\label{lem: transform2}
 \[
-    \hat{E_{{\bf a}, k, q}}(s) = \prod_{i=1}^{n} \cos \left(\frac{ a_i \pi s}{q} \right)^k
+    \widehat{e}(y) = \prod_{i=1}^{n} \cos \left(\frac{ \alpha^i \pi y}{q} \right)^k.
 \]
-In particular, $\hat{E}(0) = 1$ for all ${\bf a}$, $k$ and $q$.
 \end{Lemma}
 
 \begin{proof}
-Routine calculation.
+This follows directly from Lemma~\ref{lem: transform1} and Lemma~\ref{fact: basicfourier}.
 \end{proof}
 
+Now we are able to bound the difference $e(a) - 1/q$ using the Fourier inversion formula.
 
+\begin{theorem}
+For all $a \in \bF_q$,
+\begin{equation} \label{eq: secure}
+    |e(a) -  1/q| \leq \frac{1}{q}  \sum_{y \in \bF_q, y \neq 0}  |\hat{E}(y)|.
+\end{equation}
+\end{theorem}
 
-
-
-%\begin{equation*}
-%\label{eq:1}
-%    ||P - U||_2  = \frac{1}{q}||\hat{P} - \delta||_2.
-%\end{equation*}
-
-Next we restrict our attention to cyclotomic fields. Let
-$m \geq 1$ be an integer and let $q \equiv 1 \pmod{m}$ be a prime. Then $q$ splits completely in the cyclotomic field $K = \bQ(\zeta_m)$. Let $\alpha \in \bF_q$ be a primitive $n$-th root of unity. Let
-\[
-    e = e(\alpha) = \sum_{i=0}^{n-1} e_i \alpha^i.
-\]
-Then $e \gets PD_{m,q,k}$. Let $E$ denote its density function of $e$. Recall that $U$ denotes the density function of the uniform distribution: $U(a) = 1/q$ for all $a \in \bF_q$. Now We can compute $(E - U)(a)$ for any $a \in \bF_q$ using the Fourier inversion formula, using the notations in the beginning of this section,
-
+\begin{proof}
 \begin{align*}
-    E(a) - U(a) &= \frac{1}{q} \sum_{s \in \bF_q} (\hat{E}(s) - \hat{U}(s) )\chi_s(a) \\
-& = \frac{1}{q} \sum_{s \in \bF_q} (\hat{E}(s) - \delta(s) )\chi_s(a) \\
-& = \frac{1}{q} \sum_{s \in \bF_q, s \neq 0} \hat{E}(s) \chi_s(a).
+    e(a) - 1/q &= e(a) - u(a) \\
+    & = \frac{1}{q} \sum_{y \in \bF_q} (\hat{e}(y) - \hat{u}(y) )\chi_y(a) \\
+& = \frac{1}{q} \sum_{y \in \bF_q} (\hat{e}(y) - \delta(y) )\chi_y(a) \\
+& = \frac{1}{q} \sum_{y \in \bF_q, y \neq 0} \hat{e}(y) \chi_y(a).  \qquad \mbox{(since $\hat{e}(0) = 1$)}
 \end{align*}
+Now the theorem follows by taking from that $|\chi_y(a)| \leq 1$ for all $a, y$.
+\end{proof}
 
-Since $|\chi_s(a)| \leq 1$ for all $a$ and all $s$, we have
+\begin{Corollary}
+The statistical distance between $e$ and $u$ satisfies $$d(e,u) \leq \frac{1}{2}  \sum_{y \in \bF_q, y \neq 0}  |\hat{E}(y)|.$$
+\end{Corollary}
 
-\begin{Prop}
-\[
-    \boxed{|E(a) -  1/q| \leq \frac{1}{q}  \sum_{y \in \bF_q, y \neq 0}  |\hat{E}(y)|, \, (\forall a \in \bF_q)}
-\]
-\end{Prop}
 
-Let $\epsilon(m,q,k,\alpha)$ denote the right hand side of the above inequality, i.e.,
+
+Let $\epsilon(m,q,k,\alpha)$ denote the right hand side of (\ref{eq: secure}), i.e.,
 \[
     \epsilon(m,q,k, \alpha) = \frac{1}{q}\sum_{y \in \bF_q, y \neq 0} \prod_{i=0}^{n-1} \cos \left(\frac{ \alpha^i \pi y}{q} \right)^k.
 \]
-We let $\alpha$ run over all primitive n-th root of unities in $\bF_q$ and define
-$$\epsilon(m,q,k) := \max_{\alpha: \varphi_m(\alpha) = 0 } \epsilon(m,q,k,\alpha)$$
-The punchline of our argument is: the value $\epsilon(m,q,k)$ is usually negligibly small. As a result, the distribution $PD_{m,q,k} \pmod {\fq}$ is computationally indistinguishable from uniform for all $\fq$. The following is a table of data, to demonstrate how small it is.
+We let $\alpha$ run through all primitive $m$-th root of unities in $\bF_q$ and define
+$$\epsilon(m,q,k) := \max \{\epsilon(m,q,k,\alpha): \alpha \mbox{ has order } m \mbox{ in } \bF_q\}.$$
+The punchline of our argument is: the value $\epsilon(m,q,k)$ is usually negligibly small. As a result, the distribution $MD(m,q,k) \pmod {\fq}$ is computationally indistinguishable from the uniform distribution for all $\fq$. The following is a table of data to illustrate this phenomenon.
 
 \FloatBarrier
 \begin{table}[H]
-\caption{$f = 1$}
-\begin{tabular}{c|c|c}
-$m$ & $q$ & $[\log_2(\epsilon(m,q, 2))]$ \\
+\caption{Values of $\epsilon(m,q,k)$}
+\begin{tabular}{c|c|c|c}
+$m$ & $q$ & $-[\log_2(\epsilon(m,q, 2))]$ \\
 \hline
-244 & 1709 & $-230$ \\
-101 & 1213 & $-177$ \\
-256 & 3329 & $-194$ \\
-256 & 14081 & $-208$ \\
-55 & 10891  & $-44$ \\
-197 & 3547 & $-337$ \\
-96 & 4513 & $-35$ \\
-160 & 20641 & -61 \\
-145 & 19163 & $-176$ \\
-101 & 101 & $-4$ \\
-13 & 1000039 & $-12$ \\
-512 & 7681 & -455  \\
-512 & 10753 & -431 \\
-512 & 19457 & -414
+244 & 1709 & 230 \\
+101 & 1213 & $177$ \\
+256 & 3329 & $194$ \\
+256 & 14081 & $208$ \\
+55 & 10891  & $44$ \\
+197 & 3547 & $337$ \\
+96 & 4513 & $35$ \\
+160 & 20641 & 61 \\
+145 & 19163 & $176$ \\
+%101 & 101 & $4$ \\
+%13 & 1000039 & $12$ \\
+%512 & 7681 & 455  \\
+512 & 10753 & 431 \\
+512 & 19457 & 414
 \end{tabular}
 \end{table}
 
-On row $-1$ and $-2$ from the above table, we can see the effect of taking the ramified prime, or taking $q \gg n$.
-
+%On row $-1$ and $-2$ from the above table, we can see the effect of taking the ramified prime, or taking $q \gg n$.
 
 
 \begin{remark}
-It is possible to generalize this cryptoanalysis to higher degree primes, where we are looking at general finite fields $\bF_{q^f}$. In this situation we should interpret
-$\chi_s(a) = e^{2 \pi i Tr(as)/q}$. Separability tells us this is an isomorphism between $\bF_q$ and its dual, and we can define the Fourier transform this way. So everything goes through? We just want to add a trace to everything, i.e.,
-
+It is possible to generalize this cryptoanalysis to higher degree primes, where the Fourier analysis is performed in extension fields $\bF_{q^f}$. The only change in the definition would be $\chi_y(a) = e^{ \frac{2 \pi i Tr(a_i y)}{q}}$, and we will have
 \[
-    \hat{E_{{\bf a}, k, q}}(s) = \prod_{i=1}^{n} \cos \left(\frac{ \pi Tr(a_i s) }{q} \right)^k
+    \widehat{E_{{\bf a}, k, q}}(y) = \prod_{i=1}^{n} \cos \left(\frac{ \pi Tr(a_i y) }{q} \right)^k.
 \]
-Note this is well-defined when $k$ is even, which we always assume.
+And a similar analysis goes through. We have made a table for primes of degree two.
 \end{remark}
 
-
-We have a table for degree 2 primes.
 \FloatBarrier
 \begin{table}[H]
-\caption{$f = 2$}
+\caption{Values of $\epsilon(m,q,2)$ for primes of degree 2}
 \begin{tabular}{c|c|c}
 $m$ & $q$ & $-[\log_2(\epsilon(m,q,2))]$ \\
 \hline
 53 & 211 & 61 \\
 55 & 109 & 48 \\
 63 & 881 & 33 \\
-64 & 127 & 37 \\
-64 & 191 & 35 \\
+%64 & 127 & 37 \\
+%64 & 191 & 35 \\
 64 & 383 & 31 \\
 512 & 257 & 263
 \end{tabular}
 \end{table}
-
-In terms of statistical distance, ...,
 
 \section{Conclusion and open problems}
 
