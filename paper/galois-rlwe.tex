@@ -150,13 +150,15 @@ Let $f = \frac{n}{g}$. Then for each $i$, the quotient $R/\fq_{i}$ is a finite f
 The number $f$ in the above lemma is called the {\it residue degree} of $q$ in $K$. The prime $q$ splits completely in $K$ if and only if its residue degree is one.
 
 Now we are ready to state and prove
-\begin{theorem}
+\begin{theorem} \label{thm: reduction}
 Let $\cR = (K,q,\sigma, s)$ be an RLWE instance with $K/\bQ$ Galois and $q$ unramified in $K$ with residue degree f. Suppose there is an algorithm $\sA$ which solves $\SRLWE(\cR,\fq)$ using a list $S$ of samples. Assume that the running time of the algorithm $\sA$ is $t$. Then the problem $\SRLWE(\cR)$ can be solved in time $T = \frac{n}{f}t$ using the samples in $S$. Here $C$ is some constant depending on $K$.
 \end{theorem}
 
 \begin{proof}
 The Galois group $G =Gal(K/\bQ)$ acts on the set $\{\fq_1, \cdots ,\fq_g\}$ transitively. Hence for each $i$, we can take $\sigma \in Gal(K/\bQ)$, such that $\sigma_i(\fq) = \fq_i$, Then we run the algorithm $\sA$ on the input $(\sigma_i^{-1}(S), \fq_i)$. The algorithm will output $\sigma_i^{-1}(s) \pmod{\fq}$, which is equal to $s \pmod{\fq_i}$. We then do this for all $1\leq i \leq g$ and use the last formula of Lemma to recover $s$. The complexity estimate follows from the fact that we are applying the algorithm $g$ times.
 \end{proof}
+
+In particular, Theorem~\ref{thm: reduction} gives a polynomial time reduction from $\SRLWE(\cR)$ to $\SRLWE(\cR,\fq)$.
 
 \begin{remark}
 Note that in the complexity computation above we have chosen to neglect the time taken by applying Galois automorphisms to the samples, because the runtime depends
@@ -166,6 +168,20 @@ hugely on the instance and on the way we represent the samples. For example, for
 \begin{remark}
 Although the theorem is stated for any unramified prime, we, from an attacker's perspective, still take primes of small degree, since the search space for $s \pmod{\fq}$ is of size $q^f$, and it is bad when $f$ is large.
 \end{remark}
+
+The search-to-decision reduction will follow from the lemma below.
+\begin{Lemma}
+There is a probablistic polynomial time reduction from $\SRLWE(\cR,\fq)$ to $\DRLWE(\cR)$.
+\end{Lemma}
+
+\begin{proof}
+This is a direct consequence of \cite[Lemma 5.9 and Lemma 5.12 ]{lyubashevsky2013ideal} and our Theorem~\ref{thm: reduction}.
+\end{proof}
+
+Combining
+\begin{Corollary}
+Suppose $\cR$ is an RLWE instance where $K$ is Galois and $q$ is an unramified prime in $K$. Then there is a probablistic polynomial-time reduction from $\SRLWE(\cR)$ to $\DRLWE(\cR)$.
+\end{Corollary}
 
 \section{The chi-square attack for uniform distribution}
 \label{sec: chi-square}
