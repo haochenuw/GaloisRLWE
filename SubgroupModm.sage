@@ -3,7 +3,7 @@ class SubgroupModm:
     a subgroup of (Z/mZ)^*
     """
 
-    def __init__(self,m, gens):
+    def __init__(self,m, gens, elements = None):
         self.m = m
         self.phim = euler_phi(m)
         self.Zm = Integers(m)
@@ -16,14 +16,19 @@ class SubgroupModm:
             newgens.append(a)
 
         self.gens = newgens
-        print 'computing group elements...'
-        t = cputime()
-        self.H1 =  None
-        self.H1 = self.compute_elements() # long time
-        print 'Time = %s'%cputime(t)
-        sys.stdout.flush()
+
+        if elements is None:
+            print 'computing group elements...'
+            t = cputime()
+            self.H1 = self.compute_elements() # long time
+            print 'Time = %s'%cputime(t)
+            sys.stdout.flush()
+        else:
+            self.H1 = elements
 
         self.order = len(self.H1)
+        print 'group order = %s'%self.order
+        sys.stdout.flush()
 
         self._degree = ZZ(self.phim // self.order)
 
@@ -62,7 +67,7 @@ class SubgroupModm:
             if gens != self.Zm(1):
                 order = gen.multiplicative_order()
                 pows = [gen**j for j in range(order)]
-                result = [a*b for a in result for b in pows]
+                result = set([a*b for a in result for b in pows])
         return result
 
     def cosets(self):
@@ -83,6 +88,7 @@ class SubgroupModm:
             if euler_phi(m) ==  len(result)*len(elts): # already have enough cosets
                 return result
 
+    @cached_method
     def coset(self, a):
         """
         elt -- an integer
@@ -90,7 +96,7 @@ class SubgroupModm:
         """
         Zm = self.Zm
         for bb in self.cosets:
-            if Zm(a)/Zm(bb) in self.H1:
+            if Zm(a)/Zm(bb) in set(self.H1):
                 return bb
         raise ValueError('did not find a coset.')
 
@@ -104,13 +110,18 @@ class SubgroupModm:
         except:
             raise ValueError('input can not be turned into a list. Please debug.')
         C = self.cosets
-        H1 = self.H1
         ele_dict = dict([(a,b) for a,b in zip(C,vec) if b != 0])
         fixGpLen = 0
         for ll in C:
             fixed = True
             for a in ele_dict.keys():
-                if (not ele_dict.has_key(self.coset(ll*a))) or ele_dict[self.coset(ll*a)] != ele_dict[a]:
+                lla = self.coset(ll*a)
+                try:
+                    coef = ele_dict[lla]
+                except:
+                    fixed = False
+                    break
+                if coef != ele_dict[a]:
                     fixed = False
                     break
             if fixed:
@@ -171,3 +182,46 @@ class SubgroupModm:
         return, up to sign, the discriminant of the fixed field of self as a subfield of Q(zeta_m).
         """
         return prod([chi.conductor() for chi in self._associated_characters()])
+
+    def intersection(self, other):
+        """
+        intersection of two subgroups of the same m.
+        """
+        if self.m != other.m:
+            raise ValueError('the underlying m of self and other must be same.')
+        H1 = self.H1
+        H1other = other.H1
+        Hnew = Set(H1).intersection(Set(H1other))
+        print 'size of intersection = %s'%len(Hnew)
+        Hnew_reduced = _reduce_gens(self.m,Hnew)
+        print 'reduced gens for intersection  = %s'%Hnew_reduced
+        sys.stdout.flush()
+        return SubgroupModm(self.m, Hnew_reduced, elements = Hnew)
+
+def _reduce_gens(m,H1):
+    """
+    given a full group, get a short list of generators.
+    """
+    Zm = Integers(m)
+    gens = set([])
+    gensSpan = set([Zm(1)])
+    for a in H1:
+        if Zm(a) not in gensSpan:
+            #print 'adding %s to the set of generators'%a
+            sys.stdout.flush()
+            ordera = Zm(a).multiplicative_order()
+            #print 'order of a = %s'%ordera
+            alst  = [Zm(a)**j for j in range(1, ordera)]
+            newelts = set([cc*aa for cc in gensSpan for aa in alst])
+            gensSpan  |=  newelts
+            gens.add(a)
+        #else:
+            #print 'already in the span'
+        #print 'length of span = %s'%len(gensSpan)
+        if len(gensSpan) == len(H1):
+            # found enough generators.
+            return list(gens)
+    raise ValueError('did not find enough generators.')
+
+
+

@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/dev/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: galois-rlwe.aux
+The style file: amsalpha.bst
+Database file #1: galois-rlwe.bib
+Warning--missing pages in johnston2011notes
+You've used 4 entries,
+            2624 wiz_defined-function locations,
+            583 strings with 4973 characters,
+and the built_in function-call counts, 1672 in all, are:
+= -- 155
+> -- 77
+< -- 1
++ -- 26
+- -- 26
+* -- 138
+:= -- 275
+add.period$ -- 4
+call.type$ -- 4
+change.case$ -- 25
+chr.to.int$ -- 4
+cite$ -- 5
+duplicate$ -- 69
+empty$ -- 125
+format.name$ -- 31
+if$ -- 337
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 8
+newline$ -- 22
+num.names$ -- 12
+pop$ -- 27
+preamble$ -- 1
+purify$ -- 29
+quote$ -- 0
+skip$ -- 55
+stack$ -- 0
+substring$ -- 91
+swap$ -- 13
+text.length$ -- 1
+text.prefix$ -- 1
+top$ -- 0
+type$ -- 32
+warning$ -- 1
+while$ -- 17
+width$ -- 7
+write$ -- 52
+(There was 1 warning)
