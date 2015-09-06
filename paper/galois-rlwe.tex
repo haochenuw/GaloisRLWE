@@ -453,17 +453,9 @@ This follows directly from the fact that $||\iota(\zeta_p^i)||_2 = \sqrt{p-1}$ f
 We now specialize Lemma~\ref{lem: last} to
 
 \begin{Prop}
-Let $p$ be a prime and $\Lambda$. Then for all $\sigma > \frac{\sqrt{p-1} \ln(2p-2){\sqrt{2 \pi}}$, we have
-\[
-Prob_{e \gets D_{\Lambda,\sigma}}( |{\bf 1}^T e| \geq \sqrt{12 \pi}\sigma \sqrt{p-1}) \leq \frac{1+\epsilon}{1-\epsilon} t \sqrt{2 \pi e} e^{- \pi t^2}.
-\]
+Let $p$ be a prime and $\Lambda$. Then for all $\sigma > \frac{\sqrt{p-1} \ln(2p-2)}{\sqrt{2 \pi}}$, we have
 \end{Prop}
 $u = {\bf 1}$, $\epsilon = 1/2$, $\sigma = \sigma_0 p^{\frac{p-2}{2(p-1)}}$ and $t = 6$. When $\sigma_0 > $, the inequality involving the smoothing parameter is satisfied, and we obtain
-
-
-\begin{equation} \label{eq: last}
-
-\end{equation}
 
 Now we are ready to prove the validity of attack.
 \begin{theorem}
@@ -502,18 +494,17 @@ It is thus an interesting problem to combine modulus switching with our attack.
 
 \subsection{Introduction}
 
-Let $m \geq 1$ be any integer and let $K = \bQ(\zeta_m)$. We will show that under some simplifying assumptions, the image of a reduced RLWE error distribution $D_\cR \pmod{\fq}$ for a prime $\fq$ above $q$, will be non-distinguishable from the uniform distribution $U(\bF_q)$. The tool we use is Fourier analysis on finite fields.
+Let $m \geq 1$ be any integer and let $K = \bQ(\zeta_m)$. Let $q$ be a prime and assume that $q$ is unramified in $K$, and let $\fq$ be a prime ideal above $q$. We show that under some simplifying assumptions, the image of a reduced RLWE error distribution $D_{\cR,\fq}$ will be indistinguishable from the uniform distribution $U(\bF_q)$. The tool we use is Fourier analysis on finite fields.
 
-First, we introduce a class of distributions indexed by even integers $k \geq 2$, aiming at approximating discrete Gaussians over $\bZ$. Here $k$ plays the role of
-the standard deviation $\sigma$ for discrete Gaussians.
+First, we introduce a class of distributions indexed by even integers $k \geq 2$, aiming at approximating discrete Gaussians over $\bZ$.
 \begin{Definition}
 For any even integer $k \geq 2$, let $\cV_k$ denote the distribution over $\bZ$ such that
 
-$$\prob(\cV_k = m) =  \begin{cases} {k}\choose{m+\frac{k}{2}} &\mbox{if } |m| \leq \frac{k}{2} \\
+$$\prob(\cV_k = m) =  \begin{cases} \frac{{k \choose m+\frac{k}{2}}}{2^k} &\mbox{if } |m| \leq \frac{k}{2} \\
 0 & \mbox{otherwise}  \end{cases}$$
 
 \end{Definition}
-When $q > k$, we abuse notations and let $\cV_k: \bF_q \to \bR$ denote the probability density function of the distribution $`\cV_k'$ over $\bF_q$ defined by the same formula.
+The integer $k$ in the definition plays the role of the standard deviation $\sigma$ for discrete Gaussians. When $q > k$, we abuse notations and also use $\cV_k: \bF_q \to \bR$ denote the probability density function of the distribution $\cV_k \pmod {q}$ over $\bF_q$ defined by the same formula.
 
 \begin{figure}[h!]
 \centering
@@ -522,43 +513,49 @@ When $q > k$, we abuse notations and let $\cV_k: \bF_q \to \bR$ denote the proba
 \end{figure}
 
 
-\begin{Definition}[Modified error distribtuion $MD_{m,q,k}$]
-Let $K = \bQ(\zeta_m)$ with degree $n$ ring of integers $R$. Let $q$ be a prime and let $k \geq 2$ be an even integer. Then a sample from the distribtuion $MD_{m,q,k}$ is
+\begin{Definition}[Modified error distribtuion $MD_{\cR}$]
+Let $k \geq 2$ be an even integer. Then a sample from the modified error distribtuion $MD_{m,q,k}$ is
 \[
     e = \sum_{i=0}^{n-1} e_i \zeta_m^{i} \pmod{qR},
 \]
-where the $e_i$ are sampled independently from $\cV_k$.
+where the coefficients $e_i$ are sampled independently from $\cV_k$.
 \end{Definition}
 
-{\bf Assumption} Keeping the above notations, $\cR = (K, q, \sigma, s)$ be an RLWE instance. We assume that the distribtutions $PD_{m,q,[\sqrt{2\pi}\sigma]}$ are $D_\cR$ are ``close modulo $\fq$'', in the sense that the two distributions $PD_{m,q,[\sqrt{2\pi}\sigma]} \pmod{\fq}$ and
-$D_\cR \pmod{\fq}$ are indistinguishable.
+{\bf Assumption} Keeping the above notations, set
+$$
+    \sigma = \frac{k}{\sqrt{2 \pi}},
+$$ and
+let $\cR = (K, q, \sigma, s)$. We assume that the distribtutions $MD_{m,q,k}$ are $D_\cR$ are ``close modulo $\fq$'', in the sense that the two distributions $MD_{m,q,k} \pmod{\fq}$ and
+$D_{\cR,\fq}$ are indistinguishable, for every choice of $\fq$.
 
-We will analyze the distance between $PD_{m,q,[\sqrt{2\pi}\sigma]} \pmod{\fq}$ and the uniform distribution over $R/\fq$.
+Granting the above assumption, we will analyze the distance between $MD_{m,q,k} \pmod{\fq}$ and the uniform distribution over $R/\fq$.
 
 \subsection{Fourier analysis}
 We recall the definition and key properties of Fourier transform over finite fields.
 Suppose $f$ is a real-valued function on $\bF_q$. The {\it Fourier transform} of $f$ is defined as
 \[
-    \hat{f}(s) = \sum_{a \in \bF_q} f(a) \bar{\chi_s}(a),
+    \hat{f}(y) = \sum_{a \in \bF_q} f(a) \bar{\chi_y}(a),
 \]
-where $$\chi_s(a) := e^{2 \pi i as/q}$$
+where $$\chi_y(a) := e^{2 \pi i ay/q}.$$
 
-We have the inversion formula:
+Let $u$ denote the probability density function of the uniform distribution over $\bF_q$: $u(a) = \frac{1}{q}$ for all $a \in \bF_q$, and let $\delta$ denote the characteristic function of the
+one-point set $\{0\} \subseteq \bF_q$. Recall that the convolution of two functions $f,g$ is
 \[
-    f(a) = \frac{1}{q} \sum_{s \in \bF_q} \hat{f}(s)\chi_s(a).
+    f  \ast g  (a) = \sum_{b \in \bF_q} f(a-b)g(b)
 \]
-
-Let ${\bf 1}$ denote the constant function $f \equiv 1$, and let $\delta$ denote the characteristic function of the
-one-point set $\{0\} \subseteq \bF_q$.
-
-\begin{Prop} \hfill \\
+\begin{Prop} \qquad
 \begin{enumerate}
-\item The transform of the $\delta$ function is $\hat{\delta} = {\bf 1}$.
+\item $\hat{\delta} = qu$.
 
-\item The transform of {\bf 1} is $\hat{{\bf 1}} = q\delta$; if $U$ the uniform distribution over $\bF_q$, then $\hat{U} = \delta$.
+\item  $\hat{u} = \delta$.
 
-\item convolution becomes product.
+\item $\widehat{f \ast g} = \hat{f} \cdot \hat{g}$.
 
+
+\item the inversion formula:
+\[
+    f(a) = \frac{1}{q} \sum_{y \in \bF_q} \hat{f}(y)\chi_y(a).
+\]
 %\item Plancherel's formula states that
 %$||f||_2 = \frac{1}{q} ||\hat{f}||_2$.
 
@@ -566,34 +563,55 @@ one-point set $\{0\} \subseteq \bF_q$.
 \end{enumerate}
 \end{Prop}
 
-
-
-
-
-
+Now suppose $f,g$ are the probability density functions of two random variables $F,G$ with value in $\bF_q$.
 
 \begin{Lemma}
-For all even integers $k \geq 2$,
-$$\hat{\cV_k}(s)  = \cos \left(\frac{\pi s}{q}\right)^k, (\forall s \in \bF_q).$$
+Let $h$ denote the density function of the sum $H =F+G$. Suppose the random variables $F,G$ are independent, then
+\[
+    h =  f \ast g.
+\]
+In general, suppose $F_1, \cdots, F_n$ are mutually independent random variables in $\bF_q$, with density functions $f_1, \cdots, f_n$. Let $f$ denote the density function of the sum $F = \sum F_i$, then
+\[
+    f = f_1 \ast \cdots \ast f_n.
+\]
 \end{Lemma}
 
 \begin{proof}
-Routine calculation.
+We prove the two-variable case. For any $a \in \bF_q$,
+\begin{align*}
+Prob(F+G = a) &= \sum_{b \in \bF_q} Prob(F = a-b, G =b) \\
+& = \sum_{b \in \bF_q} Prob(F = a-b)Prob(G =b).  \qquad \mbox{(since $F,G$ are independent)} \\
+& = (f \ast g)(a).
+\end{align*}
+The general case follows by an induction on $n$.
 \end{proof}
 
-Now we consider the error distribution we obtained from mapping RLWE errors to $\bF_q$.
+
+\begin{Lemma}
+For all even integers $k \geq 2$, $\hat{\cV_k}(y)  = \cos \left(\frac{\pi y}{q}\right)^k.$
+\end{Lemma}
+
+\begin{proof}
+\begin{align*}
+\hat{\cV_k}(y) &= \sum_{m = -\frac{k}{2}}^{\frac{k}{2}}  e^{2\pi i ym/q} \\
+& = \sum_{m = -\frac{k}{2}}^{\frac{k}{2}} {k}\choose{m+\frac{k}{2}} e^{2\pi i ym/q}
+\end{align*}
+\end{proof}
+
+
 
 \begin{Definition}
-Suppose ${\bf a} = a_1, \cdots ,a_n$ is a vector in $\bF_q^n$. Define the following random variable with
-values in $\bF_q$
+Let $\alpha $
+Suppose ${\bf a} = (a_1, \cdots ,a_n)$ is a vector in $\bF_q^n$. Define the following random variable with values in $\bF_q$
 \[
     e({\bf a}, k, q) := \sum_{i=1}^n a_i e_i \pmod {q}
 \]
-where the $e_i$ are independent variables with distribution $\cV_k$. Let $E$ denote its probability density function:
-$E(b) = \prob(e = b)$ for $b \in \bF_q$.
+where the $e_i$ are independent variables under distribution $\cV_k$.
 \end{Definition}
 
-Next, using the fact that the probability of a sum of two varaibles is a convolution, we prove
+Let $E({\bf a}, k, q)$ denote the probability density function of $e({\bf a}, k, q)$.
+
+
 \begin{Lemma}
 \[
     \hat{E_{{\bf a}, k, q}}(s) = \prod_{i=1}^{n} \cos \left(\frac{ a_i \pi s}{q} \right)^k
