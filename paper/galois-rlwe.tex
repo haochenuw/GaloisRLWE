@@ -70,7 +70,7 @@ T = \begin{bmatrix}
     I_{r_1}  & 0  \\
     0     & T_{r_2} \\
 \end{bmatrix},
-\mbox{ where } T_s = \frac{1}{2} \begin{bmatrix}
+\mbox{ where } T_s = \frac{1}{\sqrt{2}} \begin{bmatrix}
     I_{r_2}  & I_{r_2} \\
     -iI_{r_2}     & iI_{r_2} \\
 \end{bmatrix},
@@ -391,18 +391,20 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples used & est.
 \label{sec: ramified-prime}
 
 Let $p$ be an odd prime and $K = \bQ(\zeta_p)$. Then $K$ has degree $(p-1)$ and discriminant $p^{p-2}$.
-In addition, the prime $p$ is totally ramified in $K$. Let $\fp$ be the unique prime ideal  in $R$ lying above $p$. The root determinant of the embedded lattice $\tilde{\iota}(R)$ is $p^{\frac{p-2}{2(p-1)}}$. Let $\sigma_0$ denote the relative standard deviation parameter. Then we set $\sigma  = \sigma_0 p^{\frac{p-2}{2(p-1)}}$, and the RLWE problem being considered is $\cR = (R, p, \sigma_0, s)$.
+In addition, the prime $p$ is totally ramified in $K$. Let $\fp$ be the unique prime ideal  in $R$ lying above $p$. The root determinant of the embedded lattice $\tilde{\iota}(R)$ is $p^{\frac{p-2}{2(p-1)}}$. Let $\sigma_0$ denote the relative standard deviation parameter. Then we set $\sigma  = \sigma_0 p^{\frac{p-2}{2(p-1)}}$. The RLWE problem being considered is $\cR = (R, p, \sigma_0, s)$.
 
-Note that for the above analysis, we did not take the actual RLWE error distribution; instead, we generate the errors by sampling the coefficient of each basis vector independently
-from a discrete Gaussian integer distribution. This method of sampling is used in a related problem usually referred to as Poly-LWE (PLWE). The PLWE and RLWE error distributions are different. However, we will show that for our attack on ramified primes, they behave the same.
+%Note that for the above analysis, we did not take the actual RLWE error distribution; instead, we generate the errors by sampling the coefficient of each basis vector independently
+%from a discrete Gaussian integer distribution. This method of sampling is used in a related problem usually referred to as Poly-LWE (PLWE). The PLWE and RLWE error distributions are different. However, we will show that for our attack on ramified primes, they behave the same.
 
 
 For the sake of simplicity of our analysis, we consider the basis  $v = (\zeta_p, \cdots, \zeta_{p}^{p-1})$ of $R$. Recall that $A_v$ denotes the canonical embedding matrix of $v$. Then we have
 
 \begin{Lemma} \qquad \\
-(1) $A_v = pI_{p-1} - 11^T$,
-(2) $A_v \cdot {\bf 1} = {\bf 1}$,
-(3) $A_v^{-1} \cdot {\bf 1} = {\bf 1}$.
+(1) $A_v^t A_v = pI_{p-1} - {\bf 1} {\bf 1}^t$.\\
+(2) For all $x \in \bR^n$, $||x||_2 \leq ||A_v x||_2 \leq p||x||_2$. \\
+(3) For all $x \in \bR^n$, $||y||_2 \leq ||A_v x||_2 \leq p||x||_2$.
+(3) $A_v^t \cdot {\bf 1} = {\bf 1}$. \\
+(4) $(A_v^{-1})^t \cdot {\bf 1} = {\bf 1}$.
 \end{Lemma}
 
 \begin{proof}
@@ -413,46 +415,65 @@ Now suppose an error vector $e$ is sampled from the error distribution: $e \gets
 
 \begin{Lemma}
 \[
-e\pmod{\fp} = {\bf 1}^T e.
+e\pmod{\fp} = -\langle (T^{-1})^{t} {\bf 1}, e \rangle.
 \]
 \end{Lemma}
 \begin{proof}
 We have
 \begin{align*}
-e\pmod{\fp}  &= {\bf 1}^T e' \\
-&= {\bf 1}^T A_v^{-1} e \\
-& = {\bf 1}^T e.
+e\pmod{\fp}  &= ({\bf 1}, e') \\
+&=  ({\bf 1},  \tilde{A_v}^{-1} e) \\
+& = ((\tilde{A_v}^{-1})^t {\bf 1}, e) \\
+& = ((T^{-1})^{t} (A_v^{-1})^t{\bf 1}, e). \\
+& = -\langle (T^{-1})^{t} {\bf 1}, e \rangle.
 \end{align*}
 \end{proof}
 
-We quote one lemma on discrete Gaussian distribution on lattices, which is a special case of  \cite[Lemma 8]{langlois2014worst}.
+We quote one lemma on discrete Gaussian distribution on lattices, which is a combination of two lemmas from \cite{langlois2014worst}. Lemma 8 and Lemma 2.2  from LPR.
 \begin{Lemma}
-For any $n$-dimensional lattice $\Lambda \subseteq \bR^n$, $\epsilon \in (0,1)$, $t \geq \sqrt{2 \pi}$, vector $u \in \bR^n$ and $\sigma \geq \eta_\epsilon(\Lambda)/\sqrt{2 \pi}$, we have
+\label{lem: last}
+For any $n$-dimensional lattice $\Lambda \subseteq \bR^n$, $\epsilon \in (0,1)$, we have
+$$\eta_\epsilon(\Lambda) \leq \sqrt{\ln(n)/\epsilon} \lambda_n(\Lambda).$$
+Suppose $t \geq \sqrt{2 \pi}$, $u \in \bR^n$ and $\sigma \geq \eta_\epsilon(\Lambda)/\sqrt{2 \pi}$. Then
 \[
     Prob_{x \gets D_{\Lambda,\sigma}}(|x \cdot u| \geq \sqrt{2 \pi}\sigma t) \leq \frac{1+\epsilon}{1-\epsilon} t \sqrt{2 \pi e} e^{- \pi t^2}.
 \]
 \end{Lemma}
 
-Specializing the lemma to our situation, we take $u = {\bf 1}$, $\epsilon = $, $s = $, and $t = 6$. Then we have
-\[
-    Prob_{e \gets D_{\Lambda,\sigma}}( |{\bf 1}^T e| \geq \sqrt{12 \pi}\sigma_0 \sqrt{p-1}) \leq \frac{1+\epsilon}{1-\epsilon} t \sqrt{2 \pi e} e^{- \pi t^2}.
-\]
-(fix me: smoothing parameter for these special lattices. Supposedly, we can use [DD]).
 
-Now we are ready to prove the validity of our attack.
+\begin{Lemma}
+Let $\Lambda = \tilde{\iota}(\bZ[\zeta_p])$. Then $\lambda_n(\Lambda) \leq \sqrt{p-1}$.
+\end{Lemma}
+
+\begin{proof}
+This follows directly from the fact that $||\iota(\zeta_p^i)||_2 = \sqrt{p-1}$ for all $i \in \bZ$ and that the transformation matrix $T$ between $\iota$ and $\tilde{\iota}$ is Hermitian.
+\end{proof}
+
+
+We now specialize Lemma~\ref{lem: last} to
+
+\begin{Prop}
+Let $p$ be a prime and $\Lambda$. Then for all $\sigma > \frac{\sqrt{p-1} \ln(2p-2){\sqrt{2 \pi}}$, we have
+\[
+Prob_{e \gets D_{\Lambda,\sigma}}( |{\bf 1}^T e| \geq \sqrt{12 \pi}\sigma \sqrt{p-1}) \leq \frac{1+\epsilon}{1-\epsilon} t \sqrt{2 \pi e} e^{- \pi t^2}.
+\]
+\end{Prop}
+$u = {\bf 1}$, $\epsilon = 1/2$, $\sigma = \sigma_0 p^{\frac{p-2}{2(p-1)}}$ and $t = 6$. When $\sigma_0 > $, the inequality involving the smoothing parameter is satisfied, and we obtain
+
+
+\begin{equation} \label{eq: last}
+
+\end{equation}
+
+Now we are ready to prove the validity of attack.
 \begin{theorem}
-Let $p$ be a prime and $\cR$ be the RLWE instance $\cR = (\bQ(\zeta_p), p,\sigma,s)$. Finally, let $\fp$ denote the unique prime ideal in $\bQ(\zeta_p)$. Suppose $\sigma = o(\sqrt{p})$. Then there is an $O(p)$ algorithm that solves $SRLWE(\cR,\fp)$.
+Let $p$ be a prime and let $\cR$ be the RLWE instance $\cR = (\bQ(\zeta_p), p, \sigma,s)$.
+Assume $\sigma = o(\sqrt{p})$. Let $\fp$ denote the unique prime ideal in $\bQ(\zeta_p)$ above $p$. Then there is an $O(p)$ algorithm that solves $SRLWE(\cR,\fp)$.
 \end{theorem}
 
 \begin{proof}
-Since $\zeta_p \equiv 1 \pmod{\fp}$, all elements in the basis $v$ reduces to one in the finite field $R/\fp$. Hence, we run the attack [ELOS], and notice that
-
-By [], we set $\epsilon = 1/2$ and $t  = 8$ to get
-\[
-Prob(|{\bf 1} \cdot e| \geq 6\sqrt{2(p-1)\pi} \sigma) \leq a very small number.
-\]
-Hence we may safely assume
-$|e \pmod{\fp}|\leq 6\sqrt{2(p-1)\pi} \sigma$. Using the fact that $\sigma = o(p)$, we see that $|e \pmod{\fp}| = o(p)$. So when $p \gg 1$, we have  $|e \pmod{\fp}| \ll p$, which makes the attack in [ELOS] work.
+Using \ref{eq: last}, we may assume that for all $e \to D(\cR,\fp)$, we have $|e|\leq 6\sqrt{2(p-1)\pi} \sigma$. Using the fact that $\sigma = o(p)$, we see that $|e \pmod{\fp}| = o(p)$. Hence the reduced error distribution only takes value in the subset
+$|e|\leq 6\sqrt{2(p-1)\pi} \sigma$. When $p \to \infty$, we have $|e \pmod {\fp}| = o(p)$.  Hence the attack in [ELOS] works.
 \end{proof}
 
 \subsection{Can modulus switching be used?}
@@ -501,8 +522,8 @@ When $q > k$, we abuse notations and let $\cV_k: \bF_q \to \bR$ denote the proba
 \end{figure}
 
 
-\begin{Definition}[Modified error distribtuion]
-Let $K = \bQ(\zeta_m)$ with degree $n$ ring of integers $R$. Let $q$ be a prime and let $k \geq 2$ be an even integer. Then a sample from the distribtuion $PD_{m,q,k}$ is
+\begin{Definition}[Modified error distribtuion $MD_{m,q,k}$]
+Let $K = \bQ(\zeta_m)$ with degree $n$ ring of integers $R$. Let $q$ be a prime and let $k \geq 2$ be an even integer. Then a sample from the distribtuion $MD_{m,q,k}$ is
 \[
     e = \sum_{i=0}^{n-1} e_i \zeta_m^{i} \pmod{qR},
 \]

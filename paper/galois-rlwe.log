@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  6 SEP 2015 06:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  6 SEP 2015 17:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1757,10 +1757,40 @@ LaTeX Info: Redefining \nameref on input line 16.
 Class amsart Warning: Abstract should precede \maketitle in AMS document classe
 s; reported on input line 19.
 
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
+ne 26.
+
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
+ne 28.
+
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
+ne 28.
+
+
+LaTeX Warning: Citation `eisentrager2014weak' on page 1 undefined on input line
+ 28.
+
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
+ne 37.
+
 LaTeX Font Info:    Try loading font information for U+euf on input line 37.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
-) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+)
+
+LaTeX Warning: Reference `sec: cyclo-secure' on page 1 undefined on input line 
+39.
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 2 undefined on input li
+ne 82.
+
+
 Overfull \hbox (7.629pt too wide) in paragraph at lines 118--119
 [][]\OT1/cmr/bx/n/10 Definition 2.6 \OT1/cmr/m/n/10 (Search)\OT1/cmr/bx/n/10 . 
 []\OT1/cmr/m/n/10 Let $\OMS/cmsy/m/n/10 R$ \OT1/cmr/m/n/10 be an RLWE in-tance.
@@ -1768,7 +1798,24 @@ Overfull \hbox (7.629pt too wide) in paragraph at lines 118--119
 (\OMS/cmsy/m/n/10 R\OT1/cmr/m/n/10 )$,
  []
 
-[2] [3]
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 2 undefined on input li
+ne 130.
+
+
+LaTeX Warning: Citation `eisentrager2014weak' on page 2 undefined on input line
+ 130.
+
+
+LaTeX Warning: Citation `eisentrager2014weak' on page 2 undefined on input line
+ 130.
+
+[2]
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 3 undefined on input li
+ne 178.
+
+[3]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 212.
@@ -1850,8 +1897,13 @@ put line 220.
 Underfull \vbox (badness 4353) has occurred while \output is active []
 
  [4]
-[5] [6pdfTeX warning (ext4): destination with the same identifier (name{table.1
-}) has been already used, duplicate ignored
+[5]
+
+LaTeX Warning: Citation `johnston2011notes' on page 6 undefined on input line 3
+23.
+
+[6pdfTeX warning (ext4): destination with the same identifier (name{table.1}) h
+as been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
@@ -1862,76 +1914,39 @@ Overfull \hbox (20.83508pt too wide) in paragraph at lines 383--388
  [][] 
  []
 
-[7] [8]
+[7]
 
-Package amsmath Warning: Foreign command \atopwithdelims;
-(amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 491.
+LaTeX Warning: Citation `langlois2014worst' on page 8 undefined on input line 4
+32.
 
-<v8.png, id=179, 566.5968pt x 277.5168pt>
-File: v8.png Graphic file (type png)
- <use v8.png>
-Package pdftex.def Info: v8.png used on input line 499.
-(pdftex.def)             Requested size: 234.8775pt x 115.04028pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 533--535
+LaTeX Warning: Reference `lem: last' on page 8 undefined on input line 453.
 
- []
+)
+Runaway argument?
+{\sqrt {p-1} \ln (2p-2){\sqrt {2 \pi }}$, we have \[ Prob_{e \gets D_\ETC.
+! File ended while scanning use of \frac .
+<inserted text> 
+                \par 
+<*> galois-rlwe.tex
+                   
+I suspect you have forgotten a `}', causing me
+to read past where you wanted me to stop.
+I'll try to recover; but if the error is serious,
+you'd better type `E' or `X' now and fix your file.
 
-[9 <./v8.png>] [10]pdfTeX warning (ext4): destination with the same identifier 
-(name{table.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.627 \caption{$f = 1$}
-                       pdfTeX warning (ext4): destination with the same identif
-ier (name{table.2}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.666 \caption{$f = 2$}
-                        (./galois-rlwe.bbl [11]) [12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 687.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 687.
- (./galois-rlwe.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 687.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 687.
-Package rerunfilecheck Info: File `galois-rlwe.out' has not changed.
-(rerunfilecheck)             Checksum: 7B2EFFFD0AA264468F2A1F668A468FBE;1309.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 687.
- ) 
+! Emergency stop.
+<*> galois-rlwe.tex
+                   
+*** (job aborted, no legal \end found)
+
+ 
 Here is how much of TeX's memory you used:
- 24506 strings out of 493105
- 467940 string characters out of 6137073
- 525041 words of memory out of 5000000
- 27375 multiletter control sequences out of 15000+600000
- 12507 words of font info for 50 fonts, out of 8000000 for 9000
+ 24449 strings out of 493105
+ 467311 string characters out of 6137073
+ 523752 words of memory out of 5000000
+ 27357 multiletter control sequences out of 15000+600000
+ 11846 words of font info for 48 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 68i,11n,84p,10387b,487s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/euler/eufm10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (12 pages, 314475 bytes).
-PDF statistics:
- 304 PDF objects out of 1000 (max. 8388607)
- 262 compressed objects within 3 object streams
- 70 named destinations out of 1000 (max. 500000)
- 154 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+ 68i,11n,84p,10387b,404s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!
