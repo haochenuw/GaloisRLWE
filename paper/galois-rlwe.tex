@@ -391,13 +391,61 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples used & est.
 \label{sec: ramified-prime}
 
 Let $p$ be an odd prime and $K = \bQ(\zeta_p)$. Then $K$ has degree $(p-1)$ and discriminant $p^{p-2}$.
-In addition, the prime $p$ is totally ramified in $K$. Let $\fp$ be the unique prime ideal  in $R$ lying above $p$. The root determinant of the embedded lattice $\tilde{\iota}(R)$ is $p^{\frac{p-2}{2(p-1)}}$. Let $\sigma_0$ denote the relative standard deviation parameter. Then we set $\sigma  = \sigma_0 p^{\frac{p-2}{2(p-1)}}$. The RLWE problem being considered is $\cR = (R, p, \sigma_0, s)$.
+In addition, the prime $p$ is totally ramified in $K$. Let $\fp$ be the unique prime ideal  in $R$ lying above $p$. The root determinant of the embedded lattice $\tilde{\iota}(R)$ is $p^{\frac{p-2}{2(p-1)}}$.
+
+%Let $\sigma_0$ denote the relative standard deviation parameter. Then we set $\sigma  = \sigma_0 p^{\frac{p-2}{2(p-1)}}$. The RLWE problem being considered is $\cR = (R, p, \sigma_0, s)$.
 
 %Note that for the above analysis, we did not take the actual RLWE error distribution; instead, we generate the errors by sampling the coefficient of each basis vector independently
 %from a discrete Gaussian integer distribution. This method of sampling is used in a related problem usually referred to as Poly-LWE (PLWE). The PLWE and RLWE error distributions are different. However, we will show that for our attack on ramified primes, they behave the same.
 
 
-For the sake of simplicity of our analysis, we consider the basis  $v = (\zeta_p, \cdots, \zeta_{p}^{p-1})$ of $R$. Recall that $A_v$ denotes the canonical embedding matrix of $v$. Then we have
+For the sake of simplicity of our analysis, we choose a different error distribution for our RLWE problem, which is introduced by [DD]. Consider the elements $v_i = \zeta_p^{i}$ of $R$. Note that the first $v_0, \cdots, v_{p-2}$ form a basis for $R$, and we have the relation
+$v_{p-1} = -\sum_{i=0}^{p-2}(v_i)$. Sampling from the [DD] error distribution, which we denote by $DD_{p,\sigma}$, consists of three steps: first, we generate a vector $(g_0, \cdots, g_{p-1})$, where $g_i$ are i.i.d. random variables under the continuous Gaussian distribution $N(0,\sigma^2)$. Then we form the sum
+$\sum g_i \zeta_p^i$ and use the relation to rewrite it as $\sum_{i=0}^{p-2} (g_i - g_{p-1}) \zeta_p^i$.
+Finally, we take the nearest integer of each coordinates and the error is $$e  = \sum_{i=0}^{p-2} [g_i - g_{p-1}] \zeta_p^i.$$
+
+The authors of [DD] describe the relation between standard deviation parameters in their sampling and the one in RLWE. Their Lemma roughly says that $DD(p, \sigma)$ is a close approximation to $D_{\tilde{\iota}(\bZ[\zeta_p]),\sqrt{p}\sigma}$.
+
+Under some mild assumptions, we will show that $e \pmod {\fp}$ takes on a proper subset of $\bF_p$.
+First, let $\{g\} =  g - [g]$ denote the distance from a real number $g$ to its nearest integer.
+
+{\bf Assumption} Suppose $g \gets N(0,\sigma^2)$, we assume that $\{g\}$ is distributed uniformly in $[-1/2,1/2]$. Note that this assumption is reasonable as long as $\sigma$ is not too small, e.g., $\sigma >10$ will do.
+
+Then we prove
+\begin{Prop} \label{prop: ramified}
+Suppose $\sigma > 10$ and $e \gets DD_{p, \sigma}$. Then for all $w > \sqrt{p\sigma^2 + 4(p-1)/3}$, we have
+\[
+    \prob(|e\pmod{\fp}| > w) < 2 - 2\Phi^{-1}(w).
+\]
+\end{Prop}
+
+\begin{proof}
+\begin{align*}
+e \pmod {\fp} &= \sum_{i=0}^{p-2} g_i - (p-1)g_{p-1} - \sum_{i=0}^{p-2} \{g_i - g_{p-1}\} \\
+& = \sum_{i=0}^{p-1} g_i - \sum_{i=0}^{p-2} \{g_i - g_{p-1}\}
+\end{align*}
+By definition of the $g_i$, we have $\sum_{i=0}^{p-1} g_i \sim N(0, p\sigma^2)$. By our assumption, $\{g_i - g_{p-1}\} \sim U(-1/2,1/2)$ for each index $i$, with variance $4/3$. By the central limit theorem, when $p$ is large enough the distribution of $\sum_{i=0}^{p-2} \{g_i - g_{p-1}\}$ is approximated by $N(0, 4(p-1)/3)$. It can be checked that these two random variables are independent (fixme: add the proof). Hence $e \pmod{\fp}$ can be well approximated by $N(0, \sigma')$, where $\sigma' = p\sigma^2 + 4(p-1)/3$. The claim now follows.
+\end{proof}
+
+\begin{Corollary}
+If $p$ is a sufficiently large prime and $\sigma = o(\sqrt{p})$, then the [ELOS] attack works on the RLWE instance $\bQ(\zeta_p)$ with modulus $p$ and the error distribution $DD(p, \sigma)$.
+\end{Corollary}
+
+\begin{proof}
+The attack in [ELOS] is guaranteed to work provided
+\[
+    \frac{p}{|e \pmod{\fp}|} > 2,
+\]
+with overwhelming probability.
+Assuming $\sigma = o(\sqrt{p})$, then by Proposition~\ref{prop: ramified} (take $w = 20$, for example, so that the right hand side is negligibly small), we have $\frac{p}{|e \pmod{\fp}|} \to \infty$ when $p \to \infty$. This completes the proof.
+\end{proof}
+
+
+\begin{Example}
+Let $p = 1001$. We attack $K = \bQ(\zeta_p)$ with modulus $p$, with $\sigma = 5$. We randomly generate 10 secrets from $R_q$.
+
+The decision RLWE problem was solved for all 10 instances, the number of samples being used to distinguish is, and the average runtime of the attack is.
+\end{Example}
 
 \begin{Lemma} \qquad \\
 (1) $A_v^t A_v = pI_{p-1} - {\bf 1} {\bf 1}^t$.\\
