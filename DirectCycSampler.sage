@@ -5,10 +5,11 @@ class DirectCycSampler:
     """
     for sampling (coefficient-wise) from any cyclotomic field
     """
-    def __init__(self,m, sigma = 1):
+    def __init__(self,m, sigma = 1, method = 'DD'):
         self.m = m
         self.sigma = sigma
         self.D = DiscreteGaussianDistributionIntegerSampler(sigma = sigma)
+        self.Gaussian = RealDistribution('gaussian', sigma)
         self.f = cyclotomic_polynomial(m)
         self.n = self.f.degree()
         K.<z> = CyclotomicField(m)
@@ -16,8 +17,8 @@ class DirectCycSampler:
         self.z = K.gen()
         self.secret = self._to_field(self.__call__())
         self.ff = self.z.coordinates_in_terms_of_powers()
-        self._embedding_matrix = general_embedding_matrix(z, K, prec = 200)
-        self.DD = MyLatticeSampler(self._embedding_matrix)
+        #self._embedding_matrix = general_embedding_matrix(z, K, prec = 200)
+        #self.DD = MyLatticeSampler(self._embedding_matrix)
 
     def degree_n_primes(self,min_prime,max_prime, n = 1):
         result = []
@@ -61,7 +62,11 @@ class DirectCycSampler:
 
 
     def __call__(self):
-        return [self.D() for _ in range(self.n)]
+        v0 = [self.Gaussian() for _ in range(self.n + 1)]
+        v1 = [a - v0[-1] for a in v0[:-1]]
+        return [ZZ(round(float(vv))) for vv in v1]
+
+
 
     def _to_field(self,lst):
         """
@@ -81,9 +86,12 @@ class DirectCycSampler:
     def _uniform_a(self,q):
         return [ZZ.random_element(q) for _ in range(self.n)]
 
-    def set_sigma(self,newsigma):
-        self.sigma = newsigma
-        self.D = DiscreteGaussianDistributionIntegerSampler(sigma = newsigma)
+    def light_elos(self,q):
+        pass
+
+    #def set_sigma(self,newsigma):
+    #    self.sigma = newsigma
+    #    self.D = DiscreteGaussianDistributionIntegerSampler(sigma = newsigma)
 
 
     def set_secret(self, newsecretvec):

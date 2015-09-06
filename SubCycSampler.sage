@@ -160,14 +160,6 @@ class SubCycSampler:
         """
         return self.cosets
 
-    def _call_dd(self, basis_only = True):
-        """
-        sample from DD. Most naive sampling
-        """
-        D = self._dd_gen
-        return [D() for _ in range(self._degree)]
-
-
     def __call__(self,c = None):
         """
         return an integer vector a = (a_c) indexed by the coset reps of self,
@@ -409,8 +401,11 @@ class SubCycSampler:
                 _norm, scale = newnorm, b
         return 2*_norm/q, scale
 
+    def _uniform_samples_in_fq(self,q, numsamples = 30):
+        return [ZZ.random_element(0,q) for _ in range(numsamples)]
 
-    def simulated_run(self,q, scale =1,numsamples = 30):
+
+    def simulated_run(self,q, numsamples = 30, ratioTolerance = 2.5):
         """
         we run a simulation to test the quality.
         and scaling.
@@ -418,13 +413,35 @@ class SubCycSampler:
         vec = self.vec_modq(q)
         max_err = 0
         count_zero = 0
+        print 'secret = %s'%self.secret
+        sbar =  sum([Mod(vi*e,q) for vi,e in zip(vec,self.secret)])
+        print 'sbar = %s'%sbar
+        errorsmodq = []
         for i in range(numsamples):
-            e = self.__call__()
-            b = sum([Mod(a*e,q) for a,e in zip(vec,e)])*scale
-            b = ZZ(b) if b <= q//2 else ZZ(b) - q
-            max_err = max(max_err, RR(abs(b)))
-            # print abs(b)
-        ratio  = max_err*2 / q
+            error = self.__call__()
+            e = sum([Mod(vi*e,q) for vi,e in zip(vec,error)])
+            errorsmodq.append(e)
+        alst = self._uniform_samples_in_fq(numsamples = numsamples)
+        blst = [a*sbar + e for a,e in zip(alst,errorsmodq)]
+        t = cputime()
+        goodGuesses = []
+        for guess in range(q):
+            eguesses = [ b - a*guess for a,b in zip(alst,blst)]
+            eguessesReduced = [ZZ(e) if abs(ZZ(e)) < q/2 else ZZ(e) - q for e in eguesses]
+            ratio =   float(q/(2*max([abs(e) for e in eguessesReduced ])))
+            print ' ratio = %s'%ratio
+            if ratio > ratioTolerance:
+                goodGuesses.append(guess)
+        print 'time = %s'%cputime(t)
+        if len(goodGuesses) == 0:
+            return 'not rlwe'
+        elif len(goodGuesses) > 1:
+            return 'not enough samples'
+        else:
+            if sbar != goodGuesses[0]:
+                return 'Failed'
+            else:
+                return 'Success!'
 
         #print 'number of zeros = %s'%count_zero
         #print 'Done!'
