@@ -12,6 +12,10 @@ Kirsten Eisentr{\"a}ger, Sean Hallgren, and Kristin Lauter, \emph{Weak
   instances of plwe}, Selected Areas in Cryptography--SAC 2014, Springer, 2014,
   pp.~183--194.
 
+\bibitem[Joh11]{johnston2011notes}
+HENRI Johnston, \emph{Notes on galois modules}, Notes accompanying the course
+  Galois Modules given in Cambridge in (2011).
+
 \bibitem[LPR13]{lyubashevsky2013ideal}
 Vadim Lyubashevsky, Chris Peikert, and Oded Regev, \emph{On ideal lattices and
   learning with errors over rings}, Journal of the ACM (JACM) \textbf{60}

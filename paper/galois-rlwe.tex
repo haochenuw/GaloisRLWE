@@ -166,7 +166,7 @@ hugely on the instance and on the way we represent the samples. For example, for
 \end{remark}
 
 \begin{remark}
-Although the theorem is stated for any unramified prime, we, from an attacker's perspective, still take primes of small degree, since the search space for $s \pmod{\fq}$ is of size $q^f$, and it is bad when $f$ is large.
+Although the theorem is stated for any unramified prime. From an attacker's perspective, we still take primes of small degree, since the search space for $s \pmod{\fq}$ is of size $q^f$, and it is bad when $f$ is large.
 \end{remark}
 
 The search-to-decision reduction will follow from the lemma below.
@@ -178,7 +178,6 @@ There is a probablistic polynomial time reduction from $\SRLWE(\cR,\fq)$ to $\DR
 This is a direct consequence of \cite[Lemma 5.9 and Lemma 5.12 ]{lyubashevsky2013ideal} and our Theorem~\ref{thm: reduction}.
 \end{proof}
 
-Combining
 \begin{Corollary}
 Suppose $\cR$ is an RLWE instance where $K$ is Galois and $q$ is an unramified prime in $K$. Then there is a probablistic polynomial-time reduction from $\SRLWE(\cR)$ to $\DRLWE(\cR)$.
 \end{Corollary}
@@ -317,22 +316,17 @@ We restrict our attention to subfields of cyclotomic fields $\bQ(\zeta_m)$, wher
     K_{m,H} := \bQ(\zeta_m)^H.
 \]
 
-The extension $K_{m,H}/\bQ$ is Galois of degree $n = \frac{\varphi(m)}{|H|}$; a prime $q$ splits completely in $K_{m,H}$ if and only if $q \pmod{m} \in H$. In general, the degree of a prime $q$ in $K_{m,H}$ is equal to the order of $[q]$ in the quotient group $G/H$.
-
-
-
-Every field of form $K_{m,H}$ comes with a canonical{\it normal integral basis}, whose embedding matrix is easy to compute. More precisely, let $C$ denote a set of coset representatives of the group $G/H$. For $c \in C$, set
+The extension $K_{m,H}/\bQ$ is Galois of degree $n = \frac{\varphi(m)}{|H|}$; the degree of a prime $q$ in $K_{m,H}$ is equal to the order of $[q]$ in the quotient group $G/H$. Moreover, every field of form $K_{m,H}$ has canonical{\it normal integral basis}, whose embedding matrix is easy to compute. More precisely, let $C$ denote a set of coset representatives of the group $G/H$. For each $c \in C$, set
 \[
     w_c =  \sum_{h \in H} \zeta_m^{hc}.
 \]
+Then  ${\bf w} := (w_c)_{c \in C}$ is a $\bZ$-basis of $R$. For a proof of this fact, see \cite[Proposition 6.1]{johnston2011notes}.
 
-Then we have
-\begin{Prop}
-$w = (w_c)_{c \in C}$ is a $\bZ$-basis of $R$. Let $\zeta = \exp(2\pi i /m)$. Then the canonical embedding embedding matrix of $w$ is
+We set $\zeta = \exp(2\pi i /m)$. Then the canonical embedding embedding matrix of $w$ is
 \[
     (A_w)_{i,j} = \sum_{h \in H}{\zeta^{hij}}.
 \]
-\end{Prop}
+
 \begin{Prop}
 Suppose $\cR$ is an RLWE instance, such that the underlying field $K$ is a Galois number field, and $q$ is unramified in $K$. Then error distribution $D(\cR, \fq)$ is independent of the choice of prime ideal $\fq$ above $q$.
 \end{Prop}
@@ -399,33 +393,11 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples used & est.
 Let $p$ be an odd prime and $K = \bQ(\zeta_p)$. Then $K$ has degree $(p-1)$ and discriminant $p^{p-2}$.
 In addition, the prime $p$ is totally ramified in $K$. Let $\fp$ be the unique prime ideal  in $R$ lying above $p$. The root determinant of the embedded lattice $\tilde{\iota}(R)$ is $p^{\frac{p-2}{2(p-1)}}$. Let $\sigma_0$ denote the relative standard deviation parameter. Then we set $\sigma  = \sigma_0 p^{\frac{p-2}{2(p-1)}}$, and the RLWE problem being considered is $\cR = (R, p, \sigma_0, s)$.
 
-
-Hence a general error term is
-\[
-    e = e_0 + e_1 \zeta_p + \cdots + e_{p-1} \zeta_{p-1}
-\]
-where $(e_i)_i$ are sampled from $D_{\bZ^n, \sigma}$, and then reduced modulo $p$. Note that every $\zeta_p$ maps to 1 in $\bF_p$. Hence we have
-\[
-    e(1) = e_0 + e_1 + \cdots +e_{p-1} \in \bF_p.
-\]
-Now we use the {\bf independence} of the samples to conclude that $e_0 + e_1 + \cdots +e_{p-1} \sim D_{\bZ,\sqrt{p}\sigma}$, and assume that $|e(1)| \leq \sqrt{p}\sigma$.
-
-Now for [ELOS] attack to work, we need
-\[
-    |e(1)| \leq p/4,
-\]
-and we computed $p/|e(1)| \geq \sqrt{p}/\sigma_0$. So when $p$ is not to small, this attack will work.
-
-\subsection{relationship between RLWE and PLWE}
-
 Note that for the above analysis, we did not take the actual RLWE error distribution; instead, we generate the errors by sampling the coefficient of each basis vector independently
 from a discrete Gaussian integer distribution. This method of sampling is used in a related problem usually referred to as Poly-LWE (PLWE). The PLWE and RLWE error distributions are different. However, we will show that for our attack on ramified primes, they behave the same.
 
 
-For the sake of simplicity, we consider the integral basis  $v = (\zeta_p, \cdots, \zeta_{p}^{p-1})$. Let $A_v$ and  denote its canonical embedding matrix. We then prove that
-
-Suppose an error vector $e$ is sampled from the error distribution: $e \gets D_{\Lambda, \sigma}$.  Then the coeffificent vector of $e$ is $e_c = A_v^{-1}(e)$.
-Let ${\bf 1} = (1,1, \cdots,1)$ denote the n-dimensional vector of ones.
+For the sake of simplicity of our analysis, we consider the basis  $v = (\zeta_p, \cdots, \zeta_{p}^{p-1})$ of $R$. Recall that $A_v$ denotes the canonical embedding matrix of $v$. Then we have
 
 \begin{Lemma} \qquad \\
 (1) $A_v = pI_{p-1} - 11^T$,
@@ -433,17 +405,41 @@ Let ${\bf 1} = (1,1, \cdots,1)$ denote the n-dimensional vector of ones.
 (3) $A_v^{-1} \cdot {\bf 1} = {\bf 1}$.
 \end{Lemma}
 
+\begin{proof}
+Each part is the direct consequence of the previous one. Thus we only need to prove (1), for which we refer to [DD].
+\end{proof}
+
+Now suppose an error vector $e$ is sampled from the error distribution: $e \gets D_{\Lambda, \sigma}$.  Let $e'$ be the coeffificent vector of $e$ under the basis $v$: thus $e' = A_v^{-1}(e)$. Let ${\bf 1} = (1,1, \cdots,1)$ denote the n-dimensional vector of ones. Then
+
 \begin{Lemma}
 \[
-e\pmod{\fp} = 1 \cdot e_c = {\bf 1} A_v^{-1} e = {\bf 1}^T e.
+e\pmod{\fp} = {\bf 1}^T e.
 \]
 \end{Lemma}
 \begin{proof}
-Clear.
+We have
+\begin{align*}
+e\pmod{\fp}  &= {\bf 1}^T e' \\
+&= {\bf 1}^T A_v^{-1} e \\
+& = {\bf 1}^T e.
+\end{align*}
 \end{proof}
 
-Now we are ready to prove the validity of our attack on the
-RLWE distribution.
+We quote one lemma on discrete Gaussian distribution on lattices, which is a special case of  \cite[Lemma 8]{langlois2014worst}.
+\begin{Lemma}
+For any $n$-dimensional lattice $\Lambda \subseteq \bR^n$, $\epsilon \in (0,1)$, $t \geq \sqrt{2 \pi}$, vector $u \in \bR^n$ and $\sigma \geq \eta_\epsilon(\Lambda)/\sqrt{2 \pi}$, we have
+\[
+    Prob_{x \gets D_{\Lambda,\sigma}}(|x \cdot u| \geq \sqrt{2 \pi}\sigma t) \leq \frac{1+\epsilon}{1-\epsilon} t \sqrt{2 \pi e} e^{- \pi t^2}.
+\]
+\end{Lemma}
+
+Specializing the lemma to our situation, we take $u = {\bf 1}$, $\epsilon = $, $s = $, and $t = 6$. Then we have
+\[
+    Prob_{e \gets D_{\Lambda,\sigma}}( |{\bf 1}^T e| \geq \sqrt{12 \pi}\sigma_0 \sqrt{p-1}) \leq \frac{1+\epsilon}{1-\epsilon} t \sqrt{2 \pi e} e^{- \pi t^2}.
+\]
+(fix me: smoothing parameter for these special lattices. Supposedly, we can use DD )
+
+Now we are ready to prove the validity of our attack。
 \begin{theorem}
 Let $p$ be a prime and $\cR$ be the RLWE instance $\cR = (\bQ(\zeta_p), p,\sigma,s)$. Finally, let $\fp$ denote the unique prime ideal in $\bQ(\zeta_p)$. Suppose $\sigma = o(\sqrt{p})$. Then there is an $O(p)$ algorithm that solves $SRLWE(\cR,\fp)$.
 \end{theorem}

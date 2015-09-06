@@ -3,44 +3,46 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: galois-rlwe.aux
 The style file: amsalpha.bst
 Database file #1: galois-rlwe.bib
-You've used 2 entries,
+Warning--missing pages in johnston2011notes
+You've used 3 entries,
             2624 wiz_defined-function locations,
-            572 strings with 4693 characters,
-and the built_in function-call counts, 995 in all, are:
-= -- 92
-> -- 50
-< -- 0
-+ -- 18
-- -- 18
-* -- 79
-:= -- 164
-add.period$ -- 2
-call.type$ -- 2
-change.case$ -- 14
-chr.to.int$ -- 2
-cite$ -- 2
-duplicate$ -- 40
-empty$ -- 71
-format.name$ -- 20
-if$ -- 203
+            577 strings with 4818 characters,
+and the built_in function-call counts, 1261 in all, are:
+= -- 114
+> -- 58
+< -- 1
++ -- 20
+- -- 20
+* -- 100
+:= -- 207
+add.period$ -- 3
+call.type$ -- 3
+change.case$ -- 19
+chr.to.int$ -- 3
+cite$ -- 4
+duplicate$ -- 55
+empty$ -- 94
+format.name$ -- 24
+if$ -- 255
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 4
-newline$ -- 16
-num.names$ -- 6
-pop$ -- 15
+missing$ -- 6
+newline$ -- 19
+num.names$ -- 9
+pop$ -- 22
 preamble$ -- 1
-purify$ -- 16
+purify$ -- 22
 quote$ -- 0
-skip$ -- 35
+skip$ -- 45
 stack$ -- 0
-substring$ -- 52
-swap$ -- 10
-text.length$ -- 0
-text.prefix$ -- 0
+substring$ -- 59
+swap$ -- 12
+text.length$ -- 1
+text.prefix$ -- 1
 top$ -- 0
-type$ -- 16
-warning$ -- 0
-while$ -- 10
-width$ -- 4
-write$ -- 32
+type$ -- 24
+warning$ -- 1
+while$ -- 12
+width$ -- 5
+write$ -- 41
+(There was 1 warning)
