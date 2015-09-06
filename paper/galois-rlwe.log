@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  5 SEP 2015 05:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  6 SEP 2015 01:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1757,26 +1757,11 @@ LaTeX Info: Redefining \nameref on input line 16.
 Class amsart Warning: Abstract should precede \maketitle in AMS document classe
 s; reported on input line 19.
 
-LaTeX Font Info:    Try loading font information for U+euf on input line 39.
+LaTeX Font Info:    Try loading font information for U+euf on input line 37.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
-)
-
-LaTeX Warning: Reference `def: ' on page 1 undefined on input line 39.
-
-
-LaTeX Warning: Reference `sec: sub-cyclotomics' on page 1 undefined on input li
-ne 41.
-
-
-LaTeX Warning: Reference `sec: ' on page 1 undefined on input line 43.
-
-
-LaTeX Warning: Reference `sec: ramified-prime' on page 1 undefined on input lin
-e 45.
-
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (7.629pt too wide) in paragraph at lines 122--123
+) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (7.629pt too wide) in paragraph at lines 118--119
 [][]\OT1/cmr/bx/n/10 Definition 2.6 \OT1/cmr/m/n/10 (Search)\OT1/cmr/bx/n/10 . 
 []\OT1/cmr/m/n/10 Let $\OMS/cmsy/m/n/10 R$ \OT1/cmr/m/n/10 be an RLWE in-tance.
  The \OT1/cmr/m/it/10 search Ring-LWE \OT1/cmr/m/n/10 prob-lem, de-noted by $[]
@@ -1786,87 +1771,87 @@ Overfull \hbox (7.629pt too wide) in paragraph at lines 122--123
 [2] [3]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 200.
+(hyperref)                removing `math shift' on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathop' on input line 200.
+(hyperref)                removing `\mathop' on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 200.
+(hyperref)                removing `\mathcode' on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 200.
+(hyperref)                removing `\mathcode' on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 200.
+(hyperref)                removing `\mathcode' on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathchardef' on input line 200.
+(hyperref)                removing `\mathchardef' on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\std@minus' on input line 200.
+(hyperref)                removing `\std@minus' on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 200.
+(hyperref)                removing `\mathcode' on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 200.
+(hyperref)                removing `\mathcode' on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 200.
+(hyperref)                removing `\mathcode' on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 200.
+(hyperref)                removing `\mathcode' on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                \kern 2.55527pt
-(hyperref)                removed on input line 200.
+(hyperref)                removed on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathgroup' on input line 200.
+(hyperref)                removing `\mathgroup' on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\symoperators' on input line 200.
+(hyperref)                removing `\symoperators' on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 200.
+(hyperref)                removing `\@ifnextchar' on input line 197.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 200.
+(hyperref)                removing `math shift' on input line 197.
 
 
 Package hyperref Warning: Composite letter `\textacute+3'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textacute' on input line 200.
+(hyperref)                removing `\textacute' on input line 197.
 
 
 Package hyperref Warning: Composite letter `\textdotaccent+"'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textdotaccent' on input line 200.
+(hyperref)                removing `\textdotaccent' on input line 197.
 
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 208.
+put line 205.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [4]
 [5] [6]
-Overfull \hbox (20.83508pt too wide) in paragraph at lines 376--381
+Overfull \hbox (20.83508pt too wide) in paragraph at lines 373--378
  [][] 
  []
 
@@ -1875,20 +1860,20 @@ as been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.395 \]
+l.393 \]
         ] [8]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 483.
+(amsmath)                 on input line 482.
 
-<v8.png, id=174, 566.5968pt x 277.5168pt>
+<v8.png, id=176, 566.5968pt x 277.5168pt>
 File: v8.png Graphic file (type png)
  <use v8.png>
-Package pdftex.def Info: v8.png used on input line 491.
+Package pdftex.def Info: v8.png used on input line 490.
 (pdftex.def)             Requested size: 234.8775pt x 115.04028pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 525--527
+Underfull \hbox (badness 10000) in paragraph at lines 524--526
 
  []
 
@@ -1896,31 +1881,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 525--527
 (name{table.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.619 \caption{$f = 1$}
+l.618 \caption{$f = 1$}
                        pdfTeX warning (ext4): destination with the same identif
 ier (name{table.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.658 \caption{$f = 2$}
+l.657 \caption{$f = 2$}
                         (./galois-rlwe.bbl [11]) [12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 679.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 679.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 678.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 678.
  (./galois-rlwe.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 679.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 679.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 678.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 678.
 Package rerunfilecheck Info: File `galois-rlwe.out' has not changed.
-(rerunfilecheck)             Checksum: 03476E24BC38A3DC726D02CF1448D268;1515.
-
-
-LaTeX Warning: There were undefined references.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 679.
+(rerunfilecheck)             Checksum: DEAA7091E8436F86C056A8F96833237E;1382.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 678.
  ) 
 Here is how much of TeX's memory you used:
- 24503 strings out of 493105
- 467853 string characters out of 6137073
- 523607 words of memory out of 5000000
- 27373 multiletter control sequences out of 15000+600000
+ 24500 strings out of 493105
+ 467842 string characters out of 6137073
+ 523913 words of memory out of 5000000
+ 27372 multiletter control sequences out of 15000+600000
  12507 words of font info for 50 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  68i,11n,84p,10387b,487s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1947,10 +1928,10 @@ type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/texmf-dist/fonts/type
 public/amsfonts/symbols/msbm5.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
 blic/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
 ic/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (12 pages, 313699 bytes).
+Output written on galois-rlwe.pdf (12 pages, 314854 bytes).
 PDF statistics:
- 301 PDF objects out of 1000 (max. 8388607)
- 258 compressed objects within 3 object streams
- 69 named destinations out of 1000 (max. 500000)
- 178 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 303 PDF objects out of 1000 (max. 8388607)
+ 260 compressed objects within 3 object streams
+ 67 named destinations out of 1000 (max. 500000)
+ 162 words of extra memory for PDF output out of 10000 (max. 10000000)
 

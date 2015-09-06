@@ -23,26 +23,22 @@ We describe a new attack on the Ring learning-with-errors (RLWE) problem based o
 \end{abstract}
 
 \section{Introduction}
-The Ring learning with errors (RLWE) problem, proposed in [LPR], is a variant of the traditional learning with error (LWE) problem, and is an active research area in lattice based cryptography. The hardness result of [LPR] reduces certain Gap-SVP problems to an RLWE problem for 2-power cyclotomic fields. The contribution of [EHL] paper, [ELOS]
-The [Toolkit] paper describe an efficient algorithm to generate samples from the dual version of RLWE for general cyclotomic fields, and the [DD] paper discusses efficient ways of sampling from the non-dual version. In our paper, we restrict ourselves to the non-dual variant of RLWE.
+The Ring learning with errors (RLWE) problem, proposed in \cite{lyubashevsky2013ideal}, is a variant of the traditional learning with error (LWE) problem, and is an active research area in lattice based cryptography. It has been studied extensively in (a lot of papers).
 
-\subsection{Contributions}
+Central to an RLWE problem instance is a choice of a number field $K$ and a prime $q$ called the {\it modulus}. The authors of \cite{lyubashevsky2013ideal} considered the case where $K$ is some cyclotomic field, and proved a reduction from certain hard lattice problems to the dual variant of RLWE. The hardness for the non-dual variant was proved in [DD]. Also in \cite{lyubashevsky2013ideal}, a search-to-decision reduction was proved for RLWE problems for cyclotomic fields and modulus $q$ which splits completely in the field. This reduction was then generalized to general Galois extensions in \cite{eisentrager2014weak}.
 
-\subsection{Techniques}
+The [ELOS] paper proposed an attack to decision RLWE problem. The attack makes use of ring homomorphisms $\pi: R \to \bF_q$, and works when the image of the RLWE error distribution under the map $\pi$ only takes value in a stricly smaller subset of $\bF_q$, with overwhelming probability. The authors of [ELOS] then gave an infinite family of examples vulnerable to the attack. Unfortunately, the vulnerable number fields in [ELOS] are not Galois extensions of $\bQ$. Hence, the search-to-decision reduction theorem does not apply, and the attack can not be directly used to solve the search variant of RLWE for those instances.
+
+In our paper, we generalize the attack of [ELOS] to Galois number fields and moduli of higher degree. Also, we analyze the vulnerability of cyclotomic fields to the [ELOS] attack, and show that they are in general safe, except for the case when the modulus $p$ is equal to the index of the cyclotomic field (i.e., $K = \bQ(\zeta_p)$).
+
 
 \subsection{Organization}
 
-In section \ref{sec: background}, we recall the canonical embedding of number fields and the central definitions related to RLWE.
+In section \ref{sec: background}, we recall the canonical embedding of number fields and the central definitions related to the RLWE problems. In section \ref{sec: s-to-d}, we review prime factorizations in Galois extensions and prove a search-to-decision reduction for Galois extensions $K$ and unramified primes of any degree. In section \ref{sec: chi-square}, we introduce an attack to RLWE problems based on the chi-square statistical test, which directly generalizes the attack in [ELOS]. More precisely, the attack aims at two problems: the decision version of RLWE, and an intermediate problem used in the search-to-decision proof of \cite{lyubashevsky2013ideal}, which we denote by $\SRLWE(\cR,\fq)$ (see Definition~\ref{def: srlwe mod q}). The time complexity of our attack for both problems above is $O(\frac{n}{f}q^{2f})$, Here $n$ is the degree of the number field $K$, and $f$ is the {\it residue degree} of $q$ in $K$ (see Lemma~\ref{lem: prime factorization}). In section \ref{sec: sub-cyclotomics}, we give examples of subfields of cyclotomic fields vunlerable to our new attack, where the moduli $q$ has residue degree two.
 
-In section \ref{sec: s-to-d}, we review prime factorizations in Galois extensions and prove a search-to-decision reduction for Galois extensions $K$ and unramified primes of any degree.
+In section \ref{sec: ramified-prime}, we show that our attack works on prime cyclotomic fields when the moduli is equal to the unique ramified prime. Finally, in section \ref{sec: cyclo-secure}, we show that general cyclotomic extensions with an unramified prime as the modulus $q$ are invulnerable to our attack.
 
-In section \ref{sec: chi-square}, we introduce an attack to RLWE problems based on the chi-square statistical test. The time complexity of our attack is $O(\frac{n}{f}q^{2f})$ for the decision version RLWE and for an intermediate problem which we denote by $\SRLWE(\cR,\fq) (see \ref{def: })$.
 
-In section, \ref{sec: sub-cyclotomics}, we give examples of subfields of cyclotomic field which are vunlerable to our attack outlined in section \ref{sec: chi-square}, where the moduli $q$ has residue degree two. We then try to explain why degree two moduli are more likely to be vulnerable than degree one primes, i.e., primes that splits completely in the number field $K$.
-
-In section \ref{sec: }, under some simplifying assumptions, we show that general cyclotomic extensions, with an unramified prime as the modulus $q$, are invulnerable to our attack. Our argument uses Fourier analysis on finite fields in an essential way.
-
-In section, \ref{sec: ramified-prime}, we show that the attack in [ELOS] applies to prime cyclotomic fields, if the moduli is divisible by the unique ramified prime.
 
 
 
@@ -131,15 +127,16 @@ problem, denoted by $\DRLWE(\cR)$, is to distinguish between the same number of 
 \section{search-to-decision reduction}
 \label{sec: s-to-d}
 
-We prove the the reduction of SRLWE for Galois extensions to an intermediate problem, denoted by $SRLWE(\bR,\fq)$ (the same problem is denoted by $\fq_i$-LWE in [LPR]), of recovering the secret modulo some prime ideal $\fq$ of $K $ lying above $q$. This result can be viewed as a generalization of \cite[Theorem 2]{eisentrager2014weak} to primes of higher degree. Since our Algorithm~ are targeting at $SRLWE(\bR,\fq)$, we could attack SRLWE for any Galois RLWE instances we found vulnerable to Algorithm~. We remark that a search-to-decision reduction theorem for higher degree primes can be proved by carrying out almost the exact same proof in \cite{eisentrager2014weak}.
+We prove the the reduction of SRLWE for Galois extensions to an intermediate problem, denoted by $SRLWE(\bR,\fq)$ (the same problem is denoted by $\fq_i$-LWE in \cite{lyubashevsky2013ideal}), of recovering the secret modulo some prime ideal $\fq$ of $K $ lying above $q$. This result can be viewed as a generalization of \cite[Theorem 2]{eisentrager2014weak} to primes of higher degree. Since our Algorithm~ are targeting at $SRLWE(\bR,\fq)$, we could attack SRLWE for any Galois RLWE instances we found vulnerable to Algorithm~. We remark that a search-to-decision reduction theorem for higher degree primes can be proved by carrying out almost the exact same proof in \cite{eisentrager2014weak}.
 
-\begin{Definition}
+\begin{Definition} \label{def: srlwe mod q}
 Given an RLWE instance $\cR = (K,q,\sigma, s)$ and a prime ideal $\fq$ of $K$ lying above $q$. The problem $\SRLWE(\cR, \fq)$ is: given access to arbitrarily many independent samples $(a,b) \gets \cR$, find $s \pmod {\fq}$.
 \end{Definition}
 
 We prove the reduction from $\SRLWE(\cR)$ to $\SRLWE(\cR,\fq)$ when
 $q$ is unramified. We recall some algebraic number theoretical facts in the following
 \begin{Lemma}
+\label{lem: prime factorization}
 Let $K/\bQ$ be a finite Galois extension with ring of integers $R = \cO_K$,  and let $q$ be a prime unramified in $K$. Then there exists an integer $g \mid n$, and a set of $g$ distinct prime ideals $\fq_1, \cdots ,\fq_g$ of
 $R$ such that
 \[
@@ -295,7 +292,7 @@ $307^2$ & 0.001 & 0.27
 \end{tabular}
 \end{table}
 
-\section{Vulnerable instances among subfields of cyclotomic fields}
+\section{Vulnerable instances among subfields of cyclotomic fields}\label{sec: sub-cyclotomics}
 
 We restrict our attention to subfields of cyclotomic fields $\bQ(\zeta_m)$, where we assume $m$ is {\it odd and squarefree}. The Galois group $Gal(\bQ(\zeta_m)/\bQ)$ is canonically isomorphic to $(\bZ/m\bZ)^*$.
 
@@ -381,6 +378,7 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples used & est.
 \end{table}
 
 \section{Attacking prime cyclotomic fields for the ramified prime}
+\label{sec: ramified-prime}
 
 In this section, let $p$ be an odd prime and $K = \bQ(\zeta_p)$. First we deal with the case of sampling. A result of [DD] says that sampling from the Minkowski space of $K$ with paremeter $\sigma$ is the same as sampling a Discrete Gaussian from the quotient ring
 \[
@@ -470,10 +468,11 @@ Now suppose $\fq$ is a prime in $K$ above $q$.
 It is thus an interesting problem to combine modulus switching with our attack.
 
 \section{Invulnerability of general cyclotomic extensions for unramified primes}
+\label{sec: cyclo-secure}
 
 \subsection{Introduction}
 
-Let $m \geq 1$ be any integer and let $K = \bQ(\zeta_m)$. We will show that under a simplifying assumption, the image of a reduced RLWE error distribution $D_\cR \pmod{\fq}$ for a prime $\fq$ above $q$, will be non-distinguishable from the uniform distribution $U(\bF_q)$. The tool we use is Fourier analysis on finite fields.
+Let $m \geq 1$ be any integer and let $K = \bQ(\zeta_m)$. We will show that under some simplifying assumptions, the image of a reduced RLWE error distribution $D_\cR \pmod{\fq}$ for a prime $\fq$ above $q$, will be non-distinguishable from the uniform distribution $U(\bF_q)$. The tool we use is Fourier analysis on finite fields.
 
 First, we introduce a class of distributions indexed by even integers $k \geq 2$, aiming at approximating discrete Gaussians over $\bZ$. Here $k$ plays the role of
 the standard deviation $\sigma$ for discrete Gaussians.
