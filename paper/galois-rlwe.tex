@@ -437,9 +437,9 @@ Specializing the lemma to our situation, we take $u = {\bf 1}$, $\epsilon = $, $
 \[
     Prob_{e \gets D_{\Lambda,\sigma}}( |{\bf 1}^T e| \geq \sqrt{12 \pi}\sigma_0 \sqrt{p-1}) \leq \frac{1+\epsilon}{1-\epsilon} t \sqrt{2 \pi e} e^{- \pi t^2}.
 \]
-(fix me: smoothing parameter for these special lattices. Supposedly, we can use DD )
+(fix me: smoothing parameter for these special lattices. Supposedly, we can use [DD]).
 
-Now we are ready to prove the validity of our attack。
+Now we are ready to prove the validity of our attack.
 \begin{theorem}
 Let $p$ be a prime and $\cR$ be the RLWE instance $\cR = (\bQ(\zeta_p), p,\sigma,s)$. Finally, let $\fp$ denote the unique prime ideal in $\bQ(\zeta_p)$. Suppose $\sigma = o(\sqrt{p})$. Then there is an $O(p)$ algorithm that solves $SRLWE(\cR,\fp)$.
 \end{theorem}
@@ -447,7 +447,7 @@ Let $p$ be a prime and $\cR$ be the RLWE instance $\cR = (\bQ(\zeta_p), p,\sigma
 \begin{proof}
 Since $\zeta_p \equiv 1 \pmod{\fp}$, all elements in the basis $v$ reduces to one in the finite field $R/\fp$. Hence, we run the attack [ELOS], and notice that
 
-by [LaSt] We set $\epsilon = 1/2$ and $t  = 8$ to get
+By [], we set $\epsilon = 1/2$ and $t  = 8$ to get
 \[
 Prob(|{\bf 1} \cdot e| \geq 6\sqrt{2(p-1)\pi} \sigma) \leq a very small number.
 \]

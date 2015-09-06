@@ -21,4 +21,9 @@ Vadim Lyubashevsky, Chris Peikert, and Oded Regev, \emph{On ideal lattices and
   learning with errors over rings}, Journal of the ACM (JACM) \textbf{60}
   (2013), no.~6, 43.
 
+\bibitem[LS14]{langlois2014worst}
+Adeline Langlois and Damien Stehl{\'e}, \emph{Worst-case to average-case
+  reductions for module lattices}, Designs, Codes and Cryptography \textbf{75}
+  (2014), no.~3, 565--599.
+
 \end{thebibliography}

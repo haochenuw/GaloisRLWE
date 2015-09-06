@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  6 SEP 2015 06:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  6 SEP 2015 06:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1862,21 +1862,13 @@ Overfull \hbox (20.83508pt too wide) in paragraph at lines 383--388
  [][] 
  []
 
-[7]
-
-LaTeX Warning: Citation `langlois2014worst' on page 8 undefined on input line 4
-28.
-
-Missing character: There is no ã in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ‚ in font cmr10!
-[8]
+[7] [8]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
 (amsmath)                 on input line 491.
 
-<v8.png, id=177, 566.5968pt x 277.5168pt>
+<v8.png, id=179, 566.5968pt x 277.5168pt>
 File: v8.png Graphic file (type png)
  <use v8.png>
 Package pdftex.def Info: v8.png used on input line 499.
@@ -1904,17 +1896,13 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 687.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 687.
 Package rerunfilecheck Info: File `galois-rlwe.out' has not changed.
 (rerunfilecheck)             Checksum: 7B2EFFFD0AA264468F2A1F668A468FBE;1309.
-
-
-LaTeX Warning: There were undefined references.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 687.
  ) 
 Here is how much of TeX's memory you used:
- 24504 strings out of 493105
- 467910 string characters out of 6137073
- 524999 words of memory out of 5000000
- 27374 multiletter control sequences out of 15000+600000
+ 24506 strings out of 493105
+ 467940 string characters out of 6137073
+ 525041 words of memory out of 5000000
+ 27375 multiletter control sequences out of 15000+600000
  12507 words of font info for 50 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  68i,11n,84p,10387b,487s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1940,10 +1928,10 @@ type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/texmf-dist/fonts/type
 /public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
 blic/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (12 pages, 313396 bytes).
+Output written on galois-rlwe.pdf (12 pages, 314475 bytes).
 PDF statistics:
- 302 PDF objects out of 1000 (max. 8388607)
- 260 compressed objects within 3 object streams
- 69 named destinations out of 1000 (max. 500000)
+ 304 PDF objects out of 1000 (max. 8388607)
+ 262 compressed objects within 3 object streams
+ 70 named destinations out of 1000 (max. 500000)
  154 words of extra memory for PDF output out of 10000 (max. 10000000)
 
