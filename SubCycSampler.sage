@@ -119,6 +119,34 @@ class SubCycSampler:
     def basis_lengths(self):
         return [self.Ared.column(i).norm() for i in range(self._degree)]
 
+
+    def galois_permutation(self, c):
+        """
+        c -- a coset.
+        returns a dictionary d such that  d[a] = \sigma_c(a),
+        representing a Galois group action.
+        """
+        H = self.H
+        Zm = Integers(self.m)
+        c = Zm(c)
+        d = {}
+        for a in self.cosets:
+            d[a] = self.H.coset(a*c)
+        return d
+
+    def _vec_modq_coset_dict(self,q):
+        vec = self.vec_modq(q)
+        cc = self.cosets
+        return dict(zip(cc,vec))
+
+    def vec_modq_twisted_by_galois(self,q,c):
+        _dict = self._vec_modq_coset_dict(q)
+        _galois = self.galois_permutation(c)
+        result  = []
+        for a in self.cosets:
+            result.append(_dict[_galois[a]])
+        return vector(result)
+
     def embedding_matrix(self, prec = None):
         """
         We are in a simplified situation because the field K is Galois over QQ,
