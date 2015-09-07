@@ -79,27 +79,26 @@ Then we have
 $$\tilde{A_{w}} = T A_{w}.$$
 
 
-For $\sigma > 0$, define the Gaussian function $\rho_\sigma: \bR^n \to [0,1]$ as $\rho_\sigma(x) = e^{||x||^2/2\sigma^2}$ (our $\sigma$ is equal to $r/\sqrt{2\pi}$ for the parameter $r$ in \cite{lyubashevsky2013ideal}).
+For $\sigma > 0$, define the Gaussian function $\rho_\sigma: \bR^n \to [0,1]$ as $\rho_\sigma(x) = e^{-||x||^2/2\sigma^2}$ (our $\sigma$ is equal to $r/\sqrt{2\pi}$ for the parameter $r$ in \cite{lyubashevsky2013ideal}).
 \begin{Definition}
 For a lattiace $\Lambda \subset \bR^n$ and $\sigma > 0$, the {\it discrete Gaussian distribution} on $\Lambda$ with parameter $\sigma$ is:
 \[
     D_{\Lambda, \sigma}(x) = \frac{\rho_\sigma(x)}{\sum_{y \in\Lambda} \rho_\sigma(y)}, \, \forall x \in \Lambda.
 \]
-
 \end{Definition}
-
+Equivalently, the probability of sampling any lattice point $x$ is proportional to $\rho_\sigma(x)$.
 
 \subsection{Ring LWE problems for general number fields}
 
 \begin{Definition}
-An {\it RLWE instance} is a tuple $\cR = (K,q,\sigma)$, where $K$ is a number field with ring of integers $R$, $q$ is a prime, $\sigma >0$, and $s \in R/qR$.
+An {\it RLWE instance} is a tuple $\cR = (K,q,\sigma,s)$, where $K$ is a number field with ring of integers $R$, $q$ is a prime, $\sigma >0$, and $s \in R/qR$ is the {\it secret}.
 \end{Definition}
 
 
 \begin{Definition}
-Let $\cR = (K,q,s)$ be an RLWE instance, and let $R$ be the ring of integers of $K$. The {\it error distribution} of $\cR$, denote by $D_\cR$, is the discrete lattice Gaussian
+Let $\cR = (K,q,\sigma,s)$ be an RLWE instance, and let $R$ be the ring of integers of $K$. The {\it error distribution} of $\cR$, denote by $D_\cR$, is the discrete lattice Gaussian
 \[
-D_\cR = D_{\tilde{\iota}(R),\sigma}.
+D_\cR = D_{\iota(R),\sigma}.
 \]
 \end{Definition}
 
@@ -115,7 +114,7 @@ where the first coordiante $a$ is chosen uniformly at random in $R_q$, and $e \g
 The RLWE problem has two variants: search and decision.
 
 \begin{Definition}[Search]
-Let $\cR$ be an RLWE intance. The {\it search Ring-LWE} problem, denoted by $\SRLWE(\cR)$, is to discover $s$ given access to arbitrarily many independent samples $(a,b) \gets \cR$.
+Let $\cR$ be an RLWE intance. The {\it search Ring-LWE} problem, denoted by ${\color{red}{\SRLWE(\cR)}}$, is to discover $s$ given access to arbitrarily many independent samples $(a,b) \gets \cR$.
 \end{Definition}
 
 \begin{Definition}[Decision]
@@ -231,13 +230,11 @@ Let $N = q^f$ denote the cardinality of $F$. Note that $N$ is also the number of
 
      $R$ -- the ring of integers of $K$.
 
-     $n$: the degree of $K$.
+     $\fq$ -- a prime ideal in $K$ above $q$.
 
-     $\fq$: a prime ideal in $K$ above $q$.
+     $N$ -- the cardinality of $R/\fq$.
 
-     $N$: the cardinality of $R/\fq$.
-
-     $S$: a collection of $M$ ($M = \Omega(N)$) RLWE samples $(a,b) \sim \cR$.
+     $S$ -- a collection of $M$ ($M = \Omega(N)$) RLWE samples $(a,b) \sim \cR$.
     \Ensure a guess of the value $s \pmod{\fq}$, or {\bf NON-RLWE}, or {\bf INSUFFIICNET-SAMPLES}
 
     %\State $B \gets select_bins(M, |F|)$.
@@ -246,18 +243,18 @@ Let $N = q^f$ denote the cardinality of $F$. Note that $N$ is also the number of
 
     \State $\omega \gets \Phi^{-1}((1+\alpha)/2)$
 
-    \State $G = \emptyset$
+    \State $G \gets \emptyset$
 
     \For{$s$ in $F$}
+        \State $E \gets \emptyset$.
         \For{$a,b$ in $S$}
-            \State $E \gets \emptyset$.
             \State $\bar{a}, \bar{b} \gets a \pmod{\fq}, b \pmod{\fq}$.
             \State $\bar{e} \gets \bar{b} - \bar{a}s$.
-            \State add $e$ to $E$.
+            \State add $\bar{e}$ to $E$.
         \EndFor
 
         \State Run $\chi^2$ test on $E$ and obtain the value $\chi^2(E)$.
-        \If{$|\chi^2(E) - B-1| > \omega \sqrt{2B-2}$}
+        \If{$|\chi^2(E) - (N-1)| > \omega \sqrt{2N-2}$}
             \State add $s$ to $G$
         \EndIf
     \EndFor
@@ -286,7 +283,7 @@ where $\Phi$ is the cumulative distribution function for the standard Gaussian d
 \end{theorem}
 
 \begin{proof}
-The chi-square value for uniformity on samples from $D_{\cR, \fq}$ follow a noncentral chisquare distribution with the same degree of freedom and a parameter $\lambda$ given by
+The chi-square value for uniformity on samples from $D_{\cR, \fq}$ follow a noncentral chi-square distribution with the same degree of freedom and a parameter $\lambda$ given by
 \[
     \lambda = MN d_2(D_{\cR, \fq}, U(R/\fq))^2.
 \]
@@ -759,7 +756,7 @@ $m$ & $q$ & $-[\log_2(\epsilon(m,q,2))]$ \\
 \end{table}
 
 \begin{remark}
-There is a heuristic argument on why one expects $\epsilon(m,q,k,\alpha)$ to be small. Each term in the summand is a product of cosines of form $\prod_{i=0}^{n-1} \cos \left(\frac{ \alpha^i \pi y}{q} \right)^k$. For each $0 \neq y \in \bF_q$, Since the elements $\alpha^i$ are distinct and usually spaced-out in $\bF_q$, it is very likely that $\alpha^i y$ is close $q/2$ for some values of $i$, making the corresponding cosine value small. 
+There is a heuristic argument on why one expects $\epsilon(m,q,k,\alpha)$ to be small. Each term in the summand is a product of cosines of form $\prod_{i=0}^{n-1} \cos \left(\frac{ \alpha^i \pi y}{q} \right)^k$. For each $0 \neq y \in \bF_q$, Since the elements $\alpha^i$ are distinct and usually spaced-out in $\bF_q$, it is very likely that $\alpha^i y$ is close $q/2$ for some values of $i$, making the corresponding cosine value small.
 \end{remark}
 
 \section{Conclusion and open problems}
