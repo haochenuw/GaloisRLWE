@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  7 SEP 2015 05:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  7 SEP 2015 05:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1771,81 +1771,81 @@ Overfull \hbox (7.629pt too wide) in paragraph at lines 118--119
 [2] [3]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 214.
+(hyperref)                removing `math shift' on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathop' on input line 214.
+(hyperref)                removing `\mathop' on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 214.
+(hyperref)                removing `\mathcode' on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 214.
+(hyperref)                removing `\mathcode' on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 214.
+(hyperref)                removing `\mathcode' on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathchardef' on input line 214.
+(hyperref)                removing `\mathchardef' on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\std@minus' on input line 214.
+(hyperref)                removing `\std@minus' on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 214.
+(hyperref)                removing `\mathcode' on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 214.
+(hyperref)                removing `\mathcode' on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 214.
+(hyperref)                removing `\mathcode' on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 214.
+(hyperref)                removing `\mathcode' on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                \kern 2.55527pt
-(hyperref)                removed on input line 214.
+(hyperref)                removed on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathgroup' on input line 214.
+(hyperref)                removing `\mathgroup' on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\symoperators' on input line 214.
+(hyperref)                removing `\symoperators' on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 214.
+(hyperref)                removing `\@ifnextchar' on input line 216.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 214.
+(hyperref)                removing `math shift' on input line 216.
 
 
 Package hyperref Warning: Composite letter `\textacute+3'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textacute' on input line 214.
+(hyperref)                removing `\textacute' on input line 216.
 
 
 Package hyperref Warning: Composite letter `\textdotaccent+"'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textdotaccent' on input line 214.
+(hyperref)                removing `\textdotaccent' on input line 216.
 
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 222.
+put line 224.
 
 Underfull \vbox (badness 2707) has occurred while \output is active []
 
@@ -1853,94 +1853,93 @@ Underfull \vbox (badness 2707) has occurred while \output is active []
 [5]
 
 LaTeX Warning: Citation `gentry2008trapdoors' on page 6 undefined on input line
- 346.
+ 348.
 
 [6pdfTeX warning (ext4): destination with the same identifier (name{table.1}) h
 as been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.362 \[
+l.364 \[
         ]
-Overfull \hbox (20.83508pt too wide) in paragraph at lines 369--374
+Overfull \hbox (20.83508pt too wide) in paragraph at lines 371--376
  [][] 
  []
 
 [7] [8]
 
-LaTeX Warning: Reference `eq: last' on page 9 undefined on input line 521.
+LaTeX Warning: Reference `eq: last' on page 9 undefined on input line 523.
 
 [9]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 558.
+(amsmath)                 on input line 560.
 
-<v8.png, id=209, 566.5968pt x 277.5168pt>
+<v8.png, id=208, 566.5968pt x 277.5168pt>
 File: v8.png Graphic file (type png)
  <use v8.png>
-Package pdftex.def Info: v8.png used on input line 566.
+Package pdftex.def Info: v8.png used on input line 568.
 (pdftex.def)             Requested size: 234.8775pt x 115.04028pt.
  [10 <./v8.png>] [11]pdfTeX warning (ext4): destination with the same identifie
 r (name{table.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.711 \caption{Values of $\epsilon(m,q,k)$}
+l.713 \caption{Values of $\epsilon(m,q,k)$}
                                             [12]pdfTeX warning (ext4): destinat
 ion with the same identifier (name{table.2}) has been already used, duplicate i
 gnored
 <to be read again> 
                    \relax 
-l.745 ...$\epsilon(m,q,2)$ for primes of degree 2}
+l.747 ...$\epsilon(m,q,2)$ for primes of degree 2}
                                                    (./galois-rlwe.bbl) [13]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 764.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 764.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 770.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 770.
 
 (./galois-rlwe.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 764.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 764.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 770.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 770.
 Package rerunfilecheck Info: File `galois-rlwe.out' has not changed.
 (rerunfilecheck)             Checksum: 2A77B8291224A364A09BF71818DB125A;1477.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 764.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 770.
  ) 
 Here is how much of TeX's memory you used:
- 24533 strings out of 493105
- 468331 string characters out of 6137073
+ 24534 strings out of 493105
+ 468343 string characters out of 6137073
  525453 words of memory out of 5000000
  27390 multiletter control sequences out of 15000+600000
  12507 words of font info for 50 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  68i,11n,84p,10387b,429s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/euler/eufm10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (13 pages, 329847 bytes).
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
+8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/rsfs/rsfs10.pfb>
+Output written on galois-rlwe.pdf (13 pages, 323634 bytes).
 PDF statistics:
- 343 PDF objects out of 1000 (max. 8388607)
- 300 compressed objects within 3 object streams
- 82 named destinations out of 1000 (max. 500000)
+ 339 PDF objects out of 1000 (max. 8388607)
+ 297 compressed objects within 3 object streams
+ 83 named destinations out of 1000 (max. 500000)
  170 words of extra memory for PDF output out of 10000 (max. 10000000)
 

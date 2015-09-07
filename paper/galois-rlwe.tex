@@ -127,10 +127,12 @@ problem, denoted by $\DRLWE(\cR)$, is to distinguish between the same number of 
 \section{search-to-decision reduction}
 \label{sec: s-to-d}
 
-We prove the the reduction of SRLWE for Galois extensions to an intermediate problem, denoted by $SRLWE(\bR,\fq)$ (the same problem is denoted by $\fq_i$-LWE in \cite{lyubashevsky2013ideal}), of recovering the secret modulo some prime ideal $\fq$ of $K $ lying above $q$. This result can be viewed as a generalization of \cite[Theorem 2]{eisentrager2014weak} to primes of higher degree. Since our Algorithm~ are targeting at $SRLWE(\bR,\fq)$, we could attack SRLWE for any Galois RLWE instances we found vulnerable to Algorithm~. We remark that a search-to-decision reduction theorem for higher degree primes can be proved by carrying out almost the exact same proof in \cite{eisentrager2014weak}.
+We prove the the reduction of SRLWE for Galois extensions to an intermediate problem, denoted by $SRLWE(\bR,\fq)$ (the same problem is denoted by $\fq_i$-LWE in \cite{lyubashevsky2013ideal}), of recovering the secret modulo some prime ideal $\fq$ of $K $ lying above $q$. This result can be viewed as a generalization of \cite[Theorem 2]{eisentrager2014weak} to primes of higher degree. Since our attack in this paper is targeting at $SRLWE(\cR,\fq)$, we could attack SRLWE for any Galois RLWE instances we found vulnerable.
+
+%We remark that a search-to-decision reduction theorem for higher degree primes can be proved by carrying out almost the exact same proof in \cite{eisentrager2014weak}.
 
 \begin{Definition} \label{def: srlwe mod q}
-Given an RLWE instance $\cR = (K,q,\sigma, s)$ and a prime ideal $\fq$ of $K$ lying above $q$. The problem $\SRLWE(\cR, \fq)$ is: given access to arbitrarily many independent samples $(a,b) \gets \cR$, find $s \pmod {\fq}$.
+Given an RLWE instance $\cR = (K,q,\sigma, s)$ and a prime ideal $\fq$ of $K$ lying above $q$. The problem $\SRLWE(\cR, \fq)$ is: given access to arbitrarily many independent samples $(a,b) \gets \cR$, find $s \pmod {\fq}$. The reduced error distribution with respect to $\fq$ is $D_{\cR} \pmod{fq}$, which we denote by $D_{\cR,\fq}$.
 \end{Definition}
 
 We prove the reduction from $\SRLWE(\cR)$ to $\SRLWE(\cR,\fq)$ when
@@ -295,7 +297,7 @@ degree of freedom $k$ and parameter $\lambda$ with a Gaussian
 distribution of mean $k + \lambda$ and variance $2k + 4\lambda$. The result now follows from the fact that the argument of $\Phi$ is a decreasing function of $\lambda$.
 \end{proof}
 
-To get a sense of how the constants behave, we give a table containing some $p$ values for various choices of $N$ and $\Delta$, computed using theorem. We fix the number of samples to be $M = 5N$. Note that 0.904 is the upper bound of the success rate.
+To get a sense of how the constants behave, we give a table containing some $p$ values for various choices of $N$ and $\Delta$. We fix the number of samples to be $M = 5N$. Note that 0.904 is the upper bound of the success rate.
 
 \begin{table}[H]
 \caption{Success rates of chi-square attack}
@@ -678,7 +680,7 @@ Now we are able to bound the difference $e(a) - 1/q$ using the Fourier inversion
 \begin{theorem}
 For all $a \in \bF_q$,
 \begin{equation} \label{eq: secure}
-    |e(a) -  1/q| \leq \frac{1}{q}  \sum_{y \in \bF_q, y \neq 0}  |\hat{E}(y)|.
+    |e(a) -  1/q| \leq \frac{1}{q}  \sum_{y \in \bF_q, y \neq 0}  |\hat{e}(y)|.
 \end{equation}
 \end{theorem}
 
@@ -693,7 +695,7 @@ Now the theorem follows by taking from that $|\chi_y(a)| \leq 1$ for all $a, y$.
 \end{proof}
 
 \begin{Corollary}
-The statistical distance between $e$ and $u$ satisfies $$d(e,u) \leq \frac{1}{2}  \sum_{y \in \bF_q, y \neq 0}  |\hat{E}(y)|.$$
+The statistical distance between $e$ and $u$ satisfies $$d(e,u) \leq \frac{1}{2}  \sum_{y \in \bF_q, y \neq 0}  |\hat{e}(y)|.$$
 \end{Corollary}
 
 
@@ -735,9 +737,9 @@ $m$ & $q$ & $-[\log_2(\epsilon(m,q, 2))]$ \\
 \begin{remark}
 It is possible to generalize this cryptoanalysis to higher degree primes, where the Fourier analysis is performed in extension fields $\bF_{q^f}$. The only change in the definition would be $\chi_y(a) = e^{ \frac{2 \pi i Tr(a_i y)}{q}}$, and we will have
 \[
-    \widehat{E_{{\bf a}, k, q}}(y) = \prod_{i=1}^{n} \cos \left(\frac{ \pi Tr(a_i y) }{q} \right)^k.
+    \widehat{e}(y) = \prod_{i=1}^{n} \cos \left(\frac{ \pi Tr(\alpha^i y) }{q} \right)^k.
 \]
-And a similar analysis goes through. We have made a table for primes of degree two.
+Then a similar analysis goes through. We have made a table for primes of degree two.
 \end{remark}
 
 \FloatBarrier
@@ -755,6 +757,10 @@ $m$ & $q$ & $-[\log_2(\epsilon(m,q,2))]$ \\
 512 & 257 & 263
 \end{tabular}
 \end{table}
+
+\begin{remark}
+There is a heuristic argument on why one expects $\epsilon(m,q,k,\alpha)$ to be small. Each term in the summand is a product of cosines of form $\prod_{i=0}^{n-1} \cos \left(\frac{ \alpha^i \pi y}{q} \right)^k$. For each $0 \neq y \in \bF_q$, Since the elements $\alpha^i$ are distinct and usually spaced-out in $\bF_q$, it is very likely that $\alpha^i y$ is close $q/2$ for some values of $i$, making the corresponding cosine value small. 
+\end{remark}
 
 \section{Conclusion and open problems}
 
