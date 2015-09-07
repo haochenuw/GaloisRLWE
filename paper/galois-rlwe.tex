@@ -218,8 +218,8 @@ Let $N = q^f$ denote the cardinality of $F$. Note that $N$ is also the number of
 
 %Note that although we restrict ourselves to subfields of cyclotomics with odd and square-free $m$, the attack could be applied to any finite extension of $\bQ$.
 
-\begin{algorithm}[H]
-\caption{chi-square-test attack of $SRLWE(\cR,\fq$)}          % give the algorithm a caption
+\begin{algorithm}[H] \label{alg: chi-square}
+\caption{chi-square attack of $SRLWE(\cR,\fq$)}          % give the algorithm a caption
 \label{IPR}                           % and a label for \ref{} commands later in the document
 \begin{algorithmic}[1]              % enter the algorithmic environment
      \Require
@@ -329,9 +329,9 @@ We set $\zeta = \exp(2\pi i /m)$. Then the canonical embedding embedding matrix 
     (A_w)_{i,j} = \sum_{h \in H}{\zeta^{hij}}.
 \]
 
-\begin{Prop}
-Suppose $\cR$ is an RLWE instance, such that the underlying field $K$ is a Galois number field, and $q$ is unramified in $K$. Then error distribution $D(\cR, \fq)$ is independent of the choice of prime ideal $\fq$ above $q$.
-\end{Prop}
+\begin{Lemma} \label{lem: symmetry}
+Suppose $\cR$ is an RLWE instance such that the underlying field $K$ is a Galois number field, and $q$ is unramified in $K$. Then error distribution $D(\cR, \fq)$ is independent of the choice of prime ideal $\fq$ above $q$.
+\end{Lemma}
 
 \begin{proof}
 From the proof of [fixme: search-to-decision], we know that the change from a prime $\fq$ to $\fq'$ can be done via applying an element of the galois group $\Gal(K/\bQ)$ to the RLWE samples from $\cR$. The Galois group acts on the embedded lattice $\Lambda := \iota(R)$ by permuting the set of embeddings of $K$. So we have obtained a group homomorphism $$\phi: \Gal(K/\bQ) \to \Aut(\Lambda).$$
@@ -343,11 +343,11 @@ Combining this theorem with Lemma about existence, we see that for fields of for
 
 \subsection{Searching}
 
-The above algorithm allows us to search for vulnerable instances among fields of form $K_{m,H}$. The search is done by generating actual RLWE samples from the instance and run the chi-square attack (Algorithm ~) on these samples. Success of the attack would indicate vulnerability. Our field search requires sampling efficiently from a discete Gaussian $D_{\Lambda, \sigma}$ for which we choose the method outlined in [GPV].
+The above algorithm allows us to search for vulnerable instances among fields of form $K_{m,H}$. The search is done by generating actual RLWE samples from the instance and run the chi-square attack on these samples. Success of the attack will indicate vulnerability of the instance. Our field search requires sampling efficiently from a discete Gaussian $D_{\Lambda, \sigma}$ for which we choose the method outlined in \cite{gentry2008trapdoors}.
 
-In the first table, we list some instances, for which the attack have succeeded. The columns are as follows. Note that we ommited the prime ideal $\fq$ due to Lemma~.  and $t$ denotes the running time in seconds.
+In the first table, we list some instances for which the attack have succeeded. The columns of Table~\ref{tab: attacked} are as follows. The first two columns specify the field $K = K_{m,H}$; the column labled $n$ is the degree of $K$, $q$ is the modulus of choice, and $f$ is the residue degree of $q$. Note that we ommited our choice of prime ideal $\fq$, since due to Lemma~\ref{lem: symmetry} the choice is irrelevant to our attack.
 
-\begin{table}[H]
+\begin{table}[H] \label{tab: attacked}
 \caption{Attacked sub-cyclotomic RLWE instances}
 \begin{tabular}{c|c|c|c|c|c|c|c}
 $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples used & running time of attack (in secs) \\ \hline
@@ -356,22 +356,6 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples used & runn
 15015 & [12286, 2003, 11936] & 60 & 43 & 2 & 1 & 11094 & 3813
 \end{tabular}
 \end{table}
-
-
-\subsection{another test}
-
-One may notice that in all the vulnerable instances in table, the prime $q$ has degree $f = 2$. We explain why primes of degree higher than one are more likely to vulnerable, and introduce a new test based on it.
-
-The intuition is the following: Assume $K$ is a Galois number field and $q$ is a prime of degree $r$ in $K$. Suppose we have found a reduced basis $w_1,\cdots, w_n$ of $R$ with respect to the adjusted embedding. Fix a prime ideal $\fq$ above $q$. Then the image $\bar{w_1}, \cdots \bar{w_n}$ lie in $R/\fq$, a finite field of cardinality $q^r$. However, if for some index $i$, the element $w_i$ lies inside some proper subfield $K'$ of $K$, and if $q$ has degree $r' < r$ in $K'$, then  $\bar{w_i}$ will lie in a proper subfield of $R/\fq$. If the above situation happens for a large portion of the $w_i$'s, then we would expect that the error distribution mod $\fq$, which we denoted by $D_{\cR,\fq}$ in other sections, will take values in a proper subfield of $R/\fq$ more frequently than the uniform distribution. We demondstrate this phenomenon through the following example.
-
-\begin{Example}
-Let $m = $ and $H$ be the subgroup of $(\bZ/m\bZ)^*$ generated by .. , and let $K = K_{m,H}$, a Galois number field with degree ?. After a BKZ lattice reduction, we obtained an basis $v_1, \cdots, v_n$ for the ring of integers $R$, ordered by increasing embedding length. We take the moduli to be $q = ?$, a prime of degree 2. We choose a prime $\fq$ above $q$ and denote by $\bar{v}$ the image of $v$ in $R/\fq$. We use $\bF_q$ to denote the prime subfield of $R/\fq$. It turns out that $\bar{v_i} \in \bF_q$ for $1 \leq i \leq ?$.
-
-We then generate ? sample errors $e_j \gets D_{\cR}$ and consider their image $\bar{e_j}$ in $R/\fq$. A subfield test (defined in chisquare) gives the p-value .... Since this is smaller than $q^2$, we could solve $\SRLWE(\cR,\fq)$ with probability.
-\end{Example}
-
-
-
 
 In the second table, we list some vulnerable instances we found, for which the attack is likely to succeed based on
 the theorem in chisquare test, but will take a long time to finish. Hence instead of running the actual attack, we first run the chi-square test on the correct error samples, and then run a few chisuqare tests on some random guesses of $s \pmod{\fq}$. We then estimate the success rate using the theorem. More precisely, suppose $\hat{\chi^2}$ is the chi-square value of the sample errors from $D_{\cR, \fq}$. We replace $\lambda$ by $\hat{\chi^2}$ in the formula and compute
@@ -388,6 +372,26 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples used & est.
 285285 & [181156, 210926, 87361] & 96 & 131 & 2 & 1 & ? & ? & ?
 \end{tabular}
 \end{table}
+
+\subsection{Discussion}
+One may notice that in all the vulnerable instances in table, the prime $q$ has degree $f = 2$. We explain why primes of degree higher than one are more likely to vulnerable, and introduce a new test based on it.
+
+The intuition is the following: Assume $K$ is a Galois number field and $q$ is a prime of degree $r$ in $K$. Suppose we have found a reduced basis $w_1,\cdots, w_n$ of $R$ with respect to the adjusted embedding. Fix a prime ideal $\fq$ above $q$. Then the image $\bar{w_1}, \cdots \bar{w_n}$ lie in $R/\fq$, a finite field of cardinality $q^r$. However, if for some index $i$, the element $w_i$ lies inside some proper subfield $K'$ of $K$, and if $q$ has degree $r' < r$ in $K'$, then  $\bar{w_i}$ will lie in a proper subfield of $R/\fq$. If the above situation happens for a large portion of the $w_i$'s, then we would expect that the error distribution mod $\fq$, which we denoted by $D_{\cR,\fq}$ in other sections, will take values in a proper subfield of $R/\fq$ more frequently than the uniform distribution.
+
+\subsection{a full-blown example}
+Next, in order to support our results with concrete example, we study an sub-cyclotomic RLWE instance in detail, where we generate RLWE samples, perform the attack, and used search-to-decision reduction to recover the entire secret key $s$.
+
+
+Let $m = $ and $H$ be the subgroup of $(\bZ/m\bZ)^*$ generated by .. , and let $K = K_{m,H}$, a Galois number field with degree ?. After a BKZ lattice reduction, we obtained an basis $v_1, \cdots, v_n$ for the ring of integers $R$, ordered by increasing embedding length. We take the moduli to be $q = ?$, a prime of degree 2. We choose a prime
+
+$\fq$ above $q$ and denote by $\bar{v}$ the image of $v$ in $R/\fq$. We use $\bF_q$ to denote the prime subfield of $R/\fq$. It turns out that $\bar{v_i} \in \bF_q$ for $1 \leq i \leq ?$.
+
+We then generate ? sample errors $e_j \gets D_{\cR}$ and consider their image $\bar{e_j}$ in $R/\fq$. A subfield test (defined in chisquare) gives the p-value .... Since this is smaller than $q^2$, we could solve $\SRLWE(\cR,\fq)$ with probability.
+
+
+
+
+
 
 \section{Attacking prime cyclotomic fields when the modulus is the ramified prime}
 \label{sec: ramified-prime}

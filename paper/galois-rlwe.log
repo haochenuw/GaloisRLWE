@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  7 SEP 2015 05:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  7 SEP 2015 05:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1850,64 +1850,68 @@ put line 222.
 Underfull \vbox (badness 2707) has occurred while \output is active []
 
  [4]
-[5] [6pdfTeX warning (ext4): destination with the same identifier (name{table.1
-}) has been already used, duplicate ignored
+[5]
+
+LaTeX Warning: Citation `gentry2008trapdoors' on page 6 undefined on input line
+ 346.
+
+[6pdfTeX warning (ext4): destination with the same identifier (name{table.1}) h
+as been already used, duplicate ignored
 
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
-l.365 T
-       he intuition is the following: Assume $K$ is a Galois number field an...
-]
-Overfull \hbox (20.83508pt too wide) in paragraph at lines 385--390
+l.362 \[
+        ]
+Overfull \hbox (20.83508pt too wide) in paragraph at lines 369--374
  [][] 
  []
 
 [7] [8]
 
-LaTeX Warning: Reference `eq: last' on page 9 undefined on input line 517.
+LaTeX Warning: Reference `eq: last' on page 9 undefined on input line 521.
 
 [9]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 554.
+(amsmath)                 on input line 558.
 
-<v8.png, id=204, 566.5968pt x 277.5168pt>
+<v8.png, id=209, 566.5968pt x 277.5168pt>
 File: v8.png Graphic file (type png)
  <use v8.png>
-Package pdftex.def Info: v8.png used on input line 562.
+Package pdftex.def Info: v8.png used on input line 566.
 (pdftex.def)             Requested size: 234.8775pt x 115.04028pt.
  [10 <./v8.png>] [11]pdfTeX warning (ext4): destination with the same identifie
 r (name{table.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.707 \caption{Values of $\epsilon(m,q,k)$}
+l.711 \caption{Values of $\epsilon(m,q,k)$}
                                             [12]pdfTeX warning (ext4): destinat
 ion with the same identifier (name{table.2}) has been already used, duplicate i
 gnored
 <to be read again> 
                    \relax 
-l.741 ...$\epsilon(m,q,2)$ for primes of degree 2}
+l.745 ...$\epsilon(m,q,2)$ for primes of degree 2}
                                                    (./galois-rlwe.bbl) [13]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 760.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 760.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 764.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 764.
 
 (./galois-rlwe.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 760.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 760.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 764.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 764.
 Package rerunfilecheck Info: File `galois-rlwe.out' has not changed.
-(rerunfilecheck)             Checksum: B81BC1E1E2F0324611FE362D313D2A54;1404.
+(rerunfilecheck)             Checksum: 2A77B8291224A364A09BF71818DB125A;1477.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 760.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 764.
  ) 
 Here is how much of TeX's memory you used:
- 24528 strings out of 493105
- 468244 string characters out of 6137073
- 525324 words of memory out of 5000000
- 27385 multiletter control sequences out of 15000+600000
+ 24533 strings out of 493105
+ 468331 string characters out of 6137073
+ 525453 words of memory out of 5000000
+ 27390 multiletter control sequences out of 15000+600000
  12507 words of font info for 50 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  68i,11n,84p,10387b,429s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1933,10 +1937,10 @@ type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/texmf-dist/fonts/type
 /public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
 blic/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (13 pages, 329295 bytes).
+Output written on galois-rlwe.pdf (13 pages, 329847 bytes).
 PDF statistics:
- 338 PDF objects out of 1000 (max. 8388607)
- 295 compressed objects within 3 object streams
+ 343 PDF objects out of 1000 (max. 8388607)
+ 300 compressed objects within 3 object streams
  82 named destinations out of 1000 (max. 500000)
- 162 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 170 words of extra memory for PDF output out of 10000 (max. 10000000)
 
