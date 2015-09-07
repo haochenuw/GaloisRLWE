@@ -5,7 +5,17 @@
   \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
 }
 \providecommand{\href}[2]{#2}
-\begin{thebibliography}{EHL14}
+\begin{thebibliography}{BGV12}
+
+\bibitem[BGV12]{brakerski2012leveled}
+Zvika Brakerski, Craig Gentry, and Vinod Vaikuntanathan, \emph{(leveled) fully
+  homomorphic encryption without bootstrapping}, Proceedings of the 3rd
+  Innovations in Theoretical Computer Science Conference, ACM, 2012,
+  pp.~309--325.
+
+\bibitem[DD12]{ducas2012ring}
+L{\'e}o Ducas and Alain Durmus, \emph{Ring-lwe in polynomial rings}, Public Key
+  Cryptography--PKC 2012, Springer, 2012, pp.~34--51.
 
 \bibitem[EHL14]{eisentrager2014weak}
 Kirsten Eisentr{\"a}ger, Sean Hallgren, and Kristin Lauter, \emph{Weak

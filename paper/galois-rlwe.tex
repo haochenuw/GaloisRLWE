@@ -25,7 +25,7 @@ We describe a new attack on the Ring learning-with-errors (RLWE) problem based o
 \section{Introduction}
 The Ring learning with errors (RLWE) problem, proposed in \cite{lyubashevsky2013ideal}, is a variant of the traditional learning with error (LWE) problem, and is an active research area in lattice based cryptography. It has been studied extensively in (a lot of papers).
 
-Central to an RLWE problem instance is a choice of a number field $K$ and a prime $q$ called the {\it modulus}. The authors of \cite{lyubashevsky2013ideal} considered the case where $K$ is some cyclotomic field, and proved a reduction from certain hard lattice problems to the dual variant of RLWE. The hardness for the non-dual variant was proved in [DD]. Also in \cite{lyubashevsky2013ideal}, a search-to-decision reduction was proved for RLWE problems for cyclotomic fields and modulus $q$ which splits completely in the field. This reduction was then generalized to general Galois extensions in \cite{eisentrager2014weak}.
+Central to an RLWE problem instance is a choice of a number field $K$ and a prime $q$ called the {\it modulus}. The authors of \cite{lyubashevsky2013ideal} considered the case where $K$ is some cyclotomic field, and proved a reduction from certain hard lattice problems to the dual variant of RLWE. The hardness for the non-dual variant was proved in \cite{ducas2012ring}. Also in \cite{lyubashevsky2013ideal}, a search-to-decision reduction was proved for RLWE problems for cyclotomic fields and modulus $q$ which splits completely in the field. This reduction was then generalized to general Galois extensions in \cite{eisentrager2014weak}.
 
 The [ELOS] paper proposed an attack to decision RLWE problem. The attack makes use of ring homomorphisms $\pi: R \to \bF_q$, and works when the image of the RLWE error distribution under the map $\pi$ only takes value in a stricly smaller subset of $\bF_q$, with overwhelming probability. The authors of [ELOS] then gave an infinite family of examples vulnerable to the attack. Unfortunately, the vulnerable number fields in [ELOS] are not Galois extensions of $\bQ$. Hence, the search-to-decision reduction theorem does not apply, and the attack can not be directly used to solve the search variant of RLWE for those instances.
 
@@ -184,16 +184,18 @@ Suppose $\cR$ is an RLWE instance where $K$ is Galois and $q$ is an unramified p
 
 \section{The chi-square attack for uniform distribution}
 \label{sec: chi-square}
-We briefly recall the property and usage of the chi-square test for uniform distributions over a finite set $S$. Suppose  $M$ samples $y_1, \cdots, y_M \in S$. We partition $S$ into $r$ subsets
+\subsection{chi-square test for uniform distribution}
+We briefly review the properties and usage of the chi-square test for uniform distributions over a finite set $S$.  We partition $S$ into $r$ subsets
 \[
     S = \bigsqcup_{j=1}^r S_i,
 \]
-For each $1 \leq j \leq r$, we compute the expected number of samples that would fall in the i-th subset: $c_j := \frac{|S_j|M}{|S|}$. Then we compute the actual number of samples $t_j := |\{1 \leq i \leq r: y_i \in S_j\}|$. Finally, the $\chi^2$ value is computed as
+Suppose there are $M$ samples $y_1, \cdots, y_M \in S$.
+For each $1 \leq j \leq r$, we compute the expected number of samples that would fall in the $j$-th subset: $c_j := \frac{|S_j|M}{|S|}$. Then we compute the actual number of samples in $S_j$, i.e., $t_j := |\{1 \leq i \leq r: y_i \in S_j\}|$. Finally, the $\chi^2$ value is computed as
 \[
     \chi^2(S,y) = \sum_{j = 1}^r \frac{(t_j -c_j)^2}{c_j}.
 \]
-Note that degree of freedom in this test is $d = r-1$.
-To decide whether the samples are from a uniform distribtuion, we can either look up a table of $\chi^2$ values, or use an approximation rule:  when $df$ is large, the $\chi^2$ distribution can be well-approximated by a normal distribution $N(d, 2d)$; for example, if it turns out that $\chi^2 \notin (d - c \sqrt{2d}, d+ c \sqrt{2d})$, then the confidence we have that the samples are not taken from a uniform distribution is $2\Phi(c) - 1$.
+Suppose the samples are drawn from the uniform distribution on $S$. Then the $\chi^2$ value follows the chi-square distribution with degree of freedom equal $d = r-1$.
+To decide whether the samples are from a uniform distribtuion, we can either look up a table of $\chi^2$ values, or use an approximation rule:  when $d$ is large, the $\chi^2$ distribution can be well-approximated by a normal distribution $N(d, 2d)$; for example, if it turns out that $\chi^2 \notin (d - c \sqrt{2d}, d+ c \sqrt{2d})$, then the confidence we have that the samples are not taken from a uniform distribution is $2\Phi(c) - 1$.
 
 If $P,Q$ are two probability distributions on $S$, then their {\it statistical difference} is defined as
 \[
@@ -399,12 +401,12 @@ In addition, the prime $p$ is totally ramified in $K$. Let $\fp$ be the unique p
 %from a discrete Gaussian integer distribution. This method of sampling is used in a related problem usually referred to as Poly-LWE (PLWE). The PLWE and RLWE error distributions are different. However, we will show that for our attack on ramified primes, they behave the same.
 
 
-For the sake of simplicity of our analysis, we choose a different error distribution for our RLWE problem, which is introduced by [DD]. Consider the elements $v_i = \zeta_p^{i}$ of $R$. Note that the first $v_0, \cdots, v_{p-2}$ form a basis for $R$, and we have the relation
-$v_{p-1} = -\sum_{i=0}^{p-2}(v_i)$. Sampling from the [DD] error distribution, which we denote by $DD_{p,\sigma}$, consists of three steps: first, we generate a vector $(g_0, \cdots, g_{p-1})$, where $g_i$ are i.i.d. random variables under the continuous Gaussian distribution $N(0,\sigma^2)$. Then we form the sum
+For the sake of simplicity of our analysis, we choose a different error distribution for our RLWE problem, which is introduced by \cite{ducas2012ring}. Consider the elements $v_i = \zeta_p^{i}$ of $R$. Note that the first $v_0, \cdots, v_{p-2}$ form a basis for $R$, and we have the relation
+$v_{p-1} = -\sum_{i=0}^{p-2}(v_i)$. Sampling from the \cite{ducas2012ring} error distribution, which we denote by $DD_{p,\sigma}$, consists of three steps: first, we generate a vector $(g_0, \cdots, g_{p-1})$, where $g_i$ are i.i.d. random variables under the continuous Gaussian distribution $N(0,\sigma^2)$. Then we form the sum
 $\sum g_i \zeta_p^i$ and use the relation to rewrite it as $\sum_{i=0}^{p-2} (g_i - g_{p-1}) \zeta_p^i$.
 Finally, we take the nearest integer of each coordinates and the error is $$e  = \sum_{i=0}^{p-2} [g_i - g_{p-1}] \zeta_p^i.$$
 
-The authors of [DD] describe the relation between standard deviation parameters in their sampling and the one in RLWE. Their Lemma roughly says that $DD(p, \sigma)$ is a close approximation to $D_{\tilde{\iota}(\bZ[\zeta_p]),\sqrt{p}\sigma}$.
+The authors of \cite{ducas2012ring} describe the relation between standard deviation parameters in their sampling and the one in RLWE. Their Lemma roughly says that $DD(p, \sigma)$ is a close approximation to $D_{\tilde{\iota}(\bZ[\zeta_p]),\sqrt{p}\sigma}$.
 
 Under some mild assumptions, we will show that $e \pmod {\fp}$ takes on a proper subset of $\bF_p$.
 First, let $\{g\} =  g - [g]$ denote the distance from a real number $g$ to its nearest integer.
@@ -456,7 +458,7 @@ The decision RLWE problem was solved for all 10 instances, the number of samples
 \end{Lemma}
 
 \begin{proof}
-Each part is the direct consequence of the previous one. Thus we only need to prove (1), for which we refer to [DD].
+Each part is the direct consequence of the previous one. Thus we only need to prove (1), for which we refer to \cite{ducas2012ring}.
 \end{proof}
 
 Now suppose an error vector $e$ is sampled from the error distribution: $e \gets D_{\Lambda, \sigma}$.  Let $e'$ be the coeffificent vector of $e$ under the basis $v$: thus $e' = A_v^{-1}(e)$. Let ${\bf 1} = (1,1, \cdots,1)$ denote the n-dimensional vector of ones. Then
@@ -517,8 +519,9 @@ $|e|\leq 6\sqrt{2(p-1)\pi} \sigma$. When $p \to \infty$, we have $|e \pmod {\fp}
 \end{proof}
 
 \subsection{Can modulus switching be used?}
-
-Given the previous discusssions, it is a natural question whether modulus switching, as introduced in [BGV], [LaSt],
+Modulus switching, as a technique to reduce absolute noise
+in homomorphic encryption, has been discussed exetnsively in  \cite{brakerski2012leveled} and \cite{langlois2014worst}.
+Given the previous discusssions, it is a natural question whether modulus switching
 could be used on RLWE instances for prime cyclotomic fields, to move from a split prime to the ramified prime and perform the attack. However, the naive approach of this combination would not work, as demonstrated by the following argument.
 We let $p$ denote the modulus we are switching to.
 
