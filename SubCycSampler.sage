@@ -405,23 +405,26 @@ class SubCycSampler:
         return [ZZ.random_element(0,q) for _ in range(numsamples)]
 
 
-    def simulated_run(self,q, numsamples = 30, ratioTolerance = 2.5):
+    def simulated_run(self,q, numsamples = 30, ratioTolerance = 2,vec = None):
         """
         we run a simulation to test the quality.
-        and scaling.
+        and scaling. Default degree is 1.
         """
-        vec = self.vec_modq(q)
+        if vec is None:
+            vec = self.vec_modq(q)
         max_err = 0
         count_zero = 0
         print 'secret = %s'%self.secret
-        sbar =  sum([Mod(vi*e,q) for vi,e in zip(vec,self.secret)])
+        sbar =  sum([Mod(vi*si,q) for vi,si in zip(vec,self.secret)])
         print 'sbar = %s'%sbar
         errorsmodq = []
         for i in range(numsamples):
             error = self.__call__()
+            print 'error = %s'%error
             e = sum([Mod(vi*e,q) for vi,e in zip(vec,error)])
             errorsmodq.append(e)
-        alst = self._uniform_samples_in_fq(numsamples = numsamples)
+        print 'errorsmodq = %s'%errorsmodq
+        alst = self._uniform_samples_in_fq(q, numsamples = numsamples)
         blst = [a*sbar + e for a,e in zip(alst,errorsmodq)]
         t = cputime()
         goodGuesses = []
@@ -429,19 +432,19 @@ class SubCycSampler:
             eguesses = [ b - a*guess for a,b in zip(alst,blst)]
             eguessesReduced = [ZZ(e) if abs(ZZ(e)) < q/2 else ZZ(e) - q for e in eguesses]
             ratio =   float(q/(2*max([abs(e) for e in eguessesReduced ])))
-            print ' ratio = %s'%ratio
+            print 'geuss = %s, ratio = %s'%(guess,ratio)
             if ratio > ratioTolerance:
                 goodGuesses.append(guess)
         print 'time = %s'%cputime(t)
         if len(goodGuesses) == 0:
-            return 'not rlwe'
+            print 'not rlwe'
         elif len(goodGuesses) > 1:
-            return 'not enough samples'
+            print 'not enough samples'
         else:
             if sbar != goodGuesses[0]:
-                return 'Failed'
+                print 'Failed'
             else:
-                return 'Success!'
+                print 'Success!'
 
         #print 'number of zeros = %s'%count_zero
         #print 'Done!'
