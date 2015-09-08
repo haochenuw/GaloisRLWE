@@ -151,7 +151,7 @@ class DirectCycSampler:
             abar, bbar = self._map_to_fq(a, q), self._map_to_fq(b, q)
             reduced_samples.append((abar,bbar))
         G = []
-        fofor sguess in F:
+        for sguess in F:
             # print 'sguess = %s'%sguess
             good = True
             for abar, bbar in reduced_samples:
