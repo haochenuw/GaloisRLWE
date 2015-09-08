@@ -5,7 +5,7 @@ class DirectCycSampler:
     """
     for sampling (coefficient-wise) from any cyclotomic field
     """
-    def __init__(self,m, sigma = 1, method = 'DD'):
+    def __init__(self,m, sigma = 1):
         self.m = m
         self.sigma = sigma
         self.D = DiscreteGaussianDistributionIntegerSampler(sigma = sigma)
@@ -62,6 +62,9 @@ class DirectCycSampler:
 
 
     def __call__(self):
+        """
+        sampling done using [DD].
+        """
         v0 = [self.Gaussian() for _ in range(self.n + 1)]
         v1 = [a - v0[-1] for a in v0[:-1]]
         return [ZZ(round(float(vv))) for vv in v1]
@@ -132,7 +135,49 @@ class DirectCycSampler:
         #print 'bprime = %s'%bprime_lst
         return [round_alpha_a, [Mod(bi,newq) for bi in round_alpha_b]]
 
-    def elos_chisquare_attack(self,q,samples):
+
+    def elos_attack(self,q,samples, maxRatio = 2):
+        """
+        the elos attack
+        """
+        print 'q = %s'%q
+        s = self.secret
+        print 's = %s'%s
+        sbar = self._map_to_fq(s, q)
+        print 'sbar = %s'%sbar
+        F = sbar.parent()
+        reduced_samples = []
+        for a,b in samples:
+            abar, bbar = self._map_to_fq(a, q), self._map_to_fq(b, q)
+            reduced_samples.append((abar,bbar))
+        G = []
+        fofor sguess in F:
+            # print 'sguess = %s'%sguess
+            good = True
+            for abar, bbar in reduced_samples:
+                ebar = bbar - abar*sguess
+                ebarReduced = ZZ(ebar) if ZZ(ebar) < q//2 else ZZ(ebar) - q
+                if float(q/(2*(ebarReduced))) < maxRatio:
+                    good = False
+                    break
+            if good:
+                G.append(sguess)
+        if len(G) == 0:
+            return 'not rlwe'
+        elif len(G) > 1:
+            return 'not enough samples'
+        else:
+            if G[0] == sbar:
+                return 'success'
+            else:
+                return 'failed.'
+
+                    # error too large
+
+             # run a chisquare test
+
+
+    def chisquare_attack(self,q,samples):
         """
         Note that this only works for one
         """
