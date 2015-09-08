@@ -7,7 +7,7 @@ import sys
 ######################################
 # some other statistical uniform tests.
 ######################################
-def subfield_unifrom_test(samples, probThreshold = 0.99):
+def subfield_unifrom_test(samples, probThreshold = 1e-5):
     """
     we assume that the samples are from a finite field.
     we separate the ones that are from a proper subfield.
@@ -27,20 +27,20 @@ def subfield_unifrom_test(samples, probThreshold = 0.99):
     card = q**degF
     eLarge= float(eltsWithFullDegree/card*numsamples)
     eSmall= numsamples - eLarge
-    print 'eSmall, eLarge = %s,%s'%(eSmall, eLarge)
-    print 'nSmall, nLarge = %s,%s'%(nSmall, nLarge)
+    verbose('eSmall, eLarge = %s,%s'%(eSmall, eLarge))
+    verbose('nSmall, nLarge = %s,%s'%(nSmall, nLarge))
     if min(eSmall, eLarge) < 5:
         raise ValueError('samples size too small.')
     # Now we have two bins, we do a very tiny chisquare test.
     chisquare = (nSmall - eSmall )^2/eSmall + (nLarge - eLarge)^2/eLarge
     T = RealDistribution('chisquared', 1)
-    print 'chisquare = %s'%chisquare
-    prob = T.cum_distribution_function(chisquare)
-    if prob > probThreshold:
-        print 'non-uniform'
+    verbose('chisquare = %s'%chisquare)
+    prob = 1 - T.cum_distribution_function(chisquare)
+    if prob < probThreshold:
+        verbose('non-uniform')
         return False
     else:
-        print 'uniform'
+        verbose('uniform')
         return True
 
 def elts_of_full_degree(q,n):
