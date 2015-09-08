@@ -36,7 +36,8 @@ class MyLatticeSampler:
         elif method == 'BKZ':
             self.T = self._bkz_reduce(block = block)
         else:
-            raise NotImplementedError
+            print 'no reduction is done.'
+            self.T = identity_matrix(self._degree)
         self.B  = self.A*self.T
         print 'reduction done. Time: %s'%cputime(t)
 
