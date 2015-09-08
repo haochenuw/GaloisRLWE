@@ -196,7 +196,7 @@ For each $1 \leq j \leq r$, we compute the expected number of samples that would
     \chi^2(S,y) = \sum_{j = 1}^r \frac{(t_j -c_j)^2}{c_j}.
 \]
 Suppose the samples are drawn from the uniform distribution on $S$. Then the $\chi^2$ value follows the chi-square distribution with degree of freedom equal $d = r-1$.
-To decide whether the samples are from a uniform distribtuion, we can either look up a table of $\chi^2$ values, or use an approximation rule:  when $d$ is large, the $\chi^2$ distribution can be well-approximated by a normal distribution $N(d, 2d)$; for example, if it turns out that $\chi^2 \notin (d - c \sqrt{2d}, d+ c \sqrt{2d})$, then the confidence we have that the samples are not taken from a uniform distribution is $2\Phi(c) - 1$.
+To decide whether the samples are from a uniform distribtuion, we can either look up a table of $\chi^2$ values, or use an approximation rule:  when $d$ is large, the $\chi^2$ distribution can be well-approximated by a normal distribution $N(d, 2d)$; for example, if it turns out that $\chi^2 \notin (d - c \sqrt{2d}, d+ c \sqrt{2d})$, then the confidence we have that the samples are not taken from a uniform distribution is $2\Phi(c) - 1$, where $\Phi$ is the cumulative distribution function of the standard Gaussian distribution,
 
 If $P,Q$ are two probability distributions on $S$, then their {\it statistical difference} is defined as
 \[
@@ -208,7 +208,7 @@ For convenience, we also define the {\it $l_2$ distance} between $P$ and $Q$ as 
 
 \subsection{The chi-square attack on $\SRLWE(\cR,\fq)$}
 
-Let $\cR$ be an RLWE instance with error distribution $D_{\cR}$ and $\fq$ be a prime ideal above $q$.  Our attack relies on the assumption that the distribution $D_\cR \pmod {\fq}$ is distinguishable from the uniform distribution on the finite field $F = R/\fq$. More precisely, the attack loop through all $q^f$ possitbilities of $\bar{s} = s \pmod{\fq}$. For each guess $s'$, it computes the values $\bar{e}' = \bar{b} - \bar{a} s' \pmod {\fq}$ for every sample $(a,b) \in S$. If the guess is wrong, or if the samples are taken from the uniform distirbution in $(R_q)^2$ instead of an RLWE instance, the values $\bar{e}'$ would be uniformly distributed in $F$ and it is likely to pass the chi-square test. On the other hand, if the guess is correct, then we expect the errors $\bar{e}'$ to fail the test.
+Let $\cR$ be an RLWE instance with error distribution $D_{\cR}$ and $\fq$ be a prime ideal above $q$.  The basic idea of our attack relies on the assumption that the distribution $D_\cR \pmod {\fq}$ is distinguishable from the uniform distribution on the finite field $F = R/\fq$. More precisely, the attack loops through all $q^f$ possitbilities of $\bar{s} = s \pmod{\fq}$, and for each guess $s'$, it computes the values $\bar{e}' = \bar{b} - \bar{a} s' \pmod {\fq}$ for every sample $(a,b) \in S$. If the guess is wrong, or if the samples are taken from the uniform distirbution in $(R_q)^2$, the values $\bar{e}'$ would be uniformly distributed in $F$ and it is likely to pass the chi-square test. On the other hand, if the guess is correct, then we expect the errors $\bar{e}'$ to fail the test.
 
 Let $N = q^f$ denote the cardinality of $F$. Note that $N$ is also the number of tests we run in the attack. For the attack to be successful, we need the $(N-1)$ tests corresponding to wrong guess of $s \pmod{\fq}$ to pass, and the one test corresponding to the correct guess to fail. Therefore, we need to choose the confidence interval of our test so that it is unlikely for a set of samples coming from uniform distribution to fail the test. In practice, we choose the confidence level to be  $\alpha = 1 - \frac{1}{10N}$. Let $\beta$ denote the probability that the sample errors fails the uniform test with probability  Then the probability that our algorithm will success is $p  = (1- \frac{1}{10N})^{N-1} \beta$. Note that when $N$ is large, $(1- \frac{1}{10N})^{N-1}$ is about $e^{-1/10} \approx 0.904$.
 
@@ -232,28 +232,22 @@ Let $N = q^f$ denote the cardinality of $F$. Note that $N$ is also the number of
 
      $B$ -- the number of bins ($B < N$).
 
-     $S$ -- a collection of $M$ ($M = \Omega(N)$) RLWE samples $(a,b) \sim \cR$.
+     $\mathcal{S}$ -- a collection of $M$ ($M = \Omega(N)$) RLWE samples from $\cR$.
     \Ensure a guess of the value $s \pmod{\fq}$, or {\bf NON-RLWE}, or {\bf INSUFFIICNET-SAMPLES}
 
-    %\State $B \gets select_bins(M, |F|)$.
-
-    \State $\alpha \gets 1 - \frac{1}{10N}$.
-
-    \State $\omega \gets \Phi^{-1}((1+\alpha)/2)$
-
-    \State $G \gets \emptyset$
+    \State $\omega \gets \Phi^{-1}(1- \frac{1}{20N})$, $\cG \gets \emptyset$
 
     \For{$s$ in $F$}
-        \State $E \gets \emptyset$.
-        \For{$a,b$ in $S$}
+        \State $cE \gets \emptyset$.
+        \For{$a,b$ in $\mathcal{S}$}
             \State $\bar{a}, \bar{b} \gets a \pmod{\fq}, b \pmod{\fq}$.
             \State $\bar{e} \gets \bar{b} - \bar{a}s$.
-            \State add $\bar{e}$ to $E$.
+            \State add $\bar{e}$ to $\cE$.
         \EndFor
 
-        \State Run $\chi^2$ test on $E$ and obtain the value $\chi^2(E)$.
-        \If{$|\chi^2(E) - (N-1)| > \omega \sqrt{2N-2}$}
-            \State add $s$ to $G$
+        \State Run $\chi^2$ test on $\cE$ and obtain the value $\chi^2(E)$.
+        \If{$|\chi^2(\cE) - (N-1)| > \omega \sqrt{2N-2}$}
+            \State add $s$ to $\cG$.
         \EndIf
     \EndFor
     \If{$G = \emptyset$}
@@ -270,34 +264,29 @@ Let $N = q^f$ denote the cardinality of $F$. Note that $N$ is also the number of
 \end{algorithmic}
 \end{algorithm}
 
-Note that the time complexity of the attack is $O(q^{f})$ since we have $q^f$ possible values for $s \pmod {\fq}$. The number of samples need for the attack is also $O(q^f)$. The correctness of the attack is captured in the following theorem.
+Note that the time complexity of the attack is $O(N)$ since we have $N$ possible values for $s \pmod {\fq}$. The number of samples need for the attack is also $O(N)$. The correctness of our attack is captured in the following theorem.
 
 \begin{theorem}
-Assume $q \gg 1$. Let $\Delta$ denote the statistical distance between the error distribution $D_{\cR, \fq} := D_{\cR} \pmod{\fq}$ and the uniform distribtuion on $R/\fq$. Then the above attack succeeds with proability at least
+Let $\Delta$ denote the statistical distance between the error distribution $D_{\cR, \fq}$ and the uniform distribtuion on $R/\fq$. Let $\lambda = 4 M \Delta^2$ and $\omega = \Phi^{-1}(1- \frac{1}{20N})$. let $p$ denote the proability of success of the attack in Algorithm~\ref{}. When $q \gg 1$, we have
 
-$$p = 0.904 (1- \Phi(\frac{\omega \sqrt{2(N-1)}- \lambda}{\sqrt{2(N-1) +4\lambda}})),$$
-
-where $\Phi$ is the cumulative distribution function for the standard Gaussian distribution, $\omega = \Phi^{-1}(1- \frac{1}{20N})$, and $\lambda = 4 M \Delta$.
+$$p \geq 0.951 \left(1- \Phi \left(\frac{\omega \sqrt{2(N-1)}- \lambda}{\sqrt{2(N-1) +4\lambda}}\right) \right).$$
 \end{theorem}
 
 \begin{proof}
-The chi-square value for uniformity on samples from $D_{\cR, \fq}$ follow a noncentral chi-square distribution with the same degree of freedom and a parameter $\lambda$ given by
+The chi-square value for uniformity on samples from $D_{\cR, \fq}$ follow a noncentral chi-square distribution with the same degree of freedom and a parameter $\lambda_0$ given by
 \[
-    \lambda = MN d_2(D_{\cR, \fq}, U(R/\fq))^2.
+    \lambda_0 = MN d_2(D_{\cR, \fq}, U(R/\fq))^2.
 \]
-(fixme: cite the chisquare paper.)
-In particular, we have $\lambda \geq  4M\Delta$.
-We approximate a noncentral chi-square distribution with
-degree of freedom $k$ and parameter $\lambda$ with a Gaussian
-distribution of mean $k + \lambda$ and variance $2k + 4\lambda$. The result now follows from the fact that the argument of $\Phi$ is a decreasing function of $\lambda$.
+In particular, we have $\lambda_0 \geq  4M\Delta^2 = \lambda$. Since $q \gg 1$, we may approximate a noncentral chi-square distribution with degree of freedom $k$ and parameter $\lambda_0$ with a Gaussian distribution of mean $k + \lambda_0$ and variance $2k + 4\lambda_0$ (see \cite{ryabko2004new}, for example). Recall that our attack succeeds if the set $\cE$ from all $(N-1)$ wrong guesses passes the test, and the true errors modulo $\fq$ fail the test. The first event happens with probability $(1 - \frac{1}{20N})^{N-1} \geq e^{-1/20} = 0.951 \cdots$. The second event has probability $1 - \Phi \left(\frac{\omega \sqrt{2(N-1)}- \lambda_0}{\sqrt{2(N-1) +4\lambda_0}}\right) $, which is an increasing function in $\lambda_0$. The theorem now follows.
 \end{proof}
 
-To get a sense of how the constants behave, we give a table containing some $p$ values for various choices of $N$ and $\Delta$. We fix the number of samples to be $M = 5N$. Note that 0.904 is the upper bound of the success rate.
+To get a sense of how the constants behave, we give a table containing some $p$ values for various choices of $N$ and $\Delta$. We fix the number of samples to be $M = 5N$.
+%Note that 0.904 is the upper bound of the success rate.
 
 \begin{table}[H]
 \caption{Success rates of chi-square attack}
 \begin{tabular}{c|c|c}
-$N (= q^f)$ & $d(D_{\cR, \fq},U(R/\fq))$ & $p$ \\ \hline
+$N$ & $\Delta = d(D_{\cR, \fq},U(R/\fq))$ & $p$ \\ \hline
 257 & 0.025 & 0.84 \\
 4093 &   0.005     &  0.551 \\
 $67^2$ & 0.005 & 0.610 \\
@@ -463,24 +452,24 @@ The decision RLWE problem was solved for all 10 instances, the number of samples
 Each part is the direct consequence of the previous one. Thus we only need to prove (1), for which we refer to \cite{ducas2012ring}.
 \end{proof}
 
-Now suppose an error vector $e$ is sampled from the error distribution: $e \gets D_{\Lambda, \sigma}$.  Let $e'$ be the coeffificent vector of $e$ under the basis $v$: thus $e' = A_v^{-1}(e)$. Let ${\bf 1} = (1,1, \cdots,1)$ denote the n-dimensional vector of ones. Then
+%Now suppose an error vector $e$ is sampled from the error distribution: $e \gets D_{\Lambda, \sigma}$.  Let $e'$ be the coeffificent vector of $e$ under the basis $v$: thus $e' = A_v^{-1}(e)$. Let ${\bf 1} = (1,1, \cdots,1)$ denote the n-dimensional vector of ones. Then
 
-\begin{Lemma}
-\[
-e\pmod{\fp} = -\langle (T^{-1})^{t} {\bf 1}, e \rangle.
-\]
-\end{Lemma}
-\begin{proof}
-We have
-\begin{align*}
-e\pmod{\fp}  &= ({\bf 1}, e') \\
-&=  ({\bf 1},  \tilde{A_v}^{-1} e) \\
-& = ((\tilde{A_v}^{-1})^t {\bf 1}, e) \\
-& = ((T^{-1})^{t} (A_v^{-1})^t{\bf 1}, e). \\
-& = -\langle (T^{-1})^{t} {\bf 1}, e \rangle.
-\end{align*}
-\end{proof}
+%\begin{Lemma}
+%\[
+%e\pmod{\fp} = -\langle (T^{-1})^{t} {\bf 1}, e \rangle.
+%\]
+%\end{Lemma}
+%\begin{proof}
+%We have
+%\begin{align*}
+%e\pmod{\fp}  &= ({\bf 1}, e') \\
+%%&=  ({\bf 1},  \tilde{A_v}^{-1} e) \\
+%%& = ((T^{-1})^{t} (A_v^{-1})^t{\bf 1}, e). \\
+%& = -\langle (T^{-1})^{t} {\bf 1}, e \rangle.
+%\end{align*}
+%\end{proof}
 
+\iffalse
 We quote one lemma on discrete Gaussian distribution on lattices, which is a combination of two lemmas from \cite{langlois2014worst}. Lemma 8 and Lemma 2.2  from LPR.
 \begin{Lemma}
 \label{lem: last}
@@ -519,6 +508,7 @@ Assume $\sigma = o(\sqrt{p})$. Let $\fp$ denote the unique prime ideal in $\bQ(\
 Using \ref{eq: last}, we may assume that for all $e \to D(\cR,\fp)$, we have $|e|\leq 6\sqrt{2(p-1)\pi} \sigma$. Using the fact that $\sigma = o(p)$, we see that $|e \pmod{\fp}| = o(p)$. Hence the reduced error distribution only takes value in the subset
 $|e|\leq 6\sqrt{2(p-1)\pi} \sigma$. When $p \to \infty$, we have $|e \pmod {\fp}| = o(p)$.  Hence the attack in [ELOS] works.
 \end{proof}
+\fi
 
 \subsection{Can modulus switching be used?}
 Modulus switching, as a technique to reduce absolute noise
