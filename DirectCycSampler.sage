@@ -8,7 +8,7 @@ class DirectCycSampler:
     def __init__(self,m, sigma = 1):
         self.m = m
         self.sigma = sigma
-        self.D = DiscreteGaussianDistributionIntegerSampler(sigma = sigma)
+        #self.D = DiscreteGaussianDistributionIntegerSampler(sigma = sigma)
         self.Gaussian = RealDistribution('gaussian', sigma)
         self.f = cyclotomic_polynomial(m)
         self.n = self.f.degree()
@@ -65,7 +65,7 @@ class DirectCycSampler:
         """
         sampling done using [DD].
         """
-        v0 = [self.Gaussian() for _ in range(self.n + 1)]
+        v0 = [self.Gaussian.get_random_element() for _ in range(self.n + 1)]
         v1 = [a - v0[-1] for a in v0[:-1]]
         return [ZZ(round(float(vv))) for vv in v1]
 
@@ -136,7 +136,7 @@ class DirectCycSampler:
         return [round_alpha_a, [Mod(bi,newq) for bi in round_alpha_b]]
 
 
-    def elos_attack(self,q,samples, maxRatio = 2):
+    def elos_attack(self,q, samples, maxRatio = 2):
         """
         the elos attack
         """
