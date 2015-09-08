@@ -304,10 +304,11 @@ def chisquare_quality(delta,N, c = 5):
     """
     T = RealDistribution('gaussian', 1)
     w= T.cum_distribution_function_inv(1 - 1/(N*20))
-    print 'w =  %s'%w
-    ss = RR(w*sqrt(2*(N-1)) - 4*c*N*delta)/RR(sqrt(2*(N-1) + 16*c*N*delta))
-    print 'ss = %s'%ss
-    return 0.904*(1 - T.cum_distribution_function(ss))
+    _lambda = 4*c*N*delta**2
+    #print 'w =  %s'%w
+    ss = RR(w*sqrt(2*(N-1)) - _lambda)/RR(sqrt(2*(N-1) + 4*_lambda))
+    #print 'ss = %s'%ss
+    return 0.951*(1 - T.cum_distribution_function(ss))
 
 
 def AllSubgroups(m):
