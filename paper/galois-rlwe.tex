@@ -210,7 +210,9 @@ For convenience, we also define the {\it $l_2$ distance} between $P$ and $Q$ as 
 
 Let $\cR$ be an RLWE instance with error distribution $D_{\cR}$ and $\fq$ be a prime ideal above $q$.  The basic idea of our attack relies on the assumption that the distribution $D_\cR \pmod {\fq}$ is distinguishable from the uniform distribution on the finite field $F = R/\fq$. More precisely, the attack loops through all $q^f$ possitbilities of $\bar{s} = s \pmod{\fq}$, and for each guess $s'$, it computes the values $\bar{e}' = \bar{b} - \bar{a} s' \pmod {\fq}$ for every sample $(a,b) \in S$. If the guess is wrong, or if the samples are taken from the uniform distirbution in $(R_q)^2$, the values $\bar{e}'$ would be uniformly distributed in $F$ and it is likely to pass the chi-square test. On the other hand, if the guess is correct, then we expect the errors $\bar{e}'$ to fail the test.
 
-Let $N = q^f$ denote the cardinality of $F$. Note that $N$ is also the number of tests we run in the attack. For the attack to be successful, we need the $(N-1)$ tests corresponding to wrong guess of $s \pmod{\fq}$ to pass, and the one test corresponding to the correct guess to fail. Therefore, we need to choose the confidence interval of our test so that it is unlikely for a set of samples coming from uniform distribution to fail the test. In practice, we choose the confidence level to be  $\alpha = 1 - \frac{1}{10N}$. Let $\beta$ denote the probability that the sample errors fails the uniform test with probability  Then the probability that our algorithm will success is $p  = (1- \frac{1}{10N})^{N-1} \beta$. Note that when $N$ is large, $(1- \frac{1}{10N})^{N-1}$ is about $e^{-1/10} \approx 0.904$.
+Let $N = q^f$ denote the cardinality of $F$. Note that $N$ is also the number of tests we run in the attack. For the attack to be successful, we need the $(N-1)$ tests corresponding to wrong guess of $s \pmod{\fq}$ to pass, and the one test corresponding to the correct guess to fail. Therefore, we need to choose the confidence interval of our test so that it is unlikely for a set of samples coming from uniform distribution to fail the test. For, example, we choose the confidence level to be  $\alpha = 1 - \frac{1}{10N}$.
+
+%Let $\beta$ denote the probability that the sample errors fails the uniform test with probability  Then the probability that our algorithm will success is $p  = (1- \frac{1}{10N})^{N-1} \beta$. Note that when $N$ is large, $(1- \frac{1}{10N})^{N-1}$ is about $e^{-1/10} \approx 0.904$.
 
 
 %Note that although we restrict ourselves to subfields of cyclotomics with odd and square-free $m$, the attack could be applied to any finite extension of $\bQ$.
@@ -238,7 +240,7 @@ Let $N = q^f$ denote the cardinality of $F$. Note that $N$ is also the number of
     \State $\omega \gets \Phi^{-1}(1- \frac{1}{20N})$, $\cG \gets \emptyset$
 
     \For{$s$ in $F$}
-        \State $cE \gets \emptyset$.
+        \State $\cE \gets \emptyset$.
         \For{$a,b$ in $\mathcal{S}$}
             \State $\bar{a}, \bar{b} \gets a \pmod{\fq}, b \pmod{\fq}$.
             \State $\bar{e} \gets \bar{b} - \bar{a}s$.
@@ -269,7 +271,7 @@ Note that the time complexity of the attack is $O(N)$ since we have $N$ possible
 \begin{theorem} \label{thm: attack}
 Let $\Delta$ denote the statistical distance between the error distribution $D_{\cR, \fq}$ and the uniform distribtuion on $R/\fq$. Let $\lambda = 4 M \Delta^2$ and $\omega = \Phi^{-1}(1- \frac{1}{20N})$. let $p$ denote the proability of success of the attack in Algorithm~\ref{}. When $q \gg 1$, we have
 
-$$p \geq 0.951 \left(1- \Phi \left(\frac{\omega \sqrt{2(N-1)}- \lambda}{\sqrt{2(N-1) +4\lambda}}\right) \right).$$
+$$p \geq 0.904 \left(1- \Phi \left(\frac{\omega \sqrt{2(N-1)}- \lambda}{\sqrt{2(N-1) +4\lambda}}\right) \right).$$
 \end{theorem}
 
 \begin{proof}
@@ -277,7 +279,7 @@ The chi-square value for uniformity on samples from $D_{\cR, \fq}$ follow a nonc
 \[
     \lambda_0 = MN d_2(D_{\cR, \fq}, U(R/\fq))^2.
 \]
-In particular, we have $\lambda_0 \geq  4M\Delta^2 = \lambda$. Since $q \gg 1$, we may approximate a noncentral chi-square distribution with degree of freedom $k$ and parameter $\lambda_0$ with a Gaussian distribution of mean $k + \lambda_0$ and variance $2k + 4\lambda_0$ (see \cite{ryabko2004new}, for example). Recall that our attack succeeds if the set $\cE$ from all $(N-1)$ wrong guesses passes the test, and the true errors modulo $\fq$ fail the test. The first event happens with probability $(1 - \frac{1}{20N})^{N-1} \geq e^{-1/20} = 0.951 \cdots$. The second event has probability $1 - \Phi \left(\frac{\omega \sqrt{2(N-1)}- \lambda_0}{\sqrt{2(N-1) +4\lambda_0}}\right) $, which is an increasing function in $\lambda_0$. The theorem now follows.
+In particular, we have $\lambda_0 \geq  4M\Delta^2 = \lambda$. Since $q \gg 1$, we may approximate a noncentral chi-square distribution with degree of freedom $k$ and parameter $\lambda_0$ with a Gaussian distribution of mean $k + \lambda_0$ and variance $2k + 4\lambda_0$ (see \cite{ryabko2004new}, for example). Recall that our attack succeeds if the set $\cE$ from all $(N-1)$ wrong guesses passes the test, and the true errors modulo $\fq$ fail the test. The first event happens with probability $(1 - \frac{1}{10N})^{N-1} \geq e^{-1/10} = 0.904 \cdots$. The second event has probability $1 - \Phi \left(\frac{\omega \sqrt{2(N-1)}- \lambda_0}{\sqrt{2(N-1) +4\lambda_0}}\right) $, which is an increasing function in $\lambda_0$. The theorem now follows.
 \end{proof}
 
 \begin{remark}
@@ -509,24 +511,24 @@ $|e|\leq 6\sqrt{2(p-1)\pi} \sigma$. When $p \to \infty$, we have $|e \pmod {\fp}
 \subsection{Can modulus switching be used?}
 Modulus switching, as a technique to reduce absolute noise
 in homomorphic encryption, has been discussed exetnsively in  \cite{brakerski2012leveled} and \cite{langlois2014worst}.
-Given the previous discusssions, it is a natural question whether modulus switching
-could be used on RLWE instances for prime cyclotomic fields, to move from a split prime to the ramified prime and perform the attack. However, the naive approach of this combination would not work, as demonstrated by the following argument.
-We let $p$ denote the modulus we are switching to.
+We recap the basic ideas of modulus switching. Let $\cR = (K, q, \sigma, s)$ be an RLWE instance. Choose $p < q$ as the new modulus and consider the instance $\cR' = (K,p,\sigma',s)$ for some $\sigma' > \sigma$. The main operation of modulus switching is a map
+\[
+\pi_{q,p} : R_q \to R_p,
+\]
+which ideally takes RLWE samples w.r.t. $\cR$ to RLWE samples w.r.t. $\cR'$. One example of such map being used in practice is as follows. Take $a$ in $R_q$, we first scale and get $\frac{p}{q}a \in 1/q R$. Then we sample a vector $a''$ from the shifted discrete Gaussian $D_{\Lambda_R, \tau, \alpha a}$ for some small $\tau > 0$, and output $a' = \alpha a - a''$. Since we expect $a''$ to be a  short vector, the point $a'$ can be viewed as a ``rounding'' of the point $\alpha a$ to the lattice $\Lambda_R$. One also requires that $\pi_{q,p}$ takes uniform distribution on $R_q$ to almost uniform distribution on $R_p$, which can be by taking $\tau$ to be reasonably large (see ).
 
-After the modulus switching, we have
+
+It is a natural question then to ask whether modulus switching can be combined with our attack, to switch from a ``strong'' modulus to a ``weak'' modulus. However, a heuristic argument shows that the naive combination of our attack with modulus switching will not work.
+
+To explain, suppose we have a sample $(a,b) \gets \cR$ and the switched sample $(a', b') = (\pi_{q,p}(a),\pi_{q,p}(b))$. Consider the error $e':= b' - a's$ and the distribution of $e' \pmod{\fp}$ for some prime ideal $\fp$ above $p$. Suppose $b = as+e+ \lambda q$ for some $\lambda \in R$. Then
 \begin{align*}
     e' &= b' - a's  \\
     &= \alpha(b-as) - b''  + a''s. \\
     & = \alpha e + \lambda p - b'' + a''s.
 \end{align*}
 
-Now suppose $\fq$ is a prime in $K$ above $q$.
+Since $p$ and $q$ are coprime, the domain of the reducing modulo $\fp$ map can be extended from $R$ to $\frac{1}{q}R$. Hence $e' \equiv - b'' + a'' s \pmod{\fp}$. Also, since $a'' + a' = \alpha a \equiv 0 \pmod {\fp}$, we have $a'' \pmod{\fp} = -a' \pmod{\fp}$. By assumption, the map $\pi_{q,p}$ algorithm maps uniform samples in $R_q$ to uniform samples in $R_p$. An immediate consequence is that $a' \pmod{\fp}$ is uniformly distributed in $R/\fp$, hence so is $a'' \pmod{\fp}$. The same argument applys to $b''$. Since the reduced rounding errors $a'' \pmod{\fp}$ and $b'' \pmod{\fp}$ are independent, the new reduced errors $e' \pmod{\fp}$ follows the uniform distribution. So our chi-square attack will fail on these modulus-switched samples, even though $p$ might be a ``weak'' modulus.
 
-
-
-
-
-It is thus an interesting problem to combine modulus switching with our attack.
 
 \section{Invulnerability of general cyclotomic extensions for unramified primes}
 \label{sec: cyclo-secure}

@@ -1,5 +1,5 @@
 from sage.stats.distributions.discrete_gaussian_integer import DiscreteGaussianDistributionIntegerSampler
-
+import sys
 
 class DirectCycSampler:
     """
@@ -145,6 +145,7 @@ class DirectCycSampler:
         print 's = %s'%s
         sbar = self._map_to_fq(s, q)
         print 'sbar = %s'%sbar
+        sys.stdout.flush()
         F = sbar.parent()
         reduced_samples = []
         for a,b in samples:
@@ -152,11 +153,15 @@ class DirectCycSampler:
             reduced_samples.append((abar,bbar))
         G = []
         for sguess in F:
-            # print 'sguess = %s'%sguess
+            print 'sguess = %s'%sguess
+            sys.stdout.flush()
+
             good = True
             for abar, bbar in reduced_samples:
                 ebar = bbar - abar*sguess
                 ebarReduced = ZZ(ebar) if ZZ(ebar) < q//2 else ZZ(ebar) - q
+                print 'ratio = %s'%float(q/(2*(ebarReduced)))
+                sys.stdout.flush()
                 if float(q/(2*(ebarReduced))) < maxRatio:
                     good = False
                     break
