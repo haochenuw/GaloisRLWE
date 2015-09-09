@@ -139,13 +139,16 @@ class SubCycSampler:
         cc = self.cosets
         return dict(zip(cc,vec))
 
-    def vec_modq_twisted_by_galois(self,q,c):
+    def vec_modq_twisted_by_galois(self,q,c, reduced = False):
         _dict = self._vec_modq_coset_dict(q)
         _galois = self.galois_permutation(c)
         result  = []
         for a in self.cosets:
             result.append(_dict[_galois[a]])
-        return vector(result)
+        if not reduced:
+            return vector(result)
+        else:
+            return vector(result)*self._T
 
     def embedding_matrix(self, prec = None):
         """
@@ -231,8 +234,11 @@ class SubCycSampler:
 
 
 
-    def subfield_quality_modq(self,q):
-        vq = self.vec_modq(q,reduced = True)
+    def subfield_quality_modq(self,q, twist = None):
+        if twist is None:
+            vq = self.vec_modq(q,reduced = True)
+        else:
+            vq = self.vec_modq_twisted_by_galois(q,twist, reduced = True)
         F = vq[0].parent()
         deg = F.degree()
         return float(len([aa for aa in vq if aa.minpoly().degree() < deg])/self._degree)
@@ -349,12 +355,13 @@ class SubCycSampler:
         return sum([aa*bb for aa, bb in zip(lst,vec)])
 
 
-    def chisquare_attack(self,q,samples):
+    def chisquare_attack(self,q,samples, vec = None):
         """
         Perform a chisquared attack.
         """
         verbose('q = %s'%q)
-        vec = self.vec_modq(q)
+        if vec is None:
+            vec = self.vec_modq(q)
         s = self.secret
         sbar = self._map_to_finite_field(s, q, vec)
         verbose('sbar = %s'%sbar)
