@@ -186,19 +186,16 @@ Suppose $\cR$ is an RLWE instance where $K$ is Galois and $q$ is an unramified p
 \section{The chi-square attack for uniform distribution}
 \label{sec: chi-square}
 \subsection{chi-square test for uniform distribution}
-We briefly review the properties and usage of the chi-square test for uniform distributions over a finite set $S$.  We partition $S$ into $r$ subsets
-\[
-    S = \bigsqcup_{j=1}^r S_i,
-\]
+We briefly review the properties and usage of the chi-square test for uniform distributions over a finite set $S$. We partition $S$ into $r$ subsets $S = \bigsqcup_{j=1}^r S_i$.
 Suppose there are $M$ samples $y_1, \cdots, y_M \in S$.
 For each $1 \leq j \leq r$, we compute the expected number of samples that would fall in the $j$-th subset: $c_j := \frac{|S_j|M}{|S|}$. Then we compute the actual number of samples in $S_j$, i.e., $t_j := |\{1 \leq i \leq r: y_i \in S_j\}|$. Finally, the $\chi^2$ value is computed as
 \[
     \chi^2(S,y) = \sum_{j = 1}^r \frac{(t_j -c_j)^2}{c_j}.
 \]
 Suppose the samples are drawn from the uniform distribution on $S$. Then the $\chi^2$ value follows the chi-square distribution with degree of freedom equal $d = r-1$.
-To decide whether the samples are from a uniform distribtuion, we can either look up a table of $\chi^2$ values, or use an approximation rule:  when $d$ is large, the $\chi^2$ distribution can be well-approximated by a normal distribution $N(d, 2d)$; for example, if it turns out that $\chi^2 \notin (d - c \sqrt{2d}, d+ c \sqrt{2d})$, then the confidence we have that the samples are not taken from a uniform distribution is $2\Phi(c) - 1$, where $\Phi$ is the cumulative distribution function of the standard Gaussian distribution,
+To decide whether the samples are from a uniform distribtuion, we can either look up a table of $\chi^2$ values, or use an approximation rule:  when $d$ is large, the $\chi^2$ distribution can be well-approximated by a normal distribution $N(d, 2d)$; for example, if it turns out that $\chi^2 \notin (d - c \sqrt{2d}, d+ c \sqrt{2d})$, then the confidence we have that the samples are not taken from a uniform distribution is $2\Phi(c) - 1$, where $\Phi$ is the cumulative distribution function of the standard Gaussian distribution.
 
-If $P,Q$ are two probability distributions on $S$, then their {\it statistical difference} is defined as
+If $P,Q$ are two probability distributions on the set $S$, then their {\it statistical difference} is defined as
 \[
     d(P,Q) = \frac{1}{2} \sum_{t \in S} |P(t) - Q(t)|.
 \]
@@ -211,6 +208,9 @@ For convenience, we also define the {\it $l_2$ distance} between $P$ and $Q$ as 
 Let $\cR$ be an RLWE instance with error distribution $D_{\cR}$ and $\fq$ be a prime ideal above $q$.  The basic idea of our attack relies on the assumption that the distribution $D_\cR \pmod {\fq}$ is distinguishable from the uniform distribution on the finite field $F = R/\fq$. More precisely, the attack loops through all $q^f$ possitbilities of $\bar{s} = s \pmod{\fq}$, and for each guess $s'$, it computes the values $\bar{e}' = \bar{b} - \bar{a} s' \pmod {\fq}$ for every sample $(a,b) \in S$. If the guess is wrong, or if the samples are taken from the uniform distirbution in $(R_q)^2$, the values $\bar{e}'$ would be uniformly distributed in $F$ and it is likely to pass the chi-square test. On the other hand, if the guess is correct, then we expect the errors $\bar{e}'$ to fail the test.
 
 Let $N = q^f$ denote the cardinality of $F$. Note that $N$ is also the number of tests we run in the attack. For the attack to be successful, we need the $(N-1)$ tests corresponding to wrong guess of $s \pmod{\fq}$ to pass, and the one test corresponding to the correct guess to fail. Therefore, we need to choose the confidence interval of our test so that it is unlikely for a set of samples coming from uniform distribution to fail the test. For, example, we choose the confidence level to be  $\alpha = 1 - \frac{1}{10N}$.
+
+
+Now we are ready to describe the detailed attack in the following Algorithm.
 
 %Let $\beta$ denote the probability that the sample errors fails the uniform test with probability  Then the probability that our algorithm will success is $p  = (1- \frac{1}{10N})^{N-1} \beta$. Note that when $N$ is large, $(1- \frac{1}{10N})^{N-1}$ is about $e^{-1/10} \approx 0.904$.
 
@@ -297,18 +297,14 @@ The following is a plot of $p$ versus $\Delta$ for various choices of $N$, made 
 
 We restrict our attention to subfields of cyclotomic fields $\bQ(\zeta_m)$, where we assume $m$ is {\it odd and squarefree}. The Galois group $Gal(\bQ(\zeta_m)/\bQ)$ is canonically isomorphic to $(\bZ/m\bZ)^*$.
 
-{\bf Notation}: for each subgroup $H$ of $G = (\bZ/m\bZ)^*$, we use $K_{m,H}$ to denote the fixed field
-\[
-    K_{m,H} := \bQ(\zeta_m)^H.
-\]
+{\bf Notation}: for each subgroup $H$ of $G = (\bZ/m\bZ)^*$, we use $K_{m,H}$ to denote the fixed field of $K_{m,H} = \bQ(\zeta_m)^H$.
+
 
 The extension $K_{m,H}/\bQ$ is Galois of degree $n = \frac{\varphi(m)}{|H|}$; the degree of a prime $q$ in $K_{m,H}$ is equal to the order of $[q]$ in the quotient group $G/H$. Moreover, every field of form $K_{m,H}$ has canonical{\it normal integral basis}, whose embedding matrix is easy to compute. More precisely, let $C$ denote a set of coset representatives of the group $G/H$. For each $c \in C$, set
 \[
     w_c =  \sum_{h \in H} \zeta_m^{hc}.
 \]
-Then  ${\bf w} := (w_c)_{c \in C}$ is a $\bZ$-basis of $R$. For a proof of this fact, see \cite[Proposition 6.1]{johnston2011notes}.
-
-We set $\zeta = \exp(2\pi i /m)$. Then the canonical embedding embedding matrix of $w$ is
+Then  $w := (w_c)_{c \in C}$ is a $\bZ$-basis of $R$. For a proof of this fact, see \cite[Proposition 6.1]{johnston2011notes}. We set $\zeta = \exp(2\pi i /m)$. Then the canonical embedding embedding matrix of $w$ is
 \[
     (A_w)_{i,j} = \sum_{h \in H}{\zeta^{hij}}.
 \]
@@ -406,7 +402,7 @@ Then we prove
 \begin{Prop} \label{prop: ramified}
 Suppose $\sigma > 10$ and $e \gets DD_{p, \sigma}$. Then for all $w > \sqrt{p\sigma^2 + 4(p-1)/3}$, we have
 \[
-    \prob(|e\pmod{\fp}| > w) < 2 - 2\Phi^{-1}(w).
+    \prob(|e\pmod{\fp}| > w) < 2 - 2\Phi^{-1}(\frac{w}{\sqrt{p\sigma^2 + 4(p-1)/3}}) + o(1).
 \]
 \end{Prop}
 
@@ -539,9 +535,9 @@ Let $m \geq 1$ be any integer and let $K = \bQ(\zeta_m)$. Let $q$ be a prime and
 
 First, we introduce a class of distributions indexed by even integers $k \geq 2$, aiming at approximating discrete Gaussians over $\bZ$.
 \begin{Definition}
-For any even integer $k \geq 2$, let $\cV_k$ denote the distribution over $\bZ$ such that
+For any even integer $k \geq 2$, let $\cV_k$ denote the distribution over $\bZ$ such that for every $t \in \bZ$,
 
-$$\prob(\cV_k = m) =  \begin{cases} \frac{{k \choose m+\frac{k}{2}}}{2^k} &\mbox{if } |m| \leq \frac{k}{2} \\
+$$\prob(\cV_k = t) =  \begin{cases} \frac{{k \choose t+\frac{k}{2}}}{2^k} &\mbox{if } |t| \leq \frac{k}{2} \\
 0 & \mbox{otherwise}  \end{cases}$$
 
 \end{Definition}
@@ -554,7 +550,7 @@ The integer $k$ in the definition plays the role of the standard deviation $\sig
 \end{figure}
 
 
-\begin{Definition}[Modified error distribtuion $MD_{\cR}$]
+\begin{Definition}[Modified error distribtuion $MD_{m,q,k}$]
 Let $k \geq 2$ be an even integer. Then a sample from the modified error distribtuion $MD_{m,q,k}$ is
 \[
     e = \sum_{i=0}^{n-1} e_i \zeta_m^{i} \pmod{qR},
