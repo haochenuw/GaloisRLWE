@@ -11,14 +11,13 @@ class DirectCycSampler:
         #self.D = DiscreteGaussianDistributionIntegerSampler(sigma = sigma)
         self.Gaussian = RealDistribution('gaussian', sigma)
         self.f = cyclotomic_polynomial(m)
+        self.R = PolynomialQuotientRing(ZZ[x], self.f)
         self.n = self.f.degree()
-        K.<z> = CyclotomicField(m)
-        self.K = K
-        self.z = K.gen()
+        #K.<z> = CyclotomicField(m)
+        #self.K = K
+        #self.z = K.gen()
         self.secret = self._to_field(self.__call__())
-        self.ff = self.z.coordinates_in_terms_of_powers()
-        #self._embedding_matrix = general_embedding_matrix(z, K, prec = 200)
-        #self.DD = MyLatticeSampler(self._embedding_matrix)
+        #self.ff = self.z.coordinates_in_terms_of_powers()
 
     def degree_n_primes(self,min_prime,max_prime, n = 1):
         result = []
@@ -32,11 +31,12 @@ class DirectCycSampler:
         return result
 
     def __repr__(self):
-        return'RLWE cyclotomic sampler with m = %s, sigma = %s, and secret = %s'%(self.m, self.sigma, self.secret)
+        return'RLWE cyclotomic sampler with m = %s, sigma = %s, and secret = %s'%(self.m, self.sigma, self._to_vec(self.secret))
 
     @cached_method
-    def _a_root_mod_q(self,q):
-        deg  = self.degree_of_prime(q)
+    def _a_root_mod_q(self,q, deg = 1):
+        if deg is None:
+            deg  = self.degree_of_prime(q)
         if deg  > 1:
             F.<alpha> = GF(q^deg, impl = 'pari_ffelt')
         else:
@@ -46,7 +46,8 @@ class DirectCycSampler:
         return aa
 
 
-    def vecs_modq(self,q):
+    @cached_method
+    def vec_modq(self,q):
         a = self._a_root_mod_q(q)
         return [a**i for i in range(self.n)]
 
@@ -54,11 +55,9 @@ class DirectCycSampler:
         """
         maps a list (or a field element) to the finite field Fq
         """
-        if not isinstance(lst, list):
-            lst = self._to_vec(lst)
-        aa = self._a_root_mod_q(q)
-        F = aa.parent()
-        return sum([F(lst[i])*aa**i for i in range(len(lst))])
+        v = self.vec_modq(q)
+        F = v[0].parent()
+        return  F(sum([aa*bb for aa,bb in zip(v,lst)]))
 
 
     def __call__(self):
@@ -73,29 +72,22 @@ class DirectCycSampler:
 
     def _to_field(self,lst):
         """
-        convert from a list to a field.
+        convert from a list to K, represented as a polynomial
         """
-        return sum([ZZ(lst[i])*self.z**(i+1) for i in range(len(lst))])
+        return self.R(lst)
+        # return sum([ZZ(lst[i])*self.z**(i+1) for i in range(len(lst))])
 
-    def _to_vec(self, elt):
-        return self.ff(elt)
+    def _to_vec(self, poly):
+        return list(poly)
 
     def degree_of_prime(self,q):
         try:
             return (Integers(self.m)(q)).multiplicative_order()
         except:
-            return ZZ(log(self.K.prime_above(q).norm(),q))
+            raise ValueError('q must be unramified')
 
     def _uniform_a(self,q):
         return [ZZ.random_element(q) for _ in range(self.n)]
-
-    def light_elos(self,q):
-        pass
-
-    #def set_sigma(self,newsigma):
-    #    self.sigma = newsigma
-    #    self.D = DiscreteGaussianDistributionIntegerSampler(sigma = newsigma)
-
 
     def set_secret(self, newsecretvec):
         self.secret = self._to_field(newsecretvec)
@@ -107,9 +99,10 @@ class DirectCycSampler:
         a = self._uniform_a(q)
         s = self.secret
         b = self._to_field(a)*s
-        if add_error:
-            e = self._to_field(self.__call__())
-            b += e
+        e = self.__call__()
+        b += self._to_field(e)
+        verbose('error = %s'%e)
+        verbose('sum of error = %s'%Mod(sum(e),q))
         bvec = self._to_vec(b)
         return (a, [Mod(bi,q) for bi in bvec])
 
@@ -136,16 +129,16 @@ class DirectCycSampler:
         return [round_alpha_a, [Mod(bi,newq) for bi in round_alpha_b]]
 
 
-    def elos_attack(self,q, samples, maxRatio = 2):
+    def elos_attack(self,q, samples, maxRatio = 0.75):
         """
         the elos attack
         """
         print 'q = %s'%q
         s = self.secret
-        print 's = %s'%s
         sbar = self._map_to_fq(s, q)
         print 'sbar = %s'%sbar
         sys.stdout.flush()
+
         F = sbar.parent()
         reduced_samples = []
         for a,b in samples:
@@ -157,14 +150,17 @@ class DirectCycSampler:
             sys.stdout.flush()
 
             good = True
+
             for abar, bbar in reduced_samples:
                 ebar = bbar - abar*sguess
                 ebarReduced = ZZ(ebar) if ZZ(ebar) < q//2 else ZZ(ebar) - q
-                print 'ratio = %s'%float(q/(2*(ebarReduced)))
                 sys.stdout.flush()
-                if float(q/(2*(ebarReduced))) < maxRatio:
+                print 'ratio = %s'%float(2*abs(ebarReduced)/q)
+                sys.stdout.flush()
+                if float(2*abs(ebarReduced)/q) > maxRatio:
                     good = False
                     break
+            print 'good = %s'%good
             if good:
                 G.append(sguess)
         if len(G) == 0:
@@ -177,12 +173,8 @@ class DirectCycSampler:
             else:
                 return 'failed.'
 
-                    # error too large
 
-             # run a chisquare test
-
-
-    def chisquare_attack(self,q,samples):
+    def chisquare_attack(self,q,samples, std_multiplier = 5.0):
         """
         Note that this only works for one
         """
@@ -191,38 +183,42 @@ class DirectCycSampler:
         sbar = self._map_to_fq(s, q)
         print 'sbar = %s'%sbar
         F = sbar.parent()
-        deg = self.degree_of_prime(q)
 
-        a_dict = dict([(cc,0) for cc in F])
+        try:
+            deg = self.degree_of_prime(q)
+        except:
+            deg = 1
+        print 'using %s samples'%len(samples)
+
+        #a_dict = dict([(cc,0) for cc in F])
         #b_dict = dict([(cc,0) for cc in F])
         reduced_samples = []
         for a,b in samples:
             abar, bbar = self._map_to_fq(a, q), self._map_to_fq(b, q)
             reduced_samples.append((abar,bbar))
-            a_dict[abar] += 1
 
         bins = selecting_bins(q,deg, len(samples))
         print 'bins = %s'%bins
 
-        result = []
+        G = []
         for sguess in F:
-            errors_dict = dict([(cc,0) for cc in F])
-            print 'chisquare value for sguess = %s'%sguess
+            errors = []
+            print 'sguess = %s'%sguess
             for abar, bbar in reduced_samples:
                 ebar = bbar - abar*sguess
-                #ebar = abar*sguess
-                errors_dict[ebar] += 1
-            _,chisquare = chisquare_test(errors_dict, bins = bins, std_multiplier =2)
-            result.append((sguess,chisquare))
-
-
-        print 'chisquare for a:'
-        _,_ = chisquare_test(a_dict, bins = bins, std_multiplier =2)
-        #print 'chisquare of b:'
-        #_,_ = chisquare_test(b_dict, bins = bins, std_multiplier =2)
-        #print
-        return result
-        # return chisquare_test(errors_dict, bins = bins, std_multiplier =2)[0]
+                errors.append(ebar)
+            uniform = chisquare_test(errors, bins = bins, std_multiplier = std_multiplier)
+            if not uniform:
+                G.append(sguess)
+        if len(G) == 0:
+            return 'not rlwe'
+        elif len(G) > 1:
+            return 'not enough samples'
+        else:
+            if G[0] == sbar:
+                return 'success'
+            else:
+                return 'failed.'
 
 
 
