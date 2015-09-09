@@ -114,7 +114,7 @@ where the first coordiante $a$ is chosen uniformly at random in $R_q$, and $e \g
 The RLWE problem has two variants: search and decision.
 
 \begin{Definition}[Search]
-Let $\cR$ be an RLWE intance. The {\it search Ring-LWE} problem, denoted by ${\color{red}{\SRLWE(\cR)}}$, is to discover $s$ given access to arbitrarily many independent samples $(a,b) \gets \cR$.
+Let $\cR$ be an RLWE intance. The {\it search Ring-LWE} problem, denoted by $\SRLWE(\cR)$, is to discover $s$ given access to arbitrarily many independent samples $(a,b) \gets \cR$.
 \end{Definition}
 
 \begin{Definition}[Decision]
@@ -152,7 +152,7 @@ The number $f$ in the above lemma is called the {\it residue degree} of $q$ in $
 
 Now we are ready to state and prove
 \begin{theorem} \label{thm: reduction}
-Let $\cR = (K,q,\sigma, s)$ be an RLWE instance with $K/\bQ$ Galois and $q$ unramified in $K$ with residue degree f. Suppose there is an algorithm $\sA$ which solves $\SRLWE(\cR,\fq)$ using a list $S$ of samples. Assume that the running time of the algorithm $\sA$ is $t$. Then the problem $\SRLWE(\cR)$ can be solved in time $T = \frac{n}{f}t$ using the samples in $S$. Here $C$ is some constant depending on $K$.
+Let $\cR = (K,q,\sigma, s)$ be an RLWE instance with $K/\bQ$ Galois and $q$ unramified in $K$ with residue degree f. Suppose there is an algorithm $\sA$ which solves $\SRLWE(\cR,\fq)$ using a list $S$ of samples. Assume that the running time of the algorithm $\sA$ is $t$. Then the problem $\SRLWE(\cR)$ can be solved in time $T = \frac{n}{f}t$ using the samples in $S$.
 \end{theorem}
 
 \begin{proof}
@@ -269,7 +269,7 @@ Now we are ready to describe the detailed attack in the following Algorithm.
 Note that the time complexity of the attack is $O(N)$ since we have $N$ possible values for $s \pmod {\fq}$. The number of samples need for the attack is also $O(N)$. The correctness of our attack is captured in the following theorem.
 
 \begin{theorem} \label{thm: attack}
-Let $\Delta$ denote the statistical distance between the error distribution $D_{\cR, \fq}$ and the uniform distribtuion on $R/\fq$. Let $\lambda = 4 M \Delta^2$ and $\omega = \Phi^{-1}(1- \frac{1}{20N})$. let $p$ denote the proability of success of the attack in Algorithm~\ref{}. When $q \gg 1$, we have
+Let $\Delta$ denote the statistical distance between the error distribution $D_{\cR, \fq}$ and the uniform distribtuion on $R/\fq$. Let $\lambda = 4 M \Delta^2$ and $\omega = \Phi^{-1}(1- \frac{1}{20N})$. let $p$ denote the proability of success of the attack in Algorithm~\ref{alg: chi-square}. When $q \gg 1$, we have
 
 $$p \geq 0.904 \left(1- \Phi \left(\frac{\omega \sqrt{2(N-1)}- \lambda}{\sqrt{2(N-1) +4\lambda}}\right) \right).$$
 \end{theorem}
@@ -295,12 +295,8 @@ The following is a plot of $p$ versus $\Delta$ for various choices of $N$, made 
 
 \section{Vulnerable instances among subfields of cyclotomic fields}\label{sec: sub-cyclotomics}
 
-We restrict our attention to subfields of cyclotomic fields $\bQ(\zeta_m)$, where we assume $m$ is {\it odd and squarefree}. The Galois group $Gal(\bQ(\zeta_m)/\bQ)$ is canonically isomorphic to $(\bZ/m\bZ)^*$.
-
-{\bf Notation}: for each subgroup $H$ of $G = (\bZ/m\bZ)^*$, we use $K_{m,H}$ to denote the fixed field of $K_{m,H} = \bQ(\zeta_m)^H$.
-
-
-The extension $K_{m,H}/\bQ$ is Galois of degree $n = \frac{\varphi(m)}{|H|}$; the degree of a prime $q$ in $K_{m,H}$ is equal to the order of $[q]$ in the quotient group $G/H$. Moreover, every field of form $K_{m,H}$ has canonical{\it normal integral basis}, whose embedding matrix is easy to compute. More precisely, let $C$ denote a set of coset representatives of the group $G/H$. For each $c \in C$, set
+We restrict our attention to subfields of cyclotomic fields $\bQ(\zeta_m)$, where we assume $m$ is {\it odd and squarefree}. The Galois group $Gal(\bQ(\zeta_m)/\bQ)$ is canonically isomorphic to $G = (\bZ/m\bZ)^*$. For each subgroup $H$ of $G$, let $K_{m,H} = \bQ(\zeta_m)^H$.
+Then the extension $K_{m,H}/\bQ$ is Galois of degree $n = \frac{\varphi(m)}{|H|}$; the degree of a prime $q$ in $K_{m,H}$ is equal to the order of $[q]$ in the quotient group $G/H$. Moreover, every field of form $K_{m,H}$ has canonical{\it normal integral basis}, whose embedding matrix is easy to compute. More precisely, let $C$ denote a set of coset representatives of the group $G/H$. For each $c \in C$, set
 \[
     w_c =  \sum_{h \in H} \zeta_m^{hc}.
 \]
