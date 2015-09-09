@@ -1,6 +1,6 @@
 \documentclass{amsart}
-\title{Attack on Galois RLWE}
-\author{Kristin Lauter, Kate Stange, Hao Chen}
+\title{Attacks on search-RLWE}
+\author{Hao Chen, Kristin Lauter, Katherine E. Stange}
 
 \usepackage{macros}
 \usepackage{float}
@@ -98,7 +98,7 @@ An {\it RLWE instance} is a tuple $\cR = (K,q,\sigma,s)$, where $K$ is a number 
 \begin{Definition}
 Let $\cR = (K,q,\sigma,s)$ be an RLWE instance, and let $R$ be the ring of integers of $K$. The {\it error distribution} of $\cR$, denote by $D_\cR$, is the discrete lattice Gaussian
 \[
-D_\cR = D_{\iota(R),\sigma}.
+D_\cR = D_{\tilde{\iota}(R),\sigma}.
 \]
 \end{Definition}
 
@@ -121,6 +121,9 @@ Let $\cR$ be an RLWE intance. The {\it search Ring-LWE} problem, denoted by $\SR
 Let $\cR$ be an RLWE intance. The {\it decision Ring-LWE}
 problem, denoted by $\DRLWE(\cR)$, is to distinguish between the same number of independent samples in two distributions on $R_q \times R_q$. The first is the RLWE distribution of $\cR$, and the second consists of uniformly random and independent samples from $R_q \times R_q$.
 \end{Definition}
+
+\subsection{Sampling methods}
+There exist different ways to approximately sample from the RLWE error distribution $D_\cR$, and we will switch between three sampling methods in our paper. While searching for weak Galois RLWE instances, we use the sampling algorithm in  \cite{gentry2008trapdoors}; when analyzing the security of cyclotomics, we defined a modified error distribution $MD_{m,q,k}$ (see Definition~\ref{def: modified distribution}); when proving the vulnerability of prime cyclotomics at the ramified prime, we used the PLWE sampling method, which samples each coefficient of the error polynomial independently from a discrete Gaussian over the integers. We mention that \cite{lyubashevsky2013toolkit} has an efficient algorithm for cyclotomic fields. Since it is primarily related to the dual version of RLWE, we will not use it in our paper. 
 
 
 \section{search-to-decision reduction}
@@ -547,6 +550,7 @@ The integer $k$ in the definition plays the role of the standard deviation $\sig
 
 
 \begin{Definition}[Modified error distribtuion $MD_{m,q,k}$]
+\label{def: modified distribution}
 Let $k \geq 2$ be an even integer. Then a sample from the modified error distribtuion $MD_{m,q,k}$ is
 \[
     e = \sum_{i=0}^{n-1} e_i \zeta_m^{i} \pmod{qR},
