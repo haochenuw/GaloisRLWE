@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  10 SEP 2015 17:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  10 SEP 2015 22:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1757,10 +1757,38 @@ LaTeX Info: Redefining \nameref on input line 16.
 Class amsart Warning: Abstract should precede \maketitle in AMS document classe
 s; reported on input line 19.
 
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
+ne 26.
+
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
+ne 28.
+
+
+LaTeX Warning: Citation `ducas2012ring' on page 1 undefined on input line 28.
+
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
+ne 28.
+
+
+LaTeX Warning: Citation `eisentrager2014weak' on page 1 undefined on input line
+ 28.
+
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
+ne 37.
+
 LaTeX Font Info:    Try loading font information for U+euf on input line 37.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 ) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 2 undefined on input li
+ne 82.
+
+
 Overfull \hbox (7.629pt too wide) in paragraph at lines 117--118
 [][]\OT1/cmr/bx/n/10 Definition 2.6 \OT1/cmr/m/n/10 (Search)\OT1/cmr/bx/n/10 . 
 []\OT1/cmr/m/n/10 Let $\OMS/cmsy/m/n/10 R$ \OT1/cmr/m/n/10 be an RLWE in-tance.
@@ -1776,7 +1804,20 @@ LaTeX Warning: Citation `gentry2008trapdoors' on page 2 undefined on input line
 LaTeX Warning: Citation `lyubashevsky2013toolkit' on page 2 undefined on input 
 line 126.
 
-[2] [3]
+[2]
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 3 undefined on input li
+ne 132.
+
+
+LaTeX Warning: Citation `eisentrager2014weak' on page 3 undefined on input line
+ 132.
+
+[3]
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 4 undefined on input li
+ne 182.
+
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 211.
@@ -1861,11 +1902,15 @@ Underfull \vbox (badness 2680) has occurred while \output is active []
 
 LaTeX Warning: Citation `ryabko2004new' on page 5 undefined on input line 285.
 
-[5] <attack-quality.png, id=171, 578.16pt x 433.62pt>
+[5] <attack-quality.png, id=152, 578.16pt x 433.62pt>
 File: attack-quality.png Graphic file (type png)
  <use attack-quality.png>
 Package pdftex.def Info: attack-quality.png used on input line 296.
 (pdftex.def)             Requested size: 234.8775pt x 176.15768pt.
+
+
+LaTeX Warning: Citation `johnston2011notes' on page 6 undefined on input line 3
+06.
 
 
 LaTeX Warning: Citation `gentry2008trapdoors' on page 6 undefined on input line
@@ -1881,86 +1926,92 @@ Overfull \hbox (20.83508pt too wide) in paragraph at lines 351--356
  [][] 
  []
 
+[7]
 
-LaTeX Warning: Reference `' on page 7 undefined on input line 362.
+LaTeX Warning: Citation `ducas2012ring' on page 8 undefined on input line 447.
 
-[7] [8]
+
+LaTeX Warning: Citation `brakerski2012leveled' on page 8 undefined on input lin
+e 510.
+
+
+LaTeX Warning: Citation `langlois2014worst' on page 8 undefined on input line 5
+10.
+
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 539.
+(amsmath)                 on input line 542.
 
-<v8.png, id=210, 566.5968pt x 277.5168pt>
+<v8.png, id=175, 566.5968pt x 277.5168pt>
 File: v8.png Graphic file (type png)
  <use v8.png>
-Package pdftex.def Info: v8.png used on input line 547.
+Package pdftex.def Info: v8.png used on input line 550.
 (pdftex.def)             Requested size: 234.8775pt x 115.04028pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[9] [10 <./v8.png>]
-Underfull \vbox (badness 1043) has occurred while \output is active []
-
- [11]pdfTeX warning (ext4): destination with the same identifier (name{table.1}
-) has been already used, duplicate ignored
+[8] [9 <./v8.png>] [10]pdfTeX warning (ext4): destination with the same identif
+ier (name{table.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.693 \caption{Values of $\epsilon(m,q,k)$}
+l.696 \caption{Values of $\epsilon(m,q,k)$}
                                            pdfTeX warning (ext4): destination w
 ith the same identifier (name{table.2}) has been already used, duplicate ignore
 d
 <to be read again> 
                    \relax 
-l.727 ...$\epsilon(m,q,2)$ for primes of degree 2}
-                                                   [12] (./galois-rlwe.bbl)
-[13]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 750.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 750.
+l.730 ...$\epsilon(m,q,2)$ for primes of degree 2}
+                                                   [11] (./galois-rlwe.bbl
+
+LaTeX Warning: Empty `thebibliography' environment on input line 10.
+
+) [12]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 751.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 751.
  (./galois-rlwe.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 750.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 750.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 751.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 751.
 Package rerunfilecheck Info: File `galois-rlwe.out' has not changed.
-(rerunfilecheck)             Checksum: 5E4F39F4F7D5ED2C3579E1F0FD3672C0;1546.
+(rerunfilecheck)             Checksum: 523AB16A43549A3AFEF49178250FD1AF;1479.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 750.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 751.
  ) 
 Here is how much of TeX's memory you used:
- 24541 strings out of 493105
- 468502 string characters out of 6137073
- 525544 words of memory out of 5000000
- 27399 multiletter control sequences out of 15000+600000
- 12507 words of font info for 50 fonts, out of 8000000 for 9000
+ 24517 strings out of 493105
+ 468195 string characters out of 6137073
+ 525255 words of memory out of 5000000
+ 27390 multiletter control sequences out of 15000+600000
+ 11227 words of font info for 46 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 68i,11n,84p,10387b,397s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 68i,11n,84p,10387b,425s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (13 pages, 355349 bytes).
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/rsfs/rsfs10.pfb>
+Output written on galois-rlwe.pdf (12 pages, 322178 bytes).
 PDF statistics:
- 346 PDF objects out of 1000 (max. 8388607)
- 301 compressed objects within 4 object streams
- 80 named destinations out of 1000 (max. 500000)
- 183 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 299 PDF objects out of 1000 (max. 8388607)
+ 258 compressed objects within 3 object streams
+ 69 named destinations out of 1000 (max. 500000)
+ 175 words of extra memory for PDF output out of 10000 (max. 10000000)
 
