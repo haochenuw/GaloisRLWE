@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  11 SEP 2015 22:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  11 SEP 2015 23:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1757,38 +1757,10 @@ LaTeX Info: Redefining \nameref on input line 16.
 Class amsart Warning: Abstract should precede \maketitle in AMS document classe
 s; reported on input line 19.
 
-
-LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
-ne 26.
-
-
-LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
-ne 28.
-
-
-LaTeX Warning: Citation `ducas2012ring' on page 1 undefined on input line 28.
-
-
-LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
-ne 28.
-
-
-LaTeX Warning: Citation `eisentrager2014weak' on page 1 undefined on input line
- 28.
-
-
-LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
-ne 37.
-
 LaTeX Font Info:    Try loading font information for U+euf on input line 37.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 ) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-
-LaTeX Warning: Citation `lyubashevsky2013ideal' on page 2 undefined on input li
-ne 82.
-
-
 Overfull \hbox (7.629pt too wide) in paragraph at lines 117--118
 [][]\OT1/cmr/bx/n/10 Definition 2.6 \OT1/cmr/m/n/10 (Search)\OT1/cmr/bx/n/10 . 
 []\OT1/cmr/m/n/10 Let $\OMS/cmsy/m/n/10 R$ \OT1/cmr/m/n/10 be an RLWE in-tance.
@@ -1796,30 +1768,10 @@ Overfull \hbox (7.629pt too wide) in paragraph at lines 117--118
 (\OMS/cmsy/m/n/10 R\OT1/cmr/m/n/10 )$,
  []
 
-
-LaTeX Warning: Citation `gentry2008trapdoors' on page 2 undefined on input line
- 126.
-
-
-LaTeX Warning: Citation `lyubashevsky2013toolkit' on page 2 undefined on input 
-line 126.
-
 [2]
-
-LaTeX Warning: Citation `lyubashevsky2013ideal' on page 3 undefined on input li
-ne 132.
-
-
-LaTeX Warning: Citation `eisentrager2014weak' on page 3 undefined on input line
- 132.
-
 
 LaTeX Warning: Reference `sec: chisquare' on page 3 undefined on input line 132
 .
-
-
-LaTeX Warning: Citation `lyubashevsky2013ideal' on page 3 undefined on input li
-ne 183.
 
 [3]
 
@@ -1903,10 +1855,7 @@ put line 221.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [4]
-
-LaTeX Warning: Citation `ryabko2004new' on page 5 undefined on input line 274.
-
-<attack-quality.png, id=147, 578.16pt x 433.62pt>
+<attack-quality.png, id=165, 578.16pt x 433.62pt>
 File: attack-quality.png Graphic file (type png)
  <use attack-quality.png>
 Package pdftex.def Info: attack-quality.png used on input line 285.
@@ -1914,47 +1863,23 @@ Package pdftex.def Info: attack-quality.png used on input line 285.
 
 [5]
 
-LaTeX Warning: Citation `johnston2011notes' on page 6 undefined on input line 2
-95.
-
-
 LaTeX Warning: Reference `thm: s-to-d' on page 6 undefined on input line 305.
 
-
-LaTeX Warning: Citation `gentry2008trapdoors' on page 6 undefined on input line
- 310.
-
 [6 <./attack-quality.png>]
-Overfull \hbox (53.11293pt too wide) in paragraph at lines 319--326
+Overfull \hbox (20.37105pt too wide) in paragraph at lines 319--331
  [][] 
  []
-
-
-Overfull \hbox (20.83508pt too wide) in paragraph at lines 338--343
- [][] 
- []
-
-
-LaTeX Warning: Citation `ducas2012ring' on page 7 undefined on input line 434.
 
 [7]
 
-LaTeX Warning: Citation `brakerski2012leveled' on page 8 undefined on input lin
-e 497.
-
-
-LaTeX Warning: Citation `langlois2014worst' on page 8 undefined on input line 4
-97.
-
-
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 530.
+(amsmath)                 on input line 527.
 
-<v8.png, id=178, 566.5968pt x 277.5168pt>
+<v8.png, id=204, 566.5968pt x 277.5168pt>
 File: v8.png Graphic file (type png)
  <use v8.png>
-Package pdftex.def Info: v8.png used on input line 538.
+Package pdftex.def Info: v8.png used on input line 535.
 (pdftex.def)             Requested size: 234.8775pt x 115.04028pt.
 
 
@@ -1964,62 +1889,55 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 ier (name{table.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.685 \caption{Values of $\epsilon(m,q,k)$}
-                                            [11]pdfTeX warning (ext4): destinat
-ion with the same identifier (name{table.2}) has been already used, duplicate i
-gnored
-<to be read again> 
-                   \relax 
-l.729 ...$\epsilon(m,q,2)$ for primes of degree 2}
-                                                   (./galois-rlwe.bbl
+l.682 \caption{Values of $\epsilon(m,q,k)$}
+                                            [11] (./galois-rlwe.bbl) [12]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 747.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 747.
 
-LaTeX Warning: Empty `thebibliography' environment on input line 10.
-
-) [12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 750.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 750.
- (./galois-rlwe.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 750.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 750.
+(./galois-rlwe.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 747.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 747.
 Package rerunfilecheck Info: File `galois-rlwe.out' has not changed.
 (rerunfilecheck)             Checksum: 2CC13551061B4639DE73D0BD25AA41C0;1479.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 750.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 747.
  ) 
 Here is how much of TeX's memory you used:
- 24519 strings out of 493105
- 468226 string characters out of 6137073
- 524282 words of memory out of 5000000
- 27393 multiletter control sequences out of 15000+600000
- 11227 words of font info for 46 fonts, out of 8000000 for 9000
+ 24535 strings out of 493105
+ 468498 string characters out of 6137073
+ 524678 words of memory out of 5000000
+ 27397 multiletter control sequences out of 15000+600000
+ 11888 words of font info for 48 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  68i,11n,84p,10387b,425s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
-10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (12 pages, 322433 bytes).
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
+8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/rsfs/rsfs10.pfb>
+Output written on galois-rlwe.pdf (12 pages, 349125 bytes).
 PDF statistics:
- 301 PDF objects out of 1000 (max. 8388607)
- 260 compressed objects within 3 object streams
- 68 named destinations out of 1000 (max. 500000)
+ 340 PDF objects out of 1000 (max. 8388607)
+ 297 compressed objects within 3 object streams
+ 78 named destinations out of 1000 (max. 500000)
  175 words of extra memory for PDF output out of 10000 (max. 10000000)
 

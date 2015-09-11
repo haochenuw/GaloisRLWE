@@ -60,7 +60,7 @@ To work with real vector spaces, we define the {\it adjusted embedding} of $K$ a
 It turns out that $\tilde{\iota}(R)$ is a lattice in $\bR^n$. Let $w = (w_1, \cdots , w_n)$ be a $\bZ$-basis for $R$.
 
 \begin{Definition}
-The canonical (resp.adjusted) embedding matrix of $w$, denoted by $A_w$ (resp. $\tilde{A_w}$), is the $n$-by-$n$ matrix whose $i$-th column is $\iota(w_i)$ (resp. $\tilde{\iota}(w_i)$).
+The canonical (resp. adjusted) embedding matrix of $w$, denoted by $A_w$ (resp. $\tilde{A_w}$), is the $n$-by-$n$ matrix whose $i$-th column is $\iota(w_i)$ (resp. $\tilde{\iota}(w_i)$).
 \end{Definition}
 
 The two embedding matrices are related in a simple way:
@@ -317,30 +317,27 @@ Note that we omited our choice of prime ideal $\fq$, since due to Lemma~\ref{lem
 \begin{table}[H] \label{tab: attacked}
 \caption{Attacked sub-cyclotomic RLWE instances}
 \begin{tabular}{c|c|c|c|c|c|c|c}
-$m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples used & running time of attack (in secs) \\ \hline
-2805 &  [1684, 1618] & 40 & 67 & 2 & 1 & 22445 & 12569.2 \\
-15015 & [12286, 2003, 11936] & 60 & 43 & 2 & 1 & 11094 & 3813 \\
-90321 & [90320, 18514, 43405] & 80 & 67 & 2 & 1 & 26934 & 17323.4 \\
-1468005 & [198892, 978671, 431521, 1083139] & 144 & 139 & 2 & 1 &  4000 &  20593 \\
+$m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples & runtime (in hours) \\ \hline
+2805 &  [1684, 1618] & 40 & 67 & 2 & 1 & 22445 & 3.49 \\
+15015 & [12286, 2003, 11936] & 60 & 43 & 2 & 1 & 11094 & 1.05 \\
+15015 & [12286, 2003, 11936] & 60 & 617 & 2 & 1.25 & 8000 & 228.41 (estimated) \footnotemark  \\
+90321 & [90320, 18514, 43405] & 80 & 67 & 2 & 1 & 26934 & 4.81 \\
+255255 &  [97943, 162436, 253826, 248711, 44318] & 90 & 2003 & 2 & 1.25 & 15000 &  1114.44 (est) \\
+285285 & [181156, 210926, 87361] & 96 & 521  & 2 & 1.1 & 5000 & 75.41 (est) \\
+1468005Z & [312016, 978671, 956572, 400366] & 100 & 683 & 2 & 1.1
+& 5000 &  276.01 (est) \\
+1468005 & [198892, 978671, 431521, 1083139] & 144 & 139 & 2 & 1 &  4000 &  5.72
 \end{tabular}
 \end{table}
 
 
+\footnotetext{The ``estimated'' runtime means that we did not perform the full attack. Instead, we ran  several chi-square tests and estimate the runtime based on the average time for running one test.}
 
 
 %More precisely, suppose $\widehat{\chi^2}$ is the chi-square value of the sample errors from $D_{\cR, \fq}$. We replace $\lambda$ by $\widehat{\chi^2}$ in the formula and compute
 %%    \widehat{p}  = 0.904 \left(1 - \Phi \left(\frac{\Phi^{-1}(1- \frac{1}{20N})\sqrt{2(N-1)}- \widehat{\chi^2}}{\sqrt{2(N-1) +4\widehat{\chi^2}}}\right)\right).
 %\]
 %The value $\widehat{p}$ is then our estimate of the sucess rate of our attack.  In addition, we estimate the runtime based on the average time taken for the tests we've done.
-
-\begin{table}[H]
-\caption{Vulnerable sub-cyclotomic RLWE instances}
-\begin{tabular}{c|c|c|c|c|c|c|c|c}
-$m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples used & est.runtime (h) & $\widehat{p}$ \\ \hline
-255255 & [97943, 83656, 77351, 78541, 129403] & 90 & 463 & 2 & 1 & 21436 & 1786.41 & 1.0 (*) \\
-285285 & [181156, 210926, 87361] & 96 & 131 & 2 & 1 & ? & ? & ?
-\end{tabular}
-\end{table}
 
 \subsection{Discussion}
 One may notice that in all the vulnerable instances in Table~\ref{tab: attacked}, the prime $q$ has degree $f = 2$. We explain the reason behind this phenomenon. Let $K$  a Galois number field and suppose $q$ is a prime of degree $r$ in $K$. Suppose we have found a reduced basis $w_1,\cdots, w_n$ of $R$ with respect to the adjusted embedding. Fix a prime ideal $\fq$ above $q$. Then the images of the basis under the reduction modulo $\fq$ map are elements of $F = R/\fq$. Now if for some index $i$, the element $w_i$ lies inside some proper subfield $K'$ of $K$, and if $q$ has residual degree $r' < r$ in $K'$, then $w_i \pmod{\fq}$ will lie in a proper subfield of $F$. If the above situation happens for a large amount of the basis elements $w_i$, then we could  expect the reduced error distribution $D_{\cR,\fq}$ to take values in a proper subfield of $F$ more frequently. This would allow us to distinguish it from the uniform distribution on $F$.
