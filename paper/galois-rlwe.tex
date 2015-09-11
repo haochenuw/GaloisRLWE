@@ -17,7 +17,7 @@
 \maketitle
 
 \begin{abstract}
-We describe a new attack on the Ring learning-with-errors (RLWE) problem based on chi-square test, and give examples of Galois number fields vulnerable to our attack. We also analyze the security of cyclotomic extensions under our attack using Fourier analysis on finite fields.
+We describe a new attack on the Ring learning-with-errors (RLWE) problem based on the chi-square statistical test, and give examples of Galois number fields vulnerable to our attack. We also analyze the security of cyclotomic fields under our attack using Fourier analysis on finite fields.
 
 %Also, we sharpen the attack in [ELOS] and give examples of vulnerable instnaces of cryptographic size. Finally, we discuss the effect of modulus switching on our attacks.
 \end{abstract}
@@ -535,7 +535,8 @@ Since $p$ and $q$ are coprime, the domain of the reducing modulo $\fp$ map can b
 fLet $m \geq 1$ be any integer and let $K = \bQ(\zeta_m)$. Let $q$ be a prime and assume that $q$ is unramified in $K$, and let $\fq$ be a prime ideal above $q$. We show that under some simplifying assumptions, the image of a reduced RLWE error distribution $D_{\cR,\fq}$ will be indistinguishable from the uniform distribution $U(\bF_q)$. Note that this result is in contrast with the previous section, where we showed that the ramified prime for
 $K = \bQ(\zeta_p)$ is vulnerable. The tool we use is Fourier analysis on finite fields.
 
-First, we introduce a class of distributions indexed by even integers $k \geq 2$, aiming at approximating discrete Gaussians over $\bZ$.
+First, we introduce a class of ``shifted binomial distributions'' indexed by even integers $k \geq 2$, aiming at approximating discrete Gaussians over $\bZ$. Remark: this can be generalized to
+arbitrary real $k$, using extended binomial coefficients. (fixme)
 \begin{Definition}
 For any even integer $k \geq 2$, let $\cV_k$ denote the distribution over $\bZ$ such that for every $t \in \bZ$,
 
@@ -714,6 +715,16 @@ $m$ & $q$ & $-[\log_2(\epsilon(m,q, 2))]$ \\
 \end{tabular}
 \end{table}
 
+
+Now we address the issue whether our assumption makes sense.
+For a given $\sigma$, we can always find $k$ such that $D_{\bZ, \sigma} \pmod{q}$ and $V_k$ differ at most by $\mu$. Then
+\[
+    |\hat{D} - \hat{V}| \leq \mu.
+\]
+So when we take the product,
+\[
+    \hat{e_0}  = \prod D_i  \leq \prod (V_i + \mu) = \prod V_i + \mu \prod_{j \neq i}
+\]
 %On row $-1$ and $-2$ from the above table, we can see the effect of taking the ramified prime, or taking $q \gg n$.
 
 
