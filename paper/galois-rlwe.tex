@@ -77,7 +77,7 @@ T = \begin{bmatrix}
 \]
 Then we have
 $$\tilde{A_{w}} = T A_{w},$$
-and the lattice $\tilde{\iota}(R)$ has a basis consisting of columns of $\tilde{A_{w}}$. 
+and the lattice $\tilde{\iota}(R)$ has a basis consisting of columns of $\tilde{A_{w}}$.
 
 For $\sigma > 0$, define the Gaussian function $\rho_\sigma: \bR^n \to [0,1]$ as $\rho_\sigma(x) = e^{-||x||^2/2\sigma^2}$ (our $\sigma$ is equal to $r/\sqrt{2\pi}$ for the parameter $r$ in \cite{lyubashevsky2013ideal}).
 \begin{Definition}
@@ -510,7 +510,7 @@ f\section{Invulnerability of general cyclotomic extensions for unramified primes
 
 \subsection{Introduction}
 
-Let $m \geq 1$ be an integer and let $K = \bQ(\zeta_m)$ be the $m$-th cyclotomic filed. Let $q$ be a prime such that 
+Let $m \geq 1$ be an integer and let $K = \bQ(\zeta_m)$ be the $m$-th cyclotomic filed. Let $q$ be a prime such that
 $q \equiv 1\pmod{m}$, so $q$ is unramified in $K$. Finally, let $\fq$ be a prime ideal above $q$. We show that under some simplifying assumptions, the reduced RLWE error distribution $D_{\cR,\fq}$ will be indistinguishable from the uniform distribution $U(\bF_q)$. Note that this result is in contrast with the previous section, where we showed that the ramified prime for
 $K = \bQ(\zeta_p)$ is vulnerable. The tool we use is Fourier analysis on finite fields.
 
@@ -658,24 +658,24 @@ For all $a \in \bF_q$,
 Now the theorem follows from taking absolute values on both sides, and noting that $|\chi_y(a)| \leq 1$ for all $a$ and all $y$.
 \end{proof}
 
-\begin{Corollary}
+\begin{Corollary} \label{cor: stat dist}
 The statistical distance between $e_\alpha$ and $u$ satisfies $$d(e_\alpha,u) \leq \frac{1}{2}  \sum_{y \in \bF_q, y \neq 0}  |\widehat{e_\alpha}(y)|.$$
 \end{Corollary}
 
 
 
-Let $\epsilon(m,q,k,\alpha)$ denote the right hand side of (\ref{eq: secure}), i.e.,
+Let $\epsilon(m,q,k,\alpha)$ denote the right hand side of (fixme), i.e.,
 \[
-    \epsilon(m,q,k, \alpha) = \frac{1}{q}\sum_{y \in \bF_q, y \neq 0} \prod_{i=0}^{n-1} \cos \left(\frac{ \alpha^i \pi y}{q} \right)^k.
+    \epsilon(m,q,k, \alpha) = \frac{1}{2}\sum_{y \in \bF_q, y \neq 0} \prod_{i=0}^{n-1} \cos \left(\frac{ \alpha^i \pi y}{q} \right)^k.
 \]
 We let $\alpha$ run through all primitive $m$-th root of unities in $\bF_q$ and define
 $$\epsilon(m,q,k) := \max \{\epsilon(m,q,k,\alpha): \alpha \mbox{ has order } m \mbox{ in } \bF_q\}.$$
 The punchline of our argument is: the value $\epsilon(m,q,k)$ is usually negligibly small. Since $\epsilon(m,q,k)$ is an upper bound of  the distribution $MD(m,q,k) \pmod {\fq}$ is computationally indistinguishable from the uniform distribution for all $\fq$. The following is a table of data to illustrate this phenomenon.
 
-\FloatBarrier
+
 \begin{table}[H]
 \caption{Values of $\epsilon(m,q,k)$}
-\begin{tabular}{c|c|c|c}
+\begin{tabular}{c|c|c}
 $m$ & $q$ & $-[\log_2(\epsilon(m,q, 2))]$ \\
 \hline
 244 & 1709 & 230 \\
@@ -696,18 +696,48 @@ $m$ & $q$ & $-[\log_2(\epsilon(m,q, 2))]$ \\
 \end{table}
 
 
-Now we address the issue whether our assumption makes sense.
-For a given $\sigma$, $k, \beta$, suppose $d(D_{\bZ, \sigma} \pmod{q}, V_{k,\alpha}) = \delta$, then $|\widehat{D} - \widehat{V}|_\infty  \leq  2\delta$.
-
-\begin{Lemma} \label{lem: dist2}
+We remark that we can run the same analysis for the PLWE distribution. The difference is that the coefficients for $\zeta_m^i$ are sampled from a discrete Gaussian distribution $D_{\bZ,\sigma}$, and there is no obvious closed-form formula for the density function $d$  of $D_{\bZ,\sigma} \pmod{q}$. Nonetheless, we could numerically approximate this probability density function, using the formula
 \[
-    d(e_\alpha, e'_{\alpha}) \leq  \sum_{y \in \bF_q, y \neq 0} \left( \prod_{i=0}^{n-1} \left(\cos(\frac{\pi y \alpha^i}{q})  + 2\delta \right) - \prod_{i=0}^{n-1} \cos(\frac{\pi y \alpha^i}{q}) \right).
+  d(a)  = \frac{\sum_{z \in \bZ, z \equiv a\pmod{q}} e^{-|z|^2/2\sigma}}{\sum_{z \in \bZ} e^{-|z|^2/2\sigma}}, \quad \forall a \in \bF_q.
 \]
-\end{Lemma}
+Since the sums in the definition of $d(a)$ converge rapidly, we could estimate $d(a)$ by truncating the sums. Next, we compute
+its Fourier transform $\hat{d}$, and obtain
+\[
+    \widehat{e_\alpha'}(y) = \prod_{i=0}^{n-1} \hat{d}(\alpha^i y)
+\]
+Finally, we could define and compute
+\[
+    \epsilon'(m,q,\tau) = \frac{1}{2} \sum_{y \in \bF_q, y \neq 0} \prod_{i=0}^{n-1} \widehat{d}(\alpha^i y).
+\]
 
-Given $\sigma > 0$, one can find parameters $k, \beta$ so that $\delta$ is small, hence we could use the Lemma~\ref{lem: dist2} to bound the statistical distance between the two error distributions. As an example (fixme: add examples).
 
-%On row $-1$ and $-2$ from the above table, we can see the effect of taking the ramified prime, or taking $q \gg n$.
+Then an exact same argument as Corollary~\ref{cor: stat dist} says that $\epsilon'(m,q,\tau)$ is an upper bound of the statistical distance  between the distribution $e_\alpha'$ and the uniform distribution over $\bF_q$. Table~\ref{table: PLWE} contains some data.
+
+
+
+\FloatBarrier
+\begin{table}[H]
+\label{table: PLWE}
+\caption{Values of $\epsilon'(m,q,\tau)$}
+\begin{tabular}{c|c|c|c}
+$m$ & $n$ & $q$ &  $-[\log_2(\epsilon(m,q, 1))]$ \\
+\hline
+244 & 1709 & 230 \\
+101 & 1213 & $177$ \\
+256 & 3329 & $194$ \\
+256 & 14081 & $208$ \\
+55 & 10891  & $44$ \\
+197 & 3547 & $337$ \\
+96 & 4513 & $35$ \\
+160 & 20641 & 61 \\
+145 & 19163 & $176$ \\
+%101 & 101 & $4$ \\
+%13 & 1000039 & $12$ \\
+%512 & 7681 & 455  \\
+512 & 10753 & 431 \\
+512 & 19457 & 414
+\end{tabular}
+\end{table}
 
 
 \begin{remark}
