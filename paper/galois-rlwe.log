@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  16 SEP 2015 21:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  19 SEP 2015 11:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1866,16 +1866,22 @@ Overfull \hbox (20.37105pt too wide) in paragraph at lines 313--325
  [][] 
  []
 
-[6 <./attack-quality.png>] [7]
+[6 <./attack-quality.png>] [7pdfTeX warning (ext4): destination with the same i
+dentifier (name{table.1}) has been already used, duplicate ignored
+
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.503 \[
+        ]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 522.
+(amsmath)                 on input line 535.
 
-<v8.png, id=206, 566.5968pt x 277.5168pt>
+<v8.png, id=205, 566.5968pt x 277.5168pt>
 File: v8.png Graphic file (type png)
  <use v8.png>
-Package pdftex.def Info: v8.png used on input line 530.
+Package pdftex.def Info: v8.png used on input line 543.
 (pdftex.def)             Requested size: 234.8775pt x 115.04028pt.
 
 
@@ -1885,30 +1891,30 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 ier (name{table.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.677 \caption{Values of $\epsilon(m,q,k)$}
-                                            [11] (./galois-rlwe.bbl [12])
+l.694 \caption{Values of $\epsilon'(m,q,2)$}
+                                             [11] [12] (./galois-rlwe.bbl)
 [13]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 774.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 774.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 793.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 793.
  (./galois-rlwe.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 774.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 774.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 793.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 793.
 Package rerunfilecheck Info: File `galois-rlwe.out' has not changed.
-(rerunfilecheck)             Checksum: 2CC13551061B4639DE73D0BD25AA41C0;1479.
+(rerunfilecheck)             Checksum: BBCDC0B417EBEB26B3BB99BA527BC5D1;1495.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 774.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 793.
  ) 
 Here is how much of TeX's memory you used:
- 24539 strings out of 493105
- 468539 string characters out of 6137073
- 525790 words of memory out of 5000000
- 27399 multiletter control sequences out of 15000+600000
+ 24543 strings out of 493105
+ 468588 string characters out of 6137073
+ 525883 words of memory out of 5000000
+ 27402 multiletter control sequences out of 15000+600000
  11888 words of font info for 48 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 68i,11n,84p,10387b,476s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 68i,11n,84p,10387b,419s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texl
@@ -1930,10 +1936,10 @@ ts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/public/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/public/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (13 pages, 353000 bytes).
+Output written on galois-rlwe.pdf (13 pages, 353599 bytes).
 PDF statistics:
- 352 PDF objects out of 1000 (max. 8388607)
- 307 compressed objects within 4 object streams
- 80 named destinations out of 1000 (max. 500000)
+ 354 PDF objects out of 1000 (max. 8388607)
+ 309 compressed objects within 4 object streams
+ 81 named destinations out of 1000 (max. 500000)
  175 words of extra memory for PDF output out of 10000 (max. 10000000)
 
