@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  20 SEP 2015 06:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.5.6)  20 SEP 2015 07:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1855,10 +1855,10 @@ Package hyperref Warning: Composite letter `\textdotaccent+"'
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 219.
 
-Underfull \vbox (badness 3386) has occurred while \output is active []
+Underfull \vbox (badness 5490) has occurred while \output is active []
 
  [4]
-<attack-quality.png, id=174, 578.16pt x 433.62pt>
+<attack-quality.png, id=172, 578.16pt x 433.62pt>
 File: attack-quality.png Graphic file (type png)
  <use attack-quality.png>
 Package pdftex.def Info: attack-quality.png used on input line 282.
@@ -1881,7 +1881,7 @@ Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
 (amsmath)                 on input line 533.
 
-<v8.png, id=213, 566.5968pt x 277.5168pt>
+<v8.png, id=211, 566.5968pt x 277.5168pt>
 File: v8.png Graphic file (type png)
  <use v8.png>
 Package pdftex.def Info: v8.png used on input line 541.
@@ -1939,10 +1939,10 @@ ts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/public/amsfonts/symbols/msbm7.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/public/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (13 pages, 353850 bytes).
+Output written on galois-rlwe.pdf (13 pages, 353653 bytes).
 PDF statistics:
- 363 PDF objects out of 1000 (max. 8388607)
- 318 compressed objects within 4 object streams
+ 362 PDF objects out of 1000 (max. 8388607)
+ 317 compressed objects within 4 object streams
  82 named destinations out of 1000 (max. 500000)
  175 words of extra memory for PDF output out of 10000 (max. 10000000)
 

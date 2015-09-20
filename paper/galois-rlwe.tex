@@ -123,7 +123,7 @@ problem, denoted by $\DRLWE(\cR)$, is to distinguish between the same number of 
 \end{Definition}
 
 \subsection{Sampling methods}
-In practice, there are different ways to approximately sample from the RLWE error distribution $D_\cR$, and we will switch between three sampling methods in our paper. While searching for weak Galois RLWE instances, we use the sampling algorithm in  \cite{gentry2008trapdoors}; when analyzing the security of cyclotomics, we defined a modified error distribution $MD_{m,q,k}$ (see Definition~\ref{def: modified distribution}); when proving the vulnerability of prime cyclotomics at the ramified prime, we used the PLWE sampling method, which samples each coefficient of the error polynomial independently from a discrete Gaussian over the integers. We mention that \cite{lyubashevsky2013toolkit} has an efficient algorithm for cyclotomic fields. Since it is primarily related to the dual version of RLWE, we will not use it in our paper.
+In practice, there are different ways to approximately sample from the RLWE error distribution $D_\cR$, and we will switch between three sampling methods in our paper. While searching for weak Galois RLWE instances as well as attacking ramified primes, we use the sampling algorithm in  \cite{gentry2008trapdoors}; when analyzing the security of cyclotomics, we use the PLWE distribution $P_{m,\tau}$ and another distribution $P'{m,k}$ to assist the analysis. We are aware that \cite{lyubashevsky2013toolkit} has an efficient algorithm for cyclotomic fields. Since it is primarily related to the dual version of RLWE, we will not use it in our paper.
 
 
 \section{search-to-decision reduction}
