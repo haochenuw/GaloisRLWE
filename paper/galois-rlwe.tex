@@ -19,22 +19,22 @@
 \begin{abstract}
 We describe a new attack on the Ring learning-with-errors (RLWE) problem based on the chi-square statistical test, and give examples of Galois number fields vulnerable to our attack. We then analyze the security of cyclotomic fields against our attack.
 
-%Also, we sharpen the attack in [ELOS] and give examples of vulnerable instnaces of cryptographic size. Finally, we discuss the effect of modulus switching on our attacks.
+%Also, we sharpen the attack in \cite{elos2015weak} and give examples of vulnerable instnaces of cryptographic size. Finally, we discuss the effect of modulus switching on our attacks.
 \end{abstract}
 
 \section{Introduction}
 The Ring learning-with-errors (RLWE) problem, proposed in \cite{lyubashevsky2013ideal}, is a variant of the traditional learning-with-error (LWE) problem, and is an active research area in lattice based cryptography. It has been studied extensively in (a lot of papers).
 
-Central to an RLWE problem instance is a choice of a number field $K$ and a prime $q$ called the {\it modulus}. The authors of \cite{lyubashevsky2013ideal} considered the case where $K$ is some cyclotomic field, and proved a reduction from certain hard lattice problems to the dual variant of RLWE. The hardness for the non-dual variant was proved in \cite{ducas2012ring}. Also in \cite{lyubashevsky2013ideal}, a search-to-decision reduction was proved for RLWE problems for cyclotomic fields and modulus $q$ which splits completely in the field. This reduction was then generalized to general Galois extensions in \cite{eisentrager2014weak}.
+Central to an RLWE problem instance is a choice of a number field $K$ and a prime $q$ called the {\it modulus}. The authors of \cite{lyubashevsky2013ideal} considered the case where $K$ is some cyclotomic field, and proved a reduction from certain hard lattice problems to the dual variant of RLWE. The hardness for the non-dual variant was proved in \cite{ducas2012ring}. Also in \cite{lyubashevsky2013ideal}, a search-to-decision reduction was proved for RLWE problems for cyclotomic fields and modulus $q$ which splits completely. This reduction was then generalized to general Galois extensions in \cite{eisentrager2014weak}.
 
-The [ELOS] paper proposed an attack to decision RLWE problem. The attack makes use of ring homomorphisms $\pi: R \to \bF_q$, and works when the image of the RLWE error distribution under the map $\pi$ only takes value in a stricly smaller subset of $\bF_q$, with overwhelming probability. The authors of [ELOS] then gave an infinite family of examples vulnerable to the attack. Unfortunately, the vulnerable number fields in [ELOS] are not Galois extensions of $\bQ$. Hence, the search-to-decision reduction theorem does not apply, and the attack can not be directly used to solve the search variant of RLWE for those instances.
+The authors of \cite{elos2015weak} proposed an attack to decision RLWE problem. The attack makes use of ring homomorphisms $\pi: R \to \bF_q$, and works when the image of the RLWE error distribution under the map $\pi$ only takes value in a stricly smaller subset of $\bF_q$, with overwhelming probability. The authors of \cite{elos2015weak} then gave an infinite family of examples vulnerable to the attack. Unfortunately, the vulnerable number fields in \cite{elos2015weak} are not Galois extensions of $\bQ$. Hence, the search-to-decision reduction theorem does not apply, and the attack can not be directly used to solve the search variant of RLWE for those instances.
 
-In our paper, we generalize the attack of [ELOS] to Galois number fields and moduli of higher degree. Also, we analyze the vulnerability of cyclotomic fields to the [ELOS] attack, and show that they are in general safe, except for the case when the modulus $p$ is equal to the index of the cyclotomic field (i.e., $K = \bQ(\zeta_p)$).
+In our paper, we generalize the attack of \cite{elos2015weak} to Galois number fields and moduli of higher degree. Also, we analyze the vulnerability of cyclotomic fields to the \cite{elos2015weak} attack, and show that they are in general safe, except for the case when the modulus $p$ is equal to the index of the cyclotomic field (i.e., $K = \bQ(\zeta_p)$).
 
 
 \subsection{Organization}
 
-In section \ref{sec: background}, we recall the canonical embedding of number fields and the central definitions related to the RLWE problems. In section \ref{sec: s-to-d}, we review prime factorizations in Galois extensions and prove a search-to-decision reduction for Galois extensions $K$ and unramified primes of any degree. In section \ref{sec: chi-square}, we introduce an attack to RLWE problems based on the chi-square statistical test, which directly generalizes the attack in [ELOS]. More precisely, the attack aims at two problems: the decision version of RLWE, and an intermediate problem used in the search-to-decision proof of \cite{lyubashevsky2013ideal}, which we denote by $\SRLWE(\cR,\fq)$ (see Definition~\ref{def: srlwe mod q}). The time complexity of our attack for both problems above is $O(\frac{n}{f}q^{2f})$, Here $n$ is the degree of the number field $K$, and $f$ is the {\it residual degree} of $q$ in $K$ (see Lemma~\ref{lem: prime factorization}). In section \ref{sec: sub-cyclotomics}, we give examples of subfields of cyclotomic fields vunlerable to our new attack, where the moduli $q$ has residual degree two.
+In section \ref{sec: background}, we recall the canonical embedding of number fields and the central definitions related to the RLWE problems. In section \ref{sec: s-to-d}, we review prime factorizations in Galois extensions and prove a search-to-decision reduction for Galois extensions $K$ and unramified primes of any degree. In section \ref{sec: chi-square}, we introduce an attack to RLWE problems based on the chi-square statistical test, which directly generalizes the attack in \cite{elos2015weak}. More precisely, the attack aims at two problems: the decision version of RLWE, and an intermediate problem used in the search-to-decision proof of \cite{lyubashevsky2013ideal}, which we denote by $\SRLWE(\cR,\fq)$ (see Definition~\ref{def: srlwe mod q}). The time complexity of our attack for both problems above is $O(\frac{n}{f}q^{2f})$, Here $n$ is the degree of the number field $K$, and $f$ is the {\it residual degree} of $q$ in $K$ (see Lemma~\ref{lem: prime factorization}). In section \ref{sec: sub-cyclotomics}, we give examples of subfields of cyclotomic fields vunlerable to our new attack, where the moduli $q$ has residual degree two.
 
 In section \ref{sec: ramified-prime}, we show that our attack works on prime cyclotomic fields when the moduli is equal to the unique ramified prime. Finally, in section \ref{sec: cyclo-secure}, we show that general cyclotomic extensions with an unramified prime as the modulus $q$ are invulnerable to our attack.
 
@@ -102,12 +102,12 @@ D_\cR = D_{\tilde{\iota}(R),\sigma}.
 \]
 \end{Definition}
 
-Let $n$ denote the degree of $K$. As is pointed out in [ELOS], when analyzing the error distribution, one needs to take into account the sparsity of the lattice $\tilde{\iota}(R)$, which is measured by its covolume $V_R$. In light of this, we define a relative version of the standard deviation parameter: $$\sigma_0 = \frac{\sigma}{V_R^{\frac{1}{n}}}.$$
+Let $n$ denote the degree of $K$. As is pointed out in \cite{elos2015weak}, when analyzing the error distribution, one needs to take into account the sparsity of the lattice $\tilde{\iota}(R)$, which is measured by its covolume $V_R$. In light of this, we define a relative version of the standard deviation parameter: $$\sigma_0 = \frac{\sigma}{V_R^{\frac{1}{n}}}.$$
 
 \begin{Definition}[RLWE distribtuion]
 Let $\cR = (K,q,\sigma, s)$ be an RLWE instance with error distribution $D_\cR$, We let $R_q$ denote $R/qR$, then
 a sample from the {\it RLWE distribtuion} of $\cR$ is a tuple
-$$(a, b = as+e\pmod{qR}) \in R_q \times R_q $$
+$$(a, b = as+e\pmod{qR}) \in R_q \times R_q, $$
 where the first coordiante $a$ is chosen uniformly at random in $R_q$, and $e \gets D_\cR$.
 \end{Definition}
 
@@ -316,10 +316,10 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples & runtime (
 15015 & [12286, 2003, 11936] & 60 & 43 & 2 & 1 & 11094 & 1.05 \\
 15015 & [12286, 2003, 11936] & 60 & 617 & 2 & 1.25 & 8000 & 228.41 (estimated) \footnotemark  \\
 90321 & [90320, 18514, 43405] & 80 & 67 & 2 & 1 & 26934 & 4.81 \\
-255255 &  [97943, 162436, 253826, 248711, 44318] & 90 & 2003 & 2 & 1.25 & 15000 &  1114.44 (est) \\
-285285 & [181156, 210926, 87361] & 96 & 521  & 2 & 1.1 & 5000 & 75.41 (est) \\
+255255 &  [97943, 162436, 253826, 248711, 44318] & 90 & 2003 & 2 & 1.25 & 15000 &  1114.44 (estimated) \\
+285285 & [181156, 210926, 87361] & 96 & 521  & 2 & 1.1 & 5000 & 75.41 (estimated) \\
 1468005Z & [312016, 978671, 956572, 400366] & 100 & 683 & 2 & 1.1
-& 5000 &  276.01 (est) \\
+& 5000 &  276.01 (estimated) \\
 1468005 & [198892, 978671, 431521, 1083139] & 144 & 139 & 2 & 1 &  4000 &  5.72
 \end{tabular}
 \end{table}
@@ -360,11 +360,11 @@ Writing an RLWE error as  $e = \sum e_i \zeta_m^i$, we have $e \pmod{\fp} = \sum
 \label{tab: ramified}
 \caption{attacks on DRLWE for $K= \bQ(\zeta_p)$ and $q = p$}
 \begin{tabular}{c|c|c}
-$p$ & $\sigma$ & runtime(in seconds) \\
+$p$ & $\sigma_0$ & runtime(in seconds) \\
 \hline
-251 & 0.5 & ? 2.62\\
-503 & 0.675 & \\
-809 & 0.61 & a
+251 & 0.5 & 2.62\\
+503 & 0.575 & 12.02\\
+809 & 0.61 & 34.38\\
 \end{tabular}
 \end{table}
 
@@ -415,11 +415,11 @@ $p$ & $\sigma$ & runtime(in seconds) \\
 %\end{proof}
 
 %\begin{Corollary}
-%If $p$ is a sufficiently large prime and $\sigma = o(\sqrt{p})$, then the [ELOS] attack works on the RLWE instance $\bQ(\zeta_p)$ with modulus $p$ and the error distribution $DD(p, \sigma)$.
+%If $p$ is a sufficiently large prime and $\sigma = o(\sqrt{p})$, then the \cite{elos2015weak} attack works on the RLWE instance $\bQ(\zeta_p)$ with modulus $p$ and the error distribution $DD(p, \sigma)$.
 %\end{Corollary}
 
 %\begin{proof}
-%The attack in [ELOS] is guaranteed to work provided
+%The attack in \cite{elos2015weak} is guaranteed to work provided
 %\[
  %   \frac{p}{|e \pmod{\fp}|} > 2,
 %\]
@@ -490,7 +490,7 @@ Assume $\sigma = o(\sqrt{p})$. Let $\fp$ denote the unique prime ideal in $\bQ(\
 
 \begin{proof}
 Using \ref{eq: last}, we may assume that for all $e \to D(\cR,\fp)$, we have $|e|\leq 6\sqrt{2(p-1)\pi} \sigma$. Using the fact that $\sigma = o(p)$, we see that $|e \pmod{\fp}| = o(p)$. Hence the reduced error distribution only takes value in the subset
-$|e|\leq 6\sqrt{2(p-1)\pi} \sigma$. When $p \to \infty$, we have $|e \pmod {\fp}| = o(p)$.  Hence the attack in [ELOS] works.
+$|e|\leq 6\sqrt{2(p-1)\pi} \sigma$. When $p \to \infty$, we have $|e \pmod {\fp}| = o(p)$.  Hence the attack in \cite{elos2015weak} works.
 \end{proof}
 \fi
 
@@ -648,7 +648,7 @@ Let $f: \bF_q \to \bR$ be a function such that $\sum_{a \in \bF_q} f(a) = 1$. Th
 \end{equation}
 \end{Prop}
 
-\begin{proof}
+\begin{proof} For all $a \in \bF_q$,
 \begin{align*}
     f(a) - 1/q &= f - u(a) \\
     & = \frac{1}{q} \sum_{y \in \bF_q} (\hat{f}(y) - \widehat{u}(y) )\chi_y(a) \\
@@ -658,7 +658,7 @@ Let $f: \bF_q \to \bR$ be a function such that $\sum_{a \in \bF_q} f(a) = 1$. Th
 Now the result follows from taking absolute values on both sides, and noting that $|\chi_y(a)| \leq 1$ for all $a$ and all $y$.
 \end{proof}
 
-Taking $f = e_\alpha$ and $f = e_\alpha'$ in Proposition~\ref{prop: bound}, we immediately obtain
+Taking $f = e_\alpha$ or $f = e_\alpha'$ in Proposition~\ref{prop: bound}, we immediately obtain
 \begin{theorem} \label{cor: stat dist}
 The statistical distance between $e_\alpha$ and $u$ satisfies $$d(e_\alpha,u) \leq \frac{1}{2}  \sum_{y \in \bF_q, y \neq 0}  |\widehat{e_\alpha}(y)|.$$
 Similarly,
@@ -704,23 +704,17 @@ We can run the same analysis for the PLWE distributio, with the only difference 
 \[
   d(a)  = \frac{\sum_{z \in \bZ, z \equiv a\pmod{q}} e^{-|z|^2/2\tau}}{\sum_{z \in \bZ} e^{-|z|^2/2\tau}}, \quad \forall a \in \bF_q.
 \]
-Since the sums in the definition of $d(a)$ converge rapidly, we could obtain good approximations of the values of $d$ by truncating the sums. Next, we compute its Fourier transform $\hat{d}$, and obtain
+Since the sums in the definition of $d(a)$ converge rapidly, we could obtain good approximations of $d$ by truncating the sums. Then we compute its Fourier transform $\hat{d}$, and obtain
 \[
     \widehat{e_\alpha}(y) = \prod_{i=0}^{n-1} \hat{d}(\alpha^i y)
 \]
-Finally, we compute
-\[
-    \epsilon(m,q,\tau) = \frac{1}{2} \sum_{y \in \bF_q, y \neq 0} \prod_{i=0}^{n-1} \widehat{d}(\alpha^i y).
-\]
-
-
-Then $\epsilon(m,q,\tau)$ is an upper bound of the statistical distance  between the distribution $e_\alpha$ and the uniform distribution over $\bF_q$. Table~\ref{table: PLWE} contains some data.
+Finally, we can compute $\epsilon(m,q,\tau) = \frac{1}{2} \sum_{y \in \bF_q, y \neq 0} \prod_{i=0}^{n-1} \widehat{d}(\alpha^i y)$. Then $\epsilon(m,q,\tau)$ is an upper bound of the statistical distance  between the distribution $e_\alpha$ and the uniform distribution over $\bF_q$. Table~\ref{table: deg2} contains some data for values of $\epsilon(m,q,\tau)$.
 
 
 
 \FloatBarrier
 \begin{table}[H]
-\label{table: PLWE}
+\label{table: deg2}
 \caption{Values of $\epsilon(m,q,\tau)$}
 \begin{tabular}{c|c|c|c}
 $m$ & $n$ & $q$ &  $-[\log_2(\epsilon(m,q, 1))]$ \\
