@@ -1,6 +1,6 @@
 \documentclass{amsart}
-\title{Attacks on search-RLWE}
-\author{Hao Chen, Kristin Lauter, Katherine E. Stange}
+\title{Attacks on Search-RLWE}
+\author{Hao Chen, Kristin Lauter, and Katherine E. Stange}
 
 \usepackage{macros}
 \usepackage{float}
@@ -23,7 +23,7 @@ We describe a new attack on the Ring learning-with-errors (RLWE) problem based o
 \end{abstract}
 
 \section{Introduction}
-The Ring learning-with-errors (RLWE) problem, proposed in \cite{lyubashevsky2013ideal}, is a variant of the traditional learning-with-error (LWE) problem, and is an active research area in lattice based cryptography. It has been studied extensively in (a lot of papers).
+The Ring Learning-with-Errors (RLWE) problem, proposed in \cite{lyubashevsky2013ideal}, is a variant of the traditional Learning-with-Errors (LWE) problem, and is an active research area in lattice based cryptography. It has been studied extensively in (a lot of papers).
 
 Central to an RLWE problem instance is a choice of a number field $K$ and a prime $q$ called the {\it modulus}. The authors of \cite{lyubashevsky2013ideal} considered the case where $K$ is some cyclotomic field, and proved a reduction from certain hard lattice problems to the dual variant of RLWE. The hardness for the non-dual variant was proved in \cite{ducas2012ring}. Also in \cite{lyubashevsky2013ideal}, a search-to-decision reduction was proved for RLWE problems for cyclotomic fields and modulus $q$ which splits completely. This reduction was then generalized to general Galois extensions in \cite{eisentrager2014weak}.
 
@@ -57,10 +57,10 @@ To work with real vector spaces, we define the {\it adjusted embedding} of $K$ a
     x & \mapsto (\sigma_1(x), \cdots, \sigma_{r_1}(x), \Re(\sigma_{r_1+1})(x), \Im(\sigma_{r_1+1})(x), \cdots,  \Re(\sigma_{r_1+r_2})(x), \Im(\sigma_{r_1+r_2})(x)).
 \end{align*}
 
-It turns out that $\tilde{\iota}(R)$ is a lattice in $\bR^n$. Let $w = (w_1, \cdots , w_n)$ be an integral basis for $R$.
+Then $\tilde{\iota}(R)$ is a lattice in $\bR^n$. Let $w = (w_1, \cdots , w_n)$ be an integral basis for $R$.
 
 \begin{Definition}
-The canonical (resp. adjusted) embedding matrix of $w$, denoted by $A_w$ (resp. $\tilde{A_w}$), is the $n$-by-$n$ matrix whose $i$-th column is $\iota(w_i)$ (resp. $\tilde{\iota}(w_i)$).
+The canonical (resp. adjusted) embedding matrix of $w$, denoted by $A_w$ (resp. $\widetilde{A_w}$), is the $n$-by-$n$ matrix whose $i$-th column is $\iota(w_i)$ (resp. $\tilde{\iota}(w_i)$).
 \end{Definition}
 
 The two embedding matrices are related in a simple way:
@@ -77,11 +77,11 @@ T = \begin{bmatrix}
 \]
 Then we have
 $$\tilde{A_{w}} = T A_{w},$$
-and the lattice $\tilde{\iota}(R)$ has a basis consisting of columns of $\tilde{A_{w}}$.
+and the lattice $\tilde{\iota}(R)$ has a basis consisting of columns of $\widetilde{A_{w}}$.
 
 For $\sigma > 0$, define the Gaussian function $\rho_\sigma: \bR^n \to [0,1]$ as $\rho_\sigma(x) = e^{-||x||^2/2\sigma^2}$ (our $\sigma$ is equal to $r/\sqrt{2\pi}$ for the parameter $r$ in \cite{lyubashevsky2013ideal}).
 \begin{Definition}
-For a lattiace $\Lambda \subset \bR^n$ and $\sigma > 0$, the {\it discrete Gaussian distribution} on $\Lambda$ with parameter $\sigma$ is:
+For a lattice $\Lambda \subset \bR^n$ and $\sigma > 0$, the {\it discrete Gaussian distribution} on $\Lambda$ with parameter $\sigma$ is:
 \[
     D_{\Lambda, \sigma}(x) = \frac{\rho_\sigma(x)}{\sum_{y \in\Lambda} \rho_\sigma(y)}, \, \forall x \in \Lambda.
 \]
@@ -90,75 +90,86 @@ Equivalently, the probability of sampling any lattice point $x$ is proportional 
 
 \subsection{Ring LWE problems for general number fields}
 
+We follow \cite{elos2015weak} in setting up the Ring LWE problem for general number fields.  In particular, we do not consider the dual of the ring of integers, which is a convenience only in the case of the cyclotomic integers.
+
 \begin{Definition}
 An {\it RLWE instance} is a tuple $\cR = (K,q,\sigma,s)$, where $K$ is a number field with ring of integers $R$, $q$ is a prime, $\sigma >0$, and $s \in R/qR$ is the {\it secret}.
 \end{Definition}
 
 
 \begin{Definition}
-Let $\cR = (K,q,\sigma,s)$ be an RLWE instance and let $R$ be the ring of integers of $K$. The {\it error distribution} of $\cR$, denote by $D_\cR$, is the discrete lattice Gaussian distribution
+Let $\cR = (K,q,\sigma,s)$ be an RLWE instance and let $R$ be the ring of integers of $K$. The {\it error distribution} of $\cR$, denote by $D_\cR$, is the discrete Gaussian distribution
 \[
 D_\cR = D_{\tilde{\iota}(R),\sigma}.
 \]
 \end{Definition}
 
-Let $n$ denote the degree of $K$. As is pointed out in \cite{elos2015weak}, when analyzing the error distribution, one needs to take into account the sparsity of the lattice $\tilde{\iota}(R)$, which is measured by its covolume $V_R$. In light of this, we define a relative version of the standard deviation parameter: $$\sigma_0 = \frac{\sigma}{V_R^{\frac{1}{n}}}.$$
+Let $n$ denote the degree of $K$. As pointed out in \cite{elos2015weak}, when analyzing the error distribution, one needs to take into account the sparsity of the lattice $\tilde{\iota}(R)$, which is measured by its covolume $V_R$. In light of this, we define a relative version of the standard deviation parameter: $$\sigma_0 = \frac{\sigma}{V_R^{\frac{1}{n}}}.$$
 
-\begin{Definition}[RLWE distribtuion]
-Let $\cR = (K,q,\sigma, s)$ be an RLWE instance with error distribution $D_\cR$, We let $R_q$ denote $R/qR$, then
-a sample from the {\it RLWE distribtuion} of $\cR$ is a tuple
+The notation $x \gets D$ indicates that variable $x$ is distributed according to distribution $D$.
+
+\begin{Definition}[RLWE distribution]
+Let $\cR = (K,q,\sigma, s)$ be an RLWE instance with error distribution $D_\cR$. We let $R_q$ denote $R/qR$, then
+a sample from the {\it RLWE distribution} of $\cR$ is a tuple
 $$(a, b = as+e\pmod{qR}) \in R_q \times R_q, $$
-where the first coordiante $a$ is chosen uniformly at random in $R_q$, and $e \gets D_\cR$.
+where the first coordinate $a$ is chosen uniformly at random in $R_q$, and $e \gets D_\cR$.
 \end{Definition}
 
-We use the shorthand notation $(a,b) \gets \cR$ to represent that $(a,b)$ is sampled from the RLWE dsitribution of $\cR$. The RLWE problem has two major variants: search and decision.
+We use the shorthand notation $(a,b) \gets \cR$ to represent that $(a,b)$ is sampled from the RLWE dsitribution of $\cR$. 
 
-\begin{Definition}[Search]
-Let $\cR$ be an RLWE intance. The {\it search Ring-LWE} problem, denoted by $\SRLWE(\cR)$, is to discover $s$ given access to arbitrarily many independent samples $(a,b) \gets \cR$.
+The RLWE problem has two major variants: search and decision.
+
+\begin{Definition}[Search RLWE]
+Let $\cR$ be an RLWE instance. The {\it search Ring-LWE} problem, denoted by $\SRLWE(\cR)$, is to discover $s$ given access to arbitrarily many independent samples $(a,b) \gets \cR$.
 \end{Definition}
 
-\begin{Definition}[Decision]
-Let $\cR$ be an RLWE intance. The {\it decision Ring-LWE}
+\begin{Definition}[Decision RLWE]
+Let $\cR$ be an RLWE instance. The {\it decision Ring-LWE}
 problem, denoted by $\DRLWE(\cR)$, is to distinguish between the same number of independent samples in two distributions on $R_q \times R_q$. The first is the RLWE distribution of $\cR$, and the second consists of uniformly random and independent samples from $R_q \times R_q$.
 \end{Definition}
 
 \subsection{Sampling methods}
-In practice, there are different ways to approximately sample from the RLWE error distribution $D_\cR$, and we will switch between three sampling methods in our paper. While searching for weak Galois RLWE instances as well as attacking ramified primes, we use the sampling algorithm in  \cite{gentry2008trapdoors}; when analyzing the security of cyclotomics, we use the PLWE distribution $P_{m,\tau}$ and another distribution $P'{m,k}$ to assist the analysis. We are aware that \cite{lyubashevsky2013toolkit} has an efficient algorithm for cyclotomic fields. Since it is primarily related to the dual version of RLWE, we will not use it in our paper.
+In practice, there are different ways to approximately sample from the RLWE error distribution $D_\cR$, and we will consider three sampling methods in our paper. While searching for weak Galois RLWE instances as well as attacking ramified primes, we use the sampling algorithm in  \cite{gentry2008trapdoors}; when analyzing the security of cyclotomics, we use the PLWE distribution $P_{m,\tau}$ and another distribution $P'_{m,k}$ to assist the analysis. The efficient sampling algorithm in \cite{lyubashevsky2013toolkit} for cyclotomic fields is related to the dual version of RLWE, we will not use it in our paper.
 
 
 \section{search-to-decision reduction}
 \label{sec: s-to-d}
 
-The main result of this section (Corollary~\ref{cor: s-to-d}) is a reduction from SRLWE to DRLWE for Galois fields $K$ and unramified primes $q$. We will prove the reduction from SRLWE to an intermediate problem, which we denote by $\SRLWE(\cR,\fq)$ (it is denoted by $\fq_i$-LWE in \cite{lyubashevsky2013ideal}). This result can be viewed as a generalization of \cite[Theorem 2]{eisentrager2014weak} to primes of higher degree. Since our attack in Section~\ref{sec: chisquare} is  targeting at $\SRLWE(\cR,\fq)$, we could attack SRLWE for any Galois RLWE instances vulnerable to our attack.
+In \cite{eisentrager2014weak}, the search-to-decision reduction of \cite{LPR?} is extended to Ring-LWE for Galois number fields, where $q$ is an unramified prime of degree one.  The approach is via an intermediate problem, denoted $\fq_i$-LWE in \cite{lyubashevsky2013ideal}.  In this section, we extend this result to primes $\fq$ of arbitrary residual degree.  Our intermediate problem, which we denote by $\SRLWE(\cR,\fq)$, is to find the secret modulo the prime.  The Galois group allows us to bootstrap this piece of information to discover the full secret.
+
+The attack in Section~\ref{sec: chisquare} targets $\SRLWE(\cR,\fq)$ and hence, by the results of this section, will solve Search Ring-LWE.  In Section ?, we demonstrate the attack on Search Ring-LWE in practice.
+
+%The main result of this section (Corollary~\ref{cor: s-to-d}) is a reduction from SRLWE to DRLWE for Galois fields $K$ and unramified primes $q$. We will prove the reduction from SRLWE to an intermediate problem, which we denote by $\SRLWE(\cR,\fq)$ (it is denoted by $\fq_i$-LWE in \cite{lyubashevsky2013ideal}). This result can be viewed as a generalization of \cite[Theorem 2]{eisentrager2014weak} to primes of higher degree. Since our attack in Section~\ref{sec: chisquare} is  targeting $\SRLWE(\cR,\fq)$, we could attack SRLWE for any Galois RLWE instances vulnerable to our attack.
 
 %We remark that a search-to-decision reduction theorem for higher degree primes can be proved by carrying out almost the exact same proof in \cite{eisentrager2014weak}.
 
 \begin{Definition} \label{def: srlwe mod q}
-Given an RLWE instance $\cR = (K,q,\sigma, s)$ and a prime ideal $\fq$ of $K$ lying above $q$. The problem $\SRLWE(\cR, \fq)$ is: given access to arbitrarily many independent samples $(a,b) \gets \cR$, find $s \pmod {\fq}$.
+        Let $\cR = (K,q,\sigma, s)$ be an RLWE instance, and let $\fq$ be a prime of $K$ lying above $q$.  The problem $\SRLWE(\cR, \fq)$ is to determine $s \pmod {\fq}$, given access to arbitrarily many independent samples $(a,b) \gets \cR$.
 \end{Definition}
 
 We recall some facts from algebraic number theory in the following lemma.
 \begin{Lemma}
 \label{lem: prime factorization}
-Let $K/\bQ$ be a finite Galois extension with ring of integers $R$,  and let $q$ be a prime unramified in $K$. Then there exists an integer $g \mid n$, and a set of $g$ distinct prime ideals $\fq_1, \cdots ,\fq_g$ of
-$R$ such that
-\[
-    qR = \prod_{i=1}^g \fq_i.
-\]
-Let $f = \frac{n}{g}$. Then the quotient $R/\fq_{i}$ is a finite field of cardinality $q^f$  for each $i$. There is a canonical isomorphism of rings
+Let $K/\bQ$ be a finite Galois extension with ring of integers $R$,  and let $q$ be a prime unramified in $K$. Then there exists a unique choice of integer $g \mid n$, and set of $g$ distinct prime ideals $\fq_1, \cdots ,\fq_g$ of
+$R$ such that:
+\begin{enumerate}
+        \item $qR = \prod_{i=1}^g \fq_i$,
+        \item the quotient $R/\fq_{i}$ is a finite field of cardinality $q^f$  for each $i$, where $f = \frac{n}{g}$, and 
+        \item there is a canonical isomorphism of rings
 \[
     R_q \cong R/\fq_{1} \times \cdots \times R/\fq_{g}.
 \]
+\end{enumerate}
 \end{Lemma}
 The number $f$ in the above lemma is called the {\it residual degree} of $q$ in $K$. Note that the prime $q$ splits completely in $K$ if and only if its residual degree is one.
 
 
 \begin{theorem} \label{thm: reduction}
-Let $\cR = (K,q,\sigma, s)$ be an RLWE instance with $K/\bQ$ Galois and $q$ unramified in $K$ with residual degree f. Suppose there is an algorithm $\sA$ which solves $\SRLWE(\cR,\fq)$ using a list $S$ of samples. Assume that the running time of the algorithm $\sA$ is $t$. Then the problem $\SRLWE(\cR)$ can be solved in time $T = \frac{n}{f}t$ using the samples in $S$.
+        Let $\cR = (K,q,\sigma, s)$ be an RLWE instance with $K/\bQ$ Galois of degree $n$ and $q$ unramified in $K$ with residual degree f. Let $\sA$ be an oracle which solves $\SRLWE(\cR,\fq)$ using a list of $m$ samples modulo $\fq$.  Let $S$ be a set of $m$ RLWE samples in $R_q \times R_q$, and let $S_{\fq}$ be its image modulo $\fq$ in $R/\fq \times R/\fq$.  Then the problem $\SRLWE(\cR)$ can be solved using $S_{\fq}$ by $n/f$ calls to the oracle $\sA$.
 \end{theorem}
 
 \begin{proof}
-The Galois group $G =Gal(K/\bQ)$ acts on the set $\{\fq_1, \cdots ,\fq_g\}$ transitively. Hence for each $i$, we can take $\sigma \in Gal(K/\bQ)$, such that $\sigma_i(\fq) = \fq_i$, Then we run the algorithm $\sA$ on the input $(\sigma_i^{-1}(S), \fq_i)$. The algorithm will output $\sigma_i^{-1}(s) \pmod{\fq}$, which is equal to $s \pmod{\fq_i}$. We then do this for all $1\leq i \leq g$ and use the last formula of Lemma to recover $s$. The complexity estimate follows from the fact that we are applying the algorithm $g$ times.
+        The Galois group $G =\operatorname{Gal}(K/\bQ)$ acts on the set $\{\fq_1, \cdots ,\fq_g\}$ transitively. Hence for each $i$, we can take $\sigma \in \operatorname{Gal}(K/\bQ)$, such that $\sigma_i(\fq) = \fq_i$, Then we call the oracle $\sA$ on the input $(\sigma_i^{-1}(S_{\fq}), \fq_i)$. The algorithm will output $\sigma_i^{-1}(s) \pmod{\fq}$, from which we can recover $s \pmod{\fq_i}$ using $\sigma_i$.  We do this for all $1\leq i \leq g$ and use the last formula of Lemma \ref{lem: prime factorization} to recover $s$. 
 \end{proof}
 
 Theorem~\ref{thm: reduction} gives a polynomial time reduction from $\SRLWE(\cR)$ to $\SRLWE(\cR,\fq)$.
@@ -195,7 +206,7 @@ For each $1 \leq j \leq r$, we compute the expected number of samples that would
     \chi^2(S,y) = \sum_{j = 1}^r \frac{(t_j -c_j)^2}{c_j}.
 \]
 Suppose the samples are drawn from the uniform distribution on $S$. Then the $\chi^2$ value follows the chi-square distribution with degree of freedom equal $d = r-1$.
-To decide whether the samples are from a uniform distribtuion, we can either look up a table of $\chi^2$ values, or use an approximation rule:  when $d$ is large, the $\chi^2$ distribution can be well-approximated by a normal distribution $N(d, 2d)$.
+To decide whether the samples are from a uniform distribution, we can either look up a table of $\chi^2$ values, or use an approximation rule:  when $d$ is large, the $\chi^2$ distribution can be well-approximated by a normal distribution $N(d, 2d)$.
 
 If $P,Q$ are two probability distributions on the set $S$, then their {\it statistical difference} is defined as
 \[
@@ -258,7 +269,7 @@ Let $N = q^f$,  the cardinality of $F$. For the attack to be successful, we need
 The correctness of the attack is captured in Theorem~\ref{thm: attack}. We use $D_{\cR,\fq}$ as a shorthand notation for $D_{\cR} \pmod{\fq}$.  Let $\Phi$ denote the cumulative distribution function of the standard Gaussian distribution.
 
 \begin{theorem} \label{thm: attack}
-Let $\Delta$ denote the statistical distance between the distribution $D_{\cR, \fq}$ and the uniform distribtuion on $R/\fq$. Let $\lambda = 4 M \Delta^2$ and $\omega = \Phi^{-1}(1- \frac{1}{20N})$. Finally, let $p$ denote the proability of success of the attack in Algorithm~\ref{alg: chi-square}. When $q \gg 1$, we have
+Let $\Delta$ denote the statistical distance between the distribution $D_{\cR, \fq}$ and the uniform distribution on $R/\fq$. Let $\lambda = 4 M \Delta^2$ and $\omega = \Phi^{-1}(1- \frac{1}{20N})$. Finally, let $p$ denote the proability of success of the attack in Algorithm~\ref{alg: chi-square}. When $q \gg 1$, we have
 
 $$p  \geq 0.904 \left(1- \Phi \left(\frac{\omega \sqrt{2(N-1)}- \lambda}{\sqrt{2(N-1) +4\lambda}}\right) \right) - o(1).$$
 \end{theorem}
@@ -545,7 +556,7 @@ We will abuse notations and also use $\cV_{k}$ to denote the reduced reduced dis
 
 \begin{Definition}
 \label{def: modified distribution}
-Let $k \geq 2$ be an even integer. Then a sample from the modified PLWE error distribtuion $P'_{m,k}$ is
+Let $k \geq 2$ be an even integer. Then a sample from the modified PLWE error distribution $P'_{m,k}$ is
 \[
     e' = \sum_{i=0}^{n-1} e'_i \zeta_m^{i},
 \]
