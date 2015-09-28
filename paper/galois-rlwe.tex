@@ -8,10 +8,13 @@
 \usepackage{placeins}
 \usepackage{hyperref}
 
+
 \usepackage{algpseudocode}
-%\usepackage{algorithmic}
+\usepackage{algorithmicx}
 \usepackage{algorithm}
-\usepackage{physics}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+%\usepackage{physics}
 
 
 %%%%%%%%%%%%%% To do notes, can remove later
@@ -276,12 +279,8 @@ the standard normal distirbution.
 \caption{chi-square attack of $SRLWE(\cR,\fq$)}          % give the algorithm a caption
 \label{IPR}                           % and a label for \ref{} commands later in the document
 \begin{algorithmic}[1]              % enter the algorithmic environment
-     \Require
-
-     %$A_{\bf a}$: the embedding matrix, where ${\bf a}$ is a basis for the ring of integers $\cO_K$ of some number field $K/\bQ$.
-     $\cR = (K,q,\sigma, s)$ -- an RLWE instance; $R$ -- the ring of integers of $K$; $\fq$ -- a prime ideal in $K$ above $q$; $F = R/\fq$ -- the residual field of $\fq$; $N$ -- the cardinality of $F$; $\mathcal{S}$ -- a collection of $M$ ($M = \Omega(N)$) RLWE samples from $\cR$; $0 < \alpha < 1$ -- the confidence level. 
+    \Require $\cR = (K,q,\sigma, s)$ -- an RLWE instance; $R$ -- the ring of integers of $K$; $\fq$ -- a prime ideal in $K$ above $q$; $F = R/\fq$ -- the residual field of $\fq$; $N$ -- the cardinality of $F$; $\mathcal{S}$ -- a collection of $M$ ($M = \Omega(N)$) RLWE samples from $\cR$; $0 < \alpha < 1$ -- the confidence level. 
     \Ensure a guess of the value $s \pmod{\fq}$, or {\bf NOT-RLWE}, or {\bf INSUFFICIENT-SAMPLES}
-
     \State $\delta \gets \Phi^{-1}(\frac{1+\alpha}{2})$, $\cG \gets \emptyset$.
     \For{$s$ in $F$}
         \State $\cE \gets \emptyset$.

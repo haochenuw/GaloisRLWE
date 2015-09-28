@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.1.6)  28 SEP 2015 18:46
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.1.6)  28 SEP 2015 19:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -614,1072 +614,7 @@ nment
 \@float@every@algorithm=\toks39
 \c@algorithm=\count141
 )
-(/usr/local/texlive/2013/texmf-dist/tex/latex/physics/physics.sty
-Package: physics 
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/expl3.sty
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3names.sty
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3bootstrap.sty
-Package: l3bootstrap 2013/01/08 v4420 L3 Experimental bootstrap code
-)
-Package: l3names 2012/12/07 v4346 L3 Namespace for primitives
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/etex-pkg/etex.sty
-Package: etex 1998/03/26 v2.0 eTeX basic definition package (PEB)
-\et@xins=\count142
-)
-Package: expl3 2013/03/14 v4469 L3 Experimental code bundle wrapper
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3basics.sty
-Package: l3basics 2013/01/10 v4428 L3 Basic definitions
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3expan.sty
-Package: l3expan 2013/02/03 v4458 L3 Argument expansion
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3tl.sty
-Package: l3tl 2013/01/08 v4415 L3 Token lists
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3seq.sty
-Package: l3seq 2013/01/12 v4434 L3 Sequences and stacks
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3int.sty
-Package: l3int 2013/01/13 v4444 L3 Integers
-\c_max_int=\count143
-\l_tmpa_int=\count144
-\l_tmpb_int=\count145
-\g_tmpa_int=\count146
-\g_tmpb_int=\count147
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3quark.sty
-Package: l3quark 2012/11/04 v4268 L3 Quarks
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3prg.sty
-Package: l3prg 2013/02/13 v4459 L3 Control structures
-\g__prg_map_int=\count148
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3clist.sty
-Package: l3clist 2013/01/08 v4414 L3 Comma separated lists
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3token.sty
-Package: l3token 2013/01/10 v4428 L3 Experimental token manipulation
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3prop.sty
-Package: l3prop 2013/01/09 v4423 L3 Property lists
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3msg.sty
-Package: l3msg 2013/01/08 v4412 L3 Messages
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3file.sty
-Package: l3file 2013/01/14 v4446 L3 File and I/O operations
-\l_iow_line_count_int=\count149
-\l__iow_target_count_int=\count150
-\l__iow_current_line_int=\count151
-\l__iow_current_word_int=\count152
-\l__iow_current_indentation_int=\count153
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3skip.sty
-Package: l3skip 2013/01/13 v4444 L3 Dimensions and skips
-\c_zero_dim=\dimen175
-\c_max_dim=\dimen176
-\l_tmpa_dim=\dimen177
-\l_tmpb_dim=\dimen178
-\g_tmpa_dim=\dimen179
-\g_tmpb_dim=\dimen180
-\c_zero_skip=\skip56
-\c_max_skip=\skip57
-\l_tmpa_skip=\skip58
-\l_tmpb_skip=\skip59
-\g_tmpa_skip=\skip60
-\g_tmpb_skip=\skip61
-\c_zero_muskip=\muskip12
-\c_max_muskip=\muskip13
-\l_tmpa_muskip=\muskip14
-\l_tmpb_muskip=\muskip15
-\g_tmpa_muskip=\muskip16
-\g_tmpb_muskip=\muskip17
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3keys.sty
-Package: l3keys 2013/02/24 v4461 L3 Experimental key-value interfaces
-\g__keyval_level_int=\count154
-\l_keys_choice_int=\count155
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3fp.sty
-Package: l3fp 2013/01/19 v4449 L3 Floating points
-\c__fp_leading_shift_int=\count156
-\c__fp_middle_shift_int=\count157
-\c__fp_trailing_shift_int=\count158
-\c__fp_big_leading_shift_int=\count159
-\c__fp_big_middle_shift_int=\count160
-\c__fp_big_trailing_shift_int=\count161
-\c__fp_Bigg_leading_shift_int=\count162
-\c__fp_Bigg_middle_shift_int=\count163
-\c__fp_Bigg_trailing_shift_int=\count164
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3box.sty
-Package: l3box 2013/01/08 v4411 L3 Experimental boxes
-\c_empty_box=\box40
-\l_tmpa_box=\box41
-\l_tmpb_box=\box42
-\g_tmpa_box=\box43
-\g_tmpb_box=\box44
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3coffins.sty
-Package: l3coffins 2012/09/09 v4212 L3 Coffin code layer
-\l__coffin_internal_box=\box45
-\l__coffin_internal_dim=\dimen181
-\l__coffin_offset_x_dim=\dimen182
-\l__coffin_offset_y_dim=\dimen183
-\l__coffin_x_dim=\dimen184
-\l__coffin_y_dim=\dimen185
-\l__coffin_x_prime_dim=\dimen186
-\l__coffin_y_prime_dim=\dimen187
-\c_empty_coffin=\box46
-\l__coffin_aligned_coffin=\box47
-\l__coffin_aligned_internal_coffin=\box48
-\l_tmpa_coffin=\box49
-\l_tmpb_coffin=\box50
-\l__coffin_display_coffin=\box51
-\l__coffin_display_coord_coffin=\box52
-\l__coffin_display_pole_coffin=\box53
-\l__coffin_display_offset_dim=\dimen188
-\l__coffin_display_x_dim=\dimen189
-\l__coffin_display_y_dim=\dimen190
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3color.sty
-Package: l3color 2012/08/29 v4156 L3 Experimental color support
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3luatex.sty
-Package: l3luatex 2012/08/03 v4049 L3 Experimental LuaTeX-specific functions
-\g__cctab_allocate_int=\count165
-\g__cctab_stack_int=\count166
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/l3kernel/l3candidates.sty
-Package: l3candidates 2013/03/14 v4468 L3 Experimental additions to l3kernel
-\l__box_top_dim=\dimen191
-\l__box_bottom_dim=\dimen192
-\l__box_left_dim=\dimen193
-\l__box_right_dim=\dimen194
-\l__box_top_new_dim=\dimen195
-\l__box_bottom_new_dim=\dimen196
-\l__box_left_new_dim=\dimen197
-\l__box_right_new_dim=\dimen198
-\l__box_internal_box=\box54
-\l__coffin_bounding_shift_dim=\dimen199
-\l__coffin_left_corner_dim=\dimen200
-Normal \dimen register pool exhausted, switching to extended pool.
-\l__coffin_right_corner_dim=\dimen256
-\l__coffin_bottom_corner_dim=\dimen257
-\l__coffin_top_corner_dim=\dimen258
-\l__coffin_scaled_total_height_dim=\dimen259
-\l__coffin_scaled_width_dim=\dimen260
-))
-Package: xparse 2013/03/12 v4467 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count167
-\l__xparse_m_args_int=\count168
-\l__xparse_mandatory_args_int=\count169
-\l__xparse_processor_int=\count170
-\l__xparse_v_nesting_int=\count171
-)
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \vnabla with arg. spec. '' on line 25.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \varE with arg. spec. '' on line 29.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \ordersymbol with arg. spec. '' on line 30.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \lparen with arg. spec. '' on line 31.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \rparen with arg. spec. '' on line 32.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \quantity with arg. spec. '' on line 35.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \@quantity with arg. spec. ' t\big t\Big t\bigg
-. t\Bigg g o d() d|| ' on line 62.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qty with arg. spec. '' on line 63.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \pqty with arg. spec. ' l m ' on line 64.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \bqty with arg. spec. ' l m ' on line 65.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \Bqty with arg. spec. ' l m ' on line 66.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \vqty with arg. spec. ' l m ' on line 67.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \pmqty with arg. spec. 'm' on line 70.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \Pmqty with arg. spec. 'm' on line 71.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \bmqty with arg. spec. 'm' on line 72.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \vmqty with arg. spec. 'm' on line 73.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \matrixquantity with arg. spec. '' on line 74.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \@matrixquantity with arg. spec. ' s g o d() d|| '
-. on line 100.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \mqty with arg. spec. '' on line 101.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \matrixdeterminant with arg. spec. 'm' on line
-. 102.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \mdet with arg. spec. '' on line 103.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \spmqty with arg. spec. 'm' on line 105.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \sPmqty with arg. spec. 'm' on line 106.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \sbmqty with arg. spec. 'm' on line 107.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \svmqty with arg. spec. 'm' on line 108.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \smallmatrixquantity with arg. spec. ' s g o d()
-. d|| ' on line 133.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \smqty with arg. spec. '' on line 134.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \smallmatrixdeterminant with arg. spec. 'm' on
-. line 135.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \smdet with arg. spec. '' on line 136.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \argopen with arg. spec. 's' on line 138.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \argclose with arg. spec. 's' on line 139.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \braces with arg. spec. '' on line 141.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \@braces with arg. spec. ' s t\big t\Big t\bigg
-. t\Bigg m m m ' on line 156.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \fbraces with arg. spec. ' s t\big t\Big t\bigg
-. t\Bigg m m m m ' on line 174.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \absolutevalue with arg. spec. ' l m ' on line
-. 176.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \abs with arg. spec. '' on line 177.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \norm with arg. spec. ' l m ' on line 178.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \order with arg. spec. ' l m ' on line 179.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \evaluated with arg. spec. ' s g d[| d(| ' on line
-. 194.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \eval with arg. spec. '' on line 195.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \poissonbracket with arg. spec. ' l m m ' on line
-. 197.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \pb with arg. spec. '' on line 198.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \commutator with arg. spec. ' l m m ' on line 201.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \comm with arg. spec. '' on line 202.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \anticommutator with arg. spec. ' l m m ' on line
-. 203.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \acommutator with arg. spec. '' on line 204.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \acomm with arg. spec. '' on line 205.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \vectorbold with arg. spec. ' s m ' on line 208.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \vb with arg. spec. '' on line 209.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \vectorarrow with arg. spec. ' s m ' on line 211.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \va with arg. spec. '' on line 212.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \vectorunit with arg. spec. ' s m ' on line 214.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \vu with arg. spec. '' on line 215.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \dotproduct with arg. spec. '' on line 217.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \vdot with arg. spec. '' on line 218.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \crossproduct with arg. spec. '' on line 220.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \cross with arg. spec. '' on line 221.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \cp with arg. spec. '' on line 222.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \gradient with arg. spec. ' g o d() ' on line 232.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \grad with arg. spec. '' on line 233.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \divergence with arg. spec. ' g o d() ' on line
-. 243.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \div with arg. spec. '' on line 246.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \curl with arg. spec. ' g o d() ' on line 256.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \laplacian with arg. spec. ' g o d() ' on line
-. 266.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \principalvalue with arg. spec. 'g' on line 274.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \pv with arg. spec. '' on line 275.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \PV with arg. spec. 'g' on line 276.
-.................................................
-
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \Re with arg. spec. 'g' on line 277.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \Im with arg. spec. 'g' on line 278.
-*************************************************
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \opbraces with arg. spec. ' m g o d() ' on line
-. 299.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \trigbraces with arg. spec. ' m o d() ' on line
-. 305.
-.................................................
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \sin with arg. spec. '' on line 309.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \cos with arg. spec. '' on line 310.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \tan with arg. spec. '' on line 311.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \csc with arg. spec. '' on line 312.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \sec with arg. spec. '' on line 313.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \cot with arg. spec. '' on line 314.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \arcsin with arg. spec. '' on line 316.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \arccos with arg. spec. '' on line 317.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \arctan with arg. spec. '' on line 318.
-*************************************************
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \arccsc with arg. spec. '' on line 320.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \arcsec with arg. spec. '' on line 322.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \arccot with arg. spec. '' on line 324.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \asin with arg. spec. '' on line 327.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \acos with arg. spec. '' on line 329.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \atan with arg. spec. '' on line 331.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \acsc with arg. spec. '' on line 333.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \asec with arg. spec. '' on line 335.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \acot with arg. spec. '' on line 337.
-.................................................
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \sinh with arg. spec. '' on line 339.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \cosh with arg. spec. '' on line 340.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \tanh with arg. spec. '' on line 341.
-*************************************************
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \csch with arg. spec. '' on line 343.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \sech with arg. spec. '' on line 345.
-.................................................
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \coth with arg. spec. '' on line 346.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \exp with arg. spec. '' on line 348.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \log with arg. spec. '' on line 349.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \ln with arg. spec. '' on line 350.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \det with arg. spec. '' on line 351.
-*************************************************
-*************************************************
-* LaTeX warning: "xparse/redefine-command"
-* 
-* Redefining document command \Pr with arg. spec. '' on line 352.
-*************************************************
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \tr with arg. spec. '' on line 353.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \Tr with arg. spec. '' on line 354.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \Res with arg. spec. '' on line 355.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qqtext with arg. spec. ' s m ' on line 377.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qq with arg. spec. '' on line 378.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qcomma with arg. spec. '' on line 380.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qc with arg. spec. '' on line 381.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qif with arg. spec. 's' on line 383.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qthen with arg. spec. 's' on line 384.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qelse with arg. spec. 's' on line 385.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qotherwise with arg. spec. 's' on line 386.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qunless with arg. spec. 's' on line 387.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qgiven with arg. spec. 's' on line 388.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qusing with arg. spec. 's' on line 389.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qassume with arg. spec. 's' on line 390.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qsince with arg. spec. 's' on line 391.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qlet with arg. spec. 's' on line 392.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qfor with arg. spec. 's' on line 393.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qall with arg. spec. 's' on line 394.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qeven with arg. spec. 's' on line 395.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qodd with arg. spec. 's' on line 396.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qinteger with arg. spec. 's' on line 397.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qand with arg. spec. 's' on line 398.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qor with arg. spec. 's' on line 399.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qas with arg. spec. 's' on line 400.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qin with arg. spec. 's' on line 401.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \qcc with arg. spec. 's' on line 402.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \differential with arg. spec. ' o g d() ' on line
-. 415.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \dd with arg. spec. '' on line 416.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \derivative with arg. spec. ' s o m g d() ' on
-. line 435.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \dv with arg. spec. '' on line 436.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \partialderivative with arg. spec. ' s o m g g d()
-. ' on line 460.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \pderivative with arg. spec. '' on line 461.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \pdv with arg. spec. '' on line 462.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \variation with arg. spec. ' o g d() ' on line
-. 474.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \var with arg. spec. '' on line 475.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \functionalderivative with arg. spec. ' s o m g
-. d() ' on line 494.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \fderivative with arg. spec. '' on line 495.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \fdv with arg. spec. '' on line 496.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \bra with arg. spec. ' s m t\ket s g ' on line
-. 526.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \ket with arg. spec. ' s m ' on line 533.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \innerproduct with arg. spec. ' s m g ' on line
-. 548.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \braket with arg. spec. '' on line 549.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \ip with arg. spec. '' on line 550.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \outerproduct with arg. spec. ' s m g ' on line
-. 565.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \dyad with arg. spec. '' on line 566.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \op with arg. spec. '' on line 567.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \ketbra with arg. spec. '' on line 568.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \expectationvalue with arg. spec. ' s s m g ' on
-. line 587.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \expval with arg. spec. '' on line 588.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \ev with arg. spec. '' on line 589.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \vev with arg. spec. ' m ' on line 590.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \matrixelement with arg. spec. ' s s m m m ' on
-. line 601.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \matrixel with arg. spec. '' on line 602.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \mel with arg. spec. '' on line 603.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \identitymatrix with arg. spec. 'm' on line 633.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \imat with arg. spec. '' on line 634.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \xmatrix with arg. spec. ' s m m m ' on line 659.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \xmat with arg. spec. '' on line 660.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \zeromatrix with arg. spec. ' m g ' on line 662.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \zmat with arg. spec. '' on line 663.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \paulixmatrix with arg. spec. '' on line 665.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \pauliymatrix with arg. spec. '' on line 666.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \paulizmatrix with arg. spec. '' on line 667.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \paulimatrix with arg. spec. 'm' on line 678.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \pmat with arg. spec. '' on line 679.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \diagonalmatrix with arg. spec. 'O{} >{\SplitList
-. {,}}m ' on line 681.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \@dmat with arg. spec. 'mmggggggg' on line 714.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \dmat with arg. spec. '' on line 715.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \antidiagonalmatrix with arg. spec. 'O{}
-. >{\SplitList {,}}m ' on line 717.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \@admat with arg. spec. 'mmggggggg' on line 750.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \admat with arg. spec. '' on line 751.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \flatfrac with arg. spec. ' m m ' on line 754.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining document command \homework with arg. spec. '' on line 764.
-.................................................
-) (/usr/local/texlive/2013/texmf-dist/tex/latex/todonotes/todonotes.sty
+(/usr/local/texlive/2013/texmf-dist/tex/latex/todonotes/todonotes.sty
 Package: todonotes 2012/07/25 .dtx Todonotes source and documentation.
 Package: todonotes 2012/07/25
 
@@ -1689,7 +624,7 @@ Package: xkeyval 2012/10/14 v2.6b package option processing (HA)
 (/usr/local/texlive/2013/texmf-dist/tex/generic/xkeyval/xkeyval.tex
 \XKV@toks=\toks40
 \XKV@tempa@toks=\toks41
-\XKV@depth=\count172
+\XKV@depth=\count142
 File: xkeyval.tex 2012/10/14 v2.6b key=value parser (HA)
 ))
 (/usr/local/texlive/2013/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
@@ -1698,47 +633,47 @@ File: tikzlibrarypositioning.code.tex 2008/10/06 v2.10 (rcs-revision 1.7)
 )
 (/usr/local/texlive/2013/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count173
-\calc@Bcount=\count174
-\calc@Adimen=\dimen261
-\calc@Bdimen=\dimen262
-\calc@Askip=\skip62
-\calc@Bskip=\skip63
+\calc@Acount=\count143
+\calc@Bcount=\count144
+\calc@Adimen=\dimen175
+\calc@Bdimen=\dimen176
+\calc@Askip=\skip56
+\calc@Bskip=\skip57
 LaTeX Info: Redefining \setlength on input line 76.
 LaTeX Info: Redefining \addtolength on input line 77.
-\calc@Ccount=\count175
-\calc@Cskip=\skip64
+\calc@Ccount=\count145
+\calc@Cskip=\skip58
 )
-\c@@todonotes@numberoftodonotes=\count176
+\c@@todonotes@numberoftodonotes=\count146
 )
 (./galois-rlwe.aux)
 \openout1 = `galois-rlwe.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Try loading font information for U+msa on input line 27.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Try loading font information for U+msa on input line 30.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 27.
+LaTeX Font Info:    Try loading font information for U+msb on input line 30.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 27.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 30.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
@@ -1780,16 +715,16 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 ABD: EveryShipout initializing macros
 (/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count177
-\scratchdimen=\dimen263
-\scratchbox=\box55
-\nofMPsegments=\count178
-\nofMParguments=\count179
+\scratchcounter=\count147
+\scratchdimen=\dimen177
+\scratchbox=\box40
+\nofMPsegments=\count148
+\nofMParguments=\count149
 \everyMPshowfont=\toks42
-\MPscratchCnt=\count180
-\MPscratchDim=\dimen264
-\MPnumerator=\count181
-\makeMPintoPDFobject=\count182
+\MPscratchCnt=\count150
+\MPscratchDim=\dimen178
+\MPnumerator=\count151
+\makeMPintoPDFobject=\count152
 \everyMPtoPDFconversion=\toks43
 ) (/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -1806,8 +741,8 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\AtBeginShipoutBox=\box56
-Package hyperref Info: Link coloring OFF on input line 27.
+\AtBeginShipoutBox=\box41
+Package hyperref Info: Link coloring OFF on input line 30.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -1815,11 +750,11 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count183
+\c@section@level=\count153
 )
-LaTeX Info: Redefining \ref on input line 27.
-LaTeX Info: Redefining \pageref on input line 27.
-LaTeX Info: Redefining \nameref on input line 27.
+LaTeX Info: Redefining \ref on input line 30.
+LaTeX Info: Redefining \pageref on input line 30.
+LaTeX Info: Redefining \nameref on input line 30.
 
 (./galois-rlwe.out) (./galois-rlwe.out)
 \@outlinefile=\write4
@@ -1828,23 +763,136 @@ LaTeX Info: Redefining \nameref on input line 27.
 
 
 Class amsart Warning: Abstract should precede \maketitle in AMS document classe
-s; reported on input line 30.
+s; reported on input line 33.
 
-LaTeX Font Info:    Try loading font information for U+euf on input line 48.
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
+ne 40.
+
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
+ne 42.
+
+
+LaTeX Warning: Citation `ducas2012ring' on page 1 undefined on input line 42.
+
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
+ne 42.
+
+
+LaTeX Warning: Citation `eisentrager2014weak' on page 1 undefined on input line
+ 42.
+
+
+LaTeX Warning: Citation `elos2015weak' on page 1 undefined on input line 44.
+
+
+LaTeX Warning: Citation `elos2015weak' on page 1 undefined on input line 44.
+
+
+LaTeX Warning: Citation `elos2015weak' on page 1 undefined on input line 44.
+
+
+LaTeX Warning: Citation `elos2015weak' on page 1 undefined on input line 46.
+
+
+LaTeX Warning: Citation `elos2015weak' on page 1 undefined on input line 46.
+
+
+LaTeX Warning: Reference `sec: background' on page 1 undefined on input line 51
+.
+
+
+LaTeX Warning: Reference `sec: s-to-d' on page 1 undefined on input line 51.
+
+
+LaTeX Warning: Reference `sec: chi-square' on page 1 undefined on input line 51
+.
+
+
+LaTeX Warning: Citation `elos2015weak' on page 1 undefined on input line 51.
+
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
+ne 51.
+
+LaTeX Font Info:    Try loading font information for U+euf on input line 51.
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 )
-Underfull \vbox (badness 5490) has occurred while \output is active []
 
- [1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Warning: Reference `def: srlwe mod q' on page 1 undefined on input line 5
+1.
+
+
+LaTeX Warning: Reference `lem: prime factorization' on page 1 undefined on inpu
+t line 51.
+
+
+LaTeX Warning: Reference `sec: sub-cyclotomics' on page 1 undefined on input li
+ne 51.
+
+
+LaTeX Warning: Reference `sec: ramified-prime' on page 1 undefined on input lin
+e 53.
+
+
+LaTeX Warning: Reference `sec: cyclo-secure' on page 1 undefined on input line 
+53.
+
+[1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 78.
- [2]
-
-LaTeX Warning: Citation `LPR?' on page 3 undefined on input line 149.
+ine 81.
 
 
-LaTeX Warning: Reference `sec: chisquare' on page 3 undefined on input line 151
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 2 undefined on input li
+ne 96.
+
+
+LaTeX Warning: Citation `elos2015weak' on page 2 undefined on input line 107.
+
+
+LaTeX Warning: Citation `elos2015weak' on page 2 undefined on input line 121.
+
+[2]
+
+LaTeX Warning: Citation `gentry2008trapdoors' on page 3 undefined on input line
+ 146.
+
+
+LaTeX Warning: Citation `lyubashevsky2013toolkit' on page 3 undefined on input 
+line 146.
+
+
+LaTeX Warning: Citation `eisentrager2014weak' on page 3 undefined on input line
+ 152.
+
+
+LaTeX Warning: Citation `LPR?' on page 3 undefined on input line 152.
+
+
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 3 undefined on input li
+ne 152.
+
+
+LaTeX Warning: Reference `sec: chisquare' on page 3 undefined on input line 154
+.
+
+
+LaTeX Warning: Reference `eqn: Rq-factor' on page 3 undefined on input line 177
+.
+
+
+LaTeX Warning: Reference `eqn: Rq-factor' on page 3 undefined on input line 188
+.
+
+
+LaTeX Warning: Reference `lem: prime factorization' on page 3 undefined on inpu
+t line 188.
+
+
+LaTeX Warning: Reference `thm: reduction' on page 3 undefined on input line 191
 .
 
 
@@ -1852,89 +900,97 @@ LaTeX Warning: Marginpar on page 3 moved.
 
 [3]
 
-LaTeX Warning: Citation `EHL' on page 4 undefined on input line 217.
+LaTeX Warning: Citation `lyubashevsky2013ideal' on page 4 undefined on input li
+ne 210.
 
 
-LaTeX Warning: Citation `ELOS' on page 4 undefined on input line 217.
-
-[4]
-
-LaTeX Warning: Marginpar on page 5 moved.
+LaTeX Warning: Citation `EHL' on page 4 undefined on input line 220.
 
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 259.
+LaTeX Warning: Citation `ELOS' on page 4 undefined on input line 220.
 
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathop' on input line 259.
+LaTeX Warning: Marginpar on page 4 moved.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 259.
+(hyperref)                removing `math shift' on input line 262.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 259.
+(hyperref)                removing `\mathop' on input line 262.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 259.
+(hyperref)                removing `\mathcode' on input line 262.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathchardef' on input line 259.
+(hyperref)                removing `\mathcode' on input line 262.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\std@minus' on input line 259.
+(hyperref)                removing `\mathcode' on input line 262.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 259.
+(hyperref)                removing `\mathchardef' on input line 262.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 259.
+(hyperref)                removing `\std@minus' on input line 262.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 259.
+(hyperref)                removing `\mathcode' on input line 262.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 259.
+(hyperref)                removing `\mathcode' on input line 262.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\mathcode' on input line 262.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\mathcode' on input line 262.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                \kern 2.55527pt
-(hyperref)                removed on input line 259.
+(hyperref)                removed on input line 262.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathgroup' on input line 259.
+(hyperref)                removing `\mathgroup' on input line 262.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\symoperators' on input line 259.
+(hyperref)                removing `\symoperators' on input line 262.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 259.
+(hyperref)                removing `\@ifnextchar' on input line 262.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 259.
+(hyperref)                removing `math shift' on input line 262.
 
 
 Package hyperref Warning: Composite letter `\textacute+3'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textacute' on input line 259.
+(hyperref)                removing `\textacute' on input line 262.
 
 
 Package hyperref Warning: Composite letter `\textdotaccent+"'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textdotaccent' on input line 259.
+(hyperref)                removing `\textdotaccent' on input line 262.
+
+[4]
+
+LaTeX Warning: Reference `alg: chi-square' on page 5 undefined on input line 26
+4.
 
 
 LaTeX Warning: Marginpar on page 5 moved.
@@ -1952,67 +1008,174 @@ LaTeX Warning: Marginpar on page 5 moved.
 LaTeX Warning: Marginpar on page 5 moved.
 
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 276.
+put line 279.
+
+LaTeX Warning: Reference `thm: attack' on page 5 undefined on input line 314.
+
 
 LaTeX Warning: Marginpar on page 5 moved.
 
-[5] <attack-quality.png, id=209, 578.16pt x 433.62pt>
+
+LaTeX Warning: Reference `alg: chi-square' on page 5 undefined on input line 31
+9.
+
+
+LaTeX Warning: Marginpar on page 5 moved.
+
+[5]
+
+LaTeX Warning: Citation `ryabko2004new' on page 6 undefined on input line 330.
+
+
+LaTeX Warning: Reference `thm: attack' on page 6 undefined on input line 334.
+
+
+LaTeX Warning: Reference `thm: attack' on page 6 undefined on input line 338.
+
+<attack-quality.png, id=98, 578.16pt x 433.62pt>
 File: attack-quality.png Graphic file (type png)
  <use attack-quality.png>
-Package pdftex.def Info: attack-quality.png used on input line 342.
+Package pdftex.def Info: attack-quality.png used on input line 341.
 (pdftex.def)             Requested size: 281.85587pt x 211.39055pt.
 
+
+LaTeX Warning: Citation `johnston2011notes' on page 6 undefined on input line 3
+51.
+
 [6 <./attack-quality.png>]
-Overfull \hbox (20.37105pt too wide) in paragraph at lines 377--389
+
+LaTeX Warning: Marginpar on page 7 moved.
+
+
+LaTeX Warning: Reference `lem: prime factorization' on page 7 undefined on inpu
+t line 362.
+
+
+LaTeX Warning: Reference `alg: chi-square' on page 7 undefined on input line 36
+8.
+
+
+LaTeX Warning: Citation `gentry2008trapdoors' on page 7 undefined on input line
+ 368.
+
+
+LaTeX Warning: Reference `tab: attacked' on page 7 undefined on input line 372.
+
+
+
+LaTeX Warning: Reference `tab: attacked' on page 7 undefined on input line 372.
+
+
+
+LaTeX Warning: Reference `lem: symmetry' on page 7 undefined on input line 372.
+
+
+
+Overfull \hbox (20.37105pt too wide) in paragraph at lines 376--388
  [][] 
  []
 
-[7]pdfTeX warning (ext4): destination with the same identifier (name{table.1}) 
-has been already used, duplicate ignored
+
+LaTeX Warning: Reference `tab: attacked' on page 7 undefined on input line 400.
+
+
+
+LaTeX Warning: Reference `alg: chi-square' on page 7 undefined on input line 40
+6.
+
+
+LaTeX Warning: Reference `thm: reduction' on page 7 undefined on input line 406
+.
+
+[7]
+
+LaTeX Warning: Reference `tab: ramified' on page 8 undefined on input line 420.
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
+ been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.425 ... DRLWE for $K= \bQ(\zeta_p)$ and $q = p$}
-                                                   [8]
+l.424 ... DRLWE for $K= \bQ(\zeta_p)$ and $q = p$}
+                                                  
+
+LaTeX Warning: Citation `brakerski2012leveled' on page 8 undefined on input lin
+e 562.
+
+
+LaTeX Warning: Citation `langlois2014worst' on page 8 undefined on input line 5
+62.
+
+[8]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 597.
+(amsmath)                 on input line 596.
 
-<v8.png, id=251, 566.5968pt x 277.5168pt>
+<v8.png, id=129, 566.5968pt x 277.5168pt>
 File: v8.png Graphic file (type png)
  <use v8.png>
-Package pdftex.def Info: v8.png used on input line 605.
+Package pdftex.def Info: v8.png used on input line 604.
 (pdftex.def)             Requested size: 234.8775pt x 115.04028pt.
- [9 <./v8.png>]
-Underfull \vbox (badness 1968) has occurred while \output is active []
+ [9 <./v8.png>] [10]
 
- [10]
-[11]pdfTeX warning (ext4): destination with the same identifier (name{table.1})
- has been already used, duplicate ignored
+LaTeX Warning: Reference `lem: transform1' on page 11 undefined on input line 7
+02.
+
+
+LaTeX Warning: Reference `fact: basicfourier' on page 11 undefined on input lin
+e 702.
+
+
+LaTeX Warning: Reference `prop: bound' on page 11 undefined on input line 724.
+
+
+LaTeX Warning: Reference `distance' on page 11 undefined on input line 735.
+
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
+ been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.747 \caption{Values of $\epsilon'(m,q,2)$}
-                                             [12] (./galois-rlwe.bbl [13])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 832.
+l.746 \caption{Values of $\epsilon'(m,q,2)$}
+                                             [11]
 
-[14]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 832.
+LaTeX Warning: Reference `tab: deg1' on page 12 undefined on input line 764.
+
+
+LaTeX Warning: Reference `table: deg2' on page 12 undefined on input line 774.
+
+
+LaTeX Warning: Reference `tab: deg2' on page 12 undefined on input line 805.
+
+[12] (./galois-rlwe.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 831.
+ [13]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 831.
  (./galois-rlwe.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 832.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 832.
-Package rerunfilecheck Info: File `galois-rlwe.out' has not changed.
-(rerunfilecheck)             Checksum: 9DC1C92BBC0B1DB411D6F63A88968B11;1496.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 831.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 831.
 
+
+Package rerunfilecheck Warning: File `galois-rlwe.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `galois-rlwe.out':
+(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
+(rerunfilecheck)             After:  9DC1C92BBC0B1DB411D6F63A88968B11;1496.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 832.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 831.
  ) 
 Here is how much of TeX's memory you used:
- 22713 strings out of 493315
- 406391 string characters out of 6137905
- 531782 words of memory out of 5000000
- 25479 multiletter control sequences out of 15000+600000
+ 17095 strings out of 493315
+ 301836 string characters out of 6137905
+ 427336 words of memory out of 5000000
+ 19944 multiletter control sequences out of 15000+600000
  12124 words of font info for 49 fonts, out of 8000000 for 9000
  1118 hyphenation exceptions out of 8191
  69i,11n,76p,1244b,712s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2040,10 +1203,10 @@ mf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2013
 /texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texli
 ve/2013/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (14 pages, 390170 bytes).
+Output written on galois-rlwe.pdf (13 pages, 386767 bytes).
 PDF statistics:
- 412 PDF objects out of 1000 (max. 8388607)
- 364 compressed objects within 4 object streams
- 112 named destinations out of 1000 (max. 500000)
- 175 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 291 PDF objects out of 1000 (max. 8388607)
+ 245 compressed objects within 3 object streams
+ 111 named destinations out of 1000 (max. 500000)
+ 23 words of extra memory for PDF output out of 10000 (max. 10000000)
 
