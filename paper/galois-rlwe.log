@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.1.6)  28 SEP 2015 13:49
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.1.6)  28 SEP 2015 13:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1898,4 +1898,148 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\mathcode' on input line 259.
 
 
-Package h
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\mathcode' on input line 259.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\mathcode' on input line 259.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                \kern 2.55527pt
+(hyperref)                removed on input line 259.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\mathgroup' on input line 259.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\symoperators' on input line 259.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\@ifnextchar' on input line 259.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 259.
+
+
+Package hyperref Warning: Composite letter `\textacute+3'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textacute' on input line 259.
+
+
+Package hyperref Warning: Composite letter `\textdotaccent+"'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textdotaccent' on input line 259.
+
+
+LaTeX Warning: Marginpar on page 5 moved.
+
+
+LaTeX Warning: Marginpar on page 5 moved.
+
+
+LaTeX Warning: Marginpar on page 5 moved.
+
+
+LaTeX Warning: Marginpar on page 5 moved.
+
+
+LaTeX Warning: Marginpar on page 5 moved.
+
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 276.
+
+LaTeX Warning: Marginpar on page 5 moved.
+
+[5] <attack-quality.png, id=209, 578.16pt x 433.62pt>
+File: attack-quality.png Graphic file (type png)
+ <use attack-quality.png>
+Package pdftex.def Info: attack-quality.png used on input line 342.
+(pdftex.def)             Requested size: 281.85587pt x 211.39055pt.
+
+[6 <./attack-quality.png>]
+Overfull \hbox (20.37105pt too wide) in paragraph at lines 377--389
+ [][] 
+ []
+
+[7]pdfTeX warning (ext4): destination with the same identifier (name{table.1}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.425 ... DRLWE for $K= \bQ(\zeta_p)$ and $q = p$}
+                                                   [8]
+
+Package amsmath Warning: Foreign command \atopwithdelims;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 597.
+
+<v8.png, id=251, 566.5968pt x 277.5168pt>
+File: v8.png Graphic file (type png)
+ <use v8.png>
+Package pdftex.def Info: v8.png used on input line 605.
+(pdftex.def)             Requested size: 234.8775pt x 115.04028pt.
+ [9 <./v8.png>] [10]pdfTeX warning (ext4): destination with the same identifier
+ (name{table.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.747 \caption{Values of $\epsilon'(m,q,2)$}
+                                             [11] [12] (./galois-rlwe.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 832.
+
+[13]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 832.
+ (./galois-rlwe.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 832.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 832.
+Package rerunfilecheck Info: File `galois-rlwe.out' has not changed.
+(rerunfilecheck)             Checksum: 9DC1C92BBC0B1DB411D6F63A88968B11;1496.
+
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 832.
+ ) 
+Here is how much of TeX's memory you used:
+ 22712 strings out of 493315
+ 406384 string characters out of 6137905
+ 531834 words of memory out of 5000000
+ 25479 multiletter control sequences out of 15000+600000
+ 12124 words of font info for 49 fonts, out of 8000000 for 9000
+ 1118 hyphenation exceptions out of 8191
+ 69i,11n,76p,1244b,712s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><
+/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><
+/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
+usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
+sr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr
+/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/l
+ocal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/loc
+al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local
+/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/te
+xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texli
+ve/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/
+2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/201
+3/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2013/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2013/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2013/texmf-
+dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/local/texlive/2013/texm
+f-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/local/texlive/2013/tex
+mf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2013
+/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/
+2013/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texli
+ve/2013/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
+Output written on galois-rlwe.pdf (13 pages, 389473 bytes).
+PDF statistics:
+ 408 PDF objects out of 1000 (max. 8388607)
+ 361 compressed objects within 4 object streams
+ 111 named destinations out of 1000 (max. 500000)
+ 175 words of extra memory for PDF output out of 10000 (max. 10000000)
+
