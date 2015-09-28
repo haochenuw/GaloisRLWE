@@ -13,6 +13,17 @@
 \usepackage{algorithm}
 \usepackage{physics}
 
+
+%%%%%%%%%%%%%% To do notes, can remove later
+\usepackage[textwidth=50,textsize=tiny]{todonotes}
+\setlength{\marginparwidth}{2cm}
+\newcommand{\tinytodo}[2][]
+{\todo[caption={#2}, #1]{\renewcommand{\baselinestretch}{0.5}\selectfont#2\par}}
+\newcommand{\Katetodo}[1]{\tinytodo[color=green!20]{#1}}
+\newcommand{\Haotodo}[1]{\tinytodo[color=red!20]{#1}}
+\newcommand{\Kristintodo}[1]{\tinytodo[color=blue!20]{#1}}
+%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
 \maketitle
 
@@ -64,7 +75,7 @@ The canonical (resp. adjusted) embedding matrix of $w$, denoted by $A_w$ (resp. 
 \end{Definition}
 
 The two embedding matrices are related in a simple way:
-let $T$ denote the matrix
+let $T$ denote the unitary matrix \Katetodo{I added the word orthonormal; that's correct, right?  I want to make sure the error distribution is spherical.}
 \[
 T = \begin{bmatrix}
     I_{r_1}  & 0  \\
@@ -76,7 +87,7 @@ T = \begin{bmatrix}
 \end{bmatrix},
 \]
 Then we have
-$$\tilde{A_{w}} = T A_{w},$$
+$$\widetilde{A_{w}} = T A_{w},$$
 and the lattice $\tilde{\iota}(R)$ has a basis consisting of columns of $\widetilde{A_{w}}$.
 
 For $\sigma > 0$, define the Gaussian function $\rho_\sigma: \bR^n \to [0,1]$ as $\rho_\sigma(x) = e^{-||x||^2/2\sigma^2}$ (our $\sigma$ is equal to $r/\sqrt{2\pi}$ for the parameter $r$ in \cite{lyubashevsky2013ideal}).
@@ -154,29 +165,33 @@ Let $K/\bQ$ be a finite Galois extension with ring of integers $R$,  and let $q$
 $R$ such that:
 \begin{enumerate}
         \item $qR = \prod_{i=1}^g \fq_i$,
-        \item the quotient $R/\fq_{i}$ is a finite field of cardinality $q^f$  for each $i$, where $f = \frac{n}{g}$, and 
+        \item the quotient $R/\fq_{i}$ is a finite field of cardinality $q^f$  for each $i$, where $f = \frac{n}{g}$, 
         \item there is a canonical isomorphism of rings
-\[
-    R_q \cong R/\fq_{1} \times \cdots \times R/\fq_{g}.
-\]
+                \begin{equation}
+                        \label{eqn: Rq-factor}
+    R_q \cong R/\fq_{1} \times \cdots \times R/\fq_{g},
+    \end{equation}
+\item the Galois group acts transitively on the ideals $\fq_1, \ldots, \fq_g$ and this action descends to an action on $R_q$ which permutes the corresponding factors in \eqref{eqn: Rq-factor} in the same way.
 \end{enumerate}
 \end{Lemma}
 The number $f$ in the above lemma is called the {\it residual degree} of $q$ in $K$. Note that the prime $q$ splits completely in $K$ if and only if its residual degree is one.
 
 
 \begin{theorem} \label{thm: reduction}
-        Let $\cR = (K,q,\sigma, s)$ be an RLWE instance with $K/\bQ$ Galois of degree $n$ and $q$ unramified in $K$ with residual degree f. Let $\sA$ be an oracle which solves $\SRLWE(\cR,\fq)$ using a list of $m$ samples modulo $\fq$.  Let $S$ be a set of $m$ RLWE samples in $R_q \times R_q$, and let $S_{\fq}$ be its image modulo $\fq$ in $R/\fq \times R/\fq$.  Then the problem $\SRLWE(\cR)$ can be solved using $S_{\fq}$ by $n/f$ calls to the oracle $\sA$.
+        Let $\cR = (K,q,\sigma, s)$ be an RLWE instance with $K/\bQ$ Galois of degree $n$ and $q$ unramified in $K$ with residual degree f. Let $\sA$ be an oracle which solves $\SRLWE(\cR,\fq)$ using a list of $m$ samples modulo $\fq$.  Let $S$ be a set of $m$ RLWE samples in $R_q \times R_q$.  Then the problem $\SRLWE(\cR)$ can be solved using $S$ by $n/f$ calls to the oracle $\sA$, $2mn/f$ reductions $R_q \rightarrow R/\fq$, and $2mn/f$ evaluations of a Galois automorphism on $R_q$.
 \end{theorem}
 
 \begin{proof}
-        The Galois group $G =\operatorname{Gal}(K/\bQ)$ acts on the set $\{\fq_1, \cdots ,\fq_g\}$ transitively. Hence for each $i$, we can take $\sigma \in \operatorname{Gal}(K/\bQ)$, such that $\sigma_i(\fq) = \fq_i$, Then we call the oracle $\sA$ on the input $(\sigma_i^{-1}(S_{\fq}), \fq_i)$. The algorithm will output $\sigma_i^{-1}(s) \pmod{\fq}$, from which we can recover $s \pmod{\fq_i}$ using $\sigma_i$.  We do this for all $1\leq i \leq g$ and use the last formula of Lemma \ref{lem: prime factorization} to recover $s$. 
+        The Galois group $G =\operatorname{Gal}(K/\bQ)$ acts on the set $\{\fq_1, \cdots ,\fq_g\}$ transitively. Hence for each $i$, there exists $\sigma_i \in \operatorname{Gal}(K/\bQ)$, such that $\sigma_i(\fq) = \fq_i$, Then we call the oracle $\sA$ on the input $(\sigma_i^{-1}(S) \pmod \fq, \fq)$. The algorithm will output $\sigma_i^{-1}(s) \pmod{\fq}$, from which we can recover $s \pmod{\fq_i}$ using $\sigma_i$.  We do this for all $1\leq i \leq g$ and use \eqref{eqn: Rq-factor} of Lemma \ref{lem: prime factorization} to recover $s$. 
 \end{proof}
 
-Theorem~\ref{thm: reduction} gives a polynomial time reduction from $\SRLWE(\cR)$ to $\SRLWE(\cR,\fq)$.
+Theorem~\ref{thm: reduction} gives a polynomial time reduction from $\SRLWE(\cR)$ to $\SRLWE(\cR,\fq)$. \Katetodo{It does?  What does polynomial time mean in this context?  It is an $O(n)$ reduction, yes?}
+\Katetodo{I did a lot of rewriting here in Lemma 3.2 and Theorem 3.3.}
 
 \begin{remark}
-Note that in the complexity computation above we have chosen to neglect the time taken by applying Galois automorphisms to the samples, because the runtime depends
-hugely on the instance and on the way we represent the samples. For example, for subfields of cyclotomic fields with normal integral bases, the Galois autormophisms are simply permutations of coordinates, so the time needed to apply these automorphisms is trivial.
+        For a proper runtime analysis of the reduction, one must examine the implementation, in particular with regards to Galois automorphisms.
+The runtime for evaluating an automorphism depends
+rather strongly on the instance and on the way ring elements are represented. For example, for subfields of cyclotomic fields represented with respect to normal integral bases, the Galois autormophisms are simply permutations of the coordinates, so the time needed to apply these automorphisms is trivial.
 \end{remark}
 
 %\begin{remark}
@@ -198,15 +213,37 @@ Suppose $\cR$ is an RLWE instance where $K$ is Galois and $q$ is an unramified p
 
 \section{The chi-square attack for uniform distribution}
 \label{sec: chi-square}
+
+In this section, we extend the $f(1) \equiv 0 \pmod q$ attack of \cite{EHL} and the root-of-small-order attack of \cite{ELOS}.  These attacks can be viewed as examples of a more general attack principle, as follows.  Suppose one has a ring homorphism
+\[
+        \phi: R_q \rightarrow F 
+\]
+where $F$ is a finite field, and where two properties hold:
+\begin{enumerate}
+        \item $F$ is small enough that its elements can be examined exhaustively; and
+        \item the error distribution on $R_q$, transported by $\phi$ to $F$, is detectably non-uniform.
+\end{enumerate}
+
+Then the attack on DRLWE on $R_q$ is as follows:
+\begin{enumerate}
+        \item Transport the samples $(a, b)$ in $R_q \times R_q$ to $F \times F$ via $\phi$.
+        \item Loop through possible guesses for the image of the secret, $\phi(s)$, in $F$.
+        \item For each guess $g$, compute the distribution of $\phi(b) - \phi(a)g$ on the available samples (this is $\phi(e)$ if the guess is correct).
+        \item If the samples are RLWE samples with secret $s$ and $g = \phi(s)$, then this distribution will follow the error distribution, which will look non-uniform.
+        \item If all such distributions look uniform, then the samples were uniform, not RLWE, samples.
+\end{enumerate}
+
+The fact that $\phi$ is a ring homomorphism is essential in guaranteeing that for the correct guess, the distribution in question is the image of the error distribution.  The only ring homomorphisms from $R_q$ to a finite field are given by reduction modulo a prime ideal $\fq$ lying above $q$ in $R$.
+
 \subsection{chi-square test for uniform distribution}
-We briefly review the properties and usage of the chi-square test for uniform distributions over a finite set $S$. We partition $S$ into $r$ subsets $S = \bigsqcup_{j=1}^r S_i$.
-Suppose there are $M$ samples $y_1, \cdots, y_M \in S$.
-For each $1 \leq j \leq r$, we compute the expected number of samples that would fall in the $j$-th subset: $c_j := \frac{|S_j|M}{|S|}$. Then we compute the actual number of samples in $S_j$, i.e., $t_j := |\{1 \leq i \leq r: y_i \in S_j\}|$. Finally, the $\chi^2$ value is computed as
+We briefly review the properties and usage of the chi-square test for uniform distributions over a finite set $S$. We partition $S$ into $r$ subsets $S = \bigsqcup_{j=1}^r S_j$.
+Suppose there are $M$ samples $y_1, \ldots, y_M \in S$.
+For each $1 \leq j \leq r$, we compute the expected number of samples in the $j$-th subset: $c_j := \frac{|S_j|M}{|S|}$. Then we compute the actual number of samples in $S_j$, i.e., $t_j := |\{1 \leq i \leq r: y_i \in S_j\}|$. Finally, the $\chi^2$ value is computed as
 \[
     \chi^2(S,y) = \sum_{j = 1}^r \frac{(t_j -c_j)^2}{c_j}.
 \]
-Suppose the samples are drawn from the uniform distribution on $S$. Then the $\chi^2$ value follows the chi-square distribution with degree of freedom equal $d = r-1$.
-To decide whether the samples are from a uniform distribution, we can either look up a table of $\chi^2$ values, or use an approximation rule:  when $d$ is large, the $\chi^2$ distribution can be well-approximated by a normal distribution $N(d, 2d)$.
+Suppose the samples are drawn from the uniform distribution on $S$. Then the $\chi^2$ value follows the chi-square distribution with degree of freedom equal $d = r-1$. 
+To decide whether the samples are from a uniform distribution, we can either look up a table of $\chi^2$ values, or use an approximation rule:  when $d$ is large, the $\chi^2$ distribution can be well-approximated by a normal distribution $N(d, 2d)$. More precisely, we set a confidence level parameter $\alpha \in (0,1)$, and compute $\delta = \delta(\alpha) > 0$ such that $\prob( \chi^2_{r-1} \in (d-\delta, d+\delta)) = \alpha$. Finally, we reject the hypothesis that the samples $S$ are drawn from the uniform distribution if and only if  $|\chi^2(S,y) -d | \geq \delta$.
 
 If $P,Q$ are two probability distributions on the set $S$, then their {\it statistical difference} is defined as
 \[
@@ -214,17 +251,26 @@ If $P,Q$ are two probability distributions on the set $S$, then their {\it stati
 \]
 For convenience, we also define the {\it $l_2$ distance} between $P$ and $Q$ as $d_2(P,Q) = (\sum_{t \in S} |P(t) - Q(t)|^2)^{\frac{1}{2}}$. We have the inequality $d(P,Q) \leq \frac{\sqrt{|S|}}{2}d_2(P,Q)$.
 
-
+\Katetodo{I think we need to discuss confidence level in the background here}
+\Katetodo{I think we need to be specific on how to test the output of the chi-square statistic in terms of confidence level; we use this formula in the Algorithm 1}
 
 \subsection{The chi-square attack on $\SRLWE(\cR,\fq)$}
 
-Let $\cR$ be an RLWE instance with error distribution $D_{\cR}$ and $\fq$ be a prime ideal above $q$.  The basic idea of our attack relies on the assumption that the distribution $D_\cR \pmod {\fq}$ is distinguishable from the uniform distribution on the finite field $F = R/\fq$. More precisely, the attack loops through all $q^f$ possitbilities of $\bar{s} = s \pmod{\fq}$, and for each guess $s'$, it computes the values $\bar{e}' = \bar{b} - \bar{a} s' \pmod {\fq}$ for every sample $(a,b) \in S$. If the guess is wrong, or if the samples are taken from the uniform distirbution in $(R_q)^2$, the values $\bar{e}'$ would be uniformly distributed in $F$ and it is likely to pass the chi-square test. On the other hand, if the guess is correct, then we expect the test on the errors $\bar{e}'$ to reject the null hypothesis.
+Let $\cR$ be an RLWE instance with error distribution $D_{\cR}$ and $\fq$ be a prime ideal above $q$.  The basic idea of our attack relies on the assumption that the distribution $D_\cR \pmod {\fq}$ is distinguishable from the uniform distribution on the finite field $F = R/\fq$. More precisely, the attack loops through all $q^f$ possitbilities of $\bar{s} = s \pmod{\fq}$, and for each guess $s'$, it computes the values $\bar{e}' = \bar{b} - \bar{a} s' \pmod {\fq}$ for every sample $(a,b) \in S$. If the guess is wrong, or if the samples are taken from the uniform distirbution in $(R_q)^2$, the values $\bar{e}'$ would be uniformly distributed in $F$ and it is likely to pass the chi-square test. On the other hand, if the guess is correct, then we expect the test on the errors $\bar{e}'$ to reject the null hypothesis. We remark that one needs at least $\Omega(N)$ samples for the test to work effectively. 
 
-Let $N = q^f$,  the cardinality of $F$. For the attack to be successful, we need the $(N-1)$ tests corresponding to wrong guess of $s \pmod{\fq}$ to pass, and the one test corresponding to the correct guess to be rejected. For example, we may choose the confidence level to be  $\alpha = 1 - \frac{1}{10N}$. The detailed attack is described in Algorithm~\ref{alg: chi-square}. Note that the time complexity of the attack is $O(N)$ since there are $N$ possible values for $s \pmod {\fq}$. The number of samples need for the attack is also $O(N)$, as required by the chi-square test.
+Let $N = q^f$,  the cardinality of $F$. For the attack to be successful, we need the $(N-1)$ tests corresponding to wrong guess of $s \pmod{\fq}$ to pass, and the one test corresponding to the correct guess to be rejected. To this purpose, we need to choose the confidence level $\alpha$ to be large enough. (An example choice of $\alpha$ is $1 - \frac{1}{10N}$). The detailed attack is described in Algorithm~\ref{alg: chi-square}.  Let $\Phi$ denote the cumulative distribution function of 
+the standard normal distirbution.
+
 %Let $\beta$ denote the probability that the sample errors fails the uniform test with probability  Then the probability that our algorithm will success is $p  = (1- \frac{1}{10N})^{N-1} \beta$. Note that when $N$ is large, $(1- \frac{1}{10N})^{N-1}$ is about $e^{-1/10} \approx 0.904$.
 
 
 %Note that although we restrict ourselves to subfields of cyclotomics with odd and square-free $m$, the attack could be applied to any finite extension of $\bQ$.
+    \Katetodo{In alg: Explain what $\Phi$ is in earlier background matter}
+    \Katetodo{In alg: Why is is 1/20N instead of 1/10N as discussed above?  Should we let the confidence level be part of the input (Require)?}
+    \Katetodo{We need to put F into the Require}
+    \Katetodo{Does it matter what bins we use?  For example, I think a subfield should be a bin, given the patterns we've observed.  Maybe we should put this choice in the Require too.}
+    \Katetodo{I think step 9 could be written out and assigned to a variable, it's just a formula}
+    \Katetodo{Is elsereturn a word?}
 
 \begin{algorithm}[H] \label{alg: chi-square}
 \caption{chi-square attack of $SRLWE(\cR,\fq$)}          % give the algorithm a caption
@@ -233,11 +279,10 @@ Let $N = q^f$,  the cardinality of $F$. For the attack to be successful, we need
      \Require
 
      %$A_{\bf a}$: the embedding matrix, where ${\bf a}$ is a basis for the ring of integers $\cO_K$ of some number field $K/\bQ$.
-     $\cR = (K,q,\sigma, s)$ -- an RLWE instance; $R$ -- the ring of integers of $K$; $\fq$ -- a prime ideal in $K$ above $q$; $B$ -- the number of bins ($B \leq |F|$); $\mathcal{S}$ -- a collection of $M$ ($M = \Omega(|F|)$) RLWE samples from $\cR$.
-    \Ensure a guess of the value $s \pmod{\fq}$, or {\bf NON-RLWE}, or {\bf INSUFFIICNET-SAMPLES}
+     $\cR = (K,q,\sigma, s)$ -- an RLWE instance; $R$ -- the ring of integers of $K$; $\fq$ -- a prime ideal in $K$ above $q$; $F = R/\fq$ -- the residual field of $\fq$; $\mathcal{S}$ -- a collection of $M$ ($M = \Omega(|F|)$) RLWE samples from $\cR$; $0 < \alpha < 1$ -- the confidence level. 
+    \Ensure a guess of the value $s \pmod{\fq}$, or {\bf NOT-RLWE}, or {\bf INSUFFICIENT-SAMPLES}
 
     \State $\omega \gets \Phi^{-1}(1- \frac{1}{20N})$, $\cG \gets \emptyset$
-
     \For{$s$ in $F$}
         \State $\cE \gets \emptyset$.
         \For{$a,b$ in $\mathcal{S}$}
@@ -247,32 +292,36 @@ Let $N = q^f$,  the cardinality of $F$. For the attack to be successful, we need
         \EndFor
 
         \State Run $\chi^2$ test on the set $\cE$ and $B$ bins to obtain the value $\chi^2(\cE)$.
-        \If{$|\chi^2(\cE) - (B-1)| > \omega \sqrt{2B-2}$}
+        \If{$|\chi^2(\cE) - (N-1)| > \omega \sqrt{2N-2}$}
             \State add $s$ to $\cG$.
         \EndIf
     \EndFor
     \If{$G = \emptyset$}
 
-        \Return {\bf NOT RLWE}
+        \Return {\bf NOT-RLWE}
     \ElsIf{$G = \{g\}$}
 
         \Return $g$
     \Else
-        \Return {\bf INSUFFIICNET-SAMPLES}
+    
+        \Return {\bf INSUFFICIENT-SAMPLES}
     \EndIf
 
 \end{algorithmic}
 \end{algorithm}
 
 
+The time complexity of the attack is $O(N)$ since there are $N$ possible values for $s \pmod {\fq}$. The number of samples need for the attack is also $O(N)$.
+\Katetodo{This requirement of the chi-square test should go in background section}
 
-The correctness of the attack is captured in Theorem~\ref{thm: attack}. We use $D_{\cR,\fq}$ as a shorthand notation for $D_{\cR} \pmod{\fq}$.  Let $\Phi$ denote the cumulative distribution function of the standard Gaussian distribution.
+The correctness of the attack is captured in Theorem~\ref{thm: attack}. We use $D_{\cR,\fq}$ as a shorthand notation for $D_{\cR} \pmod{\fq}$. \Katetodo{The explanation of $\Phi$ should go in background along with confidence level stuff.}
 
 \begin{theorem} \label{thm: attack}
-Let $\Delta$ denote the statistical distance between the distribution $D_{\cR, \fq}$ and the uniform distribution on $R/\fq$. Let $\lambda = 4 M \Delta^2$ and $\omega = \Phi^{-1}(1- \frac{1}{20N})$. Finally, let $p$ denote the proability of success of the attack in Algorithm~\ref{alg: chi-square}. When $q \gg 1$, we have
+Let $\Delta$ denote the statistical distance between the distribution $D_{\cR, \fq}$ and the uniform distribution on $R/\fq$. Let $\lambda = 4 M \Delta^2$ and $\omega = \Phi^{-1}(1- \frac{1}{20N})$. Finally, let $p$ denote the probability of success of the attack in Algorithm~\ref{alg: chi-square}. When $q \gg 1$, we have
 
 $$p  \geq 0.904 \left(1- \Phi \left(\frac{\omega \sqrt{2(N-1)}- \lambda}{\sqrt{2(N-1) +4\lambda}}\right) \right) - o(1).$$
 \end{theorem}
+\Katetodo{It would be nice to state this theorem in terms of a general confidence level instead of the specific one 1-1/20N}
 
 \begin{proof}
 It is a standard fact that chi-square value on samples from $D_{\cR, \fq}$, when the null hypothesis is uniform, follows a non-central chi-square distribution with the same degree of freedom and a parameter $\lambda_0$ given by
@@ -295,29 +344,33 @@ The following is a plot of $p$ versus $\Delta$ for various choices of $N$, made 
 
 \section{Vulnerable instances among subfields of cyclotomic fields}\label{sec: sub-cyclotomics}
 
-When searching for vulnerable instances to our attack, we restrict our attention to subfields of cyclotomic fields $\bQ(\zeta_m)$, where we assume $m$ is {\it odd and squarefree}. The Galois group $\Gal(\bQ(\zeta_m)/\bQ)$ is canonically isomorphic to $G = (\bZ/m\bZ)^*$. For each subgroup $H$ of $G$, let $K_{m,H} = \bQ(\zeta_m)^H$ be the subfield of elements fixed by $H$.
-Then the extension $K_{m,H}/\bQ$ is Galois with degree $n = \frac{\varphi(m)}{|H|}$. Also, the degree of a prime $q$ in $K_{m,H}$ is equal to the order of $[q]$ in the quotient group $G/H$. Moreover, $K_{m,H}$ has canonical {\it normal integral basis}, whose embedding matrix is easy to compute. More precisely, let $C$ denote a set of coset representatives of the coset space $G/H$. For each $c \in C$, set
+We searched for instances of RLWE vulnerable to the chi-square attack.  For this purpose, we restricted attention to subfields of cyclotomic fields $\bQ(\zeta_m)$, where we assume $m$ is {\it odd and squarefree}. The Galois group $\Gal(\bQ(\zeta_m)/\bQ)$ is canonically isomorphic to $G = (\bZ/m\bZ)^*$. For each subgroup $H$ of $G$, let $K_{m,H} = \bQ(\zeta_m)^H$ be the subfield of elements fixed by $H$.
+Then the extension $K_{m,H}/\bQ$ is Galois with degree $n = \frac{\varphi(m)}{|H|}$. Also, the residual degree of a prime $q$ in $K_{m,H}$ is equal to the order of $[q]$ in the quotient group $G/H$. Moreover, $K_{m,H}$ has canonical {\it normal integral basis}, whose embedding matrix is easy to compute. More precisely, let $C$ denote a set of coset representatives of the coset space $G/H$. If $c$ is an integer coprime to $m$, we use $[c]$ to denote its coset in $G/H$. For each $[c] \in C$, set
 \[
-    w_c =  \sum_{h \in H} \zeta_m^{hc}.
+    w_{[c]} =  \sum_{h \in H} \zeta_m^{hc}.
 \]
-Then  $w := (w_c)_{c \in C}$ is a $\bZ$-basis of $R$. (For a proof of this fact, see \cite[Proposition 6.1]{johnston2011notes}). Setting $\zeta = \exp(2\pi i /m)$, the canonical embedding embedding matrix of $w$ is
+Then  $w := (w_{[c]})_{[c] \in C}$ is a $\bZ$-basis of $R$. (For a proof of this fact, see \cite[Proposition 6.1]{johnston2011notes}). Setting $\zeta = \exp(2\pi i /m)$, the canonical embedding embedding matrix of $w$ is
 \[
-    (A_w)_{i,j} = \sum_{h \in H}{\zeta^{hij}}.
+    (A_w)_{[i],[j]} = \sum_{h \in H}{\zeta^{hij}}, \mbox{ for } [i], [j] \in C.
 \]
+\Katetodo{I'm a little worried about this.  is this true?  In any case it's not the adjusted embedding, but more than that where are you using C?}
 
 \begin{Lemma} \label{lem: symmetry}
 Suppose $\cR$ is an RLWE instance such that the underlying field $K$ is a Galois number field and $q$ is unramified in $K$. Then the reduced error distribution $D_{\cR,\fq}$ is independent of the choice of prime ideal $\fq$ above $q$.
 \end{Lemma}
 
 \begin{proof}
-From the proof of Theorem~\ref{thm: reduction}, we know that the change from a prime $\fq$ to $\fq'$ can be done via applying an element of the galois group $\Gal(K/\bQ)$ to the RLWE samples. On the other hand, the Galois group acts on the embedded lattice $\Lambda_R$ by permuting the coordinates. Hence we have a group homomorphism $$\phi: \Gal(K/\bQ) \to \Aut(\Lambda).$$ Since permutation matrices are orthogonal, the Galois group action on $\Lambda_R$ given by $\phi$ is distance-preserving. In particular, it preserves any discrete Gaussian distribution on $\Lambda_R$. This completes the proof.
+        From Lemma \ref{lem: prime factorization}, we may change from a prime $\fq$ to $\fq'$ via $\Gal(K/\bQ)$. On the other hand, the Galois group acts on the embedded lattice $\Lambda_R$ by permuting the coordinates. Hence we have a group homomorphism $$\phi: \Gal(K/\bQ) \to \Aut(\Lambda).$$ Since permutation matrices are orthonormal, the Galois group action on $\Lambda_R$ given by $\phi$ is distance-preserving. In particular, it preserves any spherical discrete Gaussian distribution on $\Lambda_R$. 
 \end{proof}
+\Katetodo{I'm worried about whether the Gaussian is still spherical in the adjusted embedding.  I think it is.}
 
 \subsection{Searching}
 
-Algorithm~\ref{alg: chi-square} allows us to search for vulnerable instances among fields of form $K_{m,H}$ by generating actual RLWE samples and running the attack. Success of the attack will indicate vulnerability of the instance. Note that our field searching requires sampling efficiently from a discete Gaussian $D_{\Lambda, \sigma}$, for which we use the efficient algorithm of \cite{gentry2008trapdoors}.
+Algorithm~\ref{alg: chi-square} allows us to search for vulnerable instances among fields of form $K_{m,H}$ by generating actual RLWE samples and running the attack. Success of the attack will indicate vulnerability of the instance. Note that our field searching requires sampling efficiently from a discete Gaussian $D_{\Lambda, \sigma}$, for which we use the efficient algorithm of \cite{gentry2008trapdoors}. 
 
-In Table~\ref{tab: attacked}, we list some instances on which the attack has succeeded. The columns of Table~\ref{tab: attacked} are as follows. The first two columns specify $m$ and the generators of $H$; the column labeled $f$ is the residual degree of $q$. The last column consists of either the runtime for an actual attack, or an estimation of the runtime. Note that we omited our choice of prime ideal $\fq$, since due to Lemma~\ref{lem: symmetry} the choice of $\fq$ is irrelevant to our attack.
+\Katetodo{Is this really what you did, Hao?  It seems like it makes more sense to just chi-square test the distribution of errors, instead of running the full attack (i.e. looping through guesses).}
+
+In Table~\ref{tab: attacked}, we list some instances on which the attack has succeeded. The columns of Table~\ref{tab: attacked} are as follows. The first two columns specify $m$ and the generators of $H$; the column labeled $f$ is the residual degree of $q$. The last column consists of either the runtime for an actual attack, or an estimation of the runtime. Note that we omitted our choice of prime ideal $\fq$, since due to Lemma~\ref{lem: symmetry} the choice of $\fq$ is irrelevant to our attack.
 
 \begin{table}[H] \label{tab: attacked}
 \caption{Attacked sub-cyclotomic RLWE instances}
