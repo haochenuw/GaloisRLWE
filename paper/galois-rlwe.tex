@@ -204,7 +204,7 @@ There is a probablistic polynomial time reduction from $\SRLWE(\cR,\fq)$ to $\DR
 \end{Lemma}
 
 \begin{proof}
-This is a rephrasing of \cite[Lemma 5.9 and Lemma 5.12 ]{lyubashevsky2013ideal}.
+This is a rephrasing of \cite[Lemma 5.9 and Lemma 5.12]{lyubashevsky2013ideal}.
 \end{proof}
 
 \begin{Corollary}\label{cor: s-to-d}
@@ -245,7 +245,7 @@ For each $1 \leq j \leq r$, we compute the expected number of samples in the $j$
 Suppose the samples are drawn from the uniform distribution on $S$. Then the $\chi^2$ value follows the chi-square distribution with degree of freedom equal $d = r-1$. 
 To decide whether the samples are from a uniform distribution, we can either look up a table of $\chi^2$ values, or use an approximation rule:  when $d$ is large, the $\chi^2$ distribution can be well-approximated by a normal distribution $N(d, 2d)$. More precisely, we set a confidence level parameter $\alpha \in (0,1)$, and compute $\delta = \delta(\alpha) > 0$ such that $\prob( \chi^2_{r-1} \in (d-\delta, d+\delta)) = \alpha$. Finally, we reject the hypothesis that the samples $S$ are drawn from the uniform distribution if and only if  $|\chi^2(S,y) -d | \geq \delta$.
 
-If $P,Q$ are two probability distributions on the set $S$, then their {\it statistical difference} is defined as
+If $P,Q$ are two probability distributions on the set $S$, then their {\it statistical distance} is defined as
 \[
     d(P,Q) = \frac{1}{2} \sum_{t \in S} |P(t) - Q(t)|.
 \]
@@ -258,7 +258,7 @@ For convenience, we also define the {\it $l_2$ distance} between $P$ and $Q$ as 
 
 Let $\cR$ be an RLWE instance with error distribution $D_{\cR}$ and $\fq$ be a prime ideal above $q$.  The basic idea of our attack relies on the assumption that the distribution $D_\cR \pmod {\fq}$ is distinguishable from the uniform distribution on the finite field $F = R/\fq$. More precisely, the attack loops through all $q^f$ possitbilities of $\bar{s} = s \pmod{\fq}$, and for each guess $s'$, it computes the values $\bar{e}' = \bar{b} - \bar{a} s' \pmod {\fq}$ for every sample $(a,b) \in S$. If the guess is wrong, or if the samples are taken from the uniform distirbution in $(R_q)^2$, the values $\bar{e}'$ would be uniformly distributed in $F$ and it is likely to pass the chi-square test. On the other hand, if the guess is correct, then we expect the test on the errors $\bar{e}'$ to reject the null hypothesis. We remark that one needs at least $\Omega(N)$ samples for the test to work effectively. 
 
-Let $N = q^f$,  the cardinality of $F$. For the attack to be successful, we need the $(N-1)$ tests corresponding to wrong guess of $s \pmod{\fq}$ to pass, and the one test corresponding to the correct guess to be rejected. To this purpose, we need to choose the confidence level $\alpha$ to be large enough. (An example choice of $\alpha$ is $1 - \frac{1}{10N}$). The detailed attack is described in Algorithm~\ref{alg: chi-square}.  Let $\Phi$ denote the cumulative distribution function of 
+Let $N = q^f$ denote the cardinality of $F$. For the attack to be successful, we need the $(N-1)$ tests corresponding to wrong guess of $s \pmod{\fq}$ to pass, and the one test corresponding to the correct guess to be rejected. To this purpose, we need to choose the confidence level $\alpha$ to be close enough to one. (An example choice of $\alpha$ is $1 - \frac{1}{10N}$). The detailed attack is described in Algorithm~\ref{alg: chi-square}.  Let $\Phi$ denote the cumulative distribution function of 
 the standard normal distirbution.
 
 %Let $\beta$ denote the probability that the sample errors fails the uniform test with probability  Then the probability that our algorithm will success is $p  = (1- \frac{1}{10N})^{N-1} \beta$. Note that when $N$ is large, $(1- \frac{1}{10N})^{N-1}$ is about $e^{-1/10} \approx 0.904$.
@@ -279,10 +279,10 @@ the standard normal distirbution.
      \Require
 
      %$A_{\bf a}$: the embedding matrix, where ${\bf a}$ is a basis for the ring of integers $\cO_K$ of some number field $K/\bQ$.
-     $\cR = (K,q,\sigma, s)$ -- an RLWE instance; $R$ -- the ring of integers of $K$; $\fq$ -- a prime ideal in $K$ above $q$; $F = R/\fq$ -- the residual field of $\fq$; $\mathcal{S}$ -- a collection of $M$ ($M = \Omega(|F|)$) RLWE samples from $\cR$; $0 < \alpha < 1$ -- the confidence level. 
+     $\cR = (K,q,\sigma, s)$ -- an RLWE instance; $R$ -- the ring of integers of $K$; $\fq$ -- a prime ideal in $K$ above $q$; $F = R/\fq$ -- the residual field of $\fq$; $N$ -- the cardinality of $F$; $\mathcal{S}$ -- a collection of $M$ ($M = \Omega(N)$) RLWE samples from $\cR$; $0 < \alpha < 1$ -- the confidence level. 
     \Ensure a guess of the value $s \pmod{\fq}$, or {\bf NOT-RLWE}, or {\bf INSUFFICIENT-SAMPLES}
 
-    \State $\omega \gets \Phi^{-1}(1- \frac{1}{20N})$, $\cG \gets \emptyset$
+    \State $\delta \gets \Phi^{-1}(\frac{1+\alpha}{2})$, $\cG \gets \emptyset$.
     \For{$s$ in $F$}
         \State $\cE \gets \emptyset$.
         \For{$a,b$ in $\mathcal{S}$}
@@ -291,8 +291,9 @@ the standard normal distirbution.
             \State add $\bar{e}$ to $\cE$.
         \EndFor
 
-        \State Run $\chi^2$ test on the set $\cE$ and $B$ bins to obtain the value $\chi^2(\cE)$.
-        \If{$|\chi^2(\cE) - (N-1)| > \omega \sqrt{2N-2}$}
+        \State     $\chi^2(\cE) \gets \sum_{j = 1}^N \frac{(|\{c \in \cE: c = j\}|  - M/N)^2}{M/N}$.
+
+        \If{$|\chi^2(\cE) - (N-1)| > \delta \sqrt{2N-2}$}
             \State add $s$ to $\cG$.
         \EndIf
     \EndFor
@@ -311,29 +312,28 @@ the standard normal distirbution.
 \end{algorithm}
 
 
-The time complexity of the attack is $O(N)$ since there are $N$ possible values for $s \pmod {\fq}$. The number of samples need for the attack is also $O(N)$.
+The time complexity of the attack is $O(N)$ since there are $N$ possible values for $s \pmod {\fq}$. The number of samples need for the attack is also $O(N)$. The correctness of the attack is captured in Theorem~\ref{thm: attack} below. We use $D_{\cR,\fq}$ as a shorthand notation for $D_{\cR} \pmod{\fq}$. \Katetodo{The explanation of $\Phi$ should go in background along with confidence level stuff.}
 \Katetodo{This requirement of the chi-square test should go in background section}
 
-The correctness of the attack is captured in Theorem~\ref{thm: attack}. We use $D_{\cR,\fq}$ as a shorthand notation for $D_{\cR} \pmod{\fq}$. \Katetodo{The explanation of $\Phi$ should go in background along with confidence level stuff.}
 
 \begin{theorem} \label{thm: attack}
-Let $\Delta$ denote the statistical distance between the distribution $D_{\cR, \fq}$ and the uniform distribution on $R/\fq$. Let $\lambda = 4 M \Delta^2$ and $\omega = \Phi^{-1}(1- \frac{1}{20N})$. Finally, let $p$ denote the probability of success of the attack in Algorithm~\ref{alg: chi-square}. When $q \gg 1$, we have
+Let $\Delta$ denote the statistical distance between the distribution $D_{\cR, \fq}$ and the uniform distribution on $R/\fq$. Let $\lambda = 4 M \Delta^2$ and let $\delta = \Phi^{-1}(\frac{1+\alpha}{2})$. Finally, let $p$ denote the probability of success of the attack in Algorithm~\ref{alg: chi-square}. When $q \gg 1$, we have
 
-$$p  \geq 0.904 \left(1- \Phi \left(\frac{\omega \sqrt{2(N-1)}- \lambda}{\sqrt{2(N-1) +4\lambda}}\right) \right) - o(1).$$
+$$p  \geq \alpha^{N-1} \left(1- \Phi \left(\frac{\delta \sqrt{2(N-1)}- \lambda}{\sqrt{2(N-1) +4\lambda}}\right) \right) - o(1).$$
 \end{theorem}
 \Katetodo{It would be nice to state this theorem in terms of a general confidence level instead of the specific one 1-1/20N}
 
 \begin{proof}
-It is a standard fact that chi-square value on samples from $D_{\cR, \fq}$, when the null hypothesis is uniform, follows a non-central chi-square distribution with the same degree of freedom and a parameter $\lambda_0$ given by
+It is a standard fact that chi-square value on samples from $D_{\cR, \fq}$  follows a noncentral chi-square distribution with the same degree of freedom and a parameter $\lambda_0$ given by
 \[
     \lambda_0 =  d_2(D_{\cR, \fq}, U(R/\fq))^2 \cdot MN.
 \]
-In particular, we have $\lambda_0 \geq  4M\Delta^2 = \lambda$. Since $q \gg 1$, we may approximate a noncentral chi-square distribution with degree of freedom $k$ and parameter $\lambda_0$ with a Gaussian distribution of mean $k + \lambda_0$ and variance $2k + 4\lambda_0$ (see \cite{ryabko2004new}, for example). Recall that our attack succeeds if the set $\cE$ from all $(N-1)$ wrong guesses passes the test, and the true errors modulo $\fq$ fail the test. The first event happens with probability $(1 - \frac{1}{10N})^{N-1} \geq e^{-1/10} = 0.904 \cdots$. The second event has probability $1 - \Phi \left(\frac{\omega \sqrt{2(N-1)}- \lambda_0}{\sqrt{2(N-1) +4\lambda_0}}\right) $, which is an increasing function in $\lambda_0$. The theorem now follows.
+In particular, we have $\lambda_0 \geq  4M\Delta^2 = \lambda$. Since $q \gg 1$, we may approximate a noncentral chi-square distribution with degree of freedom $k$ and parameter $\lambda_0$ with a Gaussian distribution of mean $k + \lambda_0$ and variance $2k + 4\lambda_0$ (see \cite{ryabko2004new}, for example). Recall that our attack succeeds if the set $\cE$ from all $(N-1)$ wrong guesses passes the test, and the true errors modulo $\fq$ fail the test. Assuming these samples are independent of each other, the first event happens with probability $\alpha ^{N-1}$, whereas the second event has probability $1 - \Phi \left(\frac{\delta \sqrt{2(N-1)}- \lambda_0}{\sqrt{2(N-1) +4\lambda_0}}\right) $, which is an increasing function in $\lambda_0$. The theorem now follows. The $o(1)$ term reflects the approximation error when we replaced the chi-square distributions in question by Gaussians.
 \end{proof}
 
 \begin{remark}
-One could vary $\omega$ in Theorem~\ref{thm: attack} to suit the specific instance.
-The probability of success will change accordingly. When we expect the statistical distance $\Delta$ to be large, it is preferable to choose a larger $\omega$ to increase the probability of success.
+One could vary $\alpha$ in Theorem~\ref{thm: attack} to suit the specific instance.
+The probability of success will change accordingly. When we expect the statistical distance $\Delta$ to be large, it is preferable to choose a larger $\alpha$ to increase the probability of success.  For example, if we choose $\alpha = 1-1/10N$, then $\alpha^{N-1} \geq e^{-1/10} = 0.904 \cdots$. 
 \end{remark}
 
 The following is a plot of $p$ versus $\Delta$ for various choices of $N$, made according to Theorem~\ref{thm: attack}, where we fix the number of samples to be $M = 5N$.
