@@ -246,7 +246,7 @@ For each $1 \leq j \leq r$, we compute the expected number of samples in the $j$
     \chi^2(S,y) = \sum_{j = 1}^r \frac{(t_j -c_j)^2}{c_j}.
 \]
 Suppose the samples are drawn from the uniform distribution on $S$. Then the $\chi^2$ value follows the chi-square distribution with degree of freedom equal $d = r-1$. 
-To decide whether the samples are from a uniform distribution, we can either look up a table of $\chi^2$ values, or use an approximation rule:  when $d$ is large, the $\chi^2$ distribution can be well-approximated by a normal distribution $N(d, 2d)$. More precisely, we set a confidence level parameter $\alpha \in (0,1)$, and compute $\delta = \delta(\alpha) > 0$ such that $\prob( \chi^2_{r-1} \in (d-\delta, d+\delta)) = \alpha$. Finally, we reject the hypothesis that the samples $S$ are drawn from the uniform distribution if and only if  $|\chi^2(S,y) -d | \geq \delta$.
+To decide whether the samples are from a uniform distribution, we can either look up a table of $\chi^2$ values, or use an approximation rule:  when $d$ is large, the $\chi^2$ distribution can be well-approximated by a normal distribution $N(d, 2d)$. More precisely, we set a confidence level parameter $\alpha \in (0,1)$, and compute $\delta = \delta(\alpha) > 0$ such that $\prob( d-\delta < \chi^2 < d+\delta) = \alpha$. Then we reject the hypothesis that the samples $S$ are drawn from the uniform distribution if and only if  $|\chi^2(S,y) -d | \geq \delta$.\Katetodo{I took out subscript $r-1$ on chi in prob}
 
 If $P,Q$ are two probability distributions on the set $S$, then their {\it statistical distance} is defined as
 \[
@@ -254,26 +254,20 @@ If $P,Q$ are two probability distributions on the set $S$, then their {\it stati
 \]
 For convenience, we also define the {\it $l_2$ distance} between $P$ and $Q$ as $d_2(P,Q) = (\sum_{t \in S} |P(t) - Q(t)|^2)^{\frac{1}{2}}$. We have the inequality $d(P,Q) \leq \frac{\sqrt{|S|}}{2}d_2(P,Q)$.
 
-\Katetodo{I think we need to discuss confidence level in the background here}
-\Katetodo{I think we need to be specific on how to test the output of the chi-square statistic in terms of confidence level; we use this formula in the Algorithm 1}
 
 \subsection{The chi-square attack on $\SRLWE(\cR,\fq)$}
 
-Let $\cR$ be an RLWE instance with error distribution $D_{\cR}$ and $\fq$ be a prime ideal above $q$.  The basic idea of our attack relies on the assumption that the distribution $D_\cR \pmod {\fq}$ is distinguishable from the uniform distribution on the finite field $F = R/\fq$. More precisely, the attack loops through all $q^f$ possitbilities of $\bar{s} = s \pmod{\fq}$, and for each guess $s'$, it computes the values $\bar{e}' = \bar{b} - \bar{a} s' \pmod {\fq}$ for every sample $(a,b) \in S$. If the guess is wrong, or if the samples are taken from the uniform distirbution in $(R_q)^2$, the values $\bar{e}'$ would be uniformly distributed in $F$ and it is likely to pass the chi-square test. On the other hand, if the guess is correct, then we expect the test on the errors $\bar{e}'$ to reject the null hypothesis. We remark that one needs at least $\Omega(N)$ samples for the test to work effectively. 
+Let $\cR$ be an RLWE instance with error distribution $D_{\cR}$ and $\fq$ be a prime ideal above $q$.  The basic idea of our attack relies on the assumption that the distribution $D_\cR \pmod {\fq}$ is distinguishable from the uniform distribution on the finite field $F = R/\fq$. More precisely, the attack loops through all $q^f$ possible values $\bar{s} = s \pmod{\fq}$, and for each guess $s'$, it computes the values $\bar{e}' = \bar{b} - \bar{a} s' \pmod {\fq}$ for every sample $(a,b) \in S$. If the guess is wrong, or if the samples are taken from the uniform distribution in $(R_q)^2$, the values $\bar{e}'$ would be uniformly distributed in $F$ and it is likely to pass the chi-square test. On the other hand, if the guess is correct, then we expect the test on the errors $\bar{e}'$ to reject the null hypothesis. We remark that one needs at least $\Omega(N)$ samples for the test to work effectively. 
 
-Let $N = q^f$ denote the cardinality of $F$. For the attack to be successful, we need the $(N-1)$ tests corresponding to wrong guess of $s \pmod{\fq}$ to pass, and the one test corresponding to the correct guess to be rejected. To this purpose, we need to choose the confidence level $\alpha$ to be close enough to one. (An example choice of $\alpha$ is $1 - \frac{1}{10N}$). The detailed attack is described in Algorithm~\ref{alg: chi-square}.  Let $\Phi$ denote the cumulative distribution function of 
-the standard normal distirbution.
+Let $N = q^f$ denote the cardinality of $F$. For the attack to be successful, we need the $(N-1)$ tests corresponding to wrong guess of $s \pmod{\fq}$ to pass, and the one test corresponding to the correct guess to be rejected. For this purpose, we need to choose the confidence level $\alpha$ to be close enough to one (a reasonable choice is $\alpha = 1 - \frac{1}{10N}$). The detailed attack is described in Algorithm~\ref{alg: chi-square}.  Let $\Phi$ denote the cumulative distribution function of 
+the standard normal distribution.
 
 %Let $\beta$ denote the probability that the sample errors fails the uniform test with probability  Then the probability that our algorithm will success is $p  = (1- \frac{1}{10N})^{N-1} \beta$. Note that when $N$ is large, $(1- \frac{1}{10N})^{N-1}$ is about $e^{-1/10} \approx 0.904$.
 
 
 %Note that although we restrict ourselves to subfields of cyclotomics with odd and square-free $m$, the attack could be applied to any finite extension of $\bQ$.
-    \Katetodo{In alg: Explain what $\Phi$ is in earlier background matter}
-    \Katetodo{In alg: Why is is 1/20N instead of 1/10N as discussed above?  Should we let the confidence level be part of the input (Require)?}
-    \Katetodo{We need to put F into the Require}
+    \Katetodo{Why is $\Phi$ from standard normal distr and not from $\chi^2$ distribution?}
     \Katetodo{Does it matter what bins we use?  For example, I think a subfield should be a bin, given the patterns we've observed.  Maybe we should put this choice in the Require too.}
-    \Katetodo{I think step 9 could be written out and assigned to a variable, it's just a formula}
-    \Katetodo{Is elsereturn a word?}
 
 \begin{algorithm}[H] \label{alg: chi-square}
 \caption{chi-square attack of $SRLWE(\cR,\fq$)}          % give the algorithm a caption
@@ -310,6 +304,7 @@ the standard normal distirbution.
 \end{algorithmic}
 \end{algorithm}
 
+\Katetodo{I think in the algorithm it would be best to use the chi-squared distribution not the normal approximation; in implementations, people can be looser, but no reason not to do it properly in theory.}
 
 The time complexity of the attack is $O(N)$ since there are $N$ possible values for $s \pmod {\fq}$. The number of samples need for the attack is also $O(N)$. The correctness of the attack is captured in Theorem~\ref{thm: attack} below. We use $D_{\cR,\fq}$ as a shorthand notation for $D_{\cR} \pmod{\fq}$. \Katetodo{The explanation of $\Phi$ should go in background along with confidence level stuff.}
 \Katetodo{This requirement of the chi-square test should go in background section}
@@ -320,7 +315,7 @@ Let $\Delta$ denote the statistical distance between the distribution $D_{\cR, \
 
 $$p  \geq \alpha^{N-1} \left(1- \Phi \left(\frac{\delta \sqrt{2(N-1)}- \lambda}{\sqrt{2(N-1) +4\lambda}}\right) \right) - o(1).$$
 \end{theorem}
-\Katetodo{It would be nice to state this theorem in terms of a general confidence level instead of the specific one 1-1/20N}
+\Katetodo{Define $\alpha$ in statement.}
 
 \begin{proof}
 It is a standard fact that chi-square value on samples from $D_{\cR, \fq}$  follows a noncentral chi-square distribution with the same degree of freedom and a parameter $\lambda_0$ given by
@@ -329,6 +324,7 @@ It is a standard fact that chi-square value on samples from $D_{\cR, \fq}$  foll
 \]
 In particular, we have $\lambda_0 \geq  4M\Delta^2 = \lambda$. Since $q \gg 1$, we may approximate a noncentral chi-square distribution with degree of freedom $k$ and parameter $\lambda_0$ with a Gaussian distribution of mean $k + \lambda_0$ and variance $2k + 4\lambda_0$ (see \cite{ryabko2004new}, for example). Recall that our attack succeeds if the set $\cE$ from all $(N-1)$ wrong guesses passes the test, and the true errors modulo $\fq$ fail the test. Assuming these samples are independent of each other, the first event happens with probability $\alpha ^{N-1}$, whereas the second event has probability $1 - \Phi \left(\frac{\delta \sqrt{2(N-1)}- \lambda_0}{\sqrt{2(N-1) +4\lambda_0}}\right) $, which is an increasing function in $\lambda_0$. The theorem now follows. The $o(1)$ term reflects the approximation error when we replaced the chi-square distributions in question by Gaussians.
 \end{proof}
+\Katetodo{I'm worried about the approximation by a normal distribution; at the very least the probability needs to be given as a bound, not an exact probability.}
 
 \begin{remark}
 One could vary $\alpha$ in Theorem~\ref{thm: attack} to suit the specific instance.
@@ -352,7 +348,6 @@ Then  $w := (w_{[c]})_{[c] \in C}$ is a $\bZ$-basis of $R$. (For a proof of this
 \[
     (A_w)_{[i],[j]} = \sum_{h \in H}{\zeta^{hij}}, \mbox{ for } [i], [j] \in C.
 \]
-\Katetodo{I'm a little worried about this.  is this true?  In any case it's not the adjusted embedding, but more than that where are you using C?}
 
 \begin{Lemma} \label{lem: symmetry}
 Suppose $\cR$ is an RLWE instance such that the underlying field $K$ is a Galois number field and $q$ is unramified in $K$. Then the reduced error distribution $D_{\cR,\fq}$ is independent of the choice of prime ideal $\fq$ above $q$.
@@ -361,7 +356,6 @@ Suppose $\cR$ is an RLWE instance such that the underlying field $K$ is a Galois
 \begin{proof}
         From Lemma \ref{lem: prime factorization}, we may change from a prime $\fq$ to $\fq'$ via $\Gal(K/\bQ)$. On the other hand, the Galois group acts on the embedded lattice $\Lambda_R$ by permuting the coordinates. Hence we have a group homomorphism $$\phi: \Gal(K/\bQ) \to \Aut(\Lambda).$$ Since permutation matrices are orthonormal, the Galois group action on $\Lambda_R$ given by $\phi$ is distance-preserving. In particular, it preserves any spherical discrete Gaussian distribution on $\Lambda_R$. 
 \end{proof}
-\Katetodo{I'm worried about whether the Gaussian is still spherical in the adjusted embedding.  I think it is.}
 
 \subsection{Searching}
 
@@ -397,7 +391,7 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples & runtime (
 %The value $\widehat{p}$ is then our estimate of the sucess rate of our attack.  In addition, we estimate the runtime based on the average time taken for the tests we've done.
 
 \subsection{Discussion}
-One may notice that in all the vulnerable instances in Table~\ref{tab: attacked}, the prime $q$ has degree $f = 2$ in $K$. We have found the reason behind this phenomenon. Let $K$  be a Galois number field and suppose $q$ is a prime of degree $r$ in $K$. Suppose we have found a reduced basis $w_1,\cdots, w_n$ of $R$ with respect to the adjusted embedding. Fix a prime ideal $\fq$ above $q$. Then the images of the basis under the reduction modulo $\fq$ map are elements of $F = R/\fq$. Now if for some index $i$, the element $w_i$ lies inside some proper subfield $K'$ of $K$, and if $q$ has residual degree $r' < r$ in $K'$, then $w_i \pmod{\fq}$ will lie in a proper subfield of $F$. If the above situation happens for a large amount of the basis elements $w_i$, then we could  expect the reduced error distribution $D_{\cR,\fq}$ to take values in a proper subfield of $F$ more frequently. This would allow us to distinguish it from the uniform distribution on $F$.
+All the vulnerable instances found in Table~\ref{tab: attacked} involve primes of degree $2$.  We have a heuristic explanation for this phenomenon.  Let $K$  be a Galois number field and suppose $q$ is a prime of degree $r$ in $K$. Suppose we have found a short basis $w_1,\cdots, w_n$ of $R$ with respect to the adjusted embedding. Fix a prime ideal $\fq$ above $q$. Then the images of the basis under the reduction modulo $\fq$ map are elements of $F = R/\fq$. Now if for some index $i$, the element $w_i$ lies inside some proper subfield $K'$ of $K$, and if $q$ has residual degree $r' < r$ in $K'$, then $w_i \pmod{\fq}$ will lie in a proper subfield of $F$. If this occurs for a large number of the basis elements $w_i$, then we could  expect the reduced error distribution $D_{\cR,\fq}$ to take values in a proper subfield of $F$ more frequently. This would allow us to distinguish it from the uniform distribution on $F$.
 
 \subsection{A detailed example}
 In order to illustrate our discussion above together with the search-to-decision reduction, we study a vulnerable Galois RLWE instance in detail, where we generated RLWE samples, performed the attack, and used search-to-decision reduction to recover the entire secret $s$.
