@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.1.6)  28 SEP 2015 19:03
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.1.6)  29 SEP 2015 15:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -765,420 +765,175 @@ LaTeX Info: Redefining \nameref on input line 30.
 Class amsart Warning: Abstract should precede \maketitle in AMS document classe
 s; reported on input line 33.
 
-
-LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
-ne 40.
-
-
-LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
-ne 42.
-
-
-LaTeX Warning: Citation `ducas2012ring' on page 1 undefined on input line 42.
-
-
-LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
-ne 42.
-
-
-LaTeX Warning: Citation `eisentrager2014weak' on page 1 undefined on input line
- 42.
-
-
-LaTeX Warning: Citation `elos2015weak' on page 1 undefined on input line 44.
-
-
-LaTeX Warning: Citation `elos2015weak' on page 1 undefined on input line 44.
-
-
-LaTeX Warning: Citation `elos2015weak' on page 1 undefined on input line 44.
-
-
-LaTeX Warning: Citation `elos2015weak' on page 1 undefined on input line 46.
-
-
-LaTeX Warning: Citation `elos2015weak' on page 1 undefined on input line 46.
-
-
-LaTeX Warning: Reference `sec: background' on page 1 undefined on input line 51
-.
-
-
-LaTeX Warning: Reference `sec: s-to-d' on page 1 undefined on input line 51.
-
-
-LaTeX Warning: Reference `sec: chi-square' on page 1 undefined on input line 51
-.
-
-
-LaTeX Warning: Citation `elos2015weak' on page 1 undefined on input line 51.
-
-
-LaTeX Warning: Citation `lyubashevsky2013ideal' on page 1 undefined on input li
-ne 51.
-
 LaTeX Font Info:    Try loading font information for U+euf on input line 51.
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 )
+Underfull \vbox (badness 5490) has occurred while \output is active []
 
-LaTeX Warning: Reference `def: srlwe mod q' on page 1 undefined on input line 5
-1.
-
-
-LaTeX Warning: Reference `lem: prime factorization' on page 1 undefined on inpu
-t line 51.
-
-
-LaTeX Warning: Reference `sec: sub-cyclotomics' on page 1 undefined on input li
-ne 51.
-
-
-LaTeX Warning: Reference `sec: ramified-prime' on page 1 undefined on input lin
-e 53.
-
-
-LaTeX Warning: Reference `sec: cyclo-secure' on page 1 undefined on input line 
-53.
-
-[1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 81.
-
-
-LaTeX Warning: Citation `lyubashevsky2013ideal' on page 2 undefined on input li
-ne 96.
-
-
-LaTeX Warning: Citation `elos2015weak' on page 2 undefined on input line 107.
-
-
-LaTeX Warning: Citation `elos2015weak' on page 2 undefined on input line 121.
-
-[2]
-
-LaTeX Warning: Citation `gentry2008trapdoors' on page 3 undefined on input line
- 146.
-
-
-LaTeX Warning: Citation `lyubashevsky2013toolkit' on page 3 undefined on input 
-line 146.
-
-
-LaTeX Warning: Citation `eisentrager2014weak' on page 3 undefined on input line
- 152.
-
+ [1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
 
 LaTeX Warning: Citation `LPR?' on page 3 undefined on input line 152.
-
-
-LaTeX Warning: Citation `lyubashevsky2013ideal' on page 3 undefined on input li
-ne 152.
 
 
 LaTeX Warning: Reference `sec: chisquare' on page 3 undefined on input line 154
 .
 
-
-LaTeX Warning: Reference `eqn: Rq-factor' on page 3 undefined on input line 177
-.
-
-
-LaTeX Warning: Reference `eqn: Rq-factor' on page 3 undefined on input line 188
-.
-
-
-LaTeX Warning: Reference `lem: prime factorization' on page 3 undefined on inpu
-t line 188.
-
-
-LaTeX Warning: Reference `thm: reduction' on page 3 undefined on input line 191
-.
-
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
+ine 191.
 
 LaTeX Warning: Marginpar on page 3 moved.
 
 [3]
-
-LaTeX Warning: Citation `lyubashevsky2013ideal' on page 4 undefined on input li
-ne 210.
-
 
 LaTeX Warning: Citation `EHL' on page 4 undefined on input line 220.
 
 
 LaTeX Warning: Citation `ELOS' on page 4 undefined on input line 220.
 
+[4]
 
-LaTeX Warning: Marginpar on page 4 moved.
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 262.
+(hyperref)                removing `\mathop' on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathop' on input line 262.
+(hyperref)                removing `\mathcode' on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 262.
+(hyperref)                removing `\mathcode' on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 262.
+(hyperref)                removing `\mathcode' on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 262.
+(hyperref)                removing `\mathchardef' on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathchardef' on input line 262.
+(hyperref)                removing `\std@minus' on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\std@minus' on input line 262.
+(hyperref)                removing `\mathcode' on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 262.
+(hyperref)                removing `\mathcode' on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 262.
+(hyperref)                removing `\mathcode' on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 262.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathcode' on input line 262.
+(hyperref)                removing `\mathcode' on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                \kern 2.55527pt
-(hyperref)                removed on input line 262.
+(hyperref)                removed on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mathgroup' on input line 262.
+(hyperref)                removing `\mathgroup' on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\symoperators' on input line 262.
+(hyperref)                removing `\symoperators' on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 262.
+(hyperref)                removing `\@ifnextchar' on input line 259.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 262.
+(hyperref)                removing `math shift' on input line 259.
 
 
 Package hyperref Warning: Composite letter `\textacute+3'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textacute' on input line 262.
+(hyperref)                removing `\textacute' on input line 259.
 
 
 Package hyperref Warning: Composite letter `\textdotaccent+"'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textdotaccent' on input line 262.
-
-[4]
-
-LaTeX Warning: Reference `alg: chi-square' on page 5 undefined on input line 26
-4.
-
-
-LaTeX Warning: Marginpar on page 5 moved.
-
-
-LaTeX Warning: Marginpar on page 5 moved.
-
-
-LaTeX Warning: Marginpar on page 5 moved.
-
-
-LaTeX Warning: Marginpar on page 5 moved.
+(hyperref)                removing `\textdotaccent' on input line 259.
 
 
 LaTeX Warning: Marginpar on page 5 moved.
 
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 279.
-
-LaTeX Warning: Reference `thm: attack' on page 5 undefined on input line 314.
-
+put line 270.
 
 LaTeX Warning: Marginpar on page 5 moved.
 
 
-LaTeX Warning: Reference `alg: chi-square' on page 5 undefined on input line 31
-9.
-
-
 LaTeX Warning: Marginpar on page 5 moved.
 
-[5]
-
-LaTeX Warning: Citation `ryabko2004new' on page 6 undefined on input line 330.
-
-
-LaTeX Warning: Reference `thm: attack' on page 6 undefined on input line 334.
-
-
-LaTeX Warning: Reference `thm: attack' on page 6 undefined on input line 338.
-
-<attack-quality.png, id=98, 578.16pt x 433.62pt>
+[5] <attack-quality.png, id=204, 578.16pt x 433.62pt>
 File: attack-quality.png Graphic file (type png)
  <use attack-quality.png>
-Package pdftex.def Info: attack-quality.png used on input line 341.
+Package pdftex.def Info: attack-quality.png used on input line 334.
 (pdftex.def)             Requested size: 281.85587pt x 211.39055pt.
 
-
-LaTeX Warning: Citation `johnston2011notes' on page 6 undefined on input line 3
-51.
-
 [6 <./attack-quality.png>]
-
-LaTeX Warning: Marginpar on page 7 moved.
-
-
-LaTeX Warning: Reference `lem: prime factorization' on page 7 undefined on inpu
-t line 362.
-
-
-LaTeX Warning: Reference `alg: chi-square' on page 7 undefined on input line 36
-8.
-
-
-LaTeX Warning: Citation `gentry2008trapdoors' on page 7 undefined on input line
- 368.
-
-
-LaTeX Warning: Reference `tab: attacked' on page 7 undefined on input line 372.
-
-
-
-LaTeX Warning: Reference `tab: attacked' on page 7 undefined on input line 372.
-
-
-
-LaTeX Warning: Reference `lem: symmetry' on page 7 undefined on input line 372.
-
-
-
-Overfull \hbox (20.37105pt too wide) in paragraph at lines 376--388
+Overfull \hbox (20.37105pt too wide) in paragraph at lines 367--379
  [][] 
  []
 
-
-LaTeX Warning: Reference `tab: attacked' on page 7 undefined on input line 400.
-
-
-
-LaTeX Warning: Reference `alg: chi-square' on page 7 undefined on input line 40
-6.
-
-
-LaTeX Warning: Reference `thm: reduction' on page 7 undefined on input line 406
-.
-
-[7]
-
-LaTeX Warning: Reference `tab: ramified' on page 8 undefined on input line 420.
-
-
-pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
- been already used, duplicate ignored
+[7]pdfTeX warning (ext4): destination with the same identifier (name{table.1}) 
+has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.424 ... DRLWE for $K= \bQ(\zeta_p)$ and $q = p$}
-                                                  
-
-LaTeX Warning: Citation `brakerski2012leveled' on page 8 undefined on input lin
-e 562.
-
-
-LaTeX Warning: Citation `langlois2014worst' on page 8 undefined on input line 5
-62.
-
-[8]
+l.415 ... DRLWE for $K= \bQ(\zeta_p)$ and $q = p$}
+                                                   [8]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 596.
+(amsmath)                 on input line 587.
 
-<v8.png, id=129, 566.5968pt x 277.5168pt>
+<v8.png, id=245, 566.5968pt x 277.5168pt>
 File: v8.png Graphic file (type png)
  <use v8.png>
-Package pdftex.def Info: v8.png used on input line 604.
+Package pdftex.def Info: v8.png used on input line 595.
 (pdftex.def)             Requested size: 234.8775pt x 115.04028pt.
- [9 <./v8.png>] [10]
-
-LaTeX Warning: Reference `lem: transform1' on page 11 undefined on input line 7
-02.
-
-
-LaTeX Warning: Reference `fact: basicfourier' on page 11 undefined on input lin
-e 702.
-
-
-LaTeX Warning: Reference `prop: bound' on page 11 undefined on input line 724.
-
-
-LaTeX Warning: Reference `distance' on page 11 undefined on input line 735.
-
-pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
- been already used, duplicate ignored
+ [9 <./v8.png>] [10]pdfTeX warning (ext4): destination with the same identifier
+ (name{table.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.746 \caption{Values of $\epsilon'(m,q,2)$}
-                                             [11]
+l.737 \caption{Values of $\epsilon'(m,q,2)$}
+                                             [11] [12] (./galois-rlwe.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 822.
 
-LaTeX Warning: Reference `tab: deg1' on page 12 undefined on input line 764.
-
-
-LaTeX Warning: Reference `table: deg2' on page 12 undefined on input line 774.
-
-
-LaTeX Warning: Reference `tab: deg2' on page 12 undefined on input line 805.
-
-[12] (./galois-rlwe.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 831.
- [13]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 831.
+[13]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 822.
  (./galois-rlwe.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 831.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 831.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 822.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 822.
+Package rerunfilecheck Info: File `galois-rlwe.out' has not changed.
+(rerunfilecheck)             Checksum: BCBBC99BBC48F5EFE587C5269E33150A;1496.
 
-
-Package rerunfilecheck Warning: File `galois-rlwe.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `galois-rlwe.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  9DC1C92BBC0B1DB411D6F63A88968B11;1496.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 831.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 822.
  ) 
 Here is how much of TeX's memory you used:
- 17095 strings out of 493315
- 301836 string characters out of 6137905
- 427336 words of memory out of 5000000
- 19944 multiletter control sequences out of 15000+600000
+ 17073 strings out of 493315
+ 301047 string characters out of 6137905
+ 414154 words of memory out of 5000000
+ 19929 multiletter control sequences out of 15000+600000
  12124 words of font info for 49 fonts, out of 8000000 for 9000
  1118 hyphenation exceptions out of 8191
- 69i,11n,76p,1244b,712s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 69i,11n,76p,1244b,711s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><
 /usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><
@@ -1203,10 +958,10 @@ mf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2013
 /texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texli
 ve/2013/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (13 pages, 386767 bytes).
+Output written on galois-rlwe.pdf (13 pages, 385829 bytes).
 PDF statistics:
- 291 PDF objects out of 1000 (max. 8388607)
- 245 compressed objects within 3 object streams
- 111 named destinations out of 1000 (max. 500000)
- 23 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 400 PDF objects out of 1000 (max. 8388607)
+ 353 compressed objects within 4 object streams
+ 104 named destinations out of 1000 (max. 500000)
+ 175 words of extra memory for PDF output out of 10000 (max. 10000000)
 
