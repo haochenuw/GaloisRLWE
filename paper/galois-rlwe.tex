@@ -245,7 +245,7 @@ For each $1 \leq j \leq r$, we compute the expected number of samples in the $j$
 \[
     \chi^2(S,y) = \sum_{j = 1}^r \frac{(t_j -c_j)^2}{c_j}.
 \]
-Suppose the samples are drawn from the uniform distribution on $S$. Then the $\chi^2$ value follows the chi-square distribution with $(r-1)$ degrees of freedom, which we denote by $\chi_{r-1}^2$. Let $\cF_{r-1}(x)$ denote its cumulative distribution function. For the chi-square test, we choose a confidence level parameter $\alpha \in (0,1)$ and compute $\delta = \cF_{r-1}^{-1}(\alpha)$. Finally, we reject the hypothesis that the samples are drawn from the uniform distribution if $\chi^2(S,y)  > \delta$. 
+Suppose the samples are drawn from the uniform distribution on $S$. Then the $\chi^2$ value follows the chi-square distribution with $(r-1)$ degrees of freedom, which we denote by $\chi_{r-1}^2$. Let $\cF_{r-1}(x)$ denote its cumulative distribution function. For the chi-square test, we choose a confidence level parameter $\alpha \in (0,1)$ and compute $\delta = \cF_{r-1}^{-1}(\alpha)$. Then we reject the hypothesis that the samples are drawn from the uniform distribution if $\chi^2(S,y)  > \delta$. 
 
 If $P,Q$ are two probability distributions on the set $S$, then their {\it statistical distance} is defined as
 \[
@@ -256,9 +256,9 @@ For convenience, we also define the {\it $l_2$ distance} between $P$ and $Q$ as 
 
 \subsection{The chi-square attack on $\SRLWE(\cR,\fq)$}
 
-Let $\cR$ be an RLWE instance with error distribution $D_{\cR}$ and $\fq$ be a prime ideal above $q$.  The basic idea of our attack relies on the assumption that the distribution $D_\cR \pmod {\fq}$ is distinguishable from the uniform distribution on the finite field $F = R/\fq$. More precisely, the attack loops through all $q^f$ possible values $\bar{s} = s \pmod{\fq}$, and for each guess $s'$, it computes the values $\bar{e}' = \bar{b} - \bar{a} s' \pmod {\fq}$ for every sample $(a,b) \in S$. If the guess is wrong, or if the samples are taken from the uniform distribution in $(R_q)^2$, the values $\bar{e}'$ would be uniformly distributed in $F$ and it is likely to pass the chi-square test. On the other hand, if the guess is correct, then we expect the test on the errors $\bar{e}'$ to reject the null hypothesis. We remark that one needs at least $\Omega(N)$ samples for the test to work effectively. 
+Let $\cR$ be an RLWE instance with error distribution $D_{\cR}$ and $\fq$ be a prime ideal above $q$.  The basic idea of our attack relies on the assumption that the distribution $D_\cR \pmod {\fq}$ is distinguishable from the uniform distribution on the finite field $F = R/\fq$. More precisely, the attack loops through all $q^f$ possible values $\bar{s} = s \pmod{\fq}$, and for each guess $s'$, it computes the values $\bar{e}' = \bar{b} - \bar{a} s' \pmod {\fq}$ for every sample $(a,b) \in S$. If the guess is wrong, or if the samples are taken from the uniform distribution in $(R_q)^2$, the values $\bar{e}'$ would be uniformly distributed in $F$ and it is likely to pass the chi-square test. On the other hand, if the guess is correct, then we expect the test on the errors $\bar{e}'$ to reject the null hypothesis. Let $N = q^f$ denote the cardinality of $F$. We remark that one needs at least $\Omega(N)$ samples for the test to work effectively. 
 
-Let $N = q^f$ denote the cardinality of $F$. For the attack to be successful, we need the $(N-1)$ tests corresponding to wrong guess of $s \pmod{\fq}$ to pass, and the one test corresponding to the correct guess to be rejected. For this purpose, we need to choose the confidence level $\alpha$ to be close enough to one (a reasonable choice is $\alpha = 1 - \frac{1}{10N}$). The detailed attack is described in Algorithm~\ref{alg: chi-square}.  Let $\cF_{N-1}(x)$ denote the cumulative distribution function of $\chi_{N-1}^2$. 
+For the attack to be successful, we need the $(N-1)$ tests corresponding to wrong guesses of $s \pmod{\fq}$ to pass, and the one test corresponding to the correct guess to be rejected. For this purpose, we need to choose the confidence level $\alpha$ to be close enough to one (a reasonable choice is $\alpha = 1 - \frac{1}{10N}$). The detailed attack is described in Algorithm~\ref{alg: chi-square}.  Let $\cF_{N-1}(x)$ denote the cumulative distribution function of $\chi_{N-1}^2$. 
 %Let $\beta$ denote the probability that the sample errors fails the uniform test with probability  Then the probability that our algorithm will success is $p  = (1- \frac{1}{10N})^{N-1} \beta$. Note that when $N$ is large, $(1- \frac{1}{10N})^{N-1}$ is about $e^{-1/10} \approx 0.904$.
 
 
@@ -270,7 +270,7 @@ Let $N = q^f$ denote the cardinality of $F$. For the attack to be successful, we
 \caption{chi-square attack of $SRLWE(\cR,\fq$)}          % give the algorithm a caption
 \label{IPR}                           % and a label for \ref{} commands later in the document
 \begin{algorithmic}[1]              % enter the algorithmic environment
-    \Require  $\cR = (K,q,\sigma, s)$ -- an RLWE instance; $R$ -- the ring of integers of $K$; \\$\fq$ -- a prime ideal in $K$ above $q$; $F = R/\fq$ -- the residual field of $\fq$; $N$ -- the cardinality of $F$; $\mathcal{S}$ -- a collection of $M$ ($M = \Omega(N)$) RLWE samples from $\cR$; $0 < \alpha < 1$ -- the confidence level. 
+    \Require  $\cR = (K,q,\sigma, s)$ -- an RLWE instance; $R$ -- the ring of integers of $K$; $\fq$ -- a prime ideal in $K$ above $q$; $F = R/\fq$ -- the residual field of $\fq$; $N$ -- the cardinality of $F$; $\mathcal{S}$ -- a collection of $M$ ($M = \Omega(N)$) RLWE samples from $\cR$; $0 < \alpha < 1$ -- the confidence level. 
     \Ensure a guess of the value $s \pmod{\fq}$, or {\bf NOT-RLWE}, or {\bf INSUFFICIENT-SAMPLES}
     \State $\delta \gets \cF_{N-1}^{-1}(\alpha)$, $\cG \gets \emptyset$.
     \For{$s$ in $F$}
@@ -315,11 +315,11 @@ $$p  \geq \alpha^{N-1} (1-  \cF_{N-1; \lambda}(\delta) ).$$
 \Katetodo{Define $\alpha$ in statement.}
 
 \begin{proof}
-It is a standard fact (see \cite{ryabko2004new}, for example) that chi-square value on samples from $D_{\cR, \fq}$  follows the noncentral chi-square distribution with $(N-1)$ degrees of freedom and parameter $\lambda_0$ given by
+It is a standard fact (see \cite{ryabko2004new}, for example) that the chi-square value on samples from $D_{\cR, \fq}$  follows the noncentral chi-square distribution with $(N-1)$ degrees of freedom and parameter $\lambda_0$ given by
 \[
     \lambda_0 =  d_2(D_{\cR, \fq}, U(R/\fq))^2 \cdot MN.
 \]
-Note that we have $\lambda_0 \geq \lambda$. Recall that our attack succeeds if the set $\cE$ from all $(N-1)$ wrong guesses passes the test, and the true errors modulo $\fq$ fail the test. Assuming these samples are independent of each other, the first event happens with probability $\alpha^{N-1}$, whereas the second event has probability  $(1-  \cF_{N-1; \lambda_0}(\delta))$. Since this is an increasing function in $\lambda_0$, we replace $\lambda_0$ by $\lambda$ and the theorem follows. 
+Note that we have $\lambda_0 \geq (2d(D_{\cR, \fq}, U(R/\fq))/\sqrt{N})^2 MN = 4M\Delta^2 = \lambda$. Recall that our attack succeeds if the ``error'' set $\cE$ from each of the $(N-1)$ wrong guesses of $s \pmod{\fq}$ passes the test, and the true reduced errors fails the test. We assume that the results of these tests are independent of each other. Then the first event happens with probability $\alpha^{N-1}$, whereas the second event has probability  $(1-  \cF_{N-1; \lambda_0}(\delta))$. Since this is an increasing function in $\lambda_0$, we replace $\lambda_0$ by $\lambda$ and the theorem follows. 
 \end{proof}
 \Katetodo{I'm worried about the approximation by a normal distribution; at the very least the probability needs to be given as a bound, not an exact probability.}
 
@@ -328,7 +328,7 @@ One could vary $\alpha$ in Theorem~\ref{thm: attack} to suit the specific instan
 The probability of success will change accordingly. When we expect the statistical distance $\Delta$ to be large, it is preferable to choose a larger $\alpha$ to increase the probability of success.  For example, if we choose $\alpha = 1-\frac{1}{10N}$, then $\alpha^{N-1} \geq e^{-1/10} = 0.904 \cdots$. 
 \end{remark}
 
-The following is a plot of $p$ versus $\Delta$ for various choices of $N$, made according to Theorem~\ref{thm: attack}, where we fix the number of samples to be $M = 5N$.
+The following is a plot of $p$ versus $\Delta$ for various choices of $N$, made according to Theorem~\ref{thm: attack}, where we fix the number of samples to be $M = 5N$ and fix $\alpha = 1-\frac{1}{10N}$.
 
 \begin{center}
 \includegraphics[width = 0.60\textwidth]{attack-quality.png}
@@ -351,7 +351,7 @@ Suppose $\cR$ is an RLWE instance such that the underlying field $K$ is a Galois
 \end{Lemma}
 
 \begin{proof}
-        From Lemma \ref{lem: prime factorization}, we may change from a prime $\fq$ to $\fq'$ via $\Gal(K/\bQ)$. On the other hand, the Galois group acts on the embedded lattice $\Lambda_R$ by permuting the coordinates. Hence we have a group homomorphism $$\phi: \Gal(K/\bQ) \to \Aut(\Lambda).$$ Since permutation matrices are orthonormal, the Galois group action on $\Lambda_R$ given by $\phi$ is distance-preserving. In particular, it preserves any spherical discrete Gaussian distribution on $\Lambda_R$. 
+        From Lemma \ref{lem: prime factorization}, we may change from a prime $\fq$ to $\fq'$ via $\Gal(K/\bQ)$. On the other hand, the Galois group acts on the embedded lattice $\Lambda_R$ by permuting the coordinates. Hence we have a group homomorphism $$\phi: \Gal(K/\bQ) \to \Aut(\Lambda).$$ Since permutation matrices are orthogonal, the Galois group action on $\Lambda_R$ given by $\phi$ is distance-preserving. In particular, it preserves any spherical discrete Gaussian distribution on $\Lambda_R$. 
 \end{proof}
 
 \subsection{Searching}

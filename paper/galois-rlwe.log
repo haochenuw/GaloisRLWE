@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.1.6)  29 SEP 2015 15:45
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.1.6)  29 SEP 2015 22:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -929,7 +929,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 822.
 Here is how much of TeX's memory you used:
  17073 strings out of 493315
  301047 string characters out of 6137905
- 414154 words of memory out of 5000000
+ 414145 words of memory out of 5000000
  19929 multiletter control sequences out of 15000+600000
  12124 words of font info for 49 fonts, out of 8000000 for 9000
  1118 hyphenation exceptions out of 8191
@@ -958,7 +958,7 @@ mf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2013
 /texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texli
 ve/2013/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (13 pages, 385829 bytes).
+Output written on galois-rlwe.pdf (13 pages, 386074 bytes).
 PDF statistics:
  400 PDF objects out of 1000 (max. 8388607)
  353 compressed objects within 4 object streams
