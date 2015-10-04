@@ -1,6 +1,6 @@
-\documentclass{llncs}
+\documentclass[envcountsect]{llncs}
 \title{Attacks on Search-RLWE}
-\author{Hao Chen, Kristin Lauter, and Katherine E. Stange}
+%\author{Hao Chen, Kristin Lauter, and Katherine E. Stange}
 
 \usepackage{macros}
 \usepackage{float}
@@ -51,9 +51,9 @@ In our paper, we generalize the attack of \cite{elos2015weak} to Galois number f
 
 \subsection{Organization}
 
-In section \ref{sec: background}, we recall the canonical embedding of number fields and the central definitions related to the RLWE problems. In section \ref{sec: s-to-d}, we review prime factorizations in Galois extensions and prove a search-to-decision reduction for Galois extensions $K$ and unramified primes of any degree. In section \ref{sec: chi-square}, we introduce an attack to RLWE problems based on the chi-square statistical test, which directly generalizes the attack in \cite{elos2015weak}. More precisely, the attack aims at two problems: the decision version of RLWE, and an intermediate problem used in the search-to-decision proof of \cite{lyubashevsky2013ideal}, which we denote by $\SRLWE(\cR,\fq)$ (see Definition~\ref{def: srlwe mod q}). The time complexity of our attack for both problems above is $O(\frac{n}{f}q^{2f})$, Here $n$ is the degree of the number field $K$, and $f$ is the {\it residual degree} of $q$ in $K$ (see Lemma~\ref{lem: prime factorization}). In section \ref{sec: sub-cyclotomics}, we give examples of subfields of cyclotomic fields vunlerable to our new attack, where the moduli $q$ has residual degree two.
+In section \ref{sec: background}, we recall the canonical embedding of number fields and central definitions related to the RLWE problems. In section \ref{sec: s-to-d}, we review prime factorizations in Galois extensions and prove a search-to-decision reduction for Galois extensions $K$ and unramified moduli. In section \ref{sec: chi-square}, we introduce an attack to RLWE problems based on the chi-square statistical test, which directly generalizes the attack in \cite{elos2015weak}. More precisely, the attack aims at an intermediate problem used in the search-to-decision proof of \cite{lyubashevsky2013ideal}, which we denote by $\SRLWE(\cR,\fq)$ (see Definition~\ref{def: srlwe mod q}). The time complexity of our attack is $O(q^{2f})$, where $f$ is the {\it residual degree} of $q$ in $K$ (see Lemma~\ref{lem: prime factorization}). In section \ref{sec: sub-cyclotomics}, we give examples of subfields of cyclotomic fields vulnerable to our new attack, where the modulus $q$ has residual degree two.
 
-In section \ref{sec: ramified-prime}, we show that our attack works on prime cyclotomic fields when the moduli is equal to the unique ramified prime. Finally, in section \ref{sec: cyclo-secure}, we show that general cyclotomic extensions with an unramified prime as the modulus $q$ are invulnerable to our attack.
+In section \ref{sec: ramified-prime}, we show that our attack works on prime cyclotomic fields when the modulus is the unique ramified prime. Finally, in section \ref{sec: cyclo-secure}, we use Fourier analysis to give numerical evidence that cyclotomic extensions with unramified moduli are invulnerable to our attack.
 
 All computations in this paper were performed in Sage \cite{sage}. All relevant code can be found at \url{https://github.com/haochenuw/GaloisRLWE}.
 
@@ -131,7 +131,7 @@ $$(a, b = as+e\pmod{qR}) \in R_q \times R_q, $$
 where the first coordinate $a$ is chosen uniformly at random in $R_q$, and $e \gets D_\cR$.
 \end{definition}
 
-We use the shorthand notation $(a,b) \gets \cR$ to represent that $(a,b)$ is sampled from the RLWE dsitribution of $\cR$. 
+We use the shorthand notation $(a,b) \gets \cR$ to represent that $(a,b)$ is sampled from the RLWE distribution of $\cR$. 
 
 The RLWE problem has two major variants: search and decision.
 
@@ -205,7 +205,7 @@ rather strongly on the instance and on the way ring elements are represented. Fo
 
 The search-to-decision reduction will follow from the lemma below.
 \begin{lemma}
-There is a probablistic polynomial time reduction from $\SRLWE(\cR,\fq)$ to $\DRLWE(\cR)$.
+There is a probabilistic polynomial time reduction from $\SRLWE(\cR,\fq)$ to $\DRLWE(\cR)$.
 \end{lemma}
 
 \begin{proof}
@@ -213,13 +213,13 @@ This is a rephrasing of \cite[Lemma 5.9 and Lemma 5.12]{lyubashevsky2013ideal}.
 \qed \end{proof}
 
 \begin{corollary}\label{cor: s-to-d}
-Suppose $\cR$ is an RLWE instance where $K$ is Galois and $q$ is an unramified prime in $K$. Then there is a probablistic polynomial-time reduction from $\SRLWE(\cR)$ to $\DRLWE(\cR)$.
+Suppose $\cR$ is an RLWE instance where $K$ is Galois and $q$ is an unramified prime in $K$. Then there is a probabilistic polynomial-time reduction from $\SRLWE(\cR)$ to $\DRLWE(\cR)$.
 \end{corollary}
 
 \section{The chi-square attack for uniform distribution}
 \label{sec: chi-square}
 
-In this section, we extend the $f(1) \equiv 0 \pmod q$ attack of \cite{eisentrager2014weak} and the root-of-small-order attack of \cite{elos2015weak}.  These attacks can be viewed as examples of a more general attack principle, as follows.  Suppose one has a ring homorphism
+In this section, we extend the $f(1) \equiv 0 \pmod q$ attack of \cite{eisentrager2014weak} and the root-of-small-order attack of \cite{elos2015weak}.  These attacks can be viewed as examples of a more general attack principle, as follows.  Suppose one has a ring homomorphism
 \[
         \phi: R_q \rightarrow F 
 \]
@@ -268,10 +268,11 @@ For the attack to be successful, we need the $(N-1)$ tests corresponding to wron
     \Katetodo{Why is $\Phi$ from standard normal distr and not from $\chi^2$ distribution?}
     \Katetodo{Does it matter what bins we use?  For example, I think a subfield should be a bin, given the patterns we've observed.  Maybe we should put this choice in the Require too.}
 
-\begin{algorithm}[H] \label{alg: chi-square}
-\caption{chi-square attack of $SRLWE(\cR,\fq$)}          % give the algorithm a caption
-\label{IPR}                           % and a label for \ref{} commands later in the document
-\begin{algorithmic}[1]              % enter the algorithmic environment
+\begin{algorithm}
+\caption{chi-square attack of $SRLWE(\cR,\fq$)}    
+ \label{alg: chi-square}        % give the algorithm a caption
+              % and a label for \ref{} commands later in the document
+\begin{algorithmic} % enter the algorithmic environment
     \Require  $\cR = (K,q,\sigma, s)$ -- an RLWE instance; $R$ -- the ring of integers of $K$; $\fq$ -- a prime ideal in $K$ above $q$; $F = R/\fq$ -- the residual field of $\fq$; $N$ -- the cardinality of $F$; $\mathcal{S}$ -- a collection of $M$ ($M = \Omega(N)$) RLWE samples from $\cR$; $0 < \alpha < 1$ -- the confidence level. 
     \Ensure a guess of the value $s \pmod{\fq}$, or {\bf NOT-RLWE}, or {\bf INSUFFICIENT-SAMPLES}
     \State $\delta \gets \cF_{N-1}^{-1}(\alpha)$, $\cG \gets \emptyset$.
@@ -305,7 +306,7 @@ For the attack to be successful, we need the $(N-1)$ tests corresponding to wron
 
 \Katetodo{I think in the algorithm it would be best to use the chi-squared distribution not the normal approximation; in implementations, people can be looser, but no reason not to do it properly in theory.}
 
-The time complexity of the attack is $O(N)$ since there are $N$ possible values for $s \pmod {\fq}$. The number of samples need for the attack is also $O(N)$. The correctness of the attack is captured in Theorem~\ref{thm: attack} below. We use $D_{\cR,\fq}$ as a shorthand notation for $D_{\cR} \pmod{\fq}$. Let $\Delta$ denote the statistical distance between the distribution $D_{\cR, \fq}$ and the uniform distribution on $R/\fq$. For $\lambda \in \bR$ and $d \in \bZ$, we use $\cF_{d,\lambda}(x)$ to denote the cumulative distribution function of the noncentral chi-square distribution with degree of freedom $d$ and parameter $\lambda$. \Katetodo{The explanation of $\Phi$ should go in background along with confidence level stuff.}
+The time complexity of the attack is $O(N^2)$ since there are $N$ possible values for $s \pmod {\fq}$ and the number of samples needed is $O(N)$. The correctness of the attack is captured in Theorem~\ref{thm: attack} below. We use $D_{\cR,\fq}$ as a shorthand notation for $D_{\cR} \pmod{\fq}$. Let $\Delta$ denote the statistical distance between the distribution $D_{\cR, \fq}$ and the uniform distribution on $R/\fq$. For $\lambda \in \bR$ and $d \in \bZ$, we use $\cF_{d,\lambda}(x)$ to denote the cumulative distribution function of the noncentral chi-square distribution with degree of freedom $d$ and parameter $\lambda$. \Katetodo{The explanation of $\Phi$ should go in background along with confidence level stuff.}
 \Katetodo{This requirement of the chi-square test should go in background section}
 
 
@@ -330,11 +331,12 @@ One could vary $\alpha$ in Theorem~\ref{thm: attack} to suit the specific instan
 The probability of success will change accordingly. When we expect the statistical distance $\Delta$ to be large, it is preferable to choose a larger $\alpha$ to increase the probability of success.  For example, if we choose $\alpha = 1-\frac{1}{10N}$, then $\alpha^{N-1} \geq e^{-1/10} = 0.904 \cdots$. 
 \end{remark}
 
-The following is a plot of $p$ versus $\Delta$ for various choices of $N$, made according to Theorem~\ref{thm: attack}, where we fix the number of samples to be $M = 5N$ and fix $\alpha = 1-\frac{1}{10N}$.
+Figure~\ref{fig: probability} shows a plot of $p$ versus $\Delta$ for various choices of $N$, made according to Theorem~\ref{thm: attack}, where we fix the number of samples to be $M = 5N$ and fix $\alpha = 1-\frac{1}{10N}$.
 \begin{figure}
 \begin{center}
 \includegraphics[width = 0.60\textwidth]{attack-quality.png}
 \caption{Success probability versus statistical distance}
+\label{fig: probability}
 \end{center}
 \end{figure}
 \section{Vulnerable instances among subfields of cyclotomic fields}\label{sec: sub-cyclotomics}
@@ -358,16 +360,16 @@ Suppose $\cR$ is an RLWE instance such that the underlying field $K$ is a Galois
 
 \subsection{Searching}
 
-Algorithm~\ref{alg: chi-square} allows us to search for vulnerable instances among fields of form $K_{m,H}$ by generating actual RLWE samples and running the attack. Success of the attack will indicate vulnerability of the instance. Note that our field searching requires sampling efficiently from a discete Gaussian $D_{\Lambda, \sigma}$, for which we use the efficient algorithm of \cite{gentry2008trapdoors}. 
+Algorithm~\ref{alg: chi-square} allows us to search for vulnerable instances among fields of form $K_{m,H}$ by generating actual RLWE samples and running the attack. Success of the attack will indicate vulnerability of the instance. Note that our field searching requires sampling efficiently from a discrete Gaussian $D_{\Lambda, \sigma}$, for which we use the efficient algorithm of \cite{gentry2008trapdoors}. 
 
 \Katetodo{Is this really what you did, Hao?  It seems like it makes more sense to just chi-square test the distribution of errors, instead of running the full attack (i.e. looping through guesses).}
 
 In Table~\ref{tab: attacked}, we list some instances on which the attack has succeeded. The columns of Table~\ref{tab: attacked} are as follows. The first two columns specify $m$ and the generators of $H$; the column labeled $f$ is the residual degree of $q$. The last column consists of either the runtime for an actual attack, or an estimation of the runtime. Note that we omitted our choice of prime ideal $\fq$, since due to Lemma~\ref{lem: symmetry} the choice of $\fq$ is irrelevant to our attack.
 
-\begin{table}\label{tab: attacked}
+\begin{table}
 \caption{Attacked sub-cyclotomic RLWE instances}
+\label{tab: attacked}
 \begin{center}
-
 \begin{tabular}{c|c|c|c|c|c|c|c}
 $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples & runtime (in hours) \\ \hline
 2805 &  [1684, 1618] & 40 & 67 & 2 & 1 & 22445 & 3.49 \\
@@ -383,6 +385,8 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples & runtime (
 \end{center}
 \end{table}
 
+\Katetodo{I think there should be some discussion of how $\sigma_0$ was chosen}
+
 \footnotetext{The ``estimated'' runtime means that we did not perform the full attack. Instead, we ran  several chi-square tests and estimate the runtime based on the average time for running one test.}
 
 
@@ -392,32 +396,34 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples & runtime (
 %The value $\widehat{p}$ is then our estimate of the sucess rate of our attack.  In addition, we estimate the runtime based on the average time taken for the tests we've done.
 
 \subsection{Discussion}
+
+\Katetodo{Did you search $f>2$ examples?  The first sentence seems to imply you searched all $f$ and only found $f=2$.}
 All the vulnerable instances found in Table~\ref{tab: attacked} involve primes of degree $2$.  We have a heuristic explanation for this phenomenon.  Let $K$  be a Galois number field and suppose $q$ is a prime of degree $r$ in $K$. Suppose we have found a short basis $w_1,\cdots, w_n$ of $R$ with respect to the adjusted embedding. Fix a prime ideal $\fq$ above $q$. Then the images of the basis under the reduction modulo $\fq$ map are elements of $F = R/\fq$. Now if for some index $i$, the element $w_i$ lies inside some proper subfield $K'$ of $K$, and if $q$ has residual degree $r' < r$ in $K'$, then $w_i \pmod{\fq}$ will lie in a proper subfield of $F$. If this occurs for a large number of the basis elements $w_i$, then we could  expect the reduced error distribution $D_{\cR,\fq}$ to take values in a proper subfield of $F$ more frequently. This would allow us to distinguish it from the uniform distribution on $F$.
 
+
 \subsection{A detailed example}
-In order to illustrate our discussion above together with the search-to-decision reduction, we study a vulnerable Galois RLWE instance in detail, where we generated RLWE samples, performed the attack, and used search-to-decision reduction to recover the entire secret $s$.
+In order to illustrate our discussion above together with the search-to-decision reduction, we study a vulnerable Galois RLWE instance in detail, where we generated RLWE samples, performed the attack, and used the search-to-decision reduction to recover the entire secret $s$.
 
 
-Let $m = 3003$ and $H$ be the subgroup of $(\bZ/m\bZ)^*$ generated by 2276, 2729 and 1123. Then $K = K_{m,H}$ is a Galois number field of degree $n = 30$. After a LLL lattice reduction on the canonical basis $w$, we obtained an basis $v_1, \cdots, v_n$ for the ring of integers $R$, ordered by increasing embedding length. We take the moduli to be $q = 131$, a prime of degree two in $K$. Finally, we take $\sigma_0 = 1$ and generate the secret $s$ from the discrete Gaussian $D_{\Lambda_R, \sigma}$. It turns out that there are 15 prime ideals in $K$ lying above $q$, which we denote by $\fq_1, \cdots, \fq_{15}$. We choose a prime $\fq$ above $q$ and denote by $\bar{v}$ the image of $v$ in $R/\fq$. We use $\bF_q$ to denote the prime subfield of $R/\fq \cong \bF_q^2$. It turns out that $\bar{v_i} \in \bF_q$ for $1 \leq i \leq 15$. We generated 1000 RLWE samples and used Algorithm~\ref{alg: chi-square} and Theorem~\ref{thm: reduction} to recover $s \pmod {\fq_i}$ for each $1 \leq j \leq 15$. Then we used Chinese remainder theorem to recover $s$. The attack succeeded in 32.8 hours.
+Let $m = 3003$ and $H$ be the subgroup of $(\bZ/m\bZ)^*$ generated by 2276, 2729 and 1123. Then $K = K_{m,H}$ is a Galois number field of degree $n = 30$. After a LLL lattice reduction on the canonical basis $w$, we obtained an basis $v_1, \cdots, v_n$ for the ring of integers $R$, ordered by increasing embedding length. We take the modulus to be $q = 131$, a prime of degree two in $K$. Finally, we take $\sigma_0 = 1$ and generate the secret $s$ from the discrete Gaussian $D_{\Lambda_R, \sigma}$. It turns out that there are 15 prime ideals in $K$ lying above $q$, which we denote by $\fq_1, \cdots, \fq_{15}$. We choose a prime $\fq$ above $q$ and denote by $\bar{v}$ the image of $v$ in $R/\fq$. We use $\bF_q$ to denote the prime subfield of $R/\fq \cong \bF_q^2$. It turns out that $\bar{v_i} \in \bF_q$ for $1 \leq i \leq 15$. We generated 1000 RLWE samples and used Algorithm~\ref{alg: chi-square} and Theorem~\ref{thm: reduction} to recover $s \pmod {\fq_i}$ for each $1 \leq j \leq 15$. Then we used Chinese remainder theorem to recover $s$. The attack succeeded in 32.8 hours.
 
-
+\Katetodo{I'm unclear on how LLL plays into things here.  It is not needed for the RLWE attack, right?,  so I think if we could segregate the discussion so that is clear, that would be nice.}
 
 
 
 \section{Attacking prime cyclotomic fields when the modulus is the ramified prime}
 \label{sec: ramified-prime}
 
-\subsection{Attacking the ramified prime} Let $p$ be an odd prime and $K = \bQ(\zeta_p)$. Then $K$ has degree $(p-1)$ and discriminant $p^{p-2}$.
+Let $p$ be an odd prime and $K = \bQ(\zeta_p)$. Then $K$ has degree $(p-1)$ and discriminant $p^{p-2}$.
 In addition, the prime $p$ is totally ramified in $K$. There is a unique prime ideal $\fp = (1 - \zeta_p)$ above $p$, and the reduction map  $\pi: R/pR \to \bF_p$ satisfies
 \[
         \pi(\zeta_p^i) = 1, \quad \forall i \in \bZ.
 \]
-Writing an RLWE error as  $e = \sum e_i \zeta_m^i$, we have $e \pmod{\fp} = \sum_i e_i$. Since the coefficients $e_i$ tends to be small, it is conceivable that  $e \pmod{\fp}$ takes on small values with higher probability, making the instance vulnerable to our chi-square attack. Table~\ref{tab: ramified} contains some data of some actual attacks we have done.
+Writing an RLWE error as  $e = \sum e_i \zeta_m^i$, we have $e \pmod{\fp} = \sum_i e_i$. Since the coefficients $e_i$ tend to be small, it is conceivable that  $e \pmod{\fp}$ takes on small values with higher probability, making the instance vulnerable to our chi-square attack. Table~\ref{tab: ramified} contains data of some actual attacks we have done.
 \begin{table}[H]
 \begin{center}
-
+\caption{Attacked instances of DRLWE for $K= \bQ(\zeta_p)$ and $q = p$}
 \label{tab: ramified}
-\caption{attacked instances of DRLWE for $K= \bQ(\zeta_p)$ and $q = p$}
 \begin{tabular}{c|c|c}
 $p$ & $\sigma_0$ & runtime(in seconds) \\
 \hline
@@ -428,6 +434,7 @@ $p$ & $\sigma_0$ & runtime(in seconds) \\
 \end{center}
 \end{table}
 
+\Katetodo{Add a discussion of how $\sigma_0$ is chosen here?}
 
 
 
@@ -553,14 +560,21 @@ $|e|\leq 6\sqrt{2(p-1)\pi} \sigma$. When $p \to \infty$, we have $|e \pmod {\fp}
 \qed \end{proof}
 \fi
 
-\subsection{Can modulus switching be used?}
+\section{Can modulus switching be used?}
+
+\Katetodo{I made this a separate section.}
+
+\Katetodo{In general, I'm skeptical of the second paragraph.  It seems to prove that modulus switching doesn't work for anything, ever.  It doesn't depend on our attack being the purpose.  I think something is fishy about the claim that a'' and b'' are uniform and independent.}
+
+\Katetodo{My understanding of the issue was that the error distribution is changed by modulus switching, and it becomes something uniform mod $\fq$ basically because the error grows too much.}
+
 The modulus switching procedure is a technique to reduce noise
-in RLWE samples, and has been discussed exetnsively in  \cite{brakerski2012leveled} and \cite{langlois2014worst}.
+in RLWE samples, and has been discussed extensively in  \cite{brakerski2012leveled} and \cite{langlois2014worst}.
 We recap the basic ideas of modulus switching. Let $\cR = (K, q, \sigma, s)$ be an RLWE instance. Choose $p < q$ as the new modulus and consider the instance $\cR' = (K,p,\sigma',s)$ for some $\sigma' > \sigma$. The main operation of modulus switching is a map
 \[
 \pi_{q,p} : R_q \to R_p,
 \]
-which ideally takes RLWE samples w.r.t. $\cR$ to RLWE samples w.r.t. $\cR'$. One example of such map being used in practice is as follows. Take $a$ in $R_q$, we first scale and get $\frac{p}{q}a \in 1/q R$. Then we sample a vector $a''$ from the shifted discrete Gaussian $D_{\Lambda_R, \tau, \alpha a}$ for some small $\tau > 0$, and output $a' = \alpha a - a''$. Since we expect $a''$ to be a  short vector, the point $a'$ can be viewed as a ``rounding'' of the point $\alpha a$ to the lattice $\Lambda_R$. One also requires that $\pi_{q,p}$ takes uniform distribution on $R_q$ to almost uniform distribution on $R_p$, which can be by taking $\tau$ to be reasonably large. It is a natural question then to ask whether modulus switching can be combined with our attack, to switch from a ``strong'' modulus to a ``weak'' modulus. However, a heuristic argument shows that the naive combination of our attack with modulus switching will not work.
+which ideally takes RLWE samples w.r.t. $\cR$ to RLWE samples w.r.t. $\cR'$. One example of such map being used in practice is as follows. Take $a$ in $R_q$, we first scale and get $\frac{p}{q}a \in \frac{1}{q} R$. Then we sample a vector $a''$ from the shifted discrete Gaussian $D_{\Lambda_R, \tau, \alpha a}$ for some small $\tau > 0$, and output $a' = \alpha a - a''$. Since we expect $a''$ to be a  short vector, the point $a'$ can be viewed as a ``rounding'' of the point $\alpha a$ to the lattice $\Lambda_R$. One also requires that $\pi_{q,p}$ takes uniform distribution on $R_q$ to almost uniform distribution on $R_p$, which can be by taking $\tau$ to be reasonably large. It is a natural question then to ask whether modulus switching can be combined with our attack, to switch from a ``strong'' modulus to a ``weak'' modulus. However, a heuristic argument shows that the naive combination of our attack with modulus switching will not work.
 
 To explain, suppose we have a sample $(a,b) \gets \cR$ and the switched sample $(a', b') = (\pi_{q,p}(a),\pi_{q,p}(b))$. Consider the error $e':= b' - a's$ and the distribution of $e' \pmod{\fp}$ for some prime ideal $\fp$ above $p$. Suppose $b = as+e+ \lambda q$ for some $\lambda \in R$. Then
 \begin{align*}
@@ -575,8 +589,13 @@ Since $p$ and $q$ are coprime, the domain of the reducing modulo $\fp$ map can b
 \section{Invulnerability of general cyclotomic extensions for unramified primes}
 \label{sec: cyclo-secure}
 
-We restrict our attention to cyclotomic fields. Let $m \geq 1$ be an integer and let $K = \bQ(\zeta_m)$ be the $m$-th cyclotomic filed. Let $q$ be a prime such that
-$q \equiv 1\pmod{m}$, so $q$ is unramified in $K$. Finally, let $\fq$ be a prime ideal above $q$. We will define two error distributions on $R$ that approximates the RLWE error distribution, and show numerical evidence that their reduced error distributions are indistinguishable from the uniform distribution $U(\bF_q)$. First, we introduce the PLWE error distribution on cyclotomic fields, which is commonly used in practice for homomorphic encryption schemes as a substitute to the RLWE error distribution. Let $n = \varphi(m)$ be the degree of $K$.
+In this section we provide some numerical evidence that for cyclotomic fields, the image of the RLWE error distribution modulo an unramified prime ideal $\fq$ is practically indistinguishable from uniform, implying that the cyclotomics are protected against the family of attacks in this paper.  We will define two error distributions that approximate the RLWE error distribution (the PLWE error distribution and the modified PLWE error distribution).  The advantage of these simpler distributions is the relative accessibility of a formula for a bound on the statistical distance between these distributions and the uniform distribution.  This eases computation and allows for heuristic arguments.
+\Katetodo{So, I gather we have a bound on how far these distributions are from uniform, but NOT a bound on how far they are from the RLWE distribution?}
+
+Let $m \geq 1$ be an integer and let $K = \bQ(\zeta_m)$ be the $m$-th cyclotomic field. Let $q$ be a prime such that
+$q \equiv 1\pmod{m}$, so $q$ is unramified in $K$. Finally, let $\fq$ be a prime ideal above $q$. 
+
+First, we introduce the PLWE error distribution on cyclotomic fields, which is commonly used in practice for homomorphic encryption schemes as a substitute for the RLWE error distribution. Let $n = \varphi(m)$ be the degree of $K$.
 \begin{definition}
 Let $\tau > 0$. A sample from the {\it PLWE distribution} $P_{m,\tau}$ is
 \[
@@ -585,7 +604,8 @@ Let $\tau > 0$. A sample from the {\it PLWE distribution} $P_{m,\tau}$ is
 where the $e_i$ are sampled independently from the discrete Gaussian $D_{\bZ,\tau}$.
 \end{definition}
 
-Next, with the aim of simplifying our analysis, we introduce a class of ``shifted binomial distributions'' indexed by even integers $k \geq 2$, aiming at approximating discrete Gaussians over $\bZ$.
+Next, with the aim of simplifying our analysis, we introduce a class of ``shifted binomial distributions'' indexed by even integers $k \geq 2$, which approximating discrete Gaussians over $\bZ$.
+
 \begin{definition}
 For an even integer $k \geq 2$, let $\cV_{k}$ denote the distribution over $\bZ$ such that for every $t \in \bZ$,
 
@@ -593,12 +613,13 @@ $$\prob(\cV_{k} = t) =  \begin{cases} \frac{1}{2^k}{k \choose t+\frac{k}{2}} &\m
 0 & \mbox{otherwise}  \end{cases}$$
 
 \end{definition}
-We will abuse notations and also use $\cV_{k}$ to denote the reduced reduced distribution $\cV_{k} \pmod {q}$ over $\bF_q$, and let $\nu_{k}$ denote its probability density function.
+We will abuse notation and also use $\cV_{k}$ to denote the reduced  distribution $\cV_{k} \pmod {q}$ over $\bF_q$, and let $\nu_{k}$ denote its probability density function. Figure~\ref{fig: v8} shows a plot of the function $v_8$. 
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width = 0.5\textwidth]{v8.png}
 \caption{Probability density function of $\cV_{8}$}
+\label{fig: v8}
 \end{figure}
 
 
@@ -614,7 +635,8 @@ where the coefficients $e'_i$ are sampled independently from $\cV_k$.
 
 
 
-\subsection{Fourier analysis}
+\subsection{Bounding the distance from uniform}
+
 We recall the definition and key properties of Fourier transform over finite fields.
 Suppose $f$ is a real-valued function on $\bF_q$. The {\it Fourier transform} of $f$ is defined as
 \[
@@ -623,39 +645,38 @@ Suppose $f$ is a real-valued function on $\bF_q$. The {\it Fourier transform} of
 where $\chi_y(a) := e^{2 \pi i ay/q}$.
 
 Let $u$ denote the probability density function of the uniform distribution over $\bF_q$, that is $u(a) = \frac{1}{q}$ for all $a \in \bF_q$. Let $\delta$ denote the characteristic function of the
-one-point set $\{0\} \subseteq \bF_q$. Recall that the convolution of two functions $f,g$ is
-\[
-    (f  \ast g ) (a) = \sum_{b \in \bF_q} f(a-b)g(b).
-\]
-
-We list without proof some basic properties of the Fourier transform.
+one-point set $\{0\} \subseteq \bF_q$. Recall that the convolution of two functions $f,g: \bF_q \to \bR$ is
+defined as $(f  \ast g ) (a) = \sum_{b \in \bF_q} f(a-b)g(b)$. We list without proof some basic properties of the Fourier transform.
 \begin{enumerate}
 \item $\widehat{\delta} = qu$; $\widehat{u} = \delta$.
 \item $\widehat{f \ast g} = \widehat{f} \cdot \widehat{g}$. 
-\item $f(a) = \frac{1}{q} \sum_{y \in \bF_q} \widehat{f}(y)\chi_y(a)$.
+\item $f(a) = \frac{1}{q} \sum_{y \in \bF_q} \widehat{f}(y)\chi_y(a)$ (the Fourier inversion formula).
 %\item Plancherel's formula states that
 %$||f||_2 = \frac{1}{q} ||\widehat{f}||_2$.
 %\item $\widehat{f(a - \lambda)}(s) =  \bar{\chi_s(\lambda)} f(s)$.
 \end{enumerate}
 
-Suppose $f,g$ are the probability density functions of two random variables $F,G$ with value in $\bF_q$. Let $h$ denote the density function of the sum $H =F+G$.
+%Suppose $f,g$ are the probability density functions of two random variables $F,G$ with value in $\bF_q$. Let $h$ denote the density function of the sum $H =F+G$.  
+The following is a standard result.
 
 \begin{lemma}
-Suppose the random variables $F,G$ are independent, then $h =  f \ast g$.
+Suppose the random variables $F,G$ are independent random variables with values in $\bF_q$, having probability density functions $f$ and $g$.  Then $h =  f \ast g$.
 In general, suppose $F_1, \cdots, F_n$ are mutually independent random variables in $\bF_q$, with probability density functions $f_1, \cdots, f_n$. Let $f$ denote the density function of the sum $F = \sum F_i$, then $f = f_1 \ast \cdots \ast f_n$.
 \end{lemma}
 
-\begin{proof}
-We prove the first claim. For any $a \in \bF_q$,
-\begin{align*}
-\prob(F+G = a) &= \sum_{b \in \bF_q} \prob(F = a-b, G =b) \\
-& = \sum_{b \in \bF_q} \prob(F = a-b)\prob(G =b).  \qquad \mbox{(since $F,G$ are independent)} \\
-& = (f \ast g)(a).
-\end{align*}
-The general case follows from an induction on $n$.
-\qed \end{proof}
+\Katetodo{I commented out the proof because I think we need space and this is general stuff, not our stuff.}
 
-The Fourier transform of $\nu_k$ has a nice closed-form formula.
+%\begin{proof}
+%We prove the first claim. For any $a \in \bF_q$,
+%\begin{align*}
+%\prob(F+G = a) &= \sum_{b \in \bF_q} \prob(F = a-b, G =b) \\
+%& = \sum_{b \in \bF_q} \prob(F = a-b)\prob(G =b).  \qquad \mbox{(since $F,G$ are independent)} \\
+%& = (f \ast g)(a).
+%\end{align*}
+%The general case follows from an induction on $n$.
+%\qed \end{proof}
+
+The Fourier transform of $\nu_k$ has a nice closed-form formula, as below.
 \begin{lemma}
 \label{lem: transform1}
 For all even integers $k \geq 2$, $\widehat{\nu_k}(y)  = \cos \left(\frac{\pi y}{q}\right)^k.$
@@ -675,7 +696,7 @@ Dividing both sides by $2^k$ gives the result.
 
 
 Next, we concentrate on the reduced distributions $P_{m,\tau} \pmod{\fq}$ and $P'_{m,k} \pmod {\fq}$. Note that there is a one-to-one correspondence between primitive $m$-th roots of unity in $\bF_q$ and the prime ideals above $q$ in $\bQ(\zeta_m)$. Let $\alpha$ be the root corresponding to our choice of $\fq$. Then a sample from $P_{m, \tau} \pmod{\fq}$ (resp. $P'_{m,k} \pmod {\fq}$) is
-
+of the form
 
 $$ \sum_{i=0}^{n-1} \alpha^i e_i \pmod {q},$$
 
@@ -726,15 +747,32 @@ Now let $\epsilon'(m,q,k,\alpha)$ denote the right hand side of (\ref{distance})
 \[
     \epsilon'(m,q,k, \alpha) = \frac{1}{2}\sum_{y \in \bF_q, y \neq 0} \prod_{i=0}^{n-1} \cos \left(\frac{ \alpha^i \pi y}{q} \right)^k.
 \]
-To take into account all prime ideals above $q$, we let $\alpha$ run through all primitive $m$-th root of unities in $\bF_q$ and define
+To take into account all prime ideals above $q$, we let $\alpha$ run through all primitive $m$-th roots of unity in $\bF_q$ and define
 $$\epsilon'(m,q,k) := \max \{\epsilon'(m,q,k,\alpha): \alpha \mbox{ has order } m \mbox{ in } \bF_q\}.$$
-If $\epsilon'(m,q,k)$ is negligibly small, the distribution $P'_{m,k} \pmod {\fq}$ will be computationally indistinguishable from uniform. We have computed $\epsilon'(m,q,k)$ for various choices of parameters. The following is a table of data.
+If $\epsilon'(m,q,k)$ is negligibly small, the distribution $P'_{m,k} \pmod {\fq}$ will be computationally indistinguishable from uniform. 
+
+We can run the same analysis for the PLWE distribution, with the only difference being that there is no obvious closed-form formula for the density function $d$  of $D_{\bZ,\tau} \pmod{q}$. Nonetheless, we could numerically approximate this probability density function, using the formula
+\[
+        d(a)  = \frac{\displaystyle{\sum_{\substack{z \in \bZ\\ z \equiv a\bmod{q}}} e^{-|z|^2/2\tau}}}{\displaystyle{\sum_{z \in \bZ} e^{-|z|^2/2\tau}}}, \quad \forall a \in \bF_q.
+\]
+Since the sums in the definition of $d(a)$ converge rapidly, we could obtain good approximations of $d$ by truncating the sums and then evaluating. Then we compute numerically the Fourier transform $\hat{d}$, and obtain
+\[
+    \widehat{e_\alpha}(y) = \prod_{i=0}^{n-1} \hat{d}(\alpha^i y)
+\]
+Finally, we compute $\epsilon(m,q,\tau) = \frac{1}{2} \sum_{y \in \bF_q, y \neq 0} \prod_{i=0}^{n-1} \widehat{d}(\alpha^i y)$. Then $\epsilon(m,q,\tau)$ is an upper bound of the statistical distance  between the distribution $e_\alpha$ and the uniform distribution over $\bF_q$. T
+
+\subsection{Numerical distance from uniform}
+
+\Katetodo{I think it would be nice to combine both tables into one.}
+
+We have computed $\epsilon'(m,q,k)$ and $\epsilon(m,q,k)$ for various choices of parameters.  Smaller values imply that the error distribution looks uniform when transfered to $R/\mathfrak{q}$, rendering the instance of RLWE invulnerable to the attacks suggested in this paper.  
+
+The following is a table of data.
 
 \begin{table}[H]
-\label{tab: deg1}
 \caption{Values of $\epsilon'(m,q,2)$}
+\label{tab: deg1}
 \begin{center}
-
 \begin{tabular}{c|c|c|c}
 $m$ & $n$ & $q$ & $-[\log_2(\epsilon'(m,q, 2))]$ \\
 \hline
@@ -753,24 +791,16 @@ $m$ & $n$ & $q$ & $-[\log_2(\epsilon'(m,q, 2))]$ \\
 \end{center}
 \end{table}
 
-The data in Table~\ref{tab: deg1} suggests that for $n \geq 100$ and $q$ polynomial in $n$, the statistcal distance between $P'_{m,k} \pmod{\fq}$ and the uniform distribution is negligibly small. As a consequence, any attack that reduce the errors modulo $\fq$ will be unlikely to succeed. Note that we fixed $k= 2$, and $\epsilon'(m,q,k)$ decreases with $k$.
+The data in Table~\ref{tab: deg1} suggests that for $n \geq 100$ and $q$ of polynomial size in $n$, the statistical distance between $P'_{m,k} \pmod{\fq}$ and the uniform distribution is negligibly small. Also, note that we fixed $k= 2$, and $\epsilon'(m,q,k)$ becomes even smaller when $k$ increases.
 
-We can run the same analysis for the PLWE distributio, with the only difference being that there is no obvious closed-form formula for the density function $d$  of $D_{\bZ,\tau} \pmod{q}$. Nonetheless, we could numerically approximate this probability density function, using the formula
-\[
-  d(a)  = \frac{\sum_{z \in \bZ, z \equiv a\pmod{q}} e^{-|z|^2/2\tau}}{\sum_{z \in \bZ} e^{-|z|^2/2\tau}}, \quad \forall a \in \bF_q.
-\]
-Since the sums in the definition of $d(a)$ converge rapidly, we could obtain good approximations of $d$ by truncating the sums. Then we compute its Fourier transform $\hat{d}$, and obtain
-\[
-    \widehat{e_\alpha}(y) = \prod_{i=0}^{n-1} \hat{d}(\alpha^i y)
-\]
-Finally, we can compute $\epsilon(m,q,\tau) = \frac{1}{2} \sum_{y \in \bF_q, y \neq 0} \prod_{i=0}^{n-1} \widehat{d}(\alpha^i y)$. Then $\epsilon(m,q,\tau)$ is an upper bound of the statistical distance  between the distribution $e_\alpha$ and the uniform distribution over $\bF_q$. Table~\ref{table: deg2} contains some data for values of $\epsilon(m,q,\tau)$.
+Table~\ref{table: deg2} contains some data for values of $\epsilon(m,q,\tau)$.
 
 
 
 \FloatBarrier
 \begin{table}[H]
-\label{table: deg2}
 \caption{Values of $\epsilon(m,q,\tau)$}
+\label{table: deg2}
 \begin{center}
 \begin{tabular}{c|c|c|c}
 $m$ & $n$ & $q$ &  $-[\log_2(\epsilon(m,q, 1))]$ \\
@@ -790,16 +820,14 @@ $m$ & $n$ & $q$ &  $-[\log_2(\epsilon(m,q, 1))]$ \\
 \end{center}
 \end{table}
 
-\begin{remark}
-It is possible to generalize our discussion in this section to higher degree primes, where the Fourier analysis is performed in extension fields $\bF_{q^f}$. The only change in the definition would be $\chi_y(a) = e^{ \frac{2 \pi i Tr(a_i y)}{q}}$, and we have
+It is possible to generalize our discussion in this section to primes of arbitrary residual degree $f$, in which case the Fourier analysis will be performed over the field $\bF_{q^f}$. The only change in the definitions would be $\chi_y(a) = e^{ \frac{2 \pi i Tr(a y)}{q}}$. Similarly, we have
 \[
     \widehat{e'_\alpha}(y) = \prod_{i=1}^{n} \cos \left(\frac{ \pi Tr(\alpha^i y) }{q} \right)^k.
 \]
 Table~\ref{tab: deg2} contains some data for primes of degree two.
-\end{remark}
 
 \begin{table}[H] 
-\caption{Values of $\epsilon'(m,q,2)$ for primes of degree 2}
+\caption{Values of $\epsilon'(m,q,2)$ for primes of degree two}
 \begin{center}
 \begin{tabular}{c|c|c} \label{tab: deg2}
 $m$ & $q$ & $-[\log_2(\epsilon'(m,q,2))]$ \\
@@ -815,9 +843,10 @@ $m$ & $q$ & $-[\log_2(\epsilon'(m,q,2))]$ \\
 \end{center}
 \end{table}
 
-\begin{remark}
-There is a heuristic argument on why one expects $\epsilon'(m,q,k,\alpha)$ to be small. Each term in the summand is a product of form $\prod_{i=0}^{n-1} \cos \left(\frac{ \alpha^i \pi y}{q} \right)^k$. For each $0 \neq y \in \bF_q$, Since the elements $\alpha^i$ are distinct and usually spaced-out in $\bF_q$, it is very likely that $\alpha^i y$ is close $q/2$ for some values of $i$, making the product of cosines small.
-\end{remark}
+\subsection{Heuristics}
+
+There is a heuristic argument as to why one expects $\epsilon'(m,q,k,\alpha)$ to be small. Each term in the summand is a product of form $\prod_{i=0}^{n-1} \cos \left(\frac{ \alpha^i \pi y}{q} \right)^k$. For each $0 \neq y \in \bF_q$, if one assumes the elements $\alpha^i$ are distinct and uniformly distributed in $\bF_q$, it is very likely that $\alpha^i y$ is close $q/2$ for at least some values of $i$, making the product of cosines small.
+\Katetodo{I rephrased this a little, check it please.}
 
 \bibliographystyle{splncs}
 \bibliography{galois-rlwe}
