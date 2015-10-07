@@ -51,7 +51,7 @@ In our paper, we generalize the attack of \cite{elos2015weak} to Galois number f
 
 \subsection{Organization}
 
-In section \ref{sec: background}, we recall the canonical embedding of number fields and central definitions related to the RLWE problems. In section \ref{sec: s-to-d}, we review prime factorizations in Galois extensions and prove a search-to-decision reduction for Galois extensions $K$ and unramified moduli. In section \ref{sec: chi-square}, we introduce an attack to RLWE problems based on the chi-square statistical test, which directly generalizes the attack in \cite{elos2015weak}. More precisely, the attack aims at an intermediate problem used in the search-to-decision proof of \cite{lyubashevsky2013ideal}, which we denote by $\SRLWE(\cR,\fq)$ (see Definition~\ref{def: srlwe mod q}). The time complexity of our attack is $O(q^{2f})$, where $f$ is the {\it residual degree} of $q$ in $K$ (see Lemma~\ref{lem: prime factorization}). In section \ref{sec: sub-cyclotomics}, we give examples of subfields of cyclotomic fields vulnerable to our new attack, where the modulus $q$ has residual degree two.
+In section \ref{sec: background}, we recall the canonical embedding of number fields and central definitions related to the RLWE problems. In section \ref{sec: s-to-d}, we review prime factorizations in Galois extensions and prove a search-to-decision reduction for Galois extensions $K$ and unramified moduli. In section \ref{sec: chi-square}, we introduce an attack to RLWE problems based on the chi-square statistical test, which directly generalizes the attack in \cite{elos2015weak}. More precisely, the attack aims at an intermediate problem used in the search-to-decision proof of \cite{lyubashevsky2013ideal}, which we denote by $\SRLWE(\cR,\fq)$ (see Definition~\ref{def: srlwe mod q}). The time complexity of our attack is $O(q^{2f})$, where $f$ is the {\it residue degree} of $q$ in $K$ (see Lemma~\ref{lem: prime factorization}). In section \ref{sec: sub-cyclotomics}, we give examples of subfields of cyclotomic fields vulnerable to our new attack, where the modulus $q$ has residue degree two.
 
 In section \ref{sec: ramified-prime}, we show that our attack works on prime cyclotomic fields when the modulus is the unique ramified prime. Finally, in section \ref{sec: cyclo-secure}, we use Fourier analysis to give numerical evidence that cyclotomic extensions with unramified moduli are invulnerable to our attack.
 
@@ -73,7 +73,9 @@ To work with real vector spaces, we define the {\it adjusted embedding} of $K$ a
     x & \mapsto (\sigma_1(x), \cdots, \sigma_{r_1}(x), \Re(\sigma_{r_1+1})(x), \Im(\sigma_{r_1+1})(x), \cdots,  \Re(\sigma_{r_1+r_2})(x), \Im(\sigma_{r_1+r_2})(x)).
 \end{align*}
 
-Then $\tilde{\iota}(R)$ is a lattice in $\bR^n$. Let $w = (w_1, \cdots , w_n)$ be an integral basis for $R$.
+Then $\Lambda_R = \tilde{\iota}(R)$ is a lattice in $\bR^n$, we call it the {\it embedded lattice of $R$}. 
+
+Let $w = (w_1, \cdots , w_n)$ be an integral basis for $R$.
 
 \begin{definition}
 The canonical (resp. adjusted) embedding matrix of $w$, denoted by $A_w$ (resp. $\widetilde{A_w}$), is the $n$-by-$n$ matrix whose $i$-th column is $\iota(w_i)$ (resp. $\tilde{\iota}(w_i)$).
@@ -104,9 +106,9 @@ For a lattice $\Lambda \subset \bR^n$ and $\sigma > 0$, the {\it discrete Gaussi
 \end{definition}
 Equivalently, the probability of sampling any lattice point $x$ is proportional to $\rho_\sigma(x)$.
 
-\subsection{Ring LWE problems for general number fields}
+\subsection{Ring LWE Problems for General Number Fields}
 
-We follow \cite{elos2015weak} in setting up the Ring LWE problem for general number fields.  In particular, we do not consider the dual of the ring of integers, which is a convenience only in the case of the cyclotomic integers.
+We follow \cite{elos2015weak} in setting up the Ring LWE problem for general number fields.  In particular, we do not consider the dual of the ring of integers. 
 
 \begin{definition}
 An {\it RLWE instance} is a tuple $\cR = (K,q,\sigma,s)$, where $K$ is a number field with ring of integers $R$, $q$ is a prime, $\sigma >0$, and $s \in R/qR$ is the {\it secret}.
@@ -120,7 +122,7 @@ D_\cR = D_{\tilde{\iota}(R),\sigma}.
 \]
 \end{definition}
 
-Let $n$ denote the degree of $K$. As pointed out in \cite{elos2015weak}, when analyzing the error distribution, one needs to take into account the sparsity of the lattice $\tilde{\iota}(R)$, which is measured by its covolume $V_R$. In light of this, we define a relative version of the standard deviation parameter: $$\sigma_0 = \frac{\sigma}{V_R^{\frac{1}{n}}}.$$
+As pointed out in \cite{elos2015weak}, when analyzing the error distribution, one needs to take into account the sparsity of the lattice $\tilde{\iota}(R)$, which is measured by its covolume $V_R$. In light of this, we define a relative version of the standard deviation parameter: $$\sigma_0 = \frac{\sigma}{V_R^{\frac{1}{n}}}.$$
 
 The notation $x \gets D$ indicates that variable $x$ is distributed according to distribution $D$.
 
@@ -144,14 +146,14 @@ Let $\cR$ be an RLWE instance. The {\it decision Ring-LWE}
 problem, denoted by $\DRLWE(\cR)$, is to distinguish between the same number of independent samples in two distributions on $R_q \times R_q$. The first is the RLWE distribution of $\cR$, and the second consists of uniformly random and independent samples from $R_q \times R_q$.
 \end{definition}
 
-\subsection{Sampling methods}
+\subsection{Sampling Methods}
 In practice, there are different ways to approximately sample from the RLWE error distribution $D_\cR$, and we will consider three sampling methods in our paper. While searching for weak Galois RLWE instances as well as attacking ramified primes, we use the sampling algorithm in  \cite{gentry2008trapdoors}; when analyzing the security of cyclotomics, we use the PLWE distribution $P_{m,\tau}$ and another distribution $P'_{m,k}$ to assist the analysis. The efficient sampling algorithm in \cite{lyubashevsky2013toolkit} for cyclotomic fields is related to the dual version of RLWE, we will not use it in our paper.
 
 
-\section{search-to-decision reduction}
+\section{Search-to-Decision Reduction}
 \label{sec: s-to-d}
 
-In \cite{eisentrager2014weak}, the search-to-decision reduction of \cite{lyubashevsky2013ideal} is extended to Ring-LWE for Galois number fields, where $q$ is an unramified prime of degree one.  The approach is via an intermediate problem, denoted $\fq_i$-LWE in \cite{lyubashevsky2013ideal}.  In this section, we extend this result to primes $\fq$ of arbitrary residual degree.  Our intermediate problem, which we denote by $\SRLWE(\cR,\fq)$, is to find the secret modulo the prime.  The Galois group allows us to bootstrap this piece of information to discover the full secret.
+In \cite{eisentrager2014weak}, the search-to-decision reduction of \cite{lyubashevsky2013ideal} is extended to Ring-LWE for Galois number fields, where $q$ is an unramified prime of degree one.  The approach is via an intermediate problem, denoted $\fq_i$-LWE in \cite{lyubashevsky2013ideal}.  In this section, we extend this result to primes $\fq$ of arbitrary residue degree.  Our intermediate problem, which we denote by $\SRLWE(\cR,\fq)$, is to find the secret modulo the prime.  The Galois group allows us to bootstrap this piece of information to discover the full secret.
 
 The attack in Section~\ref{sec: chi-square} targets $\SRLWE(\cR,\fq)$ and hence, by the results of this section, will solve Search Ring-LWE.  In Section~\ref{sec: sub-cyclotomics}, we demonstrate the attack on Search Ring-LWE in practice.
 
@@ -179,21 +181,18 @@ $R$ such that:
 \item the Galois group acts transitively on the ideals $\fq_1, \ldots, \fq_g$ and this action descends to an action on $R_q$ which permutes the corresponding factors in \eqref{eqn: Rq-factor} in the same way.
 \end{enumerate}
 \end{lemma}
-The number $f$ in the above lemma is called the {\it residual degree} of $q$ in $K$. Note that the prime $q$ splits completely in $K$ if and only if its residual degree is one.
+The number $f$ in the above lemma is called the {\it residue degree} of $q$ in $K$. Note that the prime $q$ splits completely in $K$ if and only if its residue degree is one.
 
 
 \begin{theorem} \label{thm: reduction}
-        Let $\cR = (K,q,\sigma, s)$ be an RLWE instance with $K/\bQ$ Galois of degree $n$ and $q$ unramified in $K$ with residual degree f. Let $\sA$ be an oracle which solves $\SRLWE(\cR,\fq)$ using a list of $m$ samples modulo $\fq$.  Let $S$ be a set of $m$ RLWE samples in $R_q \times R_q$.  Then the problem $\SRLWE(\cR)$ can be solved using $S$ by $n/f$ calls to the oracle $\sA$, $2mn/f$ reductions $R_q \rightarrow R/\fq$, and $2mn/f$ evaluations of a Galois automorphism on $R_q$.
+        Let $\cR = (K,q,\sigma, s)$ be an RLWE instance with $K/\bQ$ Galois of degree $n$ and $q$ unramified in $K$ with residue degree f. Let $\sA$ be an oracle which solves $\SRLWE(\cR,\fq)$ using a list of $m$ samples modulo $\fq$.  Let $S$ be a set of $m$ RLWE samples in $R_q \times R_q$.  Then the problem $\SRLWE(\cR)$ can be solved using $S$ by $n/f$ calls to the oracle $\sA$, $2mn/f$ reductions $R_q \rightarrow R/\fq$, and $2mn/f$ evaluations of a Galois automorphism on $R_q$.
 \end{theorem}
 
 \begin{proof}
         The Galois group $G =\operatorname{Gal}(K/\bQ)$ acts on the set $\{\fq_1, \cdots ,\fq_g\}$ transitively. Hence for each $i$, there exists $\sigma_i \in \operatorname{Gal}(K/\bQ)$, such that $\sigma_i(\fq) = \fq_i$, Then we call the oracle $\sA$ on the input $(\sigma_i^{-1}(S) \pmod \fq, \fq)$. The algorithm will output $\sigma_i^{-1}(s) \pmod{\fq}$, from which we can recover $s \pmod{\fq_i}$ using $\sigma_i$.  We do this for all $1\leq i \leq g$ and use \eqref{eqn: Rq-factor} of Lemma \ref{lem: prime factorization} to recover $s$. 
 \qed \end{proof}
 
-Theorem~\ref{thm: reduction} gives a polynomial time reduction from $\SRLWE(\cR)$ to $\SRLWE(\cR,\fq)$. \Katetodo{It does?  What does polynomial time mean in this context?  It is an $O(n)$ reduction, yes?} 
-
-\Haotodo{I am not sure how the reduction time should be calculated. Maybe Kristin should decide on if we should just 
-delete this sentence or phrase it in another way.}
+In particular, if the number of samples $m$ is polynomial in $n$ and the time taken to evaluate Galois actions is also polynomial in $n$, then Theorem~\ref{thm: reduction} gives a polynomial time reduction from $\SRLWE(\cR)$ to $\SRLWE(\cR,\fq)$. 
 
 \begin{remark}
         For a proper runtime analysis of the reduction, one must examine the implementation, in particular with regards to Galois automorphisms.
@@ -218,7 +217,7 @@ This is a rephrasing of \cite[Lemma 5.9 and Lemma 5.12]{lyubashevsky2013ideal}.
 Suppose $\cR$ is an RLWE instance where $K$ is Galois and $q$ is an unramified prime in $K$. Then there is a probabilistic polynomial-time reduction from $\SRLWE(\cR)$ to $\DRLWE(\cR)$.
 \end{corollary}
 
-\section{The chi-square attack for uniform distribution}
+\section{The Chi-square Attack for Uniform Distribution}
 \label{sec: chi-square}
 
 In this section, we extend the $f(1) \equiv 0 \pmod q$ attack of \cite{eisentrager2014weak} and the root-of-small-order attack of \cite{elos2015weak}.  These attacks can be viewed as examples of a more general attack principle, as follows.  Suppose one has a ring homomorphism
@@ -242,7 +241,7 @@ Then the attack on DRLWE on $R_q$ is as follows:
 
 The fact that $\phi$ is a ring homomorphism is essential in guaranteeing that for the correct guess, the distribution in question is the image of the error distribution.  The only ring homomorphisms from $R_q$ to a finite field are given by reduction modulo a prime ideal $\fq$ lying above $q$ in $R$.
 
-\subsection{chi-square test for uniform distribution}
+\subsection{Chi-square Test for Uniform Distribution}
 We briefly review the properties and usage of the chi-square test for uniform distributions over a finite set $S$. We partition $S$ into $r$ subsets $S = \bigsqcup_{j=1}^r S_j$.
 Suppose there are $M$ samples $y_1, \ldots, y_M \in S$.
 For each $1 \leq j \leq r$, we compute the expected number of samples in the $j$-th subset: $c_j := \frac{|S_j|M}{|S|}$. Then we compute the actual number of samples in $S_j$, i.e., $t_j := |\{1 \leq i \leq r: y_i \in S_j\}|$. Finally, the $\chi^2$ value is computed as
@@ -258,7 +257,7 @@ If $P,Q$ are two probability distributions on the set $S$, then their {\it stati
 For convenience, we also define the {\it $l_2$ distance} between $P$ and $Q$ as $d_2(P,Q) = (\sum_{t \in S} |P(t) - Q(t)|^2)^{\frac{1}{2}}$. We have the inequality $d(P,Q) \leq \frac{\sqrt{|S|}}{2}d_2(P,Q)$.
 
 
-\subsection{The chi-square attack on $\SRLWE(\cR,\fq)$}
+\subsection{The Chi-square Attack on $\SRLWE(\cR,\fq)$}
 
 Let $\cR$ be an RLWE instance with error distribution $D_{\cR}$ and $\fq$ be a prime ideal above $q$.  The basic idea of our attack relies on the assumption that the distribution $D_\cR \pmod {\fq}$ is distinguishable from the uniform distribution on the finite field $F = R/\fq$. More precisely, the attack loops through all $q^f$ possible values $\bar{s} = s \pmod{\fq}$, and for each guess $s'$, it computes the values $\bar{e}' = \bar{b} - \bar{a} s' \pmod {\fq}$ for every sample $(a,b) \in S$. If the guess is wrong, or if the samples are taken from the uniform distribution in $(R_q)^2$, the values $\bar{e}'$ would be uniformly distributed in $F$ and it is likely to pass the chi-square test. On the other hand, if the guess is correct, then we expect the test on the errors $\bar{e}'$ to reject the null hypothesis. Let $N = q^f$ denote the cardinality of $F$. We remark that one needs at least $\Omega(N)$ samples for the test to work effectively. 
 
@@ -273,7 +272,7 @@ For the attack to be successful, we need the $(N-1)$ tests corresponding to wron
  \label{alg: chi-square}        % give the algorithm a caption
               % and a label for \ref{} commands later in the document
 \begin{algorithmic} % enter the algorithmic environment
-    \Require  $\cR = (K,q,\sigma, s)$ -- an RLWE instance; $R$ -- the ring of integers of $K$; $\fq$ -- a prime ideal in $K$ above $q$; $F = R/\fq$ -- the residual field of $\fq$; $N$ -- the cardinality of $F$; $\mathcal{S}$ -- a collection of $M$ ($M = \Omega(N)$) RLWE samples from $\cR$; $0 < \alpha < 1$ -- the confidence level. 
+    \Require  $\cR = (K,q,\sigma, s)$ -- an RLWE instance; $R$ -- the ring of integers of $K$; $\fq$ -- a prime ideal in $K$ above $q$; $F = R/\fq$ -- the residue field of $\fq$; $N$ -- the cardinality of $F$; $\mathcal{S}$ -- a collection of $M$ ($M = \Omega(N)$) RLWE samples from $\cR$; $0 < \alpha < 1$ -- the confidence level. 
     \Ensure a guess of the value $s \pmod{\fq}$, or {\bf NOT-RLWE}, or {\bf INSUFFICIENT-SAMPLES}
     \State $\delta \gets \cF_{N-1}^{-1}(\alpha)$, $\cG \gets \emptyset$.
     \For{$s$ in $F$}
@@ -304,11 +303,17 @@ For the attack to be successful, we need the $(N-1)$ tests corresponding to wron
 \end{algorithmic}
 \end{algorithm}
 
+\begin{remark}
+For simplicity of exposition, we use $N$ bins in Algorithm~\ref{alg: chi-square}, i.e., we have one element per bin. In some situations, 
+it might be advantageous to choose the bins differently.
+\end{remark}
 
-The time complexity of the attack is $O(N^2)$ since there are $N$ possible values for $s \pmod {\fq}$ and the number of samples needed is $O(N)$. The correctness of the attack is captured in Theorem~\ref{thm: attack} below. We use $D_{\cR,\fq}$ as a shorthand notation for $D_{\cR} \pmod{\fq}$. Let $\Delta$ denote the statistical distance between the distribution $D_{\cR, \fq}$ and the uniform distribution on $R/\fq$. For $\lambda \in \bR$ and $d \in \bZ$, we use $\cF_{d,\lambda}(x)$ to denote the cumulative distribution function of the noncentral chi-square distribution with degree of freedom $d$ and parameter $\lambda$.
+
+
+The time complexity of the attack is $O(N^2)$ since there are $N$ possible values for $s \pmod {\fq}$ and the number of samples needed is $O(N)$. The correctness of the attack is captured in Theorem~\ref{thm: attack} below. We use $D_{\cR,\fq}$ as a shorthand notation for $D_{\cR} \pmod{\fq}$. For $\lambda \in \bR$ and $d \in \bZ$, we use $\cF_{d,\lambda}(x)$ to denote the cumulative distribution function of the noncentral chi-square distribution with degree of freedom $d$ and parameter $\lambda$.
 
 \begin{theorem} \label{thm: attack}
-Let $M$ be the number of samples used in Algorithm~\ref{alg: chi-square}, and let $\lambda = 4 M \Delta^2$. Let $0 < \alpha < 1$ and let $\delta = \cF_{N-1}^{-1}(\alpha)$. If $p$ is the probability of success of the attack in Algorithm~\ref{alg: chi-square}, then
+Let $\cR  = (K,q,s, \sigma)$ be an RLWE instance. Suppose $\fq$ be a prime ideal in $K$ above $q$, and let $\Delta$ denote the statistical distance between the distribution $D_{\cR, \fq}$ and the uniform distribution on $R/\fq$.Let $M$ be the number of samples used in Algorithm~\ref{alg: chi-square}, and let $\lambda = 4 M \Delta^2$. Let $0 < \alpha < 1$ and let $\delta = \cF_{N-1}^{-1}(\alpha)$. If $p$ is the probability of success of the attack in Algorithm~\ref{alg: chi-square}, then
 
 $$p  \geq \alpha^{N-1} (1-  \cF_{N-1; \lambda}(\delta) ).$$
 \end{theorem}
@@ -322,7 +327,7 @@ Note that we have $\lambda_0 \geq (2d(D_{\cR, \fq}, U(R/\fq))/\sqrt{N})^2 MN = 4
 \qed \end{proof}
 
 \begin{remark}
-One could vary $\alpha$ in Theorem~\ref{thm: attack} to suit the specific instance.
+One could choose the value of $\alpha$ in Theorem~\ref{thm: attack} to suit the specific instance.
 The probability of success will change accordingly. When we expect the statistical distance $\Delta$ to be large, it is preferable to choose a larger $\alpha$ to increase the probability of success.  For example, if we choose $\alpha = 1-\frac{1}{10N}$, then $\alpha^{N-1} \geq e^{-1/10} = 0.904 \cdots$. 
 \end{remark}
 
@@ -334,19 +339,19 @@ Figure~\ref{fig: probability} shows a plot of $p$ versus $\Delta$ for various ch
 \label{fig: probability}
 \end{center}
 \end{figure}
-\section{Vulnerable instances among subfields of cyclotomic fields}\label{sec: sub-cyclotomics}
+\section{Vulnerable Instances among Subfields of Cyclotomic Fields}\label{sec: sub-cyclotomics}
 We searched for instances of RLWE vulnerable to the chi-square attack.  For this purpose, we restricted attention to subfields of cyclotomic fields $\bQ(\zeta_m)$, where we assume $m$ is {\it odd and squarefree}. The Galois group $\Gal(\bQ(\zeta_m)/\bQ)$ is canonically isomorphic to $G = (\bZ/m\bZ)^*$. For each subgroup $H$ of $G$, let $K_{m,H} = \bQ(\zeta_m)^H$ be the subfield of elements fixed by $H$.
-Then the extension $K_{m,H}/\bQ$ is Galois with degree $n = \frac{\varphi(m)}{|H|}$. Also, the residual degree of a prime $q$ in $K_{m,H}$ is equal to the order of $[q]$ in the quotient group $G/H$. Moreover, $K_{m,H}$ has canonical {\it normal integral basis}, whose embedding matrix is easy to compute. More precisely, let $C$ denote a set of coset representatives of the coset space $G/H$. If $c$ is an integer coprime to $m$, we use $[c]$ to denote its coset in $G/H$. For each $[c] \in C$, set
+Then the extension $K_{m,H}/\bQ$ is Galois with degree $n = \frac{\varphi(m)}{|H|}$. Also, the residue degree of a prime $q$ in $K_{m,H}$ is equal to the order of $[q]$ in the quotient group $G/H$. Moreover, $K_{m,H}$ has canonical {\it normal integral basis}, whose embedding matrix is easy to compute. More precisely, let $C$ denote a set of coset representatives of the coset space $G/H$. If $c$ is an integer coprime to $m$, we use $[c]$ to denote its coset in $G/H$. For each $[c] \in C$, set
 \[
     w_{[c]} =  \sum_{h \in H} \zeta_m^{hc}.
 \]
-Then  $w := (w_{[c]})_{[c] \in C}$ is a $\bZ$-basis of $R$. (For a proof of this fact, see \cite[Proposition 6.1]{johnston2011notes}). Setting $\zeta = \exp(2\pi i /m)$, the canonical embedding embedding matrix of $w$ is
+Then  $w := (w_{[c]})_{[c] \in C}$ is a $\bZ$-basis of $R$. (For a proof of this fact, see \cite[Proposition 6.1]{johnston2011notes}). Setting $\zeta = \exp(2\pi i /m)$, the canonical  embedding matrix of $w$ is
 \[
     (A_w)_{[i],[j]} = \sum_{h \in H}{\zeta^{hij}}, \mbox{ for } [i], [j] \in C.
 \]
 
 \begin{lemma} \label{lem: symmetry}
-Suppose $\cR$ is an RLWE instance such that the underlying field $K$ is a Galois number field and $q$ is unramified in $K$. Then the reduced error distribution $D_{\cR,\fq}$ is independent of the choice of prime ideal $\fq$ above $q$.
+Suppose $\cR$ is an RLWE instance such that the underlying field $K$ is a Galois number field and $q$ is unramified in $K$. Then the reduced error distribution $D_{\cR,\fq}$ (that is, $D_{\cR} (\pmod{\fq})$) is independent of the choice of prime ideal $\fq$ above $q$.
 \end{lemma}
 
 \begin{proof}
@@ -358,9 +363,10 @@ Suppose $\cR$ is an RLWE instance such that the underlying field $K$ is a Galois
 Algorithm~\ref{alg: chi-square} allows us to search for vulnerable instances among fields of form $K_{m,H}$ by generating actual RLWE samples and running the attack. Success of the attack will indicate vulnerability of the instance. Note that our field searching requires sampling efficiently from a discrete Gaussian $D_{\Lambda, \sigma}$, for which we use the efficient algorithm of \cite{gentry2008trapdoors}. 
 
 
-In Table~\ref{tab: attacked}, we list some instances on which the attack has succeeded. The columns of Table~\ref{tab: attacked} are as follows. The first two columns specify $m$ and the generators of $H$; the column labeled $f$ is the residual degree of $q$. The last column consists of either the runtime for an actual attack, or an estimation of the runtime. Note that we omitted our choice of prime ideal $\fq$, since due to Lemma~\ref{lem: symmetry} the choice of $\fq$ is irrelevant to our attack. The parameters $\sigma_0$ are chosen at the boundary of the power of our attack, i.e., we tried higher $\sigma_0$ and the attack would fail.
+In Table~\ref{tab: attacked}, we list some instances on which the attack has succeeded. The columns of Table~\ref{tab: attacked} are as follows. The first two columns specify $m$ and the generators of $H$, where $H$ is represented as 
+a subgroup of $(\bZ/m\bZ)^*$; the column labeled $f$ is the residue degree of $q$. The last column consists of either the runtime for an actual attack which succeeded, or an estimation of the runtime. Note that we omitted our choice of prime ideal $\fq$, since due to Lemma~\ref{lem: symmetry} the choice of $\fq$ is irrelevant to our attack. The parameters $\sigma_0$ represent the boundary of the power of our attack, i.e., we tried higher $\sigma_0$ and the attack did fail.
 
-\Haotodo{Hao: I added a sentence explaining the choice of $\sigma_0$}.
+The rows with ``estimated'' runtime mean the following. First, we ran the chi-square test on the correct reduced errors to obtain an estimate $\hat{\Delta}$ of $\Delta$. We then chose $\alpha$ according to $\hat{\Delta}$ and obtained an estimation $\hat{p}$ of the success probability of our attack, using the formula in Theorem~\ref{thm: attack}.  The corresponding rows in the table all have $\hat{p} > 1 - 2^{-10}$, suggesting that the attack is very likely to succeed.  Finally, we ran a few chi-square tests on samples obtained from some randomly chosen incorrect guesses to obtain the average time $t$ for running one chi-square test. We set the estimated runtime for the attack to be $tN$. 
 
 \begin{table}
 \caption{Attacked sub-cyclotomic RLWE instances}
@@ -370,7 +376,7 @@ In Table~\ref{tab: attacked}, we list some instances on which the attack has suc
 $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples & runtime (in hours) \\ \hline
 2805 &  [1684, 1618] & 40 & 67 & 2 & 1 & 22445 & 3.49 \\
 15015 & [12286, 2003, 11936] & 60 & 43 & 2 & 1 & 11094 & 1.05 \\
-15015 & [12286, 2003, 11936] & 60 & 617 & 2 & 1.25 & 8000 & 228.41 (estimated) \footnotemark  \\
+15015 & [12286, 2003, 11936] & 60 & 617 & 2 & 1.25 & 8000 & 228.41 (estimated)  \\
 90321 & [90320, 18514, 43405] & 80 & 67 & 2 & 1 & 26934 & 4.81 \\
 255255 &  [97943, 162436, 253826, 248711, 44318] & 90 & 2003 & 2 & 1.25 & 15000 &  1114.44 (estimated) \\
 285285 & [181156, 210926, 87361] & 96 & 521  & 2 & 1.1 & 5000 & 75.41 (estimated) \\
@@ -381,11 +387,6 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples & runtime (
 \end{center}
 \end{table}
 
-\Katetodo{I think there should be some discussion of how $\sigma_0$ was chosen}
-
-\footnotetext{The ``estimated'' runtime means that we did not perform the full attack. Instead, we ran  several chi-square tests and estimate the runtime based on the average time for running one test.}
-
-
 %More precisely, suppose $\widehat{\chi^2}$ is the chi-square value of the sample errors from $D_{\cR, \fq}$. We replace $\lambda$ by $\widehat{\chi^2}$ in the formula and compute
 %%    \widehat{p}  = 0.904 \left(1 - \Phi \left(\frac{\Phi^{-1}(1- \frac{1}{20N})\sqrt{2(N-1)}- \widehat{\chi^2}}{\sqrt{2(N-1) +4\widehat{\chi^2}}}\right)\right).
 %\]
@@ -393,22 +394,23 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples & runtime (
 
 \subsection{Discussion}
 
-We searched for vulnerable instances where the modulus has residual degree one or two. It turns out that all vulnerable instances we found and listed in Table~\ref{tab: attacked} has a modulus of degree two.  We have a heuristic explanation for this phenomenon.  Let $K$  be a Galois number field and suppose $q$ is a prime of degree $r$ in $K$. Suppose we have found a short basis $w_1,\cdots, w_n$ of $R$ with respect to the adjusted embedding. Fix a prime ideal $\fq$ above $q$. Then the images of the basis under the reduction modulo $\fq$ map are elements of $F = R/\fq$. Now if for some index $i$, the element $w_i$ lies inside some proper subfield $K'$ of $K$, and if $q$ has residual degree $r' < r$ in $K'$, then $w_i \pmod{\fq}$ will lie in a proper subfield of $F$. If this occurs for a large number of the basis elements $w_i$, then we could  expect the reduced error distribution $D_{\cR,\fq}$ to take values in a proper subfield of $F$ more frequently. This would allow us to distinguish it from the uniform distribution on $F$.
+We searched for vulnerable instances where the modulus has residue degree one or two. It turns out that all vulnerable instances we found and listed in Table~\ref{tab: attacked} has a modulus of degree two.  We have a heuristic explanation for this phenomenon, whenever the residue degree $f$ is greater than 1.  Let $K$  be a Galois number field and suppose $q$ is a prime of degree $f$ in $K$. Suppose we have found a short basis $w_1,\cdots, w_n$ of $R$ with respect to the adjusted embedding. Fix a prime ideal $\fq$ above $q$. Then the images of the basis under the reduction modulo $\fq$ map are elements of $F = R/\fq$. Now if for some index $i$, the element $w_i$ lies inside some proper subfield $K'$ of $K$, and if $q$ has residue degree $f' < f$ in $K'$, then $w_i \pmod{\fq}$ will lie in a proper subfield of $F$. If this occurs for a large number of the basis elements $w_i$, then we could  expect the reduced error distribution $D_{\cR,\fq}$ to take values in a proper subfield of $F$ more frequently. This would allow us to distinguish it from the uniform distribution on $F$.
+
+In practice, we found out that the above scenario is more likely to happen when the field $K$ has a subfield $K'$ of index 2 such that $q$ splits completely in $K'$, while $q$ has degree 2 in $K$. Since the ring of integers of $K'$ is a subring of the ring of integers of $K$, one has at least $n/2$ vectors in $\Lambda_R$ with the desired property, i.e., their reduction modulo some prime $\fq$ above $q$ lie inside $\bF_q$ instead of $\bF_{q^2}$. 
 
 
-\subsection{A detailed example}
+
+\subsection{A Detailed Example}
 In order to illustrate our discussion above together with the search-to-decision reduction, we study a vulnerable Galois RLWE instance in detail, where we generated RLWE samples, performed the attack, and used the search-to-decision reduction to recover the entire secret $s$.
 
 
-Let $m = 3003$ and $H$ be the subgroup of $(\bZ/m\bZ)^*$ generated by 2276, 2729 and 1123. Then $K = K_{m,H}$ is a Galois number field of degree $n = 30$. We take the modulus to be $q = 131$, a prime of degree two in $K$, and take $\sigma_0 = 1$. We generate the secret $s$ from the discrete Gaussian $D_{\Lambda_R, \sigma}$. It turns out that there are 15 prime ideals in $K$ lying above $q$, which we denote by $\fq_1, \cdots, \fq_{15}$. We then generate 1000 RLWE samples and use Algorithm~\ref{alg: chi-square} and Theorem~\ref{thm: reduction} to recover $s \pmod {\fq_i}$ for each $1 \leq j \leq 15$. Then we use Chinese remainder theorem to recover $s$. The attack succeeded in 32.8 hours.
-
-\Katetodo{I'm unclear on how LLL plays into things here.  It is not needed for the RLWE attack, right?,  so I think if we could segregate the discussion so that is clear, that would be nice.}
-
-\Haotodo{Hao: I deleted the LLL related stuff. It is used for the sampling and explanation of how things works, but not for the attack.}
+Let $m = 3003$ and $H$ be the subgroup of $(\bZ/m\bZ)^*$ generated by 2276, 2729 and 1123. Then $K = K_{m,H}$ is a Galois number field of degree $n = 30$. We take the modulus to be $q = 131$, a prime of degree two in $K$, and take $\sigma_0 = 1$. We generate the secret $s$ from the discrete Gaussian $D_{\Lambda_R, \sigma}$.  There are 15 prime ideals in $K$ lying above $q$, which we denote by $\fq_1, \cdots, \fq_{15}$. We then generate 1000 RLWE samples and use Algorithm~\ref{alg: chi-square} and Theorem~\ref{thm: reduction} to recover $s \pmod {\fq_i}$ for each $1 \leq j \leq 15$. Then we use Chinese remainder theorem to recover $s$. The attack succeeded in 32.8 hours.
 
 
 
-\section{Attacking prime cyclotomic fields when the modulus is the ramified prime}
+
+
+\section{Attacking Prime Cyclotomic Fields when the Modulus is the Ramified Prime}
 \label{sec: ramified-prime}
 
 Let $p$ be an odd prime and $K = \bQ(\zeta_p)$. Then $K$ has degree $(p-1)$ and discriminant $p^{p-2}$.
@@ -416,18 +418,18 @@ In addition, the prime $p$ is totally ramified in $K$. There is a unique prime i
 \[
         \pi(\zeta_p^i) = 1, \quad \forall i \in \bZ.
 \]
-Writing an RLWE error as  $e = \sum e_i \zeta_m^i$, we have $e \pmod{\fp} = \sum_i e_i$. Since the coefficients $e_i$ tend to be small, it is conceivable that  $e \pmod{\fp}$ takes on small values with higher probability, making the instance vulnerable to our chi-square attack. Table~\ref{tab: ramified} contains data of some actual attacks we have done. Note that the parameters $\sigma_0$ are chosen at the boundary of the power of our attack, i.e., we tried higher $\sigma_0$ and the attack would fail.
+Writing an RLWE error as  $e = \sum e_i \zeta_m^i$, we have $e \pmod{\fp} = \sum_i e_i$. Since the coefficients $e_i$ tend to be small, it is conceivable that  $e \pmod{\fp}$ takes on small values with higher probability, making the instance vulnerable to our chi-square attack. Table~\ref{tab: ramified} contains data of some actual attacks we have done. Note that the parameters $\sigma_0$ represent the boundary of the power of our attack, i.e., we tried higher $\sigma_0$ and the attack did fail.
 
 \begin{table}[H]
 \begin{center}
-\caption{Attacked instances of DRLWE for $K= \bQ(\zeta_p)$ and $q = p$}
+\caption{Attacked instances of DRLWE for $K= \bQ(\zeta_p)$}
 \label{tab: ramified}
-\begin{tabular}{c|c|c}
-$p$ & $\sigma_0$ & runtime(in seconds) \\
+\begin{tabular}{c|c|c|c}
+$q$ $( = p)$ & $n$ & $\sigma_0$ & runtime (in seconds) \\
 \hline
-251 & 0.5 & 2.62\\
-503 & 0.575 & 12.02\\
-809 & 0.61 & 34.38\\
+251 & 250 &  0.5 & 2.62\\
+503 &  503 & 0.575 & 12.02\\
+809 & 808 & 0.61 & 34.38\\
 \end{tabular}
 \end{center}
 \end{table}
@@ -556,17 +558,7 @@ $|e|\leq 6\sqrt{2(p-1)\pi} \sigma$. When $p \to \infty$, we have $|e \pmod {\fp}
 \qed \end{proof}
 \fi
 
-\section{Can modulus switching be used?}
-
-\Haotodo{Hao 10/4: I added some explanation in the second paragraph.}
-
-\Haotodo{Hao 10/4: This argument does not prove that modulus switching doesn't ever work. One key point I am 
-using is that $a' \pmod{\fp} = -a'' \pmod{\fp}$. In general the distributions $a'$ and $a''$ before modulo-ing $\fp$, 
-are {\bf very different}. In fact, the point of modulus switching depend on $a''$ being a short vector in $\bR^n$}.
-
-\Katetodo{In general, I'm skeptical of the second paragraph.  It seems to prove that modulus switching doesn't work for anything, ever.  It doesn't depend on our attack being the purpose.  I think something is fishy about the claim that a'' and b'' are uniform and independent.}
-
-\Katetodo{My understanding of the issue was that the error distribution is changed by modulus switching, and it becomes something uniform mod $\fq$ basically because the error grows too much.}
+\section{Can Modulus Switching be Used?}
 
 The modulus switching procedure is a technique to reduce noise
 in RLWE samples, and has been discussed extensively in  \cite{brakerski2012leveled} and \cite{langlois2014worst}.
@@ -574,27 +566,32 @@ We recap the basic ideas of modulus switching. Let $\cR = (K, q, \sigma, s)$ be 
 \[
 \pi_{q,p} : R_q \to R_p,
 \]
-which ideally takes RLWE samples w.r.t. $\cR$ to RLWE samples w.r.t. $\cR'$. One example of such map being used in practice is as follows. Take $a$ in $R_q$, we first scale and get $\frac{p}{q}a \in \frac{1}{q} R$. Then we sample a vector $a''$ from the shifted discrete Gaussian $D_{\Lambda_R, \tau, \alpha a}$ for some small $\tau > 0$, and output $a' = \alpha a - a''$. Since we expect $a''$ to be a  short vector, the point $a'$ can be viewed as a ``rounding'' of the point $\alpha a$ to the lattice $\Lambda_R$. One also requires that $\pi_{q,p}$ takes uniform distribution on $R_q$ to almost uniform distribution on $R_p$, which can be by taking $\tau$ to be reasonably large. It is a natural question then to ask whether modulus switching can be combined with our attack, to switch from a ``strong'' modulus to a ``weak'' modulus. However, a heuristic argument shows that the naive combination of our attack with modulus switching will not work.
+which ideally takes RLWE samples w.r.t. $\cR$ to RLWE samples w.r.t. $\cR'$. One example of such map being used in practice is as follows. Let $\alpha = \frac{p}{q}$ and fix a small positive number $\tau$, For $a$ in $R_q$, we first scale and get $\frac{p}{q}a \in \frac{1}{q} R$. Then we sample a vector $a''$ from the ``shifted discrete Gaussian'' $D_{\Lambda_R, \tau, \alpha a}$,  defined as follows. For a lattice $\Lambda$ and a vector $c \in \bR^n$,
+\[
+    D_{\Lambda, \tau, c}(x) = \frac{\rho_\tau(x - c)}{\sum_{y \in\Lambda} \rho_\tau(y-c)}, \, \forall x \in \Lambda.
+\]
+Finally, we set $ \pi_{q,p}(a) = a' = \alpha a - a''$. 
 
-To explain, suppose we have a sample $(a,b) \gets \cR$ and the switched sample $(a', b') = (\pi_{q,p}(a),\pi_{q,p}(b))$. Consider the error $e':= b' - a's$ and the distribution of $e' \pmod{\fp}$ for some prime ideal $\fp$ above $p$. Suppose $b = as+e+ \lambda q$ for some $\lambda \in R$. Then
+Since we expect $a''$ to be a  short vector, the point $a'$ can be viewed as a ``rounding'' of the point $\alpha a$ to the lattice $\Lambda_R$. One also requires that $\pi_{q,p}$ takes uniform distribution on $R_q$ to almost uniform distribution on $R_p$, which can be by taking $\tau$ to be reasonably large. It is a natural question then to ask whether modulus switching can be combined with our attack, to switch from a ``strong'' modulus to a ``weak'' modulus. However, a heuristic argument shows that the naive combination of our attack with modulus switching will not work.
+
+To explain this, suppose we have a sample $(a,b) \gets \cR$ and the switched sample $(a', b') = (\pi_{q,p}(a),\pi_{q,p}(b))$. Consider the error $e':= b' - a's$ and the distribution of $e' \pmod{\fp}$ for some prime ideal $\fp$ above $p$. Suppose $b = as+e+ \lambda q$ for some $\lambda \in R$. Then
 \begin{align*}
     e' &= b' - a's  \\
     &= \alpha(b-as) - b''  + a''s. \\
     & = \alpha e + \lambda p - b'' + a''s.
 \end{align*}
 
-Since $p$ and $q$ are coprime, the domain of the reducing modulo $\fp$ map can be extended from $R$ to $\frac{1}{q}R$. Hence $$e' \equiv - b'' + a'' s \pmod{\fp}.$$ Also, since $a'' + a' = \alpha a \equiv 0 \pmod {\fp}$, we have $a'' \pmod{\fp} = -a' \pmod{\fp}$. By assumption, the map $\pi_{q,p}$ algorithm maps uniform samples in $R_q$ to uniform samples in $R_p$. An immediate consequence is that $a' \pmod{\fp}$ is uniformly distributed in $R/\fp$, hence so is $a'' \pmod{\fp}$. The same argument applys to $b''$, and we can conclude that $b' \pmod{\fp}$ is also uniformly distributed in $R/\fp$. Note that $a''$ and $b''$ are the rounding errors when we try to round $\alpha a$ and $\alpha b$ to the lattice $\Lambda_R$. However, $\Lambda_R$ is a $n$-dimensional lattice, so there are $\Omega(2^n)$ options of rounding a vector in $\bR^n$ to a moderately close lattice point. Even in the scenario with zero error, i.e., $e = 0$, one faces the task of finding a good rounding algorithm so that the roundings of the two vectors $\alpha a$ and $\alpha b = \alpha a s$ are not completely independent. We are not aware of such algorithms, unless the secret $s$ is trivial, e.g., $s$ is a constant.
-If we assume the $a''$ and $b''$ are independent vectors, then the reduced rounding errors $a'' \pmod{\fp}$ and $b'' \pmod{\fp}$ are independent, and the new reduced errors $e' \pmod{\fp}$ would follow the uniform distribution. So our chi-square attack will fail on these modulus-switched samples, even though $p$ might be a ``weak'' modulus.
+Since $p$ and $q$ are coprime, the domain of the reducing modulo $\fp$ map can be extended from $R$ to $\frac{1}{q}R$. Hence $$e' \equiv - b'' + a'' s \pmod{\fp}.$$ Also, since $a'' + a' = \alpha a \equiv 0 \pmod {\fp}$, we have $a'' \pmod{\fp} = -a' \pmod{\fp}$. By assumption, the map $\pi_{q,p}$ algorithm maps uniform samples in $R_q$ to uniform samples in $R_p$. An immediate consequence is that $a' \pmod{\fp}$ is uniformly distributed in $R/\fp$, hence so is $a'' \pmod{\fp}$. The same argument applys to $b''$, and we can conclude that $b' \pmod{\fp}$ is also uniformly distributed in $R/\fp$. Note that $a''$ and $b''$ are the rounding errors when we try to round $\alpha a$ and $\alpha b$ to the lattice $\Lambda_R$. However, $\Lambda_R$ is a $n$-dimensional lattice, so there are $\Omega(2^n)$ options of rounding a vector in $\bR^n$ to a moderately close lattice point. Even in the scenario with zero error, i.e., $e = 0$, an attacker will face the task of finding a ``nice'' rounding algorithm, so that the roundings of the two vectors $\alpha a$ and $\alpha b = \alpha a s$ are somehow related, which is intuitively unlikely, because the lattice structure around the two vectors $\alpha a$ and $\alpha b$  seem unrelated, at least when $n$ is large. So far, we are not aware of such algorithms, unless the secret $s$ is trivial, e.g., $s = 1$, in which case $\alpha a$ is almost equal to $\alpha b$, and one expects that $a''$ is closed to $b''$. 
+
+Hence, if we assume the $a''$ and $b''$ are independent vectors, then the reduced rounding errors $a'' \pmod{\fp}$ and $b'' \pmod{\fp}$ are independent, and the new reduced errors $e' \pmod{\fp}$ would follow the uniform distribution. So our chi-square attack will fail on these modulus-switched samples, even though $p$ might be a ``weak'' modulus.
 
 
-\section{Invulnerability of general cyclotomic extensions for unramified primes}
+\section{Invulnerability of General Cyclotomic Extensions for Unramified Primes}
 \label{sec: cyclo-secure}
 
-In this section we provide some numerical evidence that for cyclotomic fields, the image of the RLWE error distribution modulo an unramified prime ideal $\fq$ is practically indistinguishable from uniform, implying that the cyclotomics are protected against the family of attacks in this paper.  We will define two error distributions that approximate the RLWE error distribution (the PLWE error distribution and the modified PLWE error distribution).  The advantage of these simpler distributions is the relative accessibility of a formula for a bound on the statistical distance between these distributions and the uniform distribution.  This eases computation and allows for heuristic arguments.
-\Katetodo{So, I gather we have a bound on how far these distributions are from uniform, but NOT a bound on how far they are from the RLWE distribution?}
+In this section we provide some numerical evidence that for cyclotomic fields, the image of the RLWE error distribution modulo an unramified prime ideal $\fq$ of residue degree one is practically indistinguishable from uniform, implying that the cyclotomics are protected against the family of attacks in this paper.  For simplicity of analysis, we will define two error distributions that approximate the RLWE error distribution (the PLWE error distribution and the modified PLWE error distribution).  The advantage of these simpler distributions is the relative accessibility of a formula for a bound on the statistical distance between these distributions and the uniform distribution.  This eases computation and allows for heuristic arguments. Then, we generate the actual RLWE samples, run our chi-square attack, and confirm that the errors modulo an $\fq$ are indeed uniform.
 
-\Haotodo{You are right, Kate. Even for the RLWE distribution mod $\fp$ I do not have a theoretical bound on how far it is 
-from our approximating distribution. There is no obvious closed-form formula and numerical approximations are too costly.}
+
 
 Let $m \geq 1$ be an integer and let $K = \bQ(\zeta_m)$ be the $m$-th cyclotomic field. Let $q$ be a prime such that
 $q \equiv 1\pmod{m}$, so $q$ is unramified in $K$. Finally, let $\fq$ be a prime ideal above $q$. 
@@ -639,7 +636,7 @@ where the coefficients $e'_i$ are sampled independently from $\cV_k$.
 
 
 
-\subsection{Bounding the distance from uniform}
+\subsection{Bounding the Distance from Uniform}
 
 We recall the definition and key properties of Fourier transform over finite fields.
 Suppose $f$ is a real-valued function on $\bF_q$. The {\it Fourier transform} of $f$ is defined as
@@ -763,38 +760,39 @@ Since the sums in the definition of $d(a)$ converge rapidly, we could obtain goo
 \]
 Finally, we compute $\epsilon(m,q,\tau) = \frac{1}{2} \sum_{y \in \bF_q, y \neq 0} \prod_{i=0}^{n-1} \widehat{d}(\alpha^i y)$. Then $\epsilon(m,q,\tau)$ is an upper bound of the statistical distance  between the distribution $e_\alpha$ and the uniform distribution over $\bF_q$. 
 
-\subsection{Numerical distance from uniform}
+\subsection{Numerical Distance from Uniform}
 
 We have computed $\epsilon'(m,q,k)$ and $\epsilon(m,q,k)$ for various choices of parameters.  Smaller values imply that the error distribution looks uniform when transfered to $R/\mathfrak{q}$, rendering the instance of RLWE invulnerable to the attacks suggested in this paper.  
 
-The following is a table of data containing values of $\epsilon'(m,q,k)$ and $\epsilon(m,q,\tau)$.
+The following is a table of data. Noe that we chose $k = 2$ and $\tau = 1$. For each instance in the table, we also  generated the RLWE samples (where we fixed $\sigma_0 = 1$) and ran the chi-square attack using the confidence level $\alpha = 0.99$. The column labeled ``$\chi^2$'' contains the $\chi^2$ values we obtained, and the column labeled ``uniform?'' indicates whether the reduced errors are uniform. We can see from data how the practical situation agrees with our analysis on the approximated distributions. 
+
 
 \begin{table}[H]
-\caption{Values of $\epsilon'(m,q,2)$ and $\epsilon(m,q,1)$}
+\caption{Values of $\epsilon'(m,q,2)$ and $\epsilon(m,q,1)$ and the $\chi^2$ values}
 \label{tab: deg1}
 \begin{center}
-\begin{tabular}{c|c|c|c|c}
-$m$ & $n$ & $q$ & $-[\log_2(\epsilon'(m,q, 2))]$ & $-[\log_2(\epsilon(m,q, 1))]$ \\
+\begin{tabular}{c|c|c|c|c|c|c}
+$m$ & $n$ & $q$ & $-[\log_2(\epsilon'(m,q, 2))]$ & $-[\log_2(\epsilon(m,q, 1))]$ & $\chi^2$ & uniform? \\
 \hline
-96 & 32 & 4513 & $35$ & 38 \\
-55 & 40 & 10891  & $44$ & 51 \\
-160 & 64 &20641 & 61 & 79 \\
-101 & 100 & 1213 & $177$ & 203 \\
+96 & 32 & 193 & $35$ & 38 & 231.6 & yes \\
+55 & 40 & 331  & $44$ & 51 & 308.8 & yes \\
+160 & 64 & 641 & 55 & 79& 658.0 & yes \\
+101 & 100 & 1213 & $177$ & 203 & 1254.4 & yes \\
 %145 & 112  &19163 & $176$  & 176\\
-244 & 120 & 1709 & 230 & 248 \\
-256 & 128 & 3329 & $194$ & 253 \\
-256 & 128 & 14081 & $208$ & 240 \\
-197 & 196 & 3547 & $337$ & 411 \\
-512 & 256 &10753 & 431  & 511 \\
-512 & 256 &19457 & 414 & 414
+244 & 120 & 1709 & 230 & 248 & 1721.2 & yes \\
+256 & 128 & 3329 & $194$ & 253 & 3350.0 & yes \\
+%256 & 128 & 14081 & $208$ & 240 \\
+197 & 196 & 3547 & $337$ & 410 & 3475.2 & yes \\
+512 & 256 &10753 & 431 & 511 &  & yes\\
+% 512 & 256 &19457 & 414 & 512 & 
 \end{tabular}
 \end{center}
 \end{table}
 
-The data in Table~\ref{tab: deg1} suggests that for $n \geq 100$ and $q$ of polynomial size in $n$, the statistical distance between $P'_{m,k} \pmod{\fq}$ (or $P_{m,\tau} \pmod{\fq}$ and the uniform distribution is negligibly small. Also, note that we fixed $k= 2$ and $\tau = 1$, and the $\epsilon$ values becomes even smaller when $k$ increases.
+The data in Table~\ref{tab: deg1} suggests that for $n \geq 100$ and $q$ of polynomial size in $n$, the statistical distance between $P'_{m,k} \pmod{\fq}$ (or $P_{m,\tau} \pmod{\fq})$ and the uniform distribution is negligibly small. Also, note that we fixed $k= 2$ and $\tau = 1$, and the $\epsilon$ values becomes even smaller when $k$ increases.
 
 
-It is possible to generalize our discussion in this section to primes of arbitrary residual degree $f$, in which case the Fourier analysis will be performed over the field $\bF_{q^f}$. The only change in the definitions would be $\chi_y(a) = e^{ \frac{2 \pi i Tr(a y)}{q}}$. Similarly, we have
+It is possible to generalize our discussion in this section to primes of arbitrary residue degree, in which case the Fourier analysis will be performed over the corresponding extension field. The only change in the definitions would be $\chi_y(a) = e^{ \frac{2 \pi i Tr(a y)}{q}}$. Similarly, we have
 \[
     \widehat{e'_\alpha}(y) = \prod_{i=1}^{n} \cos \left(\frac{ \pi Tr(\alpha^i y) }{q} \right)^k.
 \]

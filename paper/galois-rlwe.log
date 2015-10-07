@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.1.6)  4 OCT 2015 16:18
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.1.6)  6 OCT 2015 21:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -858,121 +858,97 @@ File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 ) [1
 
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 193.
-
-
-LaTeX Warning: Marginpar on page 4 moved.
-
-[4]
+ [4]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 272.
- [5] <attack-quality.png, id=180, 578.16pt x 433.62pt>
+put line 271.
+ [5]
+<attack-quality.png, id=180, 578.16pt x 433.62pt>
 File: attack-quality.png Graphic file (type png)
-
-<use attack-quality.png>
-Package pdftex.def Info: attack-quality.png used on input line 332.
+ <use attack-quality.png>
+Package pdftex.def Info: attack-quality.png used on input line 337.
 (pdftex.def)             Requested size: 281.85587pt x 211.39055pt.
- [6 <./attack-quality.png>]
-Overfull \hbox (21.01468pt too wide) in paragraph at lines 369--381
+
+[6 <./attack-quality.png>]
+Overfull \hbox (18.38972pt too wide) in paragraph at lines 375--387
  [] 
  []
 
-
-LaTeX Warning: Marginpar on page 7 moved.
-
-[7]
-
-LaTeX Warning: Marginpar on page 8 moved.
-
-[8]
-
-LaTeX Warning: Marginpar on page 9 moved.
-
-
-LaTeX Warning: Marginpar on page 9 moved.
-
-
-LaTeX Warning: Marginpar on page 9 moved.
-
-
-LaTeX Warning: Marginpar on page 9 moved.
-
-[9]
+[7] [8] [9]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 616.
+(amsmath)                 on input line 613.
 
-<v8.png, id=250, 566.5968pt x 277.5168pt>
+<v8.png, id=235, 566.5968pt x 277.5168pt>
 File: v8.png Graphic file (type png)
  <use v8.png>
-Package pdftex.def Info: v8.png used on input line 624.
+Package pdftex.def Info: v8.png used on input line 621.
 (pdftex.def)             Requested size: 234.8775pt x 115.04028pt.
  [10 <./v8.png>] [11]
-[12] (./galois-rlwe.bbl [13]
+[12] [13] (./galois-rlwe.bbl
 Underfull \hbox (badness 2753) in paragraph at lines 50--52
 []\OT1/cmr/m/n/9 Stein, W., et al.: Sage Math-e-mat-ics Soft-ware (Ver-sion 6.4
 ). The Sage De-vel-op-ment Team (2014),
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 827.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 825.
  [14]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 827.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 825.
  (./galois-rlwe.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 827.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 827.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 825.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 825.
 Package rerunfilecheck Info: File `galois-rlwe.out' has not changed.
 (rerunfilecheck)             Checksum: 5EB92BEAF50650E3C5497DBF5876A7C4;57.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 827.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 825.
  ) 
 Here is how much of TeX's memory you used:
- 16975 strings out of 493315
- 300933 string characters out of 6137905
- 431160 words of memory out of 5000000
- 19961 multiletter control sequences out of 15000+600000
+ 16846 strings out of 493315
+ 298006 string characters out of 6137905
+ 391961 words of memory out of 5000000
+ 19844 multiletter control sequences out of 15000+600000
  16100 words of font info for 64 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 69i,13n,76p,1222b,679s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 69i,11n,65p,1484b,402s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pf
 b></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb></
-usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></us
-r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr
-/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></
-usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
-sr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr
-/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/l
-ocal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/loc
-al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local
-/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local
-/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/t
-exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texl
-ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive
-/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/20
-13/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2013/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2013/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2013/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2013/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2013/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2013/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2013/texmf-dist/fo
-nts/type1/public/amsfonts/euler/eufb10.pfb></usr/local/texlive/2013/texmf-dist/
-fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/local/texlive/2013/texmf-dis
-t/fonts/type1/public/amsfonts/euler/eufm5.pfb></usr/local/texlive/2013/texmf-di
-st/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/local/texlive/2013/texmf-d
-ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2013/tex
-mf-dist/fonts/type1/public/amsfonts/symbols/msbm5.pfb></usr/local/texlive/2013/
-texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/20
-13/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
-Output written on galois-rlwe.pdf (14 pages, 457925 bytes).
+</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></
+usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></u
+sr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb>
+</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></u
+sr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr
+/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/l
+ocal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/loc
+al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/loc
+al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local
+/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/te
+xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texli
+ve/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/
+2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/201
+3/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2013/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2013/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2013/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2013/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2013/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2013/texmf-dist/
+fonts/type1/public/amsfonts/euler/eufb10.pfb></usr/local/texlive/2013/texmf-dis
+t/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/local/texlive/2013/texmf-d
+ist/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/local/texlive/2013/texmf-
+dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2013/te
+xmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2013
+/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
+Output written on galois-rlwe.pdf (14 pages, 434503 bytes).
 PDF statistics:
- 433 PDF objects out of 1000 (max. 8388607)
- 346 compressed objects within 4 object streams
- 109 named destinations out of 1000 (max. 500000)
+ 407 PDF objects out of 1000 (max. 8388607)
+ 323 compressed objects within 4 object streams
+ 97 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
