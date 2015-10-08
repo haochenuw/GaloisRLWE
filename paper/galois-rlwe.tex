@@ -1,13 +1,16 @@
-\documentclass[envcountsect]{llncs}
+\documentclass[envcountsame]{llncs}
 \title{Attacks on Search-RLWE}
 %\author{Hao Chen, Kristin Lauter, and Katherine E. Stange}
 
 \usepackage{macros}
+\usepackage{mathtools}
+%\usepackage[all,cmtip]{xy}
 \usepackage{float}
 \usepackage{url}
 \usepackage{placeins}
 \usepackage{hyperref}
 \setlength{\tabcolsep}{7pt}
+\usepackage{physics}
 
 \spnewtheorem{fact}{Fact}{\bfseries}{\rmfamily}
 
@@ -19,6 +22,7 @@
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
 %\usepackage{physics}
 
+%\authorrunning{Attacks on Search RLWE}
 
 %%%%%%%%%%%%%% To do notes, can remove later
 \usepackage[textwidth=50,textsize=tiny]{todonotes}
@@ -40,11 +44,11 @@ We describe a new attack on the Ring learning-with-errors (RLWE) problem based o
 \end{abstract}
 
 \section{Introduction}
-The Ring Learning-with-Errors (RLWE) problem, proposed in \cite{lyubashevsky2013ideal}, is a variant of the traditional Learning-with-Errors (LWE) problem, and is an active research area in lattice based cryptography. It has drawn increased attention due to the important application  to constructing homomorphic encryption schemes (\cite{brakerski2014efficient,brakerski2011fully,brakerski2012leveled,gentry2012fully,stehle2011making,bos2013improved}).
+The Ring Learning-with-Errors (RLWE) problem, proposed in \cite{lyubashevsky2013ideal}, is a variant of the traditional Learning-with-Errors (LWE) problem, and is an active research area in lattice based cryptography. It has drawn increased attention due to the important application  to constructing homomorphic encryption schemes (\cite{bos2013improved,brakerski2012leveled,brakerski2011fully,brakerski2014efficient,gentry2012fully,stehle2011making}).
 
-Central to an RLWE problem instance is a choice of a number field $K$ and a prime $q$ called the {\it modulus}. The authors of \cite{lyubashevsky2013ideal} considered the case where $K$ is some cyclotomic field, and proved a reduction from certain hard lattice problems to the dual variant of RLWE. The hardness for the non-dual variant was proved in \cite{ducas2012ring}. Also in \cite{lyubashevsky2013ideal}, a search-to-decision reduction was proved for RLWE problems for cyclotomic fields and modulus $q$ which splits completely. This reduction was then generalized to general Galois extensions in \cite{eisentrager2014weak}.
+Central to an RLWE problem instance is a choice of a number field $K$ and a prime $q$ called the {\it modulus}. The authors of \cite{lyubashevsky2013ideal} considered the case where $K$ is some cyclotomic field, and proved a reduction from certain hard lattice problems to the dual variant of RLWE. The hardness for the non-dual variant was proved in \cite{ducas2012ring}. Also in \cite{lyubashevsky2013ideal}, a search-to-decision reduction was proved for RLWE problems for cyclotomic fields and modulus $q$ which splits completely. This reduction was then generalized to general Galois number fields in \cite{eisentrager2014weak}.
 
-The authors of \cite{elos2015weak} proposed an attack on the decision RLWE problem. The attack makes use of ring homomorphisms $\pi: R \to \bF_q$, and works when the image of the RLWE error distribution under the map $\pi$ only takes value in a stricly smaller subset of $\bF_q$, with overwhelming probability. The authors of \cite{elos2015weak} then gave an infinite family of examples vulnerable to the attack. Unfortunately, the vulnerable number fields in \cite{elos2015weak} are not Galois extensions of $\bQ$. Hence, the search-to-decision reduction theorem does not apply, and the attack can not be directly used to solve the search variant of RLWE for those instances.
+The authors of \cite{elos2015weak} proposed an attack on the decision RLWE problem. The attack makes use of ring homomorphisms $\pi: R \to \bF_q$, and works when the image of the RLWE error distribution under the map $\pi$ only takes value in a small subset of $\bF_q$ with overwhelming probability. The authors of \cite{elos2015weak} then gave an infinite family of examples vulnerable to the attack. Unfortunately, the vulnerable number fields in \cite{elos2015weak} are not Galois. Hence, the search-to-decision reduction theorem does not apply, and the attack can not be directly used to solve the search variant of RLWE for those instances.
 
 In our paper, we generalize the attack of \cite{elos2015weak} to Galois number fields and moduli of higher degree. As a result, we have an attack on the {\it Search}-RLWE problem, and an implementation on concrete RLWE instances including the search-to-decision reduction.  Our attack is new in two major ways: first, the attack considers ring homomorphisms from $R \to \bF_{q^f}$, for $f>1$, instead of just homomorphisms from $R \to \bF_q$; second, the error distribution is distinguished from random (i.e. from the uniform distribution) using the statistical chi-squared test, instead of relying on the values of the error polynomial to be small or in a small subset.
 
@@ -62,7 +66,7 @@ Also, we analyze the vulnerability of cyclotomic fields to the \cite{elos2015wea
 
 In section \ref{sec: background}, we recall the canonical embedding of number fields and central definitions related to the RLWE problems. In section \ref{sec: s-to-d}, we review prime factorizations in Galois extensions and prove a search-to-decision reduction for Galois extensions $K$ and unramified moduli. In section \ref{sec: chi-square}, we introduce an attack to RLWE problems based on the chi-square statistical test, which directly generalizes the attack in \cite{elos2015weak}. More precisely, the attack aims at an intermediate problem used in the search-to-decision proof of \cite{lyubashevsky2013ideal}, which we denote by $\SRLWE(\cR,\fq)$ (see Definition~\ref{def: srlwe mod q}). The time complexity of our attack is $O(q^{2f})$, where $f$ is the {\it residue degree} of $q$ in $K$ (see Lemma~\ref{lem: prime factorization}). In section \ref{sec: sub-cyclotomics}, we give examples of subfields of cyclotomic fields vulnerable to our new attack, where the modulus $q$ has residue degree two.
 
-In section \ref{sec: ramified-prime}, we show that our attack works on prime cyclotomic fields when the modulus is the unique ramified prime. Finally, in section \ref{sec: cyclo-secure}, we use Fourier analysis to give numerical evidence that cyclotomic extensions with unramified moduli are invulnerable to our attack.
+In section \ref{sec: ramified-prime}, we show that our attack works on prime cyclotomic fields when the modulus is the unique ramified prime. Finally, in section \ref{sec: cyclo-secure}, we use Fourier analysis to give a heuristic argument, which we then combine with numerical evidence to show that cyclotomic extensions with unramified moduli of small residue degree are invulnerable to our attack.
 
 All computations in this paper were performed in Sage \cite{sage}. All the relevant code is available and  can be found at \url{https://github.com/haochenuw/GaloisRLWE}.
 
@@ -82,7 +86,7 @@ To work with real vector spaces, we define the {\it adjusted embedding} of $K$ a
     x & \mapsto (\sigma_1(x), \cdots, \sigma_{r_1}(x), \Re(\sigma_{r_1+1})(x), \Im(\sigma_{r_1+1})(x), \cdots,  \Re(\sigma_{r_1+r_2})(x), \Im(\sigma_{r_1+r_2})(x)).
 \end{align*}
 
-Then $\Lambda_R = \tilde{\iota}(R)$ is a lattice in $\bR^n$, we call it the {\it embedded lattice of $R$}.
+Then $\Lambda_R = \tilde{\iota}(R)$ is a lattice in $\bR^n$, and we call it the {\it embedded lattice of $R$}.
 
 Let $w = (w_1, \cdots , w_n)$ be an integral basis for $R$.
 
@@ -104,7 +108,7 @@ T = \begin{bmatrix}
 \]
 Then we have
 $$\widetilde{A_{w}} = T A_{w},$$
-and the lattice $\tilde{\iota}(R)$ has a basis consisting of columns of $\widetilde{A_{w}}$.
+and the lattice $\Lambda_R$ has a basis consisting of columns of $\widetilde{A_{w}}$.
 
 For $\sigma > 0$, define the Gaussian function $\rho_\sigma: \bR^n \to [0,1]$ as $\rho_\sigma(x) = e^{-||x||^2/2\sigma^2}$ (our $\sigma$ is equal to $r/\sqrt{2\pi}$ for the parameter $r$ in \cite{lyubashevsky2013ideal}).
 \begin{definition}
@@ -127,11 +131,11 @@ An {\it RLWE instance} is a tuple $\cR = (K,q,\sigma,s)$, where $K$ is a number 
 \begin{definition}
 Let $\cR = (K,q,\sigma,s)$ be an RLWE instance and let $R$ be the ring of integers of $K$. The {\it error distribution} of $\cR$, denote by $D_\cR$, is the discrete Gaussian distribution
 \[
-D_\cR = D_{\tilde{\iota}(R),\sigma}.
+D_\cR = D_{\Lambda_R,\sigma}.
 \]
 \end{definition}
 
-As pointed out in \cite{elos2015weak}, when analyzing the error distribution, one needs to take into account the sparsity of the lattice $\tilde{\iota}(R)$, which is measured by its covolume $V_R$. In light of this, we define a relative version of the standard deviation parameter: $$\sigma_0 = \frac{\sigma}{V_R^{\frac{1}{n}}}.$$
+As pointed out in \cite{elos2015weak}, when analyzing the error distribution, one needs to take into account the sparsity of the lattice $\Lambda_R$, which is measured by its covolume $V_R$. In light of this, we define a relative version of the standard deviation parameter: $$\sigma_0 = \frac{\sigma}{V_R^{\frac{1}{n}}}.$$
 
 The notation $x \gets D$ indicates that variable $x$ is distributed according to distribution $D$.
 
@@ -156,13 +160,13 @@ problem, denoted by $\DRLWE(\cR)$, is to distinguish between the same number of 
 \end{definition}
 
 \subsection{Sampling Methods}
-In practice, there are different ways to approximately sample from the RLWE error distribution $D_\cR$, and we will consider three sampling methods in our paper. While searching for weak Galois RLWE instances as well as attacking ramified primes, we use the sampling algorithm in  \cite{gentry2008trapdoors}; when analyzing the security of cyclotomics, we use the PLWE distribution $P_{m,\tau}$ and another distribution $P'_{m,k}$ to assist the analysis. The efficient sampling algorithm in \cite{lyubashevsky2013toolkit} for cyclotomic fields is related to the dual version of RLWE, we will not use it in our paper.
+In practice, there are different ways to approximately sample from the RLWE error distribution $D_\cR$, and we will consider three sampling methods in our paper. While searching for weak Galois RLWE instances as well as attacking ramified primes, we use the sampling algorithm in  \cite{gentry2008trapdoors}; when analyzing the security of cyclotomics, we use the PLWE distribution $P_{m,\tau}$ and another distribution $P'_{m,k}$ to assist the analysis. The efficient sampling algorithm in \cite{lyubashevsky2013toolkit} for cyclotomic fields is related to the dual version of RLWE, so we will not use it in our paper.
 
 
 \section{Search-to-Decision Reduction}
 \label{sec: s-to-d}
 
-In \cite{eisentrager2014weak}, the search-to-decision reduction of \cite{lyubashevsky2013ideal} is extended to Ring-LWE for Galois number fields, where $q$ is an unramified prime of degree one.  The approach is via an intermediate problem, denoted $\fq_i$-LWE in \cite{lyubashevsky2013ideal}.  In this section, we extend this result to primes $\fq$ of arbitrary residue degree.  Our intermediate problem, which we denote by $\SRLWE(\cR,\fq)$, is to find the secret modulo the prime.  The Galois group allows us to bootstrap this piece of information to discover the full secret.
+In \cite{eisentrager2014weak}, the search-to-decision reduction of \cite{lyubashevsky2013ideal} is extended to Ring-LWE for Galois number fields, where $q$ is an unramified prime of degree one.  The approach is via an intermediate problem, denoted $\fq_i$-LWE in \cite{lyubashevsky2013ideal}.  In this section, we extend this result to primes $\fq$ of arbitrary residue degree.  Our intermediate problem, which we denote by $\SRLWE(\cR,\fq)$, is the same as $\fq_i$-LWE, and it amounts to find the secret modulo the prime $\fq$.  The Galois group allows us to bootstrap this piece of information to discover the full secret.
 
 The attack in Section~\ref{sec: chi-square} targets $\SRLWE(\cR,\fq)$ and hence, by the results of this section, will solve Search Ring-LWE.  In Section~\ref{sec: sub-cyclotomics}, we demonstrate the attack on Search Ring-LWE in practice.
 
@@ -171,13 +175,13 @@ The attack in Section~\ref{sec: chi-square} targets $\SRLWE(\cR,\fq)$ and hence,
 %We remark that a search-to-decision reduction theorem for higher degree primes can be proved by carrying out almost the exact same proof in \cite{eisentrager2014weak}.
 
 \begin{definition} \label{def: srlwe mod q}
-        Let $\cR = (K,q,\sigma, s)$ be an RLWE instance, and let $\fq$ be a prime of $K$ lying above $q$.  The problem $\SRLWE(\cR, \fq)$ is to determine $s \pmod {\fq}$, given access to arbitrarily many independent samples $(a,b) \gets \cR$.
+        Let $\cR = (K,q,\sigma, s)$ be an RLWE instance and let $\fq$ be a prime of $K$ lying above $q$.  The problem $\SRLWE(\cR, \fq)$ is to determine $s \pmod {\fq}$, given access to arbitrarily many independent samples $(a,b) \gets \cR$.
 \end{definition}
 
 We recall some facts from algebraic number theory in the following lemma.
 \begin{lemma}
 \label{lem: prime factorization}
-Let $K/\bQ$ be a finite Galois extension with ring of integers $R$,  and let $q$ be a prime unramified in $K$. Then there exists a unique choice of integer $g \mid n$, and set of $g$ distinct prime ideals $\fq_1, \cdots ,\fq_g$ of
+Let $K/\bQ$ be a finite Galois extension with ring of integers $R$,  and let $q$ be a prime unramified in $K$. Then there exists a unique divisor $g$ of $n$ and a set of $g$ distinct prime ideals $\fq_1, \cdots ,\fq_g$ of
 $R$ such that:
 \begin{enumerate}
         \item $qR = \prod_{i=1}^g \fq_i$,
@@ -201,7 +205,7 @@ The number $f$ in the above lemma is called the {\it residue degree} of $q$ in $
         The Galois group $G =\operatorname{Gal}(K/\bQ)$ acts on the set $\{\fq_1, \cdots ,\fq_g\}$ transitively. Hence for each $i$, there exists $\sigma_i \in \operatorname{Gal}(K/\bQ)$, such that $\sigma_i(\fq) = \fq_i$, Then we call the oracle $\sA$ on the input $(\sigma_i^{-1}(S) \pmod \fq, \fq)$. The algorithm will output $\sigma_i^{-1}(s) \pmod{\fq}$, from which we can recover $s \pmod{\fq_i}$ using $\sigma_i$.  We do this for all $1\leq i \leq g$ and use \eqref{eqn: Rq-factor} of Lemma \ref{lem: prime factorization} to recover $s$.
 \qed \end{proof}
 
-In particular, if the number of samples $m$ is polynomial in $n$ and the time taken to evaluate Galois actions is also polynomial in $n$, then Theorem~\ref{thm: reduction} gives a polynomial time reduction from $\SRLWE(\cR)$ to $\SRLWE(\cR,\fq)$.
+In particular, if the number of samples $m$ is polynomial in $n$ and the time taken to evaluate Galois automorphisms on a single sample is also polynomial in $n$, then Theorem~\ref{thm: reduction} gives a polynomial time reduction from $\SRLWE(\cR)$ to $\SRLWE(\cR,\fq)$.
 
 \begin{remark}
         For a proper runtime analysis of the reduction, one must examine the implementation, in particular with regards to Galois automorphisms.
@@ -313,7 +317,7 @@ For the attack to be successful, we need the $(N-1)$ tests corresponding to wron
 \end{algorithm}
 
 \begin{remark}
-For simplicity of exposition, we use $N$ bins in Algorithm~\ref{alg: chi-square}, i.e., we have one element per bin. In some situations,
+For simplicity of exposition, we use $N$ bins in Algorithm~\ref{alg: chi-square}, that is one element per bin. In some situations,
 it might be advantageous to choose the bins differently.
 \end{remark}
 
@@ -364,7 +368,7 @@ Suppose $\cR$ is an RLWE instance such that the underlying field $K$ is a Galois
 \end{lemma}
 
 \begin{proof}
-        From Lemma \ref{lem: prime factorization}, we may change from a prime $\fq$ to $\fq'$ via $\Gal(K/\bQ)$. On the other hand, the Galois group acts on the embedded lattice $\Lambda_R$ by permuting the coordinates. Hence we have a group homomorphism $$\phi: \Gal(K/\bQ) \to \Aut(\Lambda).$$ Since permutation matrices are orthogonal, the Galois group action on $\Lambda_R$ given by $\phi$ is distance-preserving. In particular, it preserves any spherical discrete Gaussian distribution on $\Lambda_R$.
+        From Lemma \ref{lem: prime factorization}, we may switch from a prime $\fq$ to $\fq'$ via $\Gal(K/\bQ)$. On the other hand, the Galois group acts on the embedded lattice $\Lambda_R$ by permuting the coordinates. Hence we have a group homomorphism $$\phi: \Gal(K/\bQ) \to \Aut(\Lambda).$$ Since permutation matrices are orthogonal, the Galois group action on $\Lambda_R$ given by $\phi$ is distance-preserving. In particular, it preserves any spherical discrete Gaussian distribution on $\Lambda_R$.
 \qed \end{proof}
 
 \subsection{Searching}
@@ -373,9 +377,9 @@ Algorithm~\ref{alg: chi-square} allows us to search for vulnerable instances amo
 
 
 In Table~\ref{tab: attacked}, we list some instances on which the attack has succeeded. The columns of Table~\ref{tab: attacked} are as follows. The first two columns specify $m$ and the generators of $H$, where $H$ is represented as
-a subgroup of $(\bZ/m\bZ)^*$; the column labeled $f$ is the residue degree of $q$. The last column consists of either the runtime for an actual attack which succeeded, or an estimation of the runtime. Note that we omitted our choice of prime ideal $\fq$, since due to Lemma~\ref{lem: symmetry} the choice of $\fq$ is irrelevant to our attack. The parameters $\sigma_0$ represent the boundary of the power of our attack, i.e., we tried higher $\sigma_0$ and the attack did fail.
+a subgroup of $(\bZ/m\bZ)^*$; the column labeled $f$ is the residue degree of $q$. The last column consists of either the runtime for an actual attack which succeeded, or an estimation of the runtime. Note that we omitted our choice of prime ideal $\fq$, since due to Lemma~\ref{lem: symmetry} the choice of $\fq$ is irrelevant to our attack. The parameters $\sigma_0$ in Table~\ref{tab: attacked} represent the boundary of the power of our attack, i.e., we tried higher $\sigma_0$ and the attack did fail. Note that although $\sigma_0$ is relatively small, in practice it still provides exponentially many error vectors. Intuitively, when $\sigma_0$ = 1, our $\sigma$ is equal to the geometric mean of the lengths of a gram-schmidt basis of $\Lambda_R$. In practice, the lengths of these basis vectors do not differ by a lot, so we still expect to get at least $\Omega(2^n)$ error vectors.
 
-The rows with ``estimated'' runtime mean the following. First, we ran the chi-square test on the correct reduced errors to obtain an estimate $\hat{\Delta}$ of the statistical distance $\Delta$. We then chose $\alpha$ according to $\hat{\Delta}$ and obtained an estimation $\hat{p}$ of the success probability of our attack, using the formula in Theorem~\ref{thm: attack}.  The corresponding rows in the table all have $\hat{p} > 1 - 2^{-10}$, suggesting that the attack is very likely to succeed.  Finally, we ran a few chi-square tests on samples obtained from some randomly chosen incorrect guesses to obtain the average time $t$ for running one chi-square test. We set the estimated runtime for the attack to be $tN$.
+The rows of Table~\ref{tab: attacked} with ``estimated'' runtime mean the following. First, we ran the chi-square test on the correct reduced errors to obtain an estimate $\hat{\Delta}$ of the statistical distance $\Delta$. We then chose $\alpha$ according to $\hat{\Delta}$ and obtained an estimation $\hat{p}$ of the success probability of our attack, using the formula in Theorem~\ref{thm: attack}.  The corresponding rows in the table all have $\hat{p} > 1 - 2^{-10}$, suggesting that the attack is very likely to succeed.  Finally, we ran a few chi-square tests on samples obtained from some randomly chosen incorrect guesses to obtain the average time $t$ for running one chi-square test. We set the estimated runtime for the attack to be $tN$.
 
 \begin{table}
 \caption{Attacked sub-cyclotomic RLWE instances}
@@ -389,7 +393,7 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples & runtime (
 90321 & [90320, 18514, 43405] & 80 & 67 & 2 & 1 & 26934 & 4.81 \\
 255255 &  [97943, 162436, 253826, 248711, 44318] & 90 & 2003 & 2 & 1.25 & 15000 &  1114.44 (estimated) \\
 285285 & [181156, 210926, 87361] & 96 & 521  & 2 & 1.1 & 5000 & 75.41 (estimated) \\
-1468005Z & [312016, 978671, 956572, 400366] & 100 & 683 & 2 & 1.1
+1468005 & [312016, 978671, 956572, 400366] & 100 & 683 & 2 & 1.1
 & 5000 &  276.01 (estimated) \\
 1468005 & [198892, 978671, 431521, 1083139] & 144 & 139 & 2 & 1 &  4000 &  5.72
 \end{tabular}
@@ -409,7 +413,7 @@ In practice, we found out that the above scenario is more likely to happen when 
 
 
 
-\subsection{A Detailed Example}
+\subsection{A Detailed Example} \label{subsec: detailed}
 In order to illustrate our discussion above together with the search-to-decision reduction, we present a vulnerable Galois RLWE instance in detail, where we generated RLWE samples, performed the attack, and used the search-to-decision reduction to recover the entire secret $s$.
 
 
@@ -422,8 +426,7 @@ Let $m = 3003$ and $H$ be the subgroup of $(\bZ/m\bZ)^*$ generated by 2276, 2729
 \section{Attacking Prime Cyclotomic Fields when the Modulus is the Ramified Prime}
 \label{sec: ramified-prime}
 
-Let $p$ be an odd prime and $K = \bQ(\zeta_p)$. Then $K$ has degree $(p-1)$ and discriminant $p^{p-2}$.
-In addition, the prime $p$ is totally ramified in $K$. There is a unique prime ideal $\fp = (1 - \zeta_p)$ above $p$, and the reduction map  $\pi: R/pR \to \bF_p$ satisfies
+Let $p$ be an odd prime and let $K = \bQ(\zeta_p)$ be the $p$-th cyclotomic field. Then $K$ has degree $(p-1)$ and discriminant $p^{p-2}$. In addition, the prime $p$ is totally ramified in $K$. There is a unique prime ideal $\fp = (1 - \zeta_p)$ above $p$, and the reduction map  $\pi: R/pR \to \bF_p$ satisfies
 \[
         \pi(\zeta_p^i) = 1, \quad \forall i \in \bZ.
 \]
@@ -571,28 +574,57 @@ $|e|\leq 6\sqrt{2(p-1)\pi} \sigma$. When $p \to \infty$, we have $|e \pmod {\fp}
 
 The modulus switching procedure is a technique to reduce noise
 in RLWE samples, and has been discussed extensively in  \cite{brakerski2012leveled} and \cite{langlois2014worst}.
-We recap the basic ideas of modulus switching. Let $\cR = (K, q, \sigma, s)$ be an RLWE instance. Choose $p < q$ as the new modulus and consider the instance $\cR' = (K,p,\sigma',s)$ for some $\sigma' > \sigma$. The main operation of modulus switching is a map
+We recap the basic ideas of modulus switching. Let $\cR = (K, q, \sigma, s)$ be an RLWE instance. Choose $p < q$ as the new modulus and consider the instance $\cR' = (K,p,\sigma',s)$ for some $\sigma' > \sigma$.  We can ``switch modulus'' if there exists a map
 \[
 \pi_{q,p} : R_q \to R_p,
 \]
-which ideally takes RLWE samples w.r.t. $\cR$ to RLWE samples w.r.t. $\cR'$. One example of such map being used in practice is as follows. Let $\alpha = \frac{p}{q}$ and fix a small positive number $\tau$, For $a$ in $R_q$, we first scale and get $\frac{p}{q}a \in \frac{1}{q} R$. Then we sample a vector $a''$ from the ``shifted discrete Gaussian'' $D_{\Lambda_R, \tau, \alpha a}$,  defined as follows. For a lattice $\Lambda$ and a vector $c \in \bR^n$,
+which takes RLWE samples with respect to $\cR$ to RLWE samples with respect to $\cR'$.  In what follows, we give a heuristic argument that modulus switching will not work under a na\"ive implementation, and isolate the key characteristics a successful implementation would require.
+
+One example of a map $\pi_{q,p}$ being used in practice is as follows. Let $\alpha = \frac{p}{q}$ and fix a small positive number $\tau$. For an equivalence class $[a]$ in $R_q$, we sample a vector $a'$ from the ``shifted discrete Gaussian'' $D_{\Lambda_R, \tau, \alpha a}$,  defined as follows. For a lattice $\Lambda$ and a vector $c \in \bR^n$,
 \[
     D_{\Lambda, \tau, c}(x) = \frac{\rho_\tau(x - c)}{\sum_{y \in\Lambda} \rho_\tau(y-c)}, \, \forall x \in \Lambda.
 \]
-Finally, we set $ \pi_{q,p}(a) = a' = \alpha a - a''$.
+Finally, we set $ \pi_{q,p}([a]) = a' \pmod{pR}$. Note that the definition of $\pi_{q,p}([a])$ is independent of the choice of  representative $a$, as follows.  Suppose we choose another representative $a_1$, then $a_1 = a+ \lambda q$ for some $\lambda \in R$, hence $\alpha a_1 = \alpha a + \lambda p$.  Finally, observe that the shifted discrete Gaussian behaves well under translating by a lattice point, i.e., we have $D_{\Lambda, \tau, c+u} = D_{\Lambda, \tau, c} + u$ for any $u \in \Lambda$.  
 
-Since we expect $a''$ to be a  short vector, the point $a'$ can be viewed as a ``rounding'' of the point $\alpha a$ to the lattice $\Lambda_R$. One also requires that $\pi_{q,p}$ takes uniform distribution on $R_q$ to almost uniform distribution on $R_p$, which can be by taking $\tau$ to be reasonably large. It is a natural question then to ask whether modulus switching can be combined with our attack, to switch from a ``strong'' modulus to a ``weak'' modulus. However, a heuristic argument shows that the naive combination of our attack with modulus switching will not work.
+Put loosely, the map $\pi_{q,p}$ scales $a$ by $p/q$ and then rounds back into the lattice.  It is a natural question then to ask whether modulus switching can be combined with our attack, to switch from a ``strong'' modulus to a ``weak'' modulus.  However, a heuristic argument shows that the naive combination of our attack with modulus switching will not work.  
 
-To explain this, suppose we have a sample $(a,b) \gets \cR$ and the switched sample $(a', b') = (\pi_{q,p}(a),\pi_{q,p}(b))$. Consider the error $e':= b' - a's$ and the distribution of $e' \pmod{\fp}$ for some prime ideal $\fp$ above $p$. Suppose $b = as+e+ \lambda q$ for some $\lambda \in R$. Then
+Let $a'' = \alpha a - a'$. By construction, we expect $a''$ to be a  short vector in $\bR^n$, and the point $a'$ can be viewed as a ``rounding'' of the point $\alpha a$ to the lattice $\Lambda_R$. 
+
+We will make two heuristic assumptions:
+
+\begin{enumerate}
+        \item That $\pi_{q,p}$ takes the uniform distribution on $R_q$ to an almost uniform distribution on $R_p$.
+        \item The distribution of $a''$ and $(sa)''$ is independent modulo $\fq$, for $s \neq \pm 1$. 
+\end{enumerate}
+
+\begin{proposition}
+        Under the assumption that $\pi_{q,p}$ takes the uniform distribution on $R_q$ to an almost uniform distribution on $R_p$, the reduction of $a''$ modulo $\mathfrak{p}$ will be almost uniformly distributed in $R/\mathfrak{p}R$.
+\end{proposition}
+
+\begin{proof}
+The reduction map $R \rightarrow R/\mathfrak{p}$ 
+is a ring homomorphism that can be extended to a homomorphism of additive groups $\phi: \frac{1}{q} R \rightarrow R/\mathfrak{p}$ by the following chain of maps:
+\[
+        \frac{1}{q} R \xrightarrow{\pmod{\mathfrak{p}\frac{1}{q}R}} \frac{1}{q}R \Big/ \mathfrak{p}\frac{1}{q}R \xrightarrow{ \times q} R/\mathfrak{p}R \xrightarrow{ \times [q]^{-1}} R/\mathfrak{p}R.
+\]
+Then the relation $a'' + a' = \alpha a$ is preserved by this map.  However, $\phi(\alpha a) = 0 \pmod{\mathfrak{p}}$, so that $\phi(a'') \equiv -\phi(a')$. \qed
+\end{proof}
+
+Suppose we have a sample $(a,b) \gets \cR$ and the switched sample $(a', b') = (\pi_{q,p}(a),\pi_{q,p}(b))$. Consider the error $e':= b' - a's$. Suppose $b = as+e+ \lambda q$ for some $\lambda \in R$. Then
 \begin{align*}
     e' &= b' - a's  \\
     &= \alpha(b-as) - b''  + a''s. \\
     & = \alpha e + \lambda p - b'' + a''s.
 \end{align*}
+and therefore, considering this as an additive relation in $\frac{1}{q}R$ and applying the map of the proof above,
+$$e' \equiv - b'' + a'' s \pmod{\fp}.$$
 
-Since $p$ and $q$ are coprime, the domain of the reducing modulo $\fp$ map can be extended from $R$ to $\frac{1}{q}R$. Hence $$e' \equiv - b'' + a'' s \pmod{\fp}.$$ Also, since $a'' + a' = \alpha a \equiv 0 \pmod {\fp}$, we have $a'' \pmod{\fp} = -a' \pmod{\fp}$. By assumption, the map $\pi_{q,p}$ algorithm maps uniform samples in $R_q$ to uniform samples in $R_p$. An immediate consequence is that $a' \pmod{\fp}$ is uniformly distributed in $R/\fp$, hence so is $a'' \pmod{\fp}$. The same argument applys to $b''$, and we can conclude that $b' \pmod{\fp}$ is also uniformly distributed in $R/\fp$. Note that $a''$ and $b''$ are the rounding errors when we try to round $\alpha a$ and $\alpha b$ to the lattice $\Lambda_R$. However, $\Lambda_R$ is a $n$-dimensional lattice, so there are $\Omega(2^n)$ options of rounding a vector in $\bR^n$ to a moderately close lattice point. Even in the scenario with zero error, i.e., $e = 0$, an attacker will face the task of finding a ``nice'' rounding algorithm, so that the roundings of the two vectors $\alpha a$ and $\alpha b = \alpha a s$ are somehow related, which is intuitively unlikely, because the lattice structure around the two vectors $\alpha a$ and $\alpha b$  seem unrelated, at least when $n$ is large. So far, we are not aware of such algorithms, unless the secret $s$ is trivial, e.g., $s = 1$, in which case $\alpha a$ is almost equal to $\alpha b$, and one expects that $a''$ is closed to $b''$.
+By the Proposition above, $a''$ and $b''$ are uniformly distributed modulo $\fp$.  Hence, if we assume the $a''$ and $b''$ are independent, then the reduced rounding errors $a'' \pmod{\fp}$ and $b'' \pmod{\fp}$ are also independent, and the new reduced errors $e' \pmod{\fp}$ would follow the uniform distribution. So our chi-square attack will fail on these modulus-switched samples, even though $p$ might be a ``weak'' modulus.
 
-Hence, if we assume the $a''$ and $b''$ are independent vectors, then the reduced rounding errors $a'' \pmod{\fp}$ and $b'' \pmod{\fp}$ are independent, and the new reduced errors $e' \pmod{\fp}$ would follow the uniform distribution. So our chi-square attack will fail on these modulus-switched samples, even though $p$ might be a ``weak'' modulus.
+Therefore, the best hope of attack is if one of our two assumptions is violated by a map $\pi_{q,p}$.  The second is the most likely target.  Note that $a''$ and $b''$ are the rounding errors when we try to round $\alpha a$ and $\alpha b$ to the lattice $\Lambda_R$. However, $\Lambda_R$ is a $n$-dimensional lattice, so there are $\Omega(2^n)$ options of rounding a vector in $\bR^n$ to a moderately close lattice point. Even in the scenario with zero error, i.e., $e = 0$, an attacker will face the task of finding a ``nice'' rounding algorithm, so that the roundings of the two vectors $\alpha a$ and $\alpha b = \alpha a s$ are somehow related.
+
+So far, we are not aware of any such algorithm, unless the secret $s$ is trivial, e.g., $s = 1$, in which case $\alpha a$ is almost equal to $\alpha b$, and one expects that $a''$ is close to $b''$.
+
 
 
 \section{Invulnerability of General Cyclotomic Extensions for Unramified Primes}
@@ -773,7 +805,7 @@ Finally, we compute $\epsilon(m,q,\tau) = \frac{1}{2} \sum_{y \in \bF_q, y \neq 
 
 We have computed $\epsilon'(m,q,k)$ and $\epsilon(m,q,k)$ for various choices of parameters.  Smaller values imply that the error distribution looks uniform when transfered to $R/\mathfrak{q}$, rendering the instance of RLWE invulnerable to the attacks suggested in this paper.
 
-The following is a table of data. Noe that we chose $k = 2$ and $\tau = 1$. For each instance in the table, we also  generated the RLWE samples (where we fixed $\sigma_0 = 1$) and ran the chi-square attack using the confidence level $\alpha = 0.99$. The column labeled ``$\chi^2$'' contains the $\chi^2$ values we obtained, and the column labeled ``uniform?'' indicates whether the reduced errors are uniform. We can see from data how the practical situation agrees with our analysis on the approximated distributions.
+The following is a table of data. Noe that we chose $k = 2$ and $\tau = 1$. For each instance in the table, we also  generated the actual RLWE samples (where we fixed $\sigma_0 = 1$) and ran the chi-square attack using the confidence level $\alpha = 0.99$. The column labeled ``$\chi^2$'' contains the $\chi^2$ values we obtained, and the column labeled ``uniform?'' indicates whether the reduced errors are uniform. We can see from data how the practical situation agrees with our analysis on the approximated distributions.
 
 
 \begin{table}[H]
@@ -792,13 +824,13 @@ $m$ & $n$ & $q$ & $-[\log_2(\epsilon'(m,q, 2))]$ & $-[\log_2(\epsilon(m,q, 1))]$
 256 & 128 & 3329 & $194$ & 253 & 3350.0 & yes \\
 %256 & 128 & 14081 & $208$ & 240 \\
 197 & 196 & 3547 & $337$ & 410 & 3475.2 & yes \\
-512 & 256 &10753 & 431 & 511 &  & yes\\
+512 & 256 &10753 & 431 & 511 & 10732.8 & yes\\
 % 512 & 256 &19457 & 414 & 512 &
 \end{tabular}
 \end{center}
 \end{table}
 
-The data in Table~\ref{tab: deg1} suggests that for $n \geq 100$ and $q$ of polynomial size in $n$, the statistical distance between $P'_{m,k} \pmod{\fq}$ (or $P_{m,\tau} \pmod{\fq})$ and the uniform distribution is negligibly small. Also, note that we fixed $k= 2$ and $\tau = 1$, and the $\epsilon$ values becomes even smaller when $k$ increases.
+The data in Table~\ref{tab: deg1} shows that when $n \geq 100$ and the size of the modulus $q$ is polynomial in $n$, the statistical distances between $P'_{m,k} \pmod{\fq}$ (or $P_{m,\tau} \pmod{\fq})$ and the uniform distribution are both negligibly small. Also, note that we fixed $k= 2$ and $\tau = 1$, and the epsilon values becomes even smaller when $k$ and $\tau$ increases.
 
 
 It is possible to generalize our discussion in this section to primes of arbitrary residue degree, in which case the Fourier analysis will be performed over the corresponding extension field. The only change in the definitions would be $\chi_y(a) = e^{ \frac{2 \pi i Tr(a y)}{q}}$. Similarly, we have
@@ -830,5 +862,865 @@ There is a heuristic argument as to why one expects $\epsilon'(m,q,k,\alpha)$ to
 
 \bibliographystyle{splncs}
 \bibliography{galois-rlwe}
+
+\section{Appendix: Code}
+
+\subsection{SubgroupModm.sage}
+
+This file contains the object needed for manipulating subgroups $H$ of $(\bZ/m\bZ)^*$.
+
+\scriptsize
+\begin{verbatim}
+
+class SubgroupModm:
+    """
+    a subgroup of (Z/mZ)^*
+    """
+
+    def __init__(self,m, gens, elements = None):
+        self.m = m
+        self.phim = euler_phi(m)
+        self.Zm = Integers(m)
+
+        newgens = []
+        for a in gens:
+            a = self.Zm(a)
+            if not a.is_unit():
+                raise ValueError('the generator %s must be a unit in the ambient group.'%a)
+            newgens.append(a)
+
+        self.gens = newgens
+
+        if elements is None:
+            print 'computing group elements...'
+            t = cputime()
+            self.H1 = self.compute_elements() 
+            print 'Time = %s'%cputime(t)
+            sys.stdout.flush()
+        else:
+            self.H1 = elements
+
+        self.order = len(self.H1)
+        print 'group order = %s'%self.order
+        sys.stdout.flush()
+
+        self._degree = ZZ(self.phim // self.order)
+
+        print 'computing coset representatives...'
+        t = cputime()
+        self.cosets = self.cosets()
+        print 'Time = %s'%cputime(t)
+        sys.stdout.flush()
+
+        self._is_totally_real = self.is_totally_real()
+
+        if not self._is_totally_real:
+            merged_cosets = []
+            for c in self.cosets:
+                if not any([-c/d in self.H1 for d in merged_cosets]):
+                    merged_cosets.append(ZZ(c))
+            newcosets = merged_cosets + [-a for a in merged_cosets]
+            self.cosets = newcosets
+
+    def __repr__(self):
+        return "subgroup of (Z/%sZ)^* of order %s generated by %s"%(self.m, self.order, self.gens)
+
+    def is_totally_real(self):
+        """
+        The fixed field Q(zeta_m)^H is totally real if and only if -1 mod m \in H.
+        """
+        return self.Zm(-1) in  self.compute_elements()
+
+    def compute_elements(self):
+        """
+        core function. Gives all the group elements
+        """
+        gens = self.gens
+        result = [self.Zm(1)]
+        for gen in gens:
+            if gens != self.Zm(1):
+                order = gen.multiplicative_order()
+                pows = [gen**j for j in range(order)]
+                result = set([a*b for a in result for b in pows])
+        return result
+
+    def cosets(self):
+        """
+        another core function, assuming we have elements, this shouldn't be hard.
+        """
+        Zm = self.Zm
+        elts = self.H1
+        m = self.m
+        result =[]
+        explored = []
+
+        for a in range(m):
+            if gcd(a,m) == 1 and a not in explored:
+                for h in elts:
+                    explored.append(h*a)
+                result.append(Zm(a))
+            if euler_phi(m) ==  len(result)*len(elts): # already have enough cosets
+                return result
+
+    @cached_method
+    def coset(self, a):
+        """
+        elt -- an integer
+        returns the coset representative for this element
+        """
+        Zm = self.Zm
+        for bb in self.cosets:
+            if Zm(a)/Zm(bb) in set(self.H1):
+                return bb
+        raise ValueError('did not find a coset.')
+
+    def extension_degree(self,vec):
+        """
+        vec -- a vector indexed by cosets of self, representing an element z in K.
+        return the degree of the extension QQ(z)/QQ.
+        """
+        try:
+            vec = list(vec)
+        except:
+            raise ValueError('input can not be turned into a list. Please debug.')
+        C = self.cosets
+        ele_dict = dict([(a,b) for a,b in zip(C,vec) if b != 0])
+        fixGpLen = 0
+        for ll in C:
+            fixed = True
+            for a in ele_dict.keys():
+                lla = self.coset(ll*a)
+                try:
+                    coef = ele_dict[lla]
+                except:
+                    fixed = False
+                    break
+                if coef != ele_dict[a]:
+                    fixed = False
+                    break
+            if fixed:
+                fixGpLen += 1
+        return self._degree // fixGpLen
+
+
+    def _check_cosets(self):
+        """
+        sanity check that the cosets has been computed correctly.
+        """
+        H1 = self.H1
+        cosets = self.cosets
+        from itertools import combinations
+        return not any([c[1]*c[0]**(-1) in H1 for c in combinations(cosets, 2)])
+
+
+    def __hash__(self):
+        return hash((self.m,tuple(self.gens)))
+
+
+    def _associated_characters(self):
+        """
+        Definition: a Dirichlet character chi of modulus m is associated to
+        a subgroup H <= Z/mZ)^* if chi|_H = 1.
+
+        return all the associated characters of self.
+        """
+        m, Zm = self.m, self.Zm
+        G = DirichletGroup(m)
+        H1 = Set(self.compute_elements())
+
+        result =[]
+        for chi in G:
+            ker_chi = Set([Zm(a) for a in chi.kernel()]) # a list of integers
+            if H1.issubset(ker_chi):
+                result.append(chi)
+        return result
+
+    def multiplicative_order(self, a):
+        """
+        return the multiplicative order of [a] in the quotien group G/H
+        """
+        m = self.m
+        Zm = self.Zm
+        if gcd(m,a) != 1:
+            raise ValueError
+        a = Zm(a)
+        o = self._degree
+        for dd in o.divisors()[:-1]:
+            if a**dd in self.H1:
+                return dd
+        return o
+
+    def discriminant(self):
+        """
+        return, up to sign, the discriminant of the fixed field of self as a subfield of Q(zeta_m).
+        """
+        return prod([chi.conductor() for chi in self._associated_characters()])
+
+    def intersection(self, other):
+        """
+        intersection of two subgroups of the same m.
+        """
+        if self.m != other.m:
+            raise ValueError('the underlying m of self and other must be same.')
+        H1 = self.H1
+        H1other = other.H1
+        Hnew = Set(H1).intersection(Set(H1other))
+        print 'size of intersection = %s'%len(Hnew)
+        Hnew_reduced = _reduce_gens(self.m,Hnew)
+        print 'reduced gens for intersection  = %s'%Hnew_reduced
+        sys.stdout.flush()
+        return SubgroupModm(self.m, Hnew_reduced, elements = Hnew)
+
+def _reduce_gens(m,H1):
+    """
+    given a full group, get a short list of generators.
+    """
+    Zm = Integers(m)
+    gens = set([])
+    gensSpan = set([Zm(1)])
+    for a in H1:
+        if Zm(a) not in gensSpan:
+            sys.stdout.flush()
+            ordera = Zm(a).multiplicative_order()
+            alst  = [Zm(a)**j for j in range(1, ordera)]
+            newelts = set([cc*aa for cc in gensSpan for aa in alst])
+            gensSpan  |=  newelts
+            gens.add(a)
+        if len(gensSpan) == len(H1):
+            # found enough generators.
+            return list(gens)
+    raise ValueError('did not find enough generators.')
+\end{verbatim}
+
+\subsection{MyLatticeSampler.sage}
+
+\normalsize
+This file allows sampling from discrete lattice Gaussian distributions using the algorithm in \cite{gentry2008trapdoors}.
+It took the current implementation in sage and modified it slightly. The authors claim no originality of any code in this 
+file.
+\scriptsize
+\begin{verbatim}
+from sage.stats.distributions.discrete_gaussian_integer import DiscreteGaussianDistributionIntegerSampler
+def _fpbkz(A, K = 10**20, block = 8, delta = 0.75):
+    """
+    including a transpose operation.
+    """
+    print 'blocksize for bkz = %s'%block
+    At = A.transpose()
+    RF = A[0][0].parent()
+    AA = Matrix(ZZ, [[ZZ(round(K*a)) for a in row] for row in list(At)])
+    F = FP_LLL(AA)
+    F.BKZ(block_size = block, delta= delta)
+    B = F._sage_()
+    T = B*AA**(-1)
+    B1 = Matrix(RF, [[a/RF(K) for a in row] for row in list(B)])
+    return T.transpose().change_ring(ZZ), B1.transpose()
+
+
+class MyLatticeSampler:
+    """
+    Sampling from discrete Gaussian.
+    """
+
+    def __init__(self,A,sigma = 1,dps = 60, method = 'LLL', block = None, already_orthogonal = False, gram_schmidt_norms = None):
+        self.A = A # we are using column span instead of rowspan
+        self.sigma = sigma
+
+        print 'reducing the lattice...'
+        t = cputime()
+        self._degree = A.nrows()
+        if method == 'LLL':
+            self.T =  self._lll_reduce()
+        elif method == 'BKZ':
+            self.T = self._bkz_reduce(block = block)
+        else:
+            print 'no reduction is done.'
+            self.T = identity_matrix(self._degree)
+        self.B  = self.A*self.T
+        print 'reduction done. Time: %s'%cputime(t)
+
+
+        print 'Gram Schmidting...'
+        t = cputime()
+
+        if already_orthogonal: # The columns of A are already gram-schmidt.
+            self._G = self.A
+            if gram_schmidt_norms is None:
+                self._gs_norms = [self._G.column(i).norm() for i in range(self._degree)]
+            else:
+                self._gs_norms = gram_schmidt_norms
+        else:
+            # Compute the gram-schmidt ourselves. Can be slow.
+            self._gs_norms, self._G = self.compute_G(dps =  dps)
+        print 'Gram Schmidt done. Time: %s'%cputime(t)
+
+        self.final_sigma = sigma*(prod(self._gs_norms))**(1/self._degree)
+
+
+    def _bkz_reduce(self,block = None):
+        print 'bkz being performed...'
+        if block is None:
+            block = min(50, ZZ(self._degree // 2))
+        return _fpbkz(self.A, block = block)[0]
+
+    def _lll_reduce(self):
+        print 'lll being performed...'
+        A = self.A
+        return gp(A).qflll().sage()
+
+    @cached_method
+    def col_sum(self):
+        """
+        related to the evaluation attack, return the list a where
+                   a[i] = colsum(A^-1,i)
+        """
+        return vector([1 for _ in range(self._degree)])*(self.A**(-1))
+
+    def babai_quality(self):
+        """
+        inspired by Kim's explanation, I think the quality of a basis
+        for babai should be the ratio ||\tilde{bn}||/||\tilde{b1}||
+        """
+        gs_norms = self._gs_norms
+        return float(min(gs_norms)/max(gs_norms))
+
+    def __repr__(self):
+        return 'Discrete Gaussian sampler with dimension %s and sigma = %s'%(self._degree, self.final_sigma.n())
+
+    def compute_G(self, dps = 50):
+        t = cputime()
+        B = self.B
+        n = self._degree
+        from mpmath import *
+        mp.dps = dps
+        prec = dps*6
+        AA = mp.matrix([list(w) for w in list(B)])
+        Q,R = qr(AA) # QR decomposition
+
+        M = mp.matrix([list(Q.column(i)*R[i,i]) for i in range(n)]);
+        M_sage = Matrix([[RealField(prec)(M[i,j]) for i in range(n)] for j in range(n)])
+        verbose('gram schmidt computation took %s'%cputime(t))
+        return [abs(RealField(prec)(R[i,i])) for i in range(n)], M_sage
+
+    def set_sigma(self,newsigma):
+        self.final_sigma = newsigma
+
+    def babai(self,c):
+        """
+        run babai's algorithm and find a lattice vector close to the
+        input point c.
+        Note this is super similar to the __call__ function
+
+        Returns a tuple (v,z), where v is the actual vector in R^n,
+        and z is its coordinate *in terms of a*. So we have
+        v = Az.
+        """
+        n = self._degree
+        try:
+            c = vector(c)
+        except:
+            pass
+        G, norms  = self._G, self._gs_norms
+        B = self.B
+        T = self.T
+        zs = []
+        v = c
+
+        for i in range(n)[::-1]:
+            b_ = G.column(i)
+            v_ = v.dot_product(b_) / norms[i]**2
+            z = ZZ(round(v_))
+            v = v - z*B.column(i)
+            zs.append(z)
+        return c - v, T*(vector(zs[::-1]))
+
+    def __call__(self, c = None):
+        """
+        c -- an n-dimensional vector, so that we are sampling a discrete gaussian
+        centered at c.
+        """
+        v = 0
+        sigma, G = self.final_sigma, self._G
+        n = self._degree
+        if c is None:
+            c = zero_vector(n)
+        B = self.B
+        T = self.T
+        zs = []
+        norms = self._gs_norms
+        for i in range(n)[::-1]:
+            b_ = G.column(i)
+            c_ = c.dot_product(b_) / norms[i]**2
+            sigma_ = sigma/norms[i]
+            assert(sigma_ > 0)
+            z = DiscreteGaussianDistributionIntegerSampler(sigma=sigma_, c=c_, algorithm="uniform+table")()
+            c = c - z*B.column(i)
+            v = v + z*B.column(i)
+            zs.append(z)
+        return v, T*vector(zs[::-1])
+\end{verbatim}
+
+\subsection{SubCycSampler.sage}
+
+\normalsize This file allows generating the errors and reducing them modulo prime ideals when the field $K$ is a subfield of some cyclotomic field with 
+odd and squarefree $m$. 
+
+\scriptsize
+\begin{verbatim}
+from sage.stats.distributions.discrete_gaussian_integer import DiscreteGaussianDistributionIntegerSampler
+import sys
+
+class SubCycSampler:
+    """
+    We write our own GPV sampler for sub-cyclotomic fields.
+    It also has the functionality of simulating an attack.
+
+    Caution: according to GPV, we need to have s >= ||tilde(B)||*log(n)
+    for the sampler to approximate discrete lattice Gaussian. So if
+    s is smaller than what is required, the __call__() method is not
+    guaranteed to output discrete Gaussian.
+    """
+
+    def __init__(self,m,H,sigma = 1,prec = 100, method = 'BKZ',block = None):
+        """
+        require: m must be square free and odd.
+
+        disc: the discriminant of K =  Q(zeta_m)^H. We pass it
+        as an optional parameter, since when the order of H is
+        large, the computation could be very slow.
+        """
+
+        self.m = m
+        self.H = H
+
+        self.H1 =self.H.H1
+        sys.stdout.flush()
+
+
+        self.cosets = H.cosets
+
+        self.sigma = sigma
+        self.prec = prec
+
+
+        t = cputime()
+        self._degree = euler_phi(m) // len(self.H1)
+
+        self._is_totally_real = self.H._is_totally_real
+
+
+        print 'computing embedding matrix...'
+        t = cputime()
+        self.TstarA, self.Acan = self.embedding_matrix(prec = self.prec)
+        self.Acaninv  = None
+        print 'time = %s'%cputime(t)
+        sys.stdout.flush()
+
+        self.D = MyLatticeSampler(self.TstarA, sigma = self.sigma, method = method, block = block)
+        self.Ared = self.D.B
+
+        self._T = self.D.T
+
+        self.final_sigma  =self.D.final_sigma
+        self.secret = self.__call__()
+
+
+    def __repr__(self):
+        return 'RLWE error sampler with m = %s,  H = %s, secret  = %s and sigma = %s'%(self.m, self.H, self.secret, self.final_sigma.n())
+
+    def minpoly(self):
+        K.<z> = CyclotomicField(self.m)
+        return sum([z**h for h in self.H1]).minpoly()
+
+    def compute_G(self, prec = 53):
+        """
+        computing a colum gram-schmidt basis for the embedded lattice O_K.
+        return the basis and the length of each vector as a list.
+
+        Modified on 8/2: do this after using LLL to reduce the basis.
+        """
+        B = self.Ared
+        n = self._degree
+        from mpmath import *
+        mp.dps = prec // 2
+        BB = mp.matrix([list(ww) for ww in list(B)])
+        Q,R = qr(BB) # QR decomposition
+        M = mp.matrix([list(Q.column(i)*R[i,i]) for i in range(n)]);
+        M_sage = Matrix([[RealField(prec)(M[i,j]) for i in range(n)] for j in range(n)])
+        v = [abs(R[i,i]) for i in range(n)]
+        return M_sage,v # vectors are columns
+
+    def degree_of_prime(self,q):
+        """
+        return the degree of q in K
+        """
+        if not q.is_prime():
+            raise ValueError('q must be prime')
+        return (self.H).multiplicative_order(q)
+
+    def degree_n_primes(self, min_prime, max_prime, n =1):
+        """
+        return a bunch of primes of degree n in K. When n = 1, this
+        is split primes.
+        """
+        result = []
+        for p in primes(min_prime, max_prime):
+            try:
+                if self.degree_of_prime(p) == n:
+                    result.append(p)
+            except:
+                pass
+        return result
+
+    def basis_lengths(self):
+        return [self.Ared.column(i).norm() for i in range(self._degree)]
+
+
+    def galois_permutation(self, c):
+        """
+        c -- a coset.
+        returns a dictionary d such that  d[a] = \sigma_c(a),
+        representing a Galois group action.
+        """
+        H = self.H
+        Zm = Integers(self.m)
+        c = Zm(c)
+        d = {}
+        for a in self.cosets:
+            d[a] = self.H.coset(a*c)
+        return d
+
+    def _vec_modq_coset_dict(self,q):
+        vec = self.vec_modq(q)
+        cc = self.cosets
+        return dict(zip(cc,vec))
+
+    def vec_modq_twisted_by_galois(self,q,c, reduced = False):
+        _dict = self._vec_modq_coset_dict(q)
+        _galois = self.galois_permutation(c)
+        result  = []
+        for a in self.cosets:
+            result.append(_dict[_galois[a]])
+        if not reduced:
+            return vector(result)
+        else:
+            return vector(result)*self._T
+
+    def embedding_matrix(self, prec = None):
+        """
+        We are in a simplified situation because the field K is Galois over QQ,
+        so it is either totally real or totally complex.
+        to-do: can optimize this.
+        """
+        m = self.m
+        H1 = self.H1
+        if prec is None:
+            prec = self.prec
+        C = ComplexField(prec)
+        zetam = C.zeta(m)
+        cosets = self.cosets
+        n = self._degree
+
+        _dict = {}
+        for l in cosets:
+            _dict[l]  = sum([zetam**(ZZ(l*h)) for h in H1])
+
+        A = Matrix([[_dict[self.H.coset(l*k)] for l in cosets] for k in cosets])
+
+        if self._is_totally_real:
+            Areal = _real_part(A)
+            return Areal, A
+        else:
+            T = t_matrix(n,prec = prec)
+            return _real_part(T.conjugate_transpose()*A),A
+
+    def coset_reps(self):
+        """
+        I need this for representing the basis vectors. Each coset rep c
+        represents the element \alpha_c =  \sum_{h \in H} \zeta_m^{ch}.
+        """
+        return self.cosets
+
+    def __call__(self,c = None):
+        """
+        return an integer vector a = (a_c) indexed by the coset reps of self,
+        which represents the vector \sum_c a_c \alpha_c
+        Use the algorithm of [GPV].
+        http://www.cc.gatech.edu/~cpeikert/pubs/trap_lattice.pdf
+
+        If minkowski = True, return the lattice vector in R^n. Otherwise,
+        return the coordinate of the vector in terms of the embedding matrix of self.
+        """
+        return self.D(c = c)[1]
+
+    def babai(self,c):
+        return self.D.babai(c)[1]
+
+    def _modq_dict(self,q):
+        """
+        a sanity check of the generators modulo q.
+        """
+        cc = self.cosets
+        vv = self.vec_modq(q)
+        return dict(zip(cc,vv))
+
+    def subfield_quality(self):
+        """
+        portion of elements of our reduced basis that lie in proper subfields.
+        """
+        T = self._T
+        count = 0
+        for i in range(S._degree):
+            col  = T.column(i)
+            sys.stdout.flush()
+            deg = S.H.extension_degree(col)
+            print 'degree of Q(b_i) = %s'%deg
+            sys.stdout.flush()
+            if deg < S._degree:
+                count += 1
+        return float(count/S._degree)
+
+
+
+    def subfield_quality_modq(self,q, twist = None):
+        if twist is None:
+            vq = self.vec_modq(q,reduced = True)
+        else:
+            vq = self.vec_modq_twisted_by_galois(q,twist, reduced = True)
+        F = vq[0].parent()
+        deg = F.degree()
+        return float(len([aa for aa in vq if aa.minpoly().degree() < deg])/self._degree)
+
+
+    @cached_method
+    def vec_modq(self,q, reduced = False):
+        """
+        the basis elements (normal integral basis) modulo q.
+
+        If reduced is true, return the LLL-reduced basis mod q
+
+        v dot Tz = (vT) dot z
+        """
+        m = self.m
+        degree = self.degree_of_prime(q)
+        v = finite_cyclo_traces(m,q,self.cosets,self.H1, deg = degree) # could be slow
+        if not reduced:
+            result = vector(v)
+        else:
+            result =  vector(v)*self._T
+        return result
+
+    def _to_ccn(self, lst):
+        """
+        convert an element in O_K from C^n to Z^n.
+        """
+        return list(self.Acan*vector(lst))
+
+
+    def _to_zzn(self,lst):
+        """
+        the inversion of the above.
+        """
+        if self.Acaninv is None:
+            self.Acaninv = (self.Acan)**(-1)
+        return list(self.Acaninv*vector(lst))
+
+
+    def _prod(self,lsta, lstb):
+        """
+        multiplying two field elements using the canonical embedding
+        """
+        lsta, lstb = list(lsta), list(lstb)
+        lsta_cc, lstb_cc = self._to_ccn(lsta), self._to_ccn(lstb)
+        float_result = self._to_zzn([aa*bb for aa, bb in zip(lsta_cc,lstb_cc)])
+        return [ZZ(round(tt.real_part())) for tt in float_result]
+
+    def set_sigma(self,newsigma):
+        self.D.final_sigma = newsigma
+
+    def set_secret(self, newsecret):
+        self.secret = newsecret
+\end{verbatim}
+
+\subsection{Chisquare.sage}
+
+\normalsize
+This file implements the a variant of the chi-square test over finite fields $F_{q^f}$ for $q$ a prime and $f > 1$.
+
+\scriptsize
+\begin{verbatim}
+def subfield_unifrom_test(samples, probThreshold = 1e-5):
+    """
+    Assume that the samples are from a finite field.
+    we separate the ones that are from a proper subfield.
+    """
+    F = samples[0].parent()
+    q = F.characteristic()
+    degF = F.degree()
+    numsamples = len(samples)
+    eltsWithFullDegree = elts_of_full_degree(q,degF)
+    nSmall = 0
+    nLarge = 0
+    for aa in samples:
+        if aa.minpoly().degree() < degF:
+            nSmall +=1
+        else:
+            nLarge +=1
+    card = q**degF
+    eLarge= float(eltsWithFullDegree/card*numsamples)
+    eSmall= numsamples - eLarge
+    verbose('eSmall, eLarge = %s,%s'%(eSmall, eLarge))
+    verbose('nSmall, nLarge = %s,%s'%(nSmall, nLarge))
+    if min(eSmall, eLarge) < 5:
+        raise ValueError('samples size too small.')
+
+    chisquare = (nSmall - eSmall )^2/eSmall + (nLarge - eLarge)^2/eLarge
+    T = RealDistribution('chisquared', 1)
+    verbose('chisquare = %s'%chisquare)
+    prob = 1 - T.cum_distribution_function(chisquare)
+    if prob < probThreshold:
+        verbose('non-uniform')
+        return False
+    else:
+        verbose('uniform')
+        return True
+\end{verbatim}
+
+\subsection{Example of an attack}
+
+\normalsize
+This code implements the attack on an Galois RLWE instance described in Section~\ref{subsec: detailed}. 
+
+
+\begin{verbatim}
+print 'We peform the full attack on an Galois instance.'
+
+totaltime = cputime()
+import sys
+
+load('SubgroupModm.sage','MyLatticeSampler.sage','SubCycSampler.sage','Chisquare.sage')
+
+def _my_dot_product(lst1,lst2):
+    return sum([a*b for a,b in zip(lst1,lst2)])
+
+m = 3003; H = SubgroupModm(m, [2276, 2729, 1123]);
+S = SubCycSampler(m,H);
+
+sigma0 = 1.0
+
+S = SubCycSampler(m,H,prec = 300, method = 'LLL', sigma = sigma0)
+
+print 'S = %s'%S
+
+q = 131
+degq = H.multiplicative_order(q)
+print 'degree of prime q = %s is %s'%(q, degq)
+sys.stdout.flush()
+
+print 'final sigma = %s'%S.final_sigma
+
+print 'degree of field = %s'%(euler_phi(m)//H.order)
+sys.stdout.flush()
+
+numsamples = 1000;
+print 'generating %s errors...'%numsamples
+sys.stdout.flush()
+errors = []
+for dd in range(numsamples):
+    error = S()
+    errors.append(error)
+    if dd > 0 and Mod(dd,1000) == 0:
+        print '%s/%s samples generated'%(dd, numsamples)
+        print 'an example error is %s'%error
+        sys.stdout.flush()
+print 'error generation done.'
+sys.stdout.flush()
+save(errors, 'errors.sobj')
+
+vq = S.vec_modq(q)
+print 'vq = %s'%vq
+sys.stdout.flush()
+F = vq[0].parent()
+sys.stdout.flush()
+
+Flst = [a for a in F]
+alpha = F.gen()
+Fp = F.prime_subfield()
+print 'defining polynomial of F = %s'%alpha.minpoly()
+sys.stdout.flush()
+
+print 'Generating uniform a...'
+
+alst = [[ZZ.random_element(q) for _  in range(S._degree)] for jj in range(numsamples)]
+print 'Generation of uniform a done.'
+sys.stdout.flush()
+
+s = [ZZ.random_element(q) for _  in range(S._degree)]
+print 'secret = %s'%s
+sys.stdout.flush()
+
+# The attack. 
+success, SUCCESS = True, True
+count = 1
+for cc in S.cosets:
+    t = cputime()
+    success = True
+    print 'coset %s/%s with representative %s'%(count, S._degree, cc)
+    sys.stdout.flush()
+
+    count += 1
+    vqcc = S.vec_modq_twisted_by_galois(q,cc)
+    smodq = F(_my_dot_product(s,vqcc))
+    print 'smodq = %s'%smodq
+    sys.stdout.flush()
+
+    amodqlst,bmodqlst = [],[]
+    for a,e in zip(alst, errors):
+        emodq = F(_my_dot_product(e,vqcc))
+        amodq = F(_my_dot_product(a,vqcc))
+        amodqlst.append(amodq)
+        bmodqlst.append(amodq*smodq+emodq)
+
+    countsmall = 0
+    for sguess in Flst:
+        countsmall +=1
+        sys.stdout.flush()
+        if Mod(count, 1000) == 0 or sguess == smodq:
+            print 'example run: %s/%s runs'%(count,len(Flst))
+            print 'sguess = %s'%sguess
+            if sguess == smodq:
+                print 'this is the correct guess'
+            set_verbose(1)
+        reducedErrors = [bb - aa*sguess for aa, bb in zip(amodqlst, bmodqlst)]
+        uniform = subfield_unifrom_test(reducedErrors,  probThreshold = 1e-10)
+        if uniform and sguess == smodq:
+            print 'failed to detect'
+            success = False
+            break
+        elif (not uniform) and sguess != smodq:
+            print 'uniform is distorted'
+            success = False
+            break
+        set_verbose(0)
+    print 'Done computing with coset [%s]. success = %s'%(cc, success)
+    sys.stdout.flush()
+
+    print 'Time taken = %s'%cputime(t)
+    SUCCESS = SUCCESS and success
+    sys.stdout.flush()
+    print '*'*20
+
+print '#'*40
+print 'Summary:'
+print 'H = %s'%H
+print 'degree of field = %s'%(euler_phi(m)//H.order)
+print 'q = %s, degree of q =  %s'%(q, degq)
+print 'sigma_0 = %s'%sigma0
+print 'number of samples = %s'%numsamples
+print 'success? : %s'%SUCCESS
+print 'Total Time = %s'%cputime(totaltime)
+sys.stdout.flush()
+\end{verbatim}
+
 
 \end{document}
