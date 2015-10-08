@@ -38,35 +38,40 @@
 \maketitle
 
 \begin{abstract}
-We describe a new attack on the Ring learning-with-errors (RLWE) problem based on the chi-square statistical test, and give examples of Galois number fields vulnerable to our attack. We then analyze the security of cyclotomic fields against our attack.
+We describe a new attack on the Search Ring Learning-With-Errors (RLWE) problem based on the chi-square statistical test, and give examples of RLWE instances in Galois number fields which are vulnerable to our attack.  We prove a search-to-decision reduction  for Galois fields which applies for any unramified prime modulus $q$, regardless of the residue degree $f$ of $q$, and we use this in our attacks.
+The time complexity of our attack is $O(q^{2f})$, where $f$ is the {\it residue degree} of $q$ in $K$.
 
-%Also, we sharpen the attack in \cite{elos2015weak} and give examples of vulnerable instnaces of cryptographic size. Finally, we discuss the effect of modulus switching on our attacks.
+We also show an attack on the RLWE problem in general cyclotomic rings (non $2$-power cyclotomic rings) which works when the modulus is a ramified prime.
+We demonstrate the attacks in practice by finding many vulnerable instances and successfully attacking them.  We include the code for all attacks.
+% Then we analyze the security of cyclotomic fields against our attack.
+
+%Also, we sharpen the attack in \cite{elos2015weak} and give examples of vulnerable instances of cryptographic size. Finally, we discuss the effect of modulus switching on our attacks.
 \end{abstract}
 
 \section{Introduction}
-The Ring Learning-with-Errors (RLWE) problem, proposed in \cite{lyubashevsky2013ideal}, is a variant of the traditional Learning-with-Errors (LWE) problem, and is an active research area in lattice based cryptography. It has drawn increased attention due to the important application  to constructing homomorphic encryption schemes (\cite{bos2013improved,brakerski2012leveled,brakerski2011fully,brakerski2014efficient,gentry2012fully,stehle2011making}).
+The Ring Learning-with-Errors (RLWE) problem, proposed in \cite{lyubashevsky2013ideal}, is a variant of the traditional Learning-with-Errors (LWE) problem, and is an active research area in lattice based cryptography. It has drawn increased attention due to the important application  to constructing homomorphic encryption schemes (\cite{brakerski2011fully,brakerski2012leveled,brakerski2014efficient,gentry2012fully,stehle2011making,lopez2012fly,bos2013improved}).
 
-Central to an RLWE problem instance is a choice of a number field $K$ and a prime $q$ called the {\it modulus}. The authors of \cite{lyubashevsky2013ideal} considered the case where $K$ is some cyclotomic field, and proved a reduction from certain hard lattice problems to the dual variant of RLWE. The hardness for the non-dual variant was proved in \cite{ducas2012ring}. Also in \cite{lyubashevsky2013ideal}, a search-to-decision reduction was proved for RLWE problems for cyclotomic fields and modulus $q$ which splits completely. This reduction was then generalized to general Galois number fields in \cite{eisentrager2014weak}.
+Central to an RLWE problem instance is a choice of a number field $K$ and a prime $q$ called the {\it modulus}. The authors of \cite{lyubashevsky2013ideal} considered the case where $K$ is some cyclotomic field, and proved a reduction from certain hard lattice problems to the dual variant of RLWE. The hardness for the non-dual variant was proved in \cite{ducas2012ring}. Also in \cite{lyubashevsky2013ideal}, a search-to-decision reduction was proved for RLWE problems for cyclotomic fields and modulus $q$ which splits completely. This reduction was then generalized to general Galois number fields where $q$ splits in \cite{eisentrager2014weak}.  As an auxiliary result in this paper, we generalize this search-to-decision reduction to the case of arbitrary degree primes $q$.
 
-The authors of \cite{elos2015weak} proposed an attack on the decision RLWE problem. The attack makes use of ring homomorphisms $\pi: R \to \bF_q$, and works when the image of the RLWE error distribution under the map $\pi$ only takes value in a small subset of $\bF_q$ with overwhelming probability. The authors of \cite{elos2015weak} then gave an infinite family of examples vulnerable to the attack. Unfortunately, the vulnerable number fields in \cite{elos2015weak} are not Galois. Hence, the search-to-decision reduction theorem does not apply, and the attack can not be directly used to solve the search variant of RLWE for those instances.
+The authors of \cite{elos2015weak} proposed an attack on the decision RLWE problem. The attack makes use of ring homomorphisms $\pi: R \to \bF_q$, and works when the image of the RLWE error distribution under the map $\pi$ only takes values in a small subset of $\bF_q$ with overwhelming probability. The authors of \cite{elos2015weak} then gave an infinite family of examples vulnerable to the attack. Unfortunately, the vulnerable number fields in \cite{elos2015weak} are not Galois. Hence, the search-to-decision reduction theorem does not apply, and the attack can not be directly used to solve the search variant of RLWE for those instances.
 
-In our paper, we generalize the attack of \cite{elos2015weak} to Galois number fields and moduli of higher degree. As a result, we have an attack on the {\it Search}-RLWE problem, and an implementation on concrete RLWE instances including the search-to-decision reduction.  Our attack is new in two major ways: first, the attack considers ring homomorphisms from $R \to \bF_{q^f}$, for $f>1$, instead of just homomorphisms from $R \to \bF_q$; second, the error distribution is distinguished from random (i.e. from the uniform distribution) using the statistical chi-squared test, instead of relying on the values of the error polynomial to be small or in a small subset.
+In our paper, we generalize the attack of \cite{elos2015weak} to Galois number fields and moduli of higher degree. As a result, we have an attack on the {\it Search}-RLWE problem and an implementation of the attack on concrete RLWE instances, including the search-to-decision reduction.  Our attack is new in two major ways: first, the attack considers ring homomorphisms from $R \to \bF_{q^f}$, for $f>1$, instead of just homomorphisms from $R \to \bF_q$; second, the error distribution is distinguished from random (i.e. from the uniform distribution) using the statistical chi-squared test, instead of relying on the values of the error polynomial to be small or in a small subset.  The attack aims at an intermediate problem used in the search-to-decision proof of \cite{lyubashevsky2013ideal}, which is to recover the secret modulo a prime ideal (denoted $\SRLWE(\cR,\fq)$; see Definition~\ref{def: srlwe mod q}). The time complexity of our attack is $O(q^{2f})$, where $f$ is the {residue degree} of $q$ in $K$.
 
-Importantly, we also show an attack on non-2-power cyclotomic rings, 
-which succeeds with high probability and with surprising efficiency when the modulus is a ramified prime.  For example, we show that in dimension $n=808$, we can attack an RLWE instance effectively in $35$ seconds, where the modulus is $809$.  This opens up the question of whether general cyclotomic fields are safe for cryptography, depending on whether modulus switching can be used to transfer this attack from the ramified modulus to other larger moduli which are used in practice.
+Importantly, we also show an attack on non-2-power cyclotomic rings,
+which succeeds with high probability and with surprising efficiency when the modulus is a ramified prime.  For example, we show that in dimension $n=808$, we can attack an RLWE instance in the the cyclotomic ring $\mathbb{Q}(\zeta_{809})$ effectively in $35$ seconds, where the modulus is $809$.  This opens up the question of whether general cyclotomic fields are safe for cryptography, depending on whether modulus switching can be used to transfer this attack from the ramified modulus to other larger moduli which are used in practice.
 
 An important difference between this paper and the attacks of \cite{elos2015weak} is that here we work directly with the RLWE error distribution, and we do not need to work with a polynomial basis for the ring in order for the attack to work.  Thus we also eliminate the need for the assumption that the ring is monogenic, which is helpful in finding Galois fields which are vulnerable.  The attacks of \cite{elos2015weak} succeed for rings $R$ such that the defining polynomial has special roots modulo $q$, and we do not need such a restrictive condition on the number field and modulus in order for our new attacks to succeed.  We give heuristic arguments about what properties are sufficient for a ring to be vulnerable to our new attacks.
 
  Auxiliary results we present include several stand-alone items of possibly independent interest:
- We prove a search-to-decision reduction  for Galois fields which applies for any unramified modulus $q$, regardless of the residue degree of $q$.  We consider some heuristic arguments for why modulus switching techniques are not likely to be successfully combined with our attacks.
-Also, we analyze the vulnerability of cyclotomic fields to the \cite{elos2015weak} attack, and show that they are in general safe, except for the case when the modulus $p$ is equal to the index of the cyclotomic field (i.e., $K = \bQ(\zeta_p)$).
+ We prove a search-to-decision reduction  for Galois fields which applies for any unramified modulus $q$, regardless of the residue degree of $q$.  We consider some heuristic arguments as to whether modulus switching techniques are likely to be successfully combined with our attacks.
+Also, we analyze the vulnerability of cyclotomic fields to our attack, and show that they are in general safe, except for the case when the modulus $p$ is ramified in the cyclotomic field.
 
 
 \subsection{Organization}
 
-In section \ref{sec: background}, we recall the canonical embedding of number fields and central definitions related to the RLWE problems. In section \ref{sec: s-to-d}, we review prime factorizations in Galois extensions and prove a search-to-decision reduction for Galois extensions $K$ and unramified moduli. In section \ref{sec: chi-square}, we introduce an attack to RLWE problems based on the chi-square statistical test, which directly generalizes the attack in \cite{elos2015weak}. More precisely, the attack aims at an intermediate problem used in the search-to-decision proof of \cite{lyubashevsky2013ideal}, which we denote by $\SRLWE(\cR,\fq)$ (see Definition~\ref{def: srlwe mod q}). The time complexity of our attack is $O(q^{2f})$, where $f$ is the {\it residue degree} of $q$ in $K$ (see Lemma~\ref{lem: prime factorization}). In section \ref{sec: sub-cyclotomics}, we give examples of subfields of cyclotomic fields vulnerable to our new attack, where the modulus $q$ has residue degree two.
-
-In section \ref{sec: ramified-prime}, we show that our attack works on prime cyclotomic fields when the modulus is the unique ramified prime. Finally, in section \ref{sec: cyclo-secure}, we use Fourier analysis to give a heuristic argument, which we then combine with numerical evidence to show that cyclotomic extensions with unramified moduli of small residue degree are invulnerable to our attack.
+In Section \ref{sec: background}, we recall definitions related to the RLWE problems. In Section \ref{sec: s-to-d}, we prove a search-to-decision reduction for Galois extensions $K$ and unramified moduli. In Section \ref{sec: chi-square}, we introduce an attack on RLWE problems based on the chi-square statistical test, which directly generalizes the attack in \cite{elos2015weak}.
+In Section \ref{sec: sub-cyclotomics}, we give examples of subfields of cyclotomic fields vulnerable to our new attack, where the modulus $q$ has residue degree two.
+In Section \ref{sec: ramified-prime}, we show that our attack works on prime cyclotomic fields when the modulus is the unique ramified prime.  In Section \ref{sec:mod}, we consider the possibility of modulus switching.  Finally, in Section \ref{sec: cyclo-secure}, we use Fourier analysis to give a heuristic argument, which we then combine with numerical evidence to support the view that cyclotomic extensions with unramified moduli of small residue degree are invulnerable to our attack.
 
 All computations in this paper were performed in Sage \cite{sage}. All the relevant code is available and  can be found at \url{https://github.com/haochenuw/GaloisRLWE}.
 
@@ -151,11 +156,11 @@ We use the shorthand notation $(a,b) \gets \cR$ to represent that $(a,b)$ is sam
 The RLWE problem has two major variants: search and decision.
 
 \begin{definition}[Search RLWE]
-Let $\cR$ be an RLWE instance. The {\it search Ring-LWE} problem, denoted by $\SRLWE(\cR)$, is to discover $s$ given access to arbitrarily many independent samples $(a,b) \gets \cR$.
+Let $\cR$ be an RLWE instance. The {\it Search} Ring-LWE problem, denoted by $\SRLWE(\cR)$, is to discover $s$ given access to arbitrarily many independent samples $(a,b) \gets \cR$.
 \end{definition}
 
 \begin{definition}[Decision RLWE]
-Let $\cR$ be an RLWE instance. The {\it decision Ring-LWE}
+Let $\cR$ be an RLWE instance. The {\it Decision} Ring-LWE
 problem, denoted by $\DRLWE(\cR)$, is to distinguish between the same number of independent samples in two distributions on $R_q \times R_q$. The first is the RLWE distribution of $\cR$, and the second consists of uniformly random and independent samples from $R_q \times R_q$.
 \end{definition}
 
@@ -255,7 +260,7 @@ Then the attack on DRLWE on $R_q$ is as follows:
 The fact that $\phi$ is a ring homomorphism is essential in guaranteeing that for the correct guess, the distribution in question is the image of the error distribution.  The only ring homomorphisms from $R_q$ to a finite field are given by reduction modulo a prime ideal $\fq$ lying above $q$ in $R$.
 
 \subsection{Chi-square Test for Uniform Distribution}
-We briefly review the properties and usage of the chi-square test for uniform distributions over a finite set $S$. We partition $S$ into $r$ subsets $S = \bigsqcup_{j=1}^r S_j$.
+We briefly review the properties and usage of the chi-square test for uniform distributions over a finite set $S$. We partition $S$ into $r$ subsets $S = \bigsqcup_{j=1}^r S_j$, called \emph{bins}.
 Suppose there are $M$ samples $y_1, \ldots, y_M \in S$.
 For each $1 \leq j \leq r$, we compute the expected number of samples in the $j$-th subset: $c_j := \frac{|S_j|M}{|S|}$. Then we compute the actual number of samples in $S_j$, i.e., $t_j := |\{1 \leq i \leq r: y_i \in S_j\}|$. Finally, the $\chi^2$ value is computed as
 \[
@@ -326,7 +331,7 @@ it might be advantageous to choose the bins differently.
 The time complexity of the attack is $O(N^2)$ since there are $N$ possible values for $s \pmod {\fq}$ and the number of samples needed is $O(N)$. The correctness of the attack is captured in Theorem~\ref{thm: attack} below. We use $D_{\cR,\fq}$ as a shorthand notation for $D_{\cR} \pmod{\fq}$. For $\lambda \in \bR$ and $d \in \bZ$, we use $\cF_{d,\lambda}(x)$ to denote the cumulative distribution function of the noncentral chi-square distribution with degree of freedom $d$ and parameter $\lambda$.
 
 \begin{theorem} \label{thm: attack}
-Let $\cR  = (K,q,s, \sigma)$ be an RLWE instance. Suppose $\fq$ be a prime ideal in $K$ above $q$, and let $\Delta$ denote the statistical distance between the distribution $D_{\cR, \fq}$ and the uniform distribution on $R/\fq$.Let $M$ be the number of samples used in Algorithm~\ref{alg: chi-square}, and let $\lambda = 4 M \Delta^2$. Let $0 < \alpha < 1$ and let $\delta = \cF_{N-1}^{-1}(\alpha)$. If $p$ is the probability of success of the attack in Algorithm~\ref{alg: chi-square}, then
+Let $\cR  = (K,q,s, \sigma)$ be an RLWE instance. Suppose $\fq$ be a prime ideal in $K$ above $q$, and let $\Delta$ denote the statistical distance between the distribution $D_{\cR, \fq}$ and the uniform distribution on $R/\fq$.  Let $M$ be the number of samples used in Algorithm~\ref{alg: chi-square}, and let $\lambda = 4 M \Delta^2$. Let $0 < \alpha < 1$ and let $\delta = \cF_{N-1}^{-1}(\alpha)$. If $p$ is the probability of success of the attack in Algorithm~\ref{alg: chi-square}, then
 
 $$p  \geq \alpha^{N-1} (1-  \cF_{N-1; \lambda}(\delta) ).$$
 \end{theorem}
@@ -377,9 +382,9 @@ Algorithm~\ref{alg: chi-square} allows us to search for vulnerable instances amo
 
 
 In Table~\ref{tab: attacked}, we list some instances on which the attack has succeeded. The columns of Table~\ref{tab: attacked} are as follows. The first two columns specify $m$ and the generators of $H$, where $H$ is represented as
-a subgroup of $(\bZ/m\bZ)^*$; the column labeled $f$ is the residue degree of $q$. The last column consists of either the runtime for an actual attack which succeeded, or an estimation of the runtime. Note that we omitted our choice of prime ideal $\fq$, since due to Lemma~\ref{lem: symmetry} the choice of $\fq$ is irrelevant to our attack. The parameters $\sigma_0$ in Table~\ref{tab: attacked} represent the boundary of the power of our attack, i.e., we tried higher $\sigma_0$ and the attack did fail. Note that although $\sigma_0$ is relatively small, in practice it still provides exponentially many error vectors. Intuitively, when $\sigma_0$ = 1, our $\sigma$ is equal to the geometric mean of the lengths of a gram-schmidt basis of $\Lambda_R$. In practice, the lengths of these basis vectors do not differ by a lot, so we still expect to get at least $\Omega(2^n)$ error vectors.
+a subgroup of $(\bZ/m\bZ)^*$; the column labeled $f$ is the residue degree of $q$. The last column consists of either the runtime for an actual attack which succeeded, or an estimation of the runtime. Note that we omitted our choice of prime ideal $\fq$, since due to Lemma~\ref{lem: symmetry} the choice of $\fq$ is irrelevant to our attack. The parameters $\sigma_0$ in Table~\ref{tab: attacked} represent the boundary of the power of our attack, i.e., we tried higher $\sigma_0$ and the attack failed. Note that although $\sigma_0$ is relatively small, in practice it still provides exponentially many error vectors. Intuitively, when $\sigma_0$ = 1, our $\sigma$ is equal to the geometric mean of the lengths of a Gram-Schmidt basis of $\Lambda_R$. In practice, the lengths of these basis vectors do not differ by a lot, so we still expect to get at least $\Omega(2^n)$ error vectors.
 
-The rows of Table~\ref{tab: attacked} with ``estimated'' runtime mean the following. First, we ran the chi-square test on the correct reduced errors to obtain an estimate $\hat{\Delta}$ of the statistical distance $\Delta$. We then chose $\alpha$ according to $\hat{\Delta}$ and obtained an estimation $\hat{p}$ of the success probability of our attack, using the formula in Theorem~\ref{thm: attack}.  The corresponding rows in the table all have $\hat{p} > 1 - 2^{-10}$, suggesting that the attack is very likely to succeed.  Finally, we ran a few chi-square tests on samples obtained from some randomly chosen incorrect guesses to obtain the average time $t$ for running one chi-square test. We set the estimated runtime for the attack to be $tN$.
+The rows of Table~\ref{tab: attacked} with ``estimated'' runtime mean the following. First, we ran the chi-square test on the correct reduced errors to obtain an estimate $\hat{\Delta}$ of the statistical distance $\Delta$. We then chose $\alpha$ according to $\hat{\Delta}$ and obtained an estimation $\hat{p}$ of the success probability of our attack, using the formula in Theorem~\ref{thm: attack}.  The corresponding rows in the table all have $\hat{p} > 1 - 2^{-10}$, suggesting that the attack is very likely to succeed.  Finally, we ran a few chi-square tests on samples obtained from a few randomly chosen incorrect guesses to compute the average time $t$ for running one chi-square test. We set the estimated runtime for the attack to be $tN$.
 
 \begin{table}
 \caption{Attacked sub-cyclotomic RLWE instances}
@@ -407,7 +412,7 @@ $m$ & generators of $H$ & $n$ & $q$ & $f$ & $\sigma_0$ & no. samples & runtime (
 
 \subsection{Discussion}
 
-We searched for vulnerable instances where the modulus has residue degree one or two. It turns out that all vulnerable instances we found and listed in Table~\ref{tab: attacked} have a modulus of degree two.  We have a heuristic explanation for this phenomenon, whenever the residue degree $f$ is greater than 1.  Let $K$  be a Galois number field and suppose $q$ is a prime of degree $f$ in $K$. Suppose we have found a short basis $w_1,\cdots, w_n$ of $R$ with respect to the adjusted embedding. Fix a prime ideal $\fq$ above $q$. Then the images of the basis under the reduction modulo $\fq$ map are elements of $F = R/\fq$. Now if for some index $i$, the element $w_i$ lies inside some proper subfield $K'$ of $K$, and if $q$ has residue degree $f' < f$ in $K'$, then $w_i \pmod{\fq}$ will lie in a proper subfield of $F$. If this occurs for a large number of the basis elements $w_i$, then we could  expect the reduced error distribution $D_{\cR,\fq}$ to take values in a proper subfield of $F$ more frequently. This would allow us to distinguish it from the uniform distribution on $F$.
+We searched for vulnerable instances where the modulus has residue degree one or two. It turns out that all vulnerable instances we found and listed in Table~\ref{tab: attacked} have a modulus of degree two.  We have a heuristic explanation for the existence of examples of higher degree.  Let $K$  be a Galois number field and suppose $q$ is a prime of degree $f$ in $K$. Suppose we have found a short basis $w_1,\cdots, w_n$ of $R$ with respect to the adjusted embedding. Fix a prime ideal $\fq$ above $q$. Then the images of the basis under the reduction modulo $\fq$ map are elements of $F = R/\fq$. Now if for some index $i$, the element $w_i$ lies inside some proper subfield $K'$ of $K$, and if $q$ has residue degree $f' < f$ in $K'$, then $w_i \pmod{\fq}$ will lie in a proper subfield of $F$. If this occurs for a large number of the basis elements $w_i$, then we could  expect the reduced error distribution $D_{\cR,\fq}$ to take values in a proper subfield of $F$ more frequently. This would allow us to distinguish it from the uniform distribution on $F$.
 
 In practice, we found out that the above scenario is more likely to happen when the field $K$ has a subfield $K'$ of index 2 such that $q$ splits completely in $K'$, while $q$ has degree 2 in $K$. Since the ring of integers of $K'$ is a subring of the ring of integers of $K$, one has at least $n/2$ vectors in $\Lambda_R$ with the desired property, i.e., their reduction modulo some prime $\fq$ above $q$ lie inside $\bF_q$ instead of $\bF_{q^2}$.
 
@@ -417,7 +422,7 @@ In practice, we found out that the above scenario is more likely to happen when 
 In order to illustrate our discussion above together with the search-to-decision reduction, we present a vulnerable Galois RLWE instance in detail, where we generated RLWE samples, performed the attack, and used the search-to-decision reduction to recover the entire secret $s$.
 
 
-Let $m = 3003$ and $H$ be the subgroup of $(\bZ/m\bZ)^*$ generated by 2276, 2729 and 1123. Then $K = K_{m,H}$ is a Galois number field of degree $n = 30$. We take the modulus to be $q = 131$, a prime of degree two in $K$, and take $\sigma_0 = 1$. We generate the secret $s$ from the discrete Gaussian $D_{\Lambda_R, \sigma}$.  There are 15 prime ideals in $K$ lying above $q$, which we denote by $\fq_1, \cdots, \fq_{15}$. We then generate 1000 RLWE samples and use Algorithm~\ref{alg: chi-square} and Theorem~\ref{thm: reduction} to recover $s \pmod {\fq_i}$ for each $1 \leq j \leq 15$. Then we use Chinese remainder theorem to recover $s$. The attack succeeded in 32.8 hours.
+Let $m = 3003$ and $H$ be the subgroup of $(\bZ/m\bZ)^*$ generated by 2276, 2729 and 1123. Then $K = K_{m,H}$ is a Galois number field of degree $n = 30$. We take the modulus to be $q = 131$, a prime of degree two in $K$, and take $\sigma_0 = 1$. We generate the secret $s$ from the discrete Gaussian $D_{\Lambda_R, \sigma}$.  There are 15 prime ideals in $K$ lying above $q$, which we denote by $\fq_1, \cdots, \fq_{15}$. We then generate 1000 RLWE samples and use Algorithm~\ref{alg: chi-square} and Theorem~\ref{thm: reduction} to recover $s \pmod {\fq_i}$ for each $1 \leq j \leq 15$. Then we use Chinese remainder theorem to recover $s$. The attack succeeded in 32.8 hours. The code for this attack is in Section~\ref{subsec: code}.
 
 
 
@@ -430,7 +435,7 @@ Let $p$ be an odd prime and let $K = \bQ(\zeta_p)$ be the $p$-th cyclotomic fiel
 \[
         \pi(\zeta_p^i) = 1, \quad \forall i \in \bZ.
 \]
-Writing an RLWE error as  $e = \sum e_i \zeta_m^i$, we have $e \pmod{\fp} = \sum_i e_i$. Since the coefficients $e_i$ tend to be small, it is conceivable that  $e \pmod{\fp}$ takes on small values with higher probability, making the instance vulnerable to our chi-square attack. Table~\ref{tab: ramified} contains data of some actual attacks we have done. Note that the parameters $\sigma_0$ represent the boundary of the power of our attack, i.e., we tried higher $\sigma_0$ and the attack did fail.
+Writing an RLWE error as  $e = \sum e_i \zeta_m^i$, we have $e \pmod{\fp} = \sum_i e_i$. Since the coefficients $e_i$ tend to be small, it may be that  $e \pmod{\fp}$ takes on small values with higher probability, making the instance vulnerable to our chi-square attack. Table~\ref{tab: ramified} contains data of some actual attacks we have done. Note that the parameters $\sigma_0$ represent the boundary of the power of our attack, i.e., we tried higher $\sigma_0$ and the attack failed.
 
 \begin{table}[H]
 \begin{center}
@@ -571,30 +576,31 @@ $|e|\leq 6\sqrt{2(p-1)\pi} \sigma$. When $p \to \infty$, we have $|e \pmod {\fp}
 \fi
 
 \section{Can Modulus Switching be Used?}
+\label{sec:mod}
 
 The modulus switching procedure is a technique to reduce noise
 in RLWE samples, and has been discussed extensively in  \cite{brakerski2012leveled} and \cite{langlois2014worst}.
-We recap the basic ideas of modulus switching. Let $\cR = (K, q, \sigma, s)$ be an RLWE instance. Choose $p < q$ as the new modulus and consider the instance $\cR' = (K,p,\sigma',s)$ for some $\sigma' > \sigma$.  We can ``switch modulus'' if there exists a map
+We recap the basic ideas of modulus switching. Let $\cR = (K, q, \sigma, s)$ be an RLWE instance. Choose another prime $p$ less than $q$ as the new modulus and consider the instance $\cR' = (K,p,\sigma',s)$ for some $\sigma' > \sigma$.  We can ``switch modulus'' if there exists a map
 \[
 \pi_{q,p} : R_q \to R_p,
 \]
-which takes RLWE samples with respect to $\cR$ to RLWE samples with respect to $\cR'$.  In what follows, we give a heuristic argument that modulus switching will not work under a na\"ive implementation, and isolate the key characteristics a successful implementation would require.
+which takes RLWE samples with respect to $\cR$ to RLWE samples with respect to $\cR'$.  In what follows, we give a heuristic argument that our attack will not work in combination with modulus switching under a na\"ive implementation, and isolate the key characteristics a successful implementation of the attack would require.
 
 One example of a map $\pi_{q,p}$ being used in practice is as follows. Let $\alpha = \frac{p}{q}$ and fix a small positive number $\tau$. For an equivalence class $[a]$ in $R_q$, we sample a vector $a'$ from the ``shifted discrete Gaussian'' $D_{\Lambda_R, \tau, \alpha a}$,  defined as follows. For a lattice $\Lambda$ and a vector $c \in \bR^n$,
 \[
     D_{\Lambda, \tau, c}(x) = \frac{\rho_\tau(x - c)}{\sum_{y \in\Lambda} \rho_\tau(y-c)}, \, \forall x \in \Lambda.
 \]
-Finally, we set $ \pi_{q,p}([a]) = a' \pmod{pR}$. Note that the definition of $\pi_{q,p}([a])$ is independent of the choice of  representative $a$, as follows.  Suppose we choose another representative $a_1$, then $a_1 = a+ \lambda q$ for some $\lambda \in R$, hence $\alpha a_1 = \alpha a + \lambda p$.  Finally, observe that the shifted discrete Gaussian behaves well under translating by a lattice point, i.e., we have $D_{\Lambda, \tau, c+u} = D_{\Lambda, \tau, c} + u$ for any $u \in \Lambda$.  
+Finally, we set $ \pi_{q,p}([a]) = a' \pmod{pR}$. Note that the definition of $\pi_{q,p}([a])$ is independent of the choice of  representative $a$, as follows.  Suppose we choose another representative $a_1$, then $a_1 = a+ \lambda q$ for some $\lambda \in R$, hence $\alpha a_1 = \alpha a + \lambda p$.  Finally, observe that the shifted discrete Gaussian behaves well under translating by a lattice point, i.e., we have $D_{\Lambda, \tau, c+u} = D_{\Lambda, \tau, c} + u$ for any $u \in \Lambda$.
 
-Put loosely, the map $\pi_{q,p}$ scales $a$ by $p/q$ and then rounds back into the lattice.  It is a natural question then to ask whether modulus switching can be combined with our attack, to switch from a ``strong'' modulus to a ``weak'' modulus.  However, a heuristic argument shows that the naive combination of our attack with modulus switching will not work.  
+Put loosely, the map $\pi_{q,p}$ scales $a$ by $p/q$ and then rounds back into the lattice.  It is a natural question then to ask whether modulus switching can be combined with our attack, to switch from a ``strong'' modulus to a ``weak'' modulus.  However, a heuristic argument shows that the naive combination of our attack with modulus switching will not work.
 
-Let $a'' = \alpha a - a'$. By construction, we expect $a''$ to be a  short vector in $\bR^n$, and the point $a'$ can be viewed as a ``rounding'' of the point $\alpha a$ to the lattice $\Lambda_R$. 
+Let $a'' = \alpha a - a'$. By construction, we expect $a''$ to be a  short vector in $\bR^n$, and the point $a'$ can be viewed as a ``rounding'' of the point $\alpha a$ to the lattice $\Lambda_R$.
 
 We will make two heuristic assumptions:
 
 \begin{enumerate}
         \item That $\pi_{q,p}$ takes the uniform distribution on $R_q$ to an almost uniform distribution on $R_p$.
-        \item The distribution of $a''$ and $(sa)''$ is independent modulo $\fq$, for $s \neq \pm 1$. 
+        \item The distribution of $a''$ and $(sa)''$ is independent modulo $\fq$, for $s \neq \pm 1$.
 \end{enumerate}
 
 \begin{proposition}
@@ -602,7 +608,7 @@ We will make two heuristic assumptions:
 \end{proposition}
 
 \begin{proof}
-The reduction map $R \rightarrow R/\mathfrak{p}$ 
+The reduction map $R \rightarrow R/\mathfrak{p}$
 is a ring homomorphism that can be extended to a homomorphism of additive groups $\phi: \frac{1}{q} R \rightarrow R/\mathfrak{p}$ by the following chain of maps:
 \[
         \frac{1}{q} R \xrightarrow{\pmod{\mathfrak{p}\frac{1}{q}R}} \frac{1}{q}R \Big/ \mathfrak{p}\frac{1}{q}R \xrightarrow{ \times q} R/\mathfrak{p}R \xrightarrow{ \times [q]^{-1}} R/\mathfrak{p}R.
@@ -630,7 +636,7 @@ So far, we are not aware of any such algorithm, unless the secret $s$ is trivial
 \section{Invulnerability of General Cyclotomic Extensions for Unramified Primes}
 \label{sec: cyclo-secure}
 
-In this section we provide some numerical evidence that for cyclotomic fields, the image of the RLWE error distribution modulo an unramified prime ideal $\fq$ of residue degree one is practically indistinguishable from uniform, implying that the cyclotomics are protected against the family of attacks in this paper.  For simplicity of analysis, we will define two error distributions that approximate the RLWE error distribution (the PLWE error distribution and the modified PLWE error distribution).  The advantage of these simpler distributions is the relative accessibility of a formula for a bound on the statistical distance between these distributions and the uniform distribution.  This eases computation and allows for heuristic arguments. Then, we generate the actual RLWE samples, run our chi-square attack, and confirm that the errors modulo an $\fq$ are indeed uniform.
+In this section we provide some numerical evidence that for cyclotomic fields, the image of the RLWE error distribution modulo an unramified prime ideal $\fq$ of residue degree one or two is practically indistinguishable from uniform, implying that the cyclotomics are protected against the family of attacks in this paper.  For simplicity of analysis, we will define two error distributions that approximate the RLWE error distribution (the PLWE error distribution and the modified PLWE error distribution).  The advantage of these simpler distributions is the relative accessibility of a formula for a bound on the statistical distance between these distributions and the uniform distribution.  This eases computation and allows for heuristic arguments. Then, we generate the actual RLWE samples, run our chi-square attack, and confirm that the errors modulo $\fq$ are indeed uniform.
 
 
 
@@ -646,7 +652,7 @@ Let $\tau > 0$. A sample from the {\it PLWE distribution} $P_{m,\tau}$ is
 where the $e_i$ are sampled independently from the discrete Gaussian $D_{\bZ,\tau}$.
 \end{definition}
 
-Next, with the aim of simplifying our analysis, we introduce a class of ``shifted binomial distributions'' indexed by even integers $k \geq 2$, which approximating discrete Gaussians over $\bZ$.
+Next, with the aim of simplifying our analysis, we introduce a class of ``shifted binomial distributions'' indexed by even integers $k \geq 2$, which approximate discrete Gaussians over $\bZ$.
 
 \begin{definition}
 For an even integer $k \geq 2$, let $\cV_{k}$ denote the distribution over $\bZ$ such that for every $t \in \bZ$,
@@ -805,7 +811,7 @@ Finally, we compute $\epsilon(m,q,\tau) = \frac{1}{2} \sum_{y \in \bF_q, y \neq 
 
 We have computed $\epsilon'(m,q,k)$ and $\epsilon(m,q,k)$ for various choices of parameters.  Smaller values imply that the error distribution looks uniform when transfered to $R/\mathfrak{q}$, rendering the instance of RLWE invulnerable to the attacks suggested in this paper.
 
-The following is a table of data. Noe that we chose $k = 2$ and $\tau = 1$. For each instance in the table, we also  generated the actual RLWE samples (where we fixed $\sigma_0 = 1$) and ran the chi-square attack using the confidence level $\alpha = 0.99$. The column labeled ``$\chi^2$'' contains the $\chi^2$ values we obtained, and the column labeled ``uniform?'' indicates whether the reduced errors are uniform. We can see from data how the practical situation agrees with our analysis on the approximated distributions.
+The following is a table of data. Note that we chose $k = 2$ and $\tau = 1$. For each instance in the table, we also  generated the actual RLWE samples (where we fixed $\sigma_0 = 1$) and ran the chi-square attack using the confidence level $\alpha = 0.99$. The column labeled ``$\chi^2$'' contains the $\chi^2$ values we obtained, and the column labeled ``uniform?'' indicates whether the reduced errors are uniform. We can see from data how the practical situation agrees with our analysis on the approximated distributions.
 
 
 \begin{table}[H]
@@ -842,16 +848,14 @@ Table~\ref{tab: deg2} contains some data for primes of degree two.
 \begin{table}[H]
 \caption{Values of $\epsilon'(m,q,2)$ for primes of degree two}
 \begin{center}
-\begin{tabular}{c|c|c} \label{tab: deg2}
-$m$ & $q$ & $-[\log_2(\epsilon'(m,q,2))]$ \\
+\begin{tabular}{c|c|c|c} \label{tab: deg2}
+$m$ & $n$  & $q$ & $-[\log_2(\epsilon'(m,q,2))]$ \\
 \hline
-53 & 211 & 61 \\
-55 & 109 & 48 \\
-63 & 881 & 33 \\
-%64 & 127 & 37 \\
-%64 & 191 & 35 \\
-64 & 383 & 31 \\
-512 & 257 & 263
+64 & 32&383 & 31 \\
+63 & 36 & 881 & 33 \\
+55 & 40 &109 & 48 \\
+53 & 52  & 211 & 61 \\
+512 & 256 &257 & 263
 \end{tabular}
 \end{center}
 \end{table}
@@ -894,7 +898,7 @@ class SubgroupModm:
         if elements is None:
             print 'computing group elements...'
             t = cputime()
-            self.H1 = self.compute_elements() 
+            self.H1 = self.compute_elements()
             print 'Time = %s'%cputime(t)
             sys.stdout.flush()
         else:
@@ -1096,8 +1100,7 @@ def _reduce_gens(m,H1):
 
 \normalsize
 This file allows sampling from discrete lattice Gaussian distributions using the algorithm in \cite{gentry2008trapdoors}.
-It took the current implementation in sage and modified it slightly. The authors claim no originality of any code in this 
-file.
+It took the current implementation in sage and modified it slightly to fix some issues. The authors claim no originality of any code in this file.
 \scriptsize
 \begin{verbatim}
 from sage.stats.distributions.discrete_gaussian_integer import DiscreteGaussianDistributionIntegerSampler
@@ -1262,8 +1265,8 @@ class MyLatticeSampler:
 
 \subsection{SubCycSampler.sage}
 
-\normalsize This file allows generating the errors and reducing them modulo prime ideals when the field $K$ is a subfield of some cyclotomic field with 
-odd and squarefree $m$. 
+\normalsize This file allows generating the errors and reducing them modulo prime ideals when the field $K$ is a subfield of some cyclotomic field with
+odd and squarefree $m$.
 
 \scriptsize
 \begin{verbatim}
@@ -1587,11 +1590,12 @@ def subfield_unifrom_test(samples, probThreshold = 1e-5):
 \end{verbatim}
 
 \subsection{Example of an attack}
+\label{subsec: code}
 
 \normalsize
-This code implements the attack on an Galois RLWE instance described in Section~\ref{subsec: detailed}. 
+This code implements the attack on an Galois RLWE instance described in Section~\ref{subsec: detailed}.
 
-
+\scriptsize
 \begin{verbatim}
 print 'We peform the full attack on an Galois instance.'
 
@@ -1659,7 +1663,7 @@ s = [ZZ.random_element(q) for _  in range(S._degree)]
 print 'secret = %s'%s
 sys.stdout.flush()
 
-# The attack. 
+# The attack.
 success, SUCCESS = True, True
 count = 1
 for cc in S.cosets:
