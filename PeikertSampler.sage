@@ -44,16 +44,20 @@ class PeikertSampler:
         self.prec = prec
         self.n = p-1
         self.C = ComplexField(self.prec)
+        self.R = RealField(self.prec)
 
 
         t  = cputime()
         self.Bcomplex = self._Bcomplex()
         print 'Bc. %s'%cputime(t)
         self.T = pei_t_matrix((self.p-1)//2 , self.prec)
+        print 'T. %s'%cputime(t)
         self.B1 = _real_part(self.T*self.Bcomplex)
         print 'B1. %s'%cputime(t)
 
         self.Sigma1 = self.B1*self.B1.transpose()
+        print 'Sigma1 %s'%cputime(t)
+
         self.B1inv = self.compute_B1inv()
         print 'B1inv %s'%cputime(t)
 
@@ -87,12 +91,11 @@ class PeikertSampler:
         n = self.n
         Bc = self.Bcomplex
         Bcstar = Bc.conjugate_transpose()
-        C = self.C
-        ones = ones_matrix(C, n)
-        eye = identity_matrix(C, n)
-        Bcinv =  C(1/self.p)*(ones+eye)*Bcstar
-        Tstar = self.T.conjugate_transpose()
-        return _real_part(Bcinv*Tstar)
+        R = self.R
+        ones = ones_matrix(R, n)
+        eye = identity_matrix(R, n)
+        return  R(1/self.p)*(ones+eye)*self.B1.transpose()
+
 
     def compute_B2(self):
         s = self.s
@@ -113,6 +116,17 @@ class PeikertSampler:
         v = vector([self.Dcont.get_random_element() for _ in range(self.n)])
         x2 = self.B1invB2*v
         return _randomized_rounding(x2, self.r)
+
+    def _detB2(self):
+        """
+        we have a formula for the determinant of B_2. This is for sanity check purposes and
+        is not used in the main methods.
+        """
+        s = self.s
+        r = self.r
+        p = self.p
+        return (s**2 - p*r**2)**(0.5*(p-2))*(s**2 - r**2)**(0.5)
+
 
 
 def _randomized_rounding(v,r):
