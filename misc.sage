@@ -7,6 +7,40 @@ import sys
 ######################################
 # some other statistical uniform tests.
 ######################################
+def finitefield_smallness_test(samples, probThreshold = 1e-5, tolerance = 0.5):
+    F = samples[0].parent()
+    q = F.characteristic()
+    degF = F.degree()
+    if degF > 1:
+        raise NotImplementedError
+    numsamples = len(samples)
+    ratio = float(numsamples/q)
+    esmall = ratio*(floor(float(q/2*tolerance))*2 + 1)
+    elarge = numsamples - esmall
+    nsmall = 0
+    for e in samples:
+        ez = ZZ(e)
+        if ez > q/2:
+            ez -= q
+        if abs(ez) < q/2*tolerance:
+            nsmall += 1
+    nlarge = numsamples - nsmall
+    print 'esmall, elarge =  %s, %s'%(esmall, elarge)
+    print 'nsmall, nlarge = %s, %s'%(nsmall, nlarge)
+    if min(esmall, elarge) < 5:
+        raise ValueError('samples size too small.')
+    # Now we have two bins, we do a very tiny chisquare test.
+    chisquare = (nsmall - esmall )^2/esmall + (nlarge - elarge)^2/elarge
+    T = RealDistribution('chisquared', 1)
+    print('chisquare = %s'%chisquare)
+    prob = 1 - T.cum_distribution_function(chisquare)
+    if prob < probThreshold:
+        verbose('non-uniform')
+        return False
+    else:
+        verbose('uniform')
+        return True
+
 def subfield_unifrom_test(samples, probThreshold = 1e-5):
     """
     we assume that the samples are from a finite field.
@@ -165,13 +199,13 @@ def generate_uniform_samples(q,r, numsamples = 2000):
     return result
 
 
-def chisquare_test(hist_dict,bins = None ,std_multiplier = 3, return_dict = False):
+# generic chi-square test.
+def chisquare_test(hist_dict,bins = None,return_dict = False, alpha = None):
     """
     well, somehow divide the distribution into bins.
     """
     if isinstance(hist_dict,list):
         F = hist_dict[0].parent()
-        print 'F = %s'%F
         _dict = dict([(aa, 0) for aa in F])
         for ss in hist_dict:
             _dict[ss] += 1
@@ -182,9 +216,13 @@ def chisquare_test(hist_dict,bins = None ,std_multiplier = 3, return_dict = Fals
         bins = numkeys
     else:
         bins = ZZ(min(bins, numkeys))
+    print 'number of bins used = %s'%bins
+    if alpha is None:
+        alpha = 1 - float(1/(10*bins))
+    #print 'alpha = %s'%alpha
     #print 'number of keys = %s'%numkeys
     E = float(numsamples/bins)
-    print 'E = %s'%E
+    #print 'Expected balls in each bin = %s'%E
 
     if bins <= 0:
         raise ValueError('number of bins must be positive.')
@@ -202,9 +240,12 @@ def chisquare_test(hist_dict,bins = None ,std_multiplier = 3, return_dict = Fals
     chisquare = float(sum([(t-E)**2 for t in newdict.values()])/E);
     mu = bins-1
     sigma = float(sqrt(2*bins-2))
-    print 'chisquare value = %s'%chisquare
-    mm = std_multiplier
-    if chisquare < mu - mm*sigma or chisquare > mu + mm*sigma:
+
+    T = RealDistribution('chisquared', mu)
+    print('chisquare = %s'%chisquare)
+    prob = T.cum_distribution_function(chisquare)
+    #if chisquare < mu - mm*sigma or chisquare > mu + mm*sigma:
+    if prob > alpha:
         print 'non-uniform'
         uniform =  False
     else:
@@ -308,7 +349,7 @@ def chisquare_quality(delta,N, c = 5):
     #print 'w =  %s'%w
     ss = RR(w*sqrt(2*(N-1)) - _lambda)/RR(sqrt(2*(N-1) + 4*_lambda))
     #print 'ss = %s'%ss
-    return 0.951*(1 - T.cum_distribution_function(ss))
+    return 0.904*(1 - T.cum_distribution_function(ss))
 
 
 def AllSubgroups(m):

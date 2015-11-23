@@ -33,23 +33,25 @@ class DirectCycSampler:
     def __repr__(self):
         return'RLWE cyclotomic sampler with m = %s, sigma = %s, and secret = %s'%(self.m, self.sigma, self._to_vec(self.secret))
 
+
     @cached_method
-    def _a_root_mod_q(self,q, deg = 1):
+    def roots_mod_q(self,q, deg = None):
         if deg is None:
             deg  = self.degree_of_prime(q)
         if deg  > 1:
             F.<alpha> = GF(q^deg, impl = 'pari_ffelt')
         else:
             F = GF(q)
-        aa = F[x](self.f).roots(multiplicities=False)[0]
-        print 'found %s as a root mod %s'%(aa,q)
+        aa = F[x](self.f).roots(multiplicities=False)
         return aa
 
+    def a_root_mod_q(self,q):
+        return self.roots_modq_q()[0]
 
-    @cached_method
-    def vec_modq(self,q):
-        a = self._a_root_mod_q(q)
-        return [a**i for i in range(self.n)]
+    def vec_modq(self,q, root = None):
+        if root is None:
+            root = self.a_root_mod_q(q)
+        return [root**i for i in range(self.n)]
 
     def _map_to_fq(self,lst,q):
         """

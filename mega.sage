@@ -1,1 +1,1 @@
-load('SubgroupModm.sage','SubCycSampler.sage','MyLatticeSampler.sage', 'misc.sage', 'DirectCycSampler.sage')
+load('SubgroupModm.sage','subcycsampler.sage','MyLatticeSampler.sage', 'misc.sage', 'DirectCycSampler.sage')
