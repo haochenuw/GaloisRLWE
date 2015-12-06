@@ -144,6 +144,8 @@ class MyLatticeSampler:
         """
         c -- an n-dimensional vector, so that we are sampling a discrete gaussian
         centered at c.
+
+        return the vector (v,z). where v is the vector in R^n and z is its coordinate. i.e. v = Az.
         """
         v = 0
         # also need matrix. Okay.

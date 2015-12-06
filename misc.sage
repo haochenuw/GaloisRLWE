@@ -257,6 +257,13 @@ def chisquare_test(hist_dict,bins = None,return_dict = False, alpha = None):
         return uniform
 
 
+# some matrices 
+def _index_matrix(p):
+    Top = Matrix(ZZ, [[Mod(i*j,p) for i in range(p-1)] for j in range(1, (p+1)//2)])
+    Bottom = Matrix(ZZ, [[Mod(i*(p-j),p) for i in range(p-1)] for j in range(1, (p+1)//2)])
+    return Top.stack(Bottom)
+
+
 def _another_t_matrix(s, prec = 100):
     """
     r, s -- the signature of the number field
